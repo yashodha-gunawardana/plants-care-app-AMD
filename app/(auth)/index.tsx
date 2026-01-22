@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Easing, View } from "react-native";
+import { StyleSheet, Animated, Easing, View, ImageBackground } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -267,5 +267,28 @@ export default function WelcomeScreen() {
     }, []);
 
 
+    // get current stage
     const currentStageInfo = PLANT_STAGES[currentStage] || PLANT_STAGES[0];
+
+
+    return (
+        <View style={styles.container}>
+            <ImageBackground 
+                source={{ uri: 'https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg' }} 
+                style={StyleSheet.absoluteFillObject}>
+
+            </ImageBackground>
+        </View>
+    )
 }
+
+const styles = StyleSheet.create({
+    container: { 
+        flex: 1, 
+        backgroundColor: "#0e1410"
+    },
+    overlay: { 
+        ...StyleSheet.absoluteFillObject, 
+        backgroundColor: "rgba(0, 0, 0, 0.4)"
+    },
+})
