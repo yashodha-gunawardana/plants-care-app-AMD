@@ -296,11 +296,14 @@ export default function WelcomeScreen() {
                             <Text style={styles.titleG}>G</Text>
                         </View>
 
+                        {/* leaf design overlaying the G */}
                         <View style={styles.sculptedLeafContainer}>
                             <View style={styles.leafShadowLayer} />
                             <View style={styles.leafMainBody}>
                                 <View style={styles.leafReflectedLight} />
                             </View>
+
+                            <View style={styles.dewDropPoint} />
                         </View>
                     </View>
 
@@ -393,5 +396,15 @@ const styles = StyleSheet.create({
         borderRadius: 20,           
         marginTop: 5,               
         marginLeft: 5,              
+    },
+    dewDropPoint: {
+        position: "absolute",       
+        bottom: 2,                  
+        right: 5,                   
+        width: 6,                   
+        height: 6,
+        backgroundColor: "#FFF",    
+        borderRadius: 3,           
+        opacity: 0.8,               
     },
 })
