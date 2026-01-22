@@ -1,6 +1,7 @@
 import { TabActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { BlurView } from "expo-blur";
+import { Feather } from "@expo/vector-icons";
 import React, { useEffect, useRef } from "react";
 import { Animated, Dimensions, ImageBackground, View, Text, Pressable } from "react-native";
 
@@ -78,6 +79,10 @@ export default function WelcomeScreen() {
                     <Text className="text-lg font-semibold tracking-wide text-[#f4f7f2]">
                         Get Started
                     </Text>
+
+                    <View className="w-[54px] h-[54px] bg-[#f4f7f2] rounded-full items-center justify-center">
+                        <Feather name="arrow-right" size={24} color="#1b3022" />
+                    </View>
                 </Animated.View>
             </ImageBackground>
 
