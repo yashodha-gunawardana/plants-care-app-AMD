@@ -242,6 +242,7 @@ export default function WelcomeScreen() {
 
                 Animated.delay(1500),  // 1.5 second pause
 
+                // back to start
                 Animated.timing(glidex, {
                     toValue: 0,
                     duration: 800,
@@ -249,5 +250,10 @@ export default function WelcomeScreen() {
                 }),
             ])
         ).start();
+
+
+        const listenerId = glidex.addListener(({ value }) => {
+            const progress = value / travelDistance;
+        })
     })
 }
