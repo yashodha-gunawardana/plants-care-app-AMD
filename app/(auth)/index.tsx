@@ -328,6 +328,9 @@ export default function WelcomeScreen() {
                             onPress={() => router.push("/login")}
                             style={styles.trackShape}>
 
+                            <BlurView intensity={30} tint="dark" style={styles.blurStyle}>
+
+                            </BlurView>
                         </TouchableOpacity>
                     </Animated.View>
                 </SafeAreaView>
@@ -505,5 +508,11 @@ const styles = StyleSheet.create({
         overflow: "hidden",         
         borderWidth: 1,             
         borderColor: "rgba(255, 255, 255, 0.2)", 
+    },
+    blurStyle: {
+        flex: 1,                    
+        flexDirection: "row",       
+        alignItems: "center",       
+        paddingHorizontal: 6,       
     },
 })
