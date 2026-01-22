@@ -169,7 +169,14 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                                     styles.flowerPetal, {
                                         width: iconSize * 0.25,
                                         height: iconSize * 0.25,
-                                        borderRadius: iconSize * 0.125
+                                        borderRadius: iconSize * 0.125,
+
+                                        // cicrle coordinates 
+                                        transform: [
+                                            { translateX: (iconSize * 0.4) * Math.cos((angle * Math.PI) / 180) },
+                                            { translateY: (iconSize * 0.4) * Math.cos((angle * Math.PI) / 180) },
+
+                                        ]
                                     }
                                 ]}>
 
