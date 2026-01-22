@@ -15,9 +15,21 @@ interface StageInfo {
     icon: PlantStage
 }
 
-
 // custome icon component props
 interface IconProps {
     stage: PlantStage
     size?: number
 }
+
+// order of plant growth
+const PLANT_STAGES: StageInfo[] = [
+    { name: "Seed", icon: "Seed" },
+    { name: "Sprout", icon: "Sprout" },
+    { name: "Leaf", icon: "Leaf" },
+    { name: "Bud", icon: "Bud" },
+    { name: "Flower", icon: "Flower" },
+    { name: "Tree", icon: "Tree" },
+];
+
+
+
