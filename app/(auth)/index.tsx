@@ -7,3 +7,8 @@ import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 
 type PlantStage = "Seed" | "Sprout" | "Leaf" | "Bud" | "Flower" | "Tree";
+
+interface StageInfo {
+    name: PlantStage
+    icon: PlantStage
+}
