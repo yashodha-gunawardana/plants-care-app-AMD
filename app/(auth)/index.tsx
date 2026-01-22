@@ -335,6 +335,7 @@ export default function WelcomeScreen() {
                                         styles.iconCircle, 
                                         { transform: [{ translateX: glideX }] }
                                     ]}>
+                                    <PlantIcon stage={currentStageInfo.icon} size={32} />
                                 </Animated.View>
 
                             </BlurView>
