@@ -31,5 +31,14 @@ const PLANT_STAGES: StageInfo[] = [
     { name: "Tree", icon: "Tree" },
 ];
 
-
-
+// plantIcon component
+const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
+    const iconSize = size
+    const containerStyle = {
+        width: iconSize,
+        height: iconSize,
+        alignItems: "center" as const,
+        justifyContent: "center" as const
+    };
+    
+}
