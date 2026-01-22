@@ -36,7 +36,17 @@ export default function WelcomeScreen() {
             <ImageBackground source={{ uri: "https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg"}} className="flex-1">
                 <View className="absolute inset-0 bg-[#0a140f]/55"></View>
 
-                
+                <Animated.View
+                    style={{
+                        marginTop: height * 0.15,
+                        opacity: fadeAnim,
+                        transform: [{ translateY: translateAnim }]
+                    }}
+                    className="items-center">
+
+                    
+
+                </Animated.View>
             </ImageBackground>
 
         </View>
