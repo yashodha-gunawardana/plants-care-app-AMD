@@ -262,6 +262,7 @@ export default function WelcomeScreen() {
             );
             setCurrentStage(stageIndex)
         });
-        
-    })
+
+        return () => glidex.removeListener(listenerId)
+    }, []);
 }
