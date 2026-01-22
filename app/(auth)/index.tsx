@@ -40,5 +40,11 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
         alignItems: "center" as const,
         justifyContent: "center" as const
     };
-    
+
+
+    const renderIcon = () => {
+        switch(stage) {
+            case "Seed":
+        }
+    }
 }
