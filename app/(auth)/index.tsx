@@ -103,6 +103,29 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                         />
                     </>
                 );
+
+            case "Leaf":
+                return (
+                    <>
+                        {/* main leaf body */}
+                        <View 
+                            style={[styles.leafShape, { 
+                                width: iconSize * 0.8,     
+                                height: iconSize * 0.8,
+                                borderRadius: iconSize * 0.4, 
+                            }]} 
+                        />
+
+                        {/* small stem connecting leaf */}
+                        <View 
+                            style={[styles.leafStem, { 
+                                width: iconSize * 0.06,    
+                                height: iconSize * 0.3,    
+                            }]} 
+                        />
+                    </>
+                );
+
         }
     }
 }
