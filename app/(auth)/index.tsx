@@ -310,6 +310,12 @@ export default function WelcomeScreen() {
                     <Text style={styles.titleRestText}>ardino</Text>
                 </View>
 
+                <View style={styles.pulseLineContainer}>
+                    <View style={styles.baseLine} />
+                    <View style={styles.activePulse} />
+                    <View style={styles.pulseNode} />
+                </View>
+
 
             </SafeAreaView>
         </View>
@@ -415,5 +421,36 @@ const styles = StyleSheet.create({
         fontWeight: "200",          
         letterSpacing: -4,          
         marginLeft: -5,             
+    },
+
+    // bio-pulse underline 
+    pulseLineContainer: {
+        width: 220,                 
+        height: 20,                 
+        justifyContent: "center",   
+        marginTop: -10,             
+    },
+    baseLine: {
+        width: "100%",              
+        height: 0.5,                
+        backgroundColor: "rgba(244, 247, 242, 0.2)", 
+    },
+    activePulse: {
+        position: "absolute",       
+        width: 80,                  
+        height: 1,                  
+        backgroundColor: "#8A9A5B", 
+        left: "10%",                
+    },
+    pulseNode: {
+        position: "absolute",
+        width: 4,                   
+        height: 4,
+        backgroundColor: "#8A9A5B", 
+        borderRadius: 2,            
+        left: "10%",                
+        shadowColor: "#8A9A5B",     
+        shadowRadius: 5,            
+        shadowOpacity: 1,           
     },
 })
