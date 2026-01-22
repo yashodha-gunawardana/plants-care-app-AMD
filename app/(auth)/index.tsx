@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Animated, Easing, View, Text, ImageBackground, SafeAreaView } from "react-native";
+import { StyleSheet, Animated, Easing, View, Text, ImageBackground, SafeAreaView, TouchableOpacity } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -321,7 +321,15 @@ export default function WelcomeScreen() {
                         </View>
                     </View>
 
+                    {/* button */}
+                    <Animated.View style={[styles.buttonContainer]}>
+                        <TouchableOpacity
+                            activeOpacity={0.9}
+                            onPress={() => router.push("/login")}
+                            style={styles.trackShape}>
 
+                        </TouchableOpacity>
+                    </Animated.View>
                 </SafeAreaView>
             </ImageBackground>
         </View>
@@ -480,5 +488,22 @@ const styles = StyleSheet.create({
         backgroundColor: "#8A9A5B", 
         borderRadius: 2,            
         marginLeft: 10,             
+    },
+
+    // button 
+    buttonContainer: {
+        width: width > 500 ? 320 : "85%",
+        marginBottom: 15,           
+    },
+    trackShape: {
+        height: 72,                 
+        backgroundColor: "rgba(255, 255, 255, 0.05)", 
+        borderTopLeftRadius: 5,     
+        borderBottomLeftRadius: 40,
+        borderTopRightRadius: 40,
+        borderBottomRightRadius: 5,
+        overflow: "hidden",         
+        borderWidth: 1,             
+        borderColor: "rgba(255, 255, 255, 0.2)", 
     },
 })
