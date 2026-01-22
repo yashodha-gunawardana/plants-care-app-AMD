@@ -48,6 +48,8 @@ export default function WelcomeScreen() {
                         Gardino
                     </Text>
 
+                    <View className="w-[220px] border-t-4 border-dotted border-[#f4f7f2]/60 my-4"></View>
+
                 </Animated.View>
             </ImageBackground>
 
