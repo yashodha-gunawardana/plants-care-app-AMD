@@ -1,5 +1,5 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useRef } from "react";
+import { Animated, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -216,4 +216,10 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
 };
 
 
+// welcome screen component
+export default function WelcomeScreen() {
+    const router = useRouter();
 
+    const glidex = useRef(new Animated.Value(0)).current;
+    
+}
