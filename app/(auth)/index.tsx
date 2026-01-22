@@ -126,6 +126,29 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                     </>
                 );
 
+            case "Bud":
+                return (
+                    <>
+                        {/* outer bud shape */}
+                        <View 
+                            style={[styles.budOuter, { 
+                                width: iconSize * 0.6,     
+                                height: iconSize * 0.6,
+                                borderRadius: iconSize * 0.3, 
+                            }]} 
+                        />
+
+                        {/* inner bud center */}
+                        <View 
+                            style={[styles.budInner, { 
+                                width: iconSize * 0.3,     
+                                height: iconSize * 0.3,
+                                borderRadius: iconSize * 0.15,
+                            }]} 
+                        />
+                    </>
+                );
+
         }
     }
 }
