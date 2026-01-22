@@ -231,12 +231,17 @@ export default function WelcomeScreen() {
     useEffect(() => {
         Animated.loop(
             Animated.sequence([
+
+                // slide icon to the right
                 Animated.timing(glidex, {
                     toValue: travelDistance,
                     duration: 3000,
                     easing: Easing.bezier(0.4, 0, 0.2, 1),
                     useNativeDriver: true
                 }),
+
+                Animated.delay(1500),
+
                 
             ])
         )
