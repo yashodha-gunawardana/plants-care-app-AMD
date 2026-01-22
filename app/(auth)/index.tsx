@@ -210,5 +210,10 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
             default:
                return null;
         }
-    }
-}
+    };
+
+    return <View style={containerStyle}>{renderIcon()}</View>
+};
+
+
+
