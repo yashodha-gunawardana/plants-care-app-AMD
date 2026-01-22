@@ -149,6 +149,36 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                     </>
                 );
 
+            case "Flower": 
+                return (
+                    <>
+                        {/* flower center */}
+                        <View
+                            style={[styles.flowerCenter, {
+                                width: iconSize * 0.4,
+                                height: iconSize * 0.4,
+                                borderRadius: iconSize * 0.2
+                            }]}
+                        />
+
+                        {/* 8 petals in 45 degree */}
+                        {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, index) => (
+                            <View
+                                key={angle}
+                                style={[
+                                    styles.flowerPetal, {
+                                        width: iconSize * 0.25,
+                                        height: iconSize * 0.25,
+                                        borderRadius: iconSize * 0.125
+                                    }
+                                ]}>
+
+                            </View>
+                        ))}
+                        
+                    </>
+                );
+
         }
     }
 }
