@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
@@ -221,5 +221,5 @@ export default function WelcomeScreen() {
     const router = useRouter();
 
     const glidex = useRef(new Animated.Value(0)).current;
-    
+    const [currentStage, setCurrentStage] = useState<number>(0);
 }
