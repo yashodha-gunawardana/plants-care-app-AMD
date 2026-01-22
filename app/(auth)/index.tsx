@@ -1,5 +1,6 @@
 import { TabActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
+import { BlurView } from "expo-blur";
 import React, { useEffect, useRef } from "react";
 import { Animated, Dimensions, ImageBackground, View, Text, Pressable } from "react-native";
 
@@ -67,6 +68,12 @@ export default function WelcomeScreen() {
                         onPress={() => router.push("/(auth)/login")}
                         className="active:scale-[0.92] overflow-hidden rounded-full">
                     </Pressable>
+
+                    <BlurView 
+                        intensity={30} 
+                        tint="dark" 
+                        className="h-[70px] flex-row items-center justify-between pl-8 pr-2 bg-[#2b4736]/60 border border-white/15">
+                    </BlurView>
                 </Animated.View>
             </ImageBackground>
 
