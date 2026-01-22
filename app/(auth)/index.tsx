@@ -287,8 +287,9 @@ export default function WelcomeScreen() {
                 <View style={styles.textContainer}>
                     <View style={styles.masterLogoWrapper}>
 
+                        {/* design for letter "G" */}
                         <View style={styles.gSculptedWrapper}>
-
+                            <View style={styles.gBackglow} />
                         </View>
 
                     </View>
@@ -330,5 +331,14 @@ const styles = StyleSheet.create({
         height: 90,                 
         justifyContent: "center",   
         alignItems: "center",       
+    },
+    gBackglow: {
+        position: "absolute",       
+        width: 100,                
+        height: 100,
+        backgroundColor: "#8A9A5B", 
+        borderRadius: 50,          
+        opacity: 0.08,              
+        filter: "blur(20px)",       
     },
 })
