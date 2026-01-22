@@ -563,4 +563,71 @@ const styles = StyleSheet.create({
         marginTop: 4,               
         fontWeight: "500",          
     },
+
+    // plant icon color 
+    seedOuter: {
+        backgroundColor: "#5D4037", 
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    seedInner: {
+        backgroundColor: "#795548", 
+    },
+    sproutStem: {
+        backgroundColor: "#4A5F3A", 
+        position: "absolute",
+    },
+    sproutLeaf: {
+        backgroundColor: "#6B8E57", 
+        position: "absolute",
+        top: "30%",                 
+    },
+    sproutLeafLeft: {
+        left: 0,                    
+        transform: [{ rotate: "-30deg" }], 
+    },
+    sproutLeafRight: {
+        right: 0,                   
+        transform: [{ rotate: "30deg" }],  
+    },
+    sproutTop: {
+        backgroundColor: "#4A5D23", 
+        position: "absolute",
+        top: 0,                     
+    },
+    leafShape: {
+        backgroundColor: "#8A9A5B", 
+    },
+    leafStem: {
+        backgroundColor: "#556B2F", 
+        position: "absolute",
+        bottom: 0,                  
+    },
+    budOuter: {
+        backgroundColor: "#C2185B", 
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+    },
+    budInner: {
+        backgroundColor: "#E91E63", 
+    },
+    flowerCenter: {
+        backgroundColor: "#FF9800", 
+        position: "absolute",
+    },
+    flowerPetal: {
+        position: "absolute",
+        backgroundColor: "#ff91bb", 
+    },
+    treeTrunk: {
+        backgroundColor: "#3E2723", 
+        position: "absolute",
+        bottom: 0,                  
+    },
+    treeTop: {
+        backgroundColor: "#1B5E20", 
+        position: "absolute",
+        top: 0,                     
+    },
 })
