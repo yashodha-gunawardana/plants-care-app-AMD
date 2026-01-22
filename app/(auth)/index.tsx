@@ -265,4 +265,7 @@ export default function WelcomeScreen() {
 
         return () => glidex.removeListener(listenerId)
     }, []);
+
+
+    const currentStageInfo = PLANT_STAGES[currentStage] || PLANT_STAGES[0];
 }
