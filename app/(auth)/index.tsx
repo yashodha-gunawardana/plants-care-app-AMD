@@ -1,7 +1,7 @@
 import { TabActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import { Animated } from "react-native";
+import { Animated, ImageBackground, View } from "react-native";
 
 
 export default function WelcomeScreen() {
@@ -28,4 +28,14 @@ export default function WelcomeScreen() {
         ]).start();
 
     }, []);
+
+
+    return (
+        <View className="flex-1 bg-[#0e1410]">
+            <ImageBackground source={{ uri: "https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg"}} className="flex-1">
+
+            </ImageBackground>
+
+        </View>
+    )
 }
