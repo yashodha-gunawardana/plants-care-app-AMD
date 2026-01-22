@@ -1,7 +1,7 @@
 import { TabActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import { Animated, Dimensions, ImageBackground, View } from "react-native";
+import { Animated, Dimensions, ImageBackground, View, Text } from "react-native";
 
 const { height } = Dimensions.get("window");
 
@@ -44,7 +44,9 @@ export default function WelcomeScreen() {
                     }}
                     className="items-center">
 
-                    
+                    <Text className="text-[90Px] font-serif font-medium text-[#f4f7f2] shadow-black shadow-lg">
+                        Gardino
+                    </Text>
 
                 </Animated.View>
             </ImageBackground>
