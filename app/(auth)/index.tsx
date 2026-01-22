@@ -63,6 +63,46 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                         </View>
                     </View>
                 );
+            
+            case "Sprout":
+                return (
+                    <>
+                        {/* main vertical stem */}
+                        <View
+                            style={[styles.sproutStem, {
+                                width: iconSize * 0.1,
+                                height: iconSize * 0.7
+                            }]}
+                        />
+
+                        {/* left leaf at an angle */}
+                        <View 
+                            style={[styles.sproutLeaf, styles.sproutLeafLeft, { 
+                                width: iconSize * 0.25, 
+                                height: iconSize * 0.25, 
+                                borderRadius: iconSize * 0.125 
+                            }]} 
+                        />
+
+                        {/* right leaf at opposite angle */}
+                        <View 
+                            style={[styles.sproutLeaf, styles.sproutLeafRight, { 
+                                width: iconSize * 0.25,
+                                height: iconSize * 0.25,
+                                borderRadius: iconSize * 0.125,
+                            }]} 
+                        />
+
+                        {/* top bud of the sprout */}
+                        <View 
+                            style={[styles.sproutTop, { 
+                                width: iconSize * 0.4,     
+                                height: iconSize * 0.4,
+                                borderRadius: iconSize * 0.2, 
+                            }]} 
+                        />
+                    </>
+                );
         }
     }
 }
