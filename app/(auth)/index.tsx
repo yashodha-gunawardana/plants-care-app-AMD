@@ -330,6 +330,13 @@ export default function WelcomeScreen() {
 
                             <BlurView intensity={30} tint="dark" style={styles.blurStyle}>
 
+                                <Animated.View 
+                                    style={[
+                                        styles.iconCircle, 
+                                        { transform: [{ translateX: glideX }] }
+                                    ]}>
+                                </Animated.View>
+
                             </BlurView>
                         </TouchableOpacity>
                     </Animated.View>
@@ -514,5 +521,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",       
         alignItems: "center",       
         paddingHorizontal: 6,       
+    },
+    iconCircle: {
+        width: 60,                  
+        height: 60,
+        backgroundColor: "#f4f7f2", 
+        borderRadius: 30,           
+        justifyContent: "center",   
+        alignItems: "center",
+        shadowColor: "#000",        
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 5,              
     },
 })
