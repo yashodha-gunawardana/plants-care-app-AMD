@@ -240,10 +240,14 @@ export default function WelcomeScreen() {
                     useNativeDriver: true
                 }),
 
-                Animated.delay(1500),
+                Animated.delay(1500),  // 1.5 second pause
 
-                
+                Animated.timing(glidex, {
+                    toValue: 0,
+                    duration: 800,
+                    useNativeDriver: true
+                }),
             ])
-        )
+        ).start();
     })
 }
