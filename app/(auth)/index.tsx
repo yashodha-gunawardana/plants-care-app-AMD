@@ -283,6 +283,19 @@ export default function WelcomeScreen() {
             {/* main content */}
             <SafeAreaView style={styles.contentWrapper}>
 
+                {/* title */}
+                <View style={styles.textContainer}>
+                    <View style={styles.masterLogoWrapper}>
+
+                        <View style={styles.gSculptedWrapper}>
+
+                        </View>
+
+                    </View>
+
+                </View>
+
+
             </SafeAreaView>
         </View>
     )
@@ -302,5 +315,20 @@ const styles = StyleSheet.create({
         alignItems: "center",       
         justifyContent: "space-between", 
         paddingVertical: 80         
+    },
+    textContainer: {
+        alignItems: "center",       
+        paddingTop: 40,             
+    },
+    masterLogoWrapper: {
+        flexDirection: "row",       
+        alignItems: "baseline",     
+    },
+    gSculptedWrapper: {
+        position: "relative",       
+        width: 80,                  
+        height: 90,                 
+        justifyContent: "center",   
+        alignItems: "center",       
     },
 })
