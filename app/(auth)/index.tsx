@@ -276,8 +276,9 @@ export default function WelcomeScreen() {
             <ImageBackground 
                 source={{ uri: 'https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg' }} 
                 style={StyleSheet.absoluteFillObject}>
-
             </ImageBackground>
+            
+            <View style={styles.overlay} />
         </View>
     )
 }
