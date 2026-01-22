@@ -1,7 +1,7 @@
 import { TabActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import { Animated, Dimensions, ImageBackground, View, Text } from "react-native";
+import { Animated, Dimensions, ImageBackground, View, Text, Pressable } from "react-native";
 
 const { height } = Dimensions.get("window");
 
@@ -63,6 +63,10 @@ export default function WelcomeScreen() {
                     }}
                     className="absolute bottom-[60px] w-full px-9">
                     
+                    <Pressable
+                        onPress={() => router.push("/(auth)/login")}
+                        className="active:scale-[0.92] overflow-hidden rounded-full">
+                    </Pressable>
                 </Animated.View>
             </ImageBackground>
 
