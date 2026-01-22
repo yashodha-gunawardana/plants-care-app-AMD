@@ -185,6 +185,30 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                     </>
                 );
 
+            case "Tree":
+                return (
+                    <>
+                        {/* tree trunk */}
+                        <View 
+                            style={[styles.treeTrunk, { 
+                                width: iconSize * 0.15,    
+                                height: iconSize * 0.7,    
+                            }]} 
+                        />
+
+                        {/* tree canopy/top */}
+                        <View 
+                            style={[styles.treeTop, { 
+                                width: iconSize * 0.8,     
+                                height: iconSize * 0.5,    
+                                borderRadius: iconSize * 0.4, 
+                            }]} 
+                        />
+                    </>
+                );
+      
+            default:
+               return null;
         }
     }
 }
