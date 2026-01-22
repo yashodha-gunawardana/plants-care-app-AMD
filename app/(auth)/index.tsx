@@ -221,5 +221,10 @@ export default function WelcomeScreen() {
     const router = useRouter();
 
     const glidex = useRef(new Animated.Value(0)).current;
+    
+    // current plant stage
     const [currentStage, setCurrentStage] = useState<number>(0);
+
+    const trackWidth = width > 500 ? 320 : width * 0.85;
+    const traveDistance = trackWidth - 60 - 12;
 }
