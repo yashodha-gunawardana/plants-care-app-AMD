@@ -1,8 +1,9 @@
 import { TabActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import { Animated, ImageBackground, View } from "react-native";
+import { Animated, Dimensions, ImageBackground, View } from "react-native";
 
+const { height } = Dimensions.get("window");
 
 export default function WelcomeScreen() {
     const router = useRouter();
@@ -35,6 +36,7 @@ export default function WelcomeScreen() {
             <ImageBackground source={{ uri: "https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg"}} className="flex-1">
                 <View className="absolute inset-0 bg-[#0a140f]/55"></View>
 
+                
             </ImageBackground>
 
         </View>
