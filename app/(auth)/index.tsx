@@ -8,7 +8,16 @@ const { width } = Dimensions.get("window");
 
 type PlantStage = "Seed" | "Sprout" | "Leaf" | "Bud" | "Flower" | "Tree";
 
+
+// interface to structure the data for each growth stage
 interface StageInfo {
     name: PlantStage
     icon: PlantStage
+}
+
+
+// custome icon component props
+interface IconProps {
+    stage: PlantStage
+    size?: number
 }
