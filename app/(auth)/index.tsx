@@ -295,6 +295,13 @@ export default function WelcomeScreen() {
                         <View style={styles.gLetterContainer}>
                             <Text style={styles.titleG}>G</Text>
                         </View>
+
+                        <View style={styles.sculptedLeafContainer}>
+                            <View style={styles.leafShadowLayer} />
+                            <View style={styles.leafMainBody}>
+                                <View style={styles.leafReflectedLight} />
+                            </View>
+                        </View>
                     </View>
 
                 </View>
@@ -350,5 +357,41 @@ const styles = StyleSheet.create({
         fontFamily: "serif",        
         fontWeight: "200",          
         includeFontPadding: false,  
+    },
+    sculptedLeafContainer: {
+        position: "absolute",       
+        top: 20,                    
+        left: -15,                  
+        width: 35,                 
+        height: 35,                 
+        zIndex: 10,                 
+    },
+    leafMainBody: {
+        width: "100%",              
+        height: "100%",
+        backgroundColor: "#8A9A5B", 
+        borderTopLeftRadius: 30,    
+        borderBottomRightRadius: 30,
+        borderWidth: 1,            
+        borderColor: "rgba(255,255,255,0.4)", 
+        transform: [{ rotate: "-15deg" }], 
+    },
+    leafShadowLayer: {
+        position: "absolute",       
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,0.3)", 
+        borderRadius: 30,
+        top: 4,                     
+        left: 4,
+        transform: [{ rotate: "-15deg" }], 
+    },
+    leafReflectedLight: {
+        width: "50%",               
+        height: "15%",              
+        backgroundColor: "rgba(255,255,255,0.3)", 
+        borderRadius: 20,           
+        marginTop: 5,               
+        marginLeft: 5,              
     },
 })
