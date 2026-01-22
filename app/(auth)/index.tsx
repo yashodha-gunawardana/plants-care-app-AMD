@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Animated, Easing, View, ImageBackground, SafeAreaView } from "react-native";
+import { StyleSheet, Animated, Easing, View, Text, ImageBackground, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -292,6 +292,9 @@ export default function WelcomeScreen() {
                             <View style={styles.gBackglow} />
                         </View>
 
+                        <View style={styles.gLetterContainer}>
+                            <Text style={styles.titleG}>G</Text>
+                        </View>
                     </View>
 
                 </View>
@@ -340,5 +343,12 @@ const styles = StyleSheet.create({
         borderRadius: 50,          
         opacity: 0.08,              
         filter: "blur(20px)",       
+    },
+    titleG: {
+        fontSize: 110,              
+        color: "#f4f7f2",          
+        fontFamily: "serif",        
+        fontWeight: "200",          
+        includeFontPadding: false,  
     },
 })
