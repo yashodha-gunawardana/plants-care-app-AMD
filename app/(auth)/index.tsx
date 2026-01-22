@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Animated, Easing, View, ImageBackground } from "react-native";
+import { StyleSheet, Animated, Easing, View, ImageBackground, SafeAreaView } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -277,8 +277,13 @@ export default function WelcomeScreen() {
                 source={{ uri: 'https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg' }} 
                 style={StyleSheet.absoluteFillObject}>
             </ImageBackground>
-            
+
             <View style={styles.overlay} />
+
+            {/* main content */}
+            <SafeAreaView style={styles.contentWrapper}>
+
+            </SafeAreaView>
         </View>
     )
 }
@@ -291,5 +296,11 @@ const styles = StyleSheet.create({
     overlay: { 
         ...StyleSheet.absoluteFillObject, 
         backgroundColor: "rgba(0, 0, 0, 0.4)"
+    },
+    contentWrapper: { 
+        flex: 1,                    
+        alignItems: "center",       
+        justifyContent: "space-between", 
+        paddingVertical: 80         
     },
 })
