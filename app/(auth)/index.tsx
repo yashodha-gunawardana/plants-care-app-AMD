@@ -74,6 +74,10 @@ export default function WelcomeScreen() {
                         tint="dark" 
                         className="h-[70px] flex-row items-center justify-between pl-8 pr-2 bg-[#2b4736]/60 border border-white/15">
                     </BlurView>
+
+                    <Text className="text-lg font-semibold tracking-wide text-[#f4f7f2]">
+                        Get Started
+                    </Text>
                 </Animated.View>
             </ImageBackground>
 
