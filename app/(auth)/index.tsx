@@ -50,6 +50,19 @@ export default function WelcomeScreen() {
 
                     <View className="w-[220px] border-t-4 border-dotted border-[#f4f7f2]/60 my-4"></View>
 
+                    <Text className="text-lg font-medium tracking-widest text-[#f4f7f2] opacity-90">
+                        Plants Care Made Simple
+                    </Text>
+
+                </Animated.View>
+
+                <Animated.View
+                    style={{ 
+                        opacity: fadeAnim, 
+                        transform: [{ translateY: translateAnim }] 
+                    }}
+                    className="absolute bottom-[60px] w-full px-9">
+                    
                 </Animated.View>
             </ImageBackground>
 
