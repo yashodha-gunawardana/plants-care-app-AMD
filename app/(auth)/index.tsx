@@ -307,6 +307,7 @@ export default function WelcomeScreen() {
                         </View>
                     </View>
 
+                    <Text style={styles.titleRestText}>ardino</Text>
                 </View>
 
 
@@ -406,5 +407,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",    
         borderRadius: 3,           
         opacity: 0.8,               
+    },
+    titleRestText: {
+        fontSize: 75,               
+        color: "#f4f7f2",
+        fontFamily: "serif",
+        fontWeight: "200",          
+        letterSpacing: -4,          
+        marginLeft: -5,             
     },
 })
