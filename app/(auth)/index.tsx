@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
@@ -226,5 +226,13 @@ export default function WelcomeScreen() {
     const [currentStage, setCurrentStage] = useState<number>(0);
 
     const trackWidth = width > 500 ? 320 : width * 0.85;
-    const traveDistance = trackWidth - 60 - 12;
+    const traveDistance = trackWidth - 60 - 12;  // total travel distance for icon
+
+    useEffect(() => {
+        Animated.loop(
+            Animated.sequence([
+                
+            ])
+        )
+    })
 }
