@@ -338,6 +338,13 @@ export default function WelcomeScreen() {
                                     <PlantIcon stage={currentStageInfo.icon} size={32} />
                                 </Animated.View>
 
+                                <View style={styles.textContainerInside}>
+                                    <Text style={styles.btnText}>Slide to Bloom</Text>
+                                    <Text style={styles.stageText}>
+                                        {currentStageInfo.name} 
+                                    </Text>
+                                </View>
+
                             </BlurView>
                         </TouchableOpacity>
                     </Animated.View>
@@ -535,5 +542,25 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 5,
         elevation: 5,              
+    },
+    textContainerInside: {
+        position: "absolute",       
+        width: "100%",              
+        alignItems: "center",       
+        zIndex: -1,                 
+    },
+    btnText: {
+        color: "#f4f7f2",
+        fontSize: 16,
+        fontWeight: "600",          
+        letterSpacing: 1,          
+        opacity: 0.7,               
+    },
+    stageText: {
+        color: "#f4f7f2",
+        fontSize: 12,               
+        opacity: 0.5,               
+        marginTop: 4,               
+        fontWeight: "500",          
     },
 })
