@@ -176,13 +176,12 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                                             { translateX: (iconSize * 0.4) * Math.cos((angle * Math.PI) / 180) },
                                             { translateY: (iconSize * 0.4) * Math.cos((angle * Math.PI) / 180) },
 
-                                        ]
+                                        ],
+                                        backgroundColor: index % 2 === 0 ? "#FF69B4" : "#FFC0CB" 
                                     }
-                                ]}>
-
-                            </View>
+                                ]}
+                            />
                         ))}
-                        
                     </>
                 );
 
