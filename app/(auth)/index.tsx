@@ -276,48 +276,54 @@ export default function WelcomeScreen() {
             <ImageBackground 
                 source={{ uri: 'https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg' }} 
                 style={StyleSheet.absoluteFillObject}>
-            </ImageBackground>
+            
 
-            <View style={styles.overlay} />
+                <View style={styles.overlay} />
 
-            {/* main content */}
-            <SafeAreaView style={styles.contentWrapper}>
+                {/* main content */}
+                <SafeAreaView style={styles.contentWrapper}>
 
-                {/* title */}
-                <View style={styles.textContainer}>
-                    <View style={styles.masterLogoWrapper}>
+                    {/* title */}
+                    <View style={styles.textContainer}>
+                        <View style={styles.masterLogoWrapper}>
 
-                        {/* design for letter "G" */}
-                        <View style={styles.gSculptedWrapper}>
-                            <View style={styles.gBackglow} />
-                        </View>
+                            {/* design for letter "G" */}
+                            <View style={styles.gSculptedWrapper}>
+                                <View style={styles.gBackglow} />
+                            
+                                <View style={styles.gLetterContainer}>
+                                    <Text style={styles.titleG}>G</Text>
+                                </View>
 
-                        <View style={styles.gLetterContainer}>
-                            <Text style={styles.titleG}>G</Text>
-                        </View>
+                                {/* leaf design overlaying the G */}
+                                <View style={styles.sculptedLeafContainer}>
+                                    <View style={styles.leafShadowLayer} />
+                                    <View style={styles.leafMainBody}>
+                                        <View style={styles.leafReflectedLight} />
+                                    </View>
 
-                        {/* leaf design overlaying the G */}
-                        <View style={styles.sculptedLeafContainer}>
-                            <View style={styles.leafShadowLayer} />
-                            <View style={styles.leafMainBody}>
-                                <View style={styles.leafReflectedLight} />
+                                    <View style={styles.dewDropPoint} />
+                                </View>
                             </View>
 
-                            <View style={styles.dewDropPoint} />
+                            <Text style={styles.titleRestText}>ardino</Text>
+                        </View>
+
+                        <View style={styles.pulseLineContainer}>
+                            <View style={styles.baseLine} />
+                            <View style={styles.activePulse} />
+                            <View style={styles.pulseNode} />
+                        </View>
+
+                        <View style={styles.subtitleWrapper}>
+                            <Text style={styles.subtitle}>Elegance in Every Detail</Text>
+                            <View style={styles.dot} />
                         </View>
                     </View>
 
-                    <Text style={styles.titleRestText}>ardino</Text>
-                </View>
 
-                <View style={styles.pulseLineContainer}>
-                    <View style={styles.baseLine} />
-                    <View style={styles.activePulse} />
-                    <View style={styles.pulseNode} />
-                </View>
-
-
-            </SafeAreaView>
+                </SafeAreaView>
+            </ImageBackground>
         </View>
     )
 }
@@ -452,5 +458,27 @@ const styles = StyleSheet.create({
         shadowColor: "#8A9A5B",     
         shadowRadius: 5,            
         shadowOpacity: 1,           
+    },
+
+    // subtitle
+    subtitleWrapper: {
+        flexDirection: "row",       
+        alignItems: "center",       
+        marginTop: 5,              
+    },
+    subtitle: {
+        fontSize: 14,               
+        color: "#f4f7f2",
+        opacity: 0.6,               
+        letterSpacing: 4,           
+        textTransform: "uppercase", 
+        fontWeight: "300",          
+    },
+    dot: {
+        width: 4,                   
+        height: 4,
+        backgroundColor: "#8A9A5B", 
+        borderRadius: 2,            
+        marginLeft: 10,             
     },
 })
