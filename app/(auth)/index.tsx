@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -45,6 +46,23 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
     const renderIcon = () => {
         switch(stage) {
             case "Seed":
+                return (
+                    <View 
+                        style={[styles.seedOuter, {
+                            width: iconSize * 0.75,
+                            height: iconSize * 0.75,
+                            borderRadius: iconSize * 0.375
+                        }]}>
+                
+                        <View
+                            style={[styles.seedInner, {
+                                width: iconSize * 0.3,
+                                height: iconSize * 0.3,
+                                borderRadius: iconSize * 0.15
+                            }]}>
+                        </View>
+                    </View>
+                );
         }
     }
 }
