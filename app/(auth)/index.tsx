@@ -252,8 +252,16 @@ export default function WelcomeScreen() {
         ).start();
 
 
+        // update plant stage based on animation progress
         const listenerId = glidex.addListener(({ value }) => {
             const progress = value / travelDistance;
-        })
+
+            const stageIndex = Math.min(
+                Math.floor(progress * PLANT_STAGES.length),
+                PLANT_STAGES.length - 1
+            );
+            setCurrentStage(stageIndex)
+        });
+        
     })
 }
