@@ -174,10 +174,10 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
                                         // cicrle coordinates 
                                         transform: [
                                             { translateX: (iconSize * 0.4) * Math.cos((angle * Math.PI) / 180) },
-                                            { translateY: (iconSize * 0.4) * Math.cos((angle * Math.PI) / 180) },
+                                            { translateY: (iconSize * 0.4) * Math.sin((angle * Math.PI) / 180) },
 
                                         ],
-                                        backgroundColor: index % 2 === 0 ? "#FF69B4" : "#FFC0CB" 
+                                        backgroundColor: index % 2 === 0 ? "#f080b8" : "#FFC0CB" 
                                     }
                                 ]}
                             />
@@ -220,7 +220,7 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
 export default function WelcomeScreen() {
     const router = useRouter();
 
-    const glidex = useRef(new Animated.Value(0)).current;
+    const glideX = useRef(new Animated.Value(0)).current;
     
     // current plant stage
     const [currentStage, setCurrentStage] = useState<number>(0);
@@ -233,7 +233,7 @@ export default function WelcomeScreen() {
             Animated.sequence([
 
                 // slide icon to the right
-                Animated.timing(glidex, {
+                Animated.timing(glideX, {
                     toValue: travelDistance,
                     duration: 3000,
                     easing: Easing.bezier(0.4, 0, 0.2, 1),
@@ -243,7 +243,7 @@ export default function WelcomeScreen() {
                 Animated.delay(1500),  // 1.5 second pause
 
                 // back to start
-                Animated.timing(glidex, {
+                Animated.timing(glideX, {
                     toValue: 0,
                     duration: 800,
                     useNativeDriver: true
@@ -253,7 +253,7 @@ export default function WelcomeScreen() {
 
 
         // update plant stage based on animation progress
-        const listenerId = glidex.addListener(({ value }) => {
+        const listenerId = glideX.addListener(({ value }) => {
             const progress = value / travelDistance;
 
             const stageIndex = Math.min(
@@ -263,7 +263,7 @@ export default function WelcomeScreen() {
             setCurrentStage(stageIndex)
         });
 
-        return () => glidex.removeListener(listenerId)
+        return () => glideX.removeListener(listenerId)
     }, []);
 
 
@@ -392,6 +392,11 @@ const styles = StyleSheet.create({
         borderRadius: 50,          
         opacity: 0.08,              
         filter: "blur(20px)",       
+    },
+    gLetterContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 5, 
     },
     titleG: {
         fontSize: 110,              
