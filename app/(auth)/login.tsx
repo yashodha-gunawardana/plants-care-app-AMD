@@ -71,7 +71,7 @@ export default function GardinoAuth() {
                     duration: 1500 + Math.random() * 1500,
                     delay: Math.random() * 3000,
                     easing: Easing.linear,
-                    useNativeDriver: true,
+                    useNativeDriver: true
 
                     // loop the animation
                 }).start(() => runAnimation());
@@ -86,7 +86,7 @@ export default function GardinoAuth() {
         Animated.spring(tabIndicatorX, {
             toValue: isLogin ? 0 : (width - 80) / 2,
             friction: 7,
-            useNativeDriver: true,
+            useNativeDriver: true
 
         }).start();
 
@@ -110,7 +110,20 @@ export default function GardinoAuth() {
 
     // button handler in login / register
     const handleMainAction = () => {
-        
+        setIsSuccess(true);
+        Animated.parallel([
+            Animated.timing(successFade, {
+                toValue: 1,
+                duration: 400,
+                useNativeDriver: true
+            }),
+            Animated.spring(plantGrow, {
+                toValue: 1,
+                friction: 4,
+                tension: 10,
+                useNativeDriver: true
+            })
+        ]).start();
     }
 }
 
