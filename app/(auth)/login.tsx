@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView } from "react-native";
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView} from "react-native";
 
 
 const { width, height } = Dimensions.get("window");
@@ -279,9 +279,19 @@ export default function GardinoAuth() {
             <SafeAreaView style={{ flex: 1 }}>
                 {(!isSuccess && !isError) && (
                     <>
+                        {/* back btn in left top corner */}
                         <TouchableOpacity style={styles.backButton}>
                             <Ionicons name="chevron-back" size={28} color="#1A3026" />
                         </TouchableOpacity>
+
+                        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+                            <ScrollView 
+                                contentContainerStyle={styles.scrollContent} 
+                                showsVerticalScrollIndicator={false} 
+                                keyboardShouldPersistTaps="handled">
+                            </ScrollView>
+
+                        </KeyboardAvoidingView>
                     </>
                 )}
             </SafeAreaView>
