@@ -257,6 +257,26 @@ export default function GardinoAuth() {
                 </TouchableOpacity>
                 </Animated.View>
             )}
+
+            {/* error screen */}
+            {isError && (
+                <Animated.View style={[styles.errorOverlay, { opacity: successFade }]}>
+                <Animated.View style={{ transform: [{ scale: errorShake }] }}>
+                    <MaterialCommunityIcons name="leaf-off" size={100} color="#8B4513" />
+                </Animated.View>
+                <Text style={styles.errorTitle}>Growth Stalled</Text>
+                <Text style={styles.errorSubtitle}>We couldn't verify your roots. Please check your details and try again.</Text>
+                <TouchableOpacity 
+                    style={[styles.mainBtn, styles.errorBtn, { width: 200, marginTop: 40 }]} 
+                    onPress={() => {
+                    setIsError(false);
+                    errorShake.setValue(0);
+                    }}
+                >
+                    <Text style={styles.mainBtnText}>Try Again</Text>
+                </TouchableOpacity>
+                </Animated.View>
+            )}
         </View>
     )
 }
