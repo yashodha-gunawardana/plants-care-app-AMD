@@ -58,8 +58,26 @@ export default function GardinoAuth() {
                     useNativeDriver: true
                 })
             )
-            
+
         ]).start();
-    })
+
+
+        // rain drop animate
+        rainAnims.forEach((anim) => {
+            const runAnimation = () => {
+                anim.setValue(0);
+                Animated.timing(anim, {
+                    toValue: 1,
+                    duration: 1500 + Math.random() * 1500,
+                    delay: Math.random() * 3000,
+                    easing: Easing.linear,
+                    useNativeDriver: true,
+
+                    // loop the animation
+                }).start(() => runAnimation());
+            }
+            runAnimation();
+        })
+    }, []);
 }
 
