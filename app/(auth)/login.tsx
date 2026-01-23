@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet } from "react-native";
 
 
@@ -198,6 +198,12 @@ export default function GardinoAuth() {
                         borderColor: isActive ? color : '#E8EFE8' 
                     }
                 ]}>
+                
+                {iconType === 'ionicons' ? (
+                    <Ionicons name={iconName} size={22} color={isActive ? "#FFF" : color} />
+                ) : (
+                    <FontAwesome5 name={iconName} size={20} color={isActive ? "#FFF" : color} />
+                )}
 
                 </Animated.View>
                 
