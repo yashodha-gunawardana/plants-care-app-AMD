@@ -227,6 +227,8 @@ export default function GardinoAuth() {
                         key={i}
                         style={[
                             styles.raindrop, {
+                                // distribute raindrops across screen width
+                                left: (width / RAIN_DROP_COUNT) * i + (Math.random() * 20),
 
                             }
                         ]}
