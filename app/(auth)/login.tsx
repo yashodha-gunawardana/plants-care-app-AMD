@@ -112,20 +112,40 @@ export default function GardinoAuth() {
 
     // button handler in login / register
     const handleMainAction = () => {
-        setIsSuccess(true);
-        Animated.parallel([
-            Animated.timing(successFade, {
-                toValue: 1,
-                duration: 400,
-                useNativeDriver: true
-            }),
-            Animated.spring(plantGrow, {
-                toValue: 1,
-                friction: 4,
-                tension: 10,
-                useNativeDriver: true
-            })
-        ]).start();
+        const isAuthenticated = Math.random() > 0.5; 
+
+        if (isAuthenticated) {
+            setIsSuccess(true);
+            Animated.parallel([
+                Animated.timing(successFade, {
+                    toValue: 1,
+                    duration: 400,
+                    useNativeDriver: true
+                }),
+                Animated.spring(plantGrow, {
+                    toValue: 1,
+                    friction: 4,
+                    tension: 10,
+                    useNativeDriver: true
+                })
+            ]).start();
+
+        } else {
+            setIsError(true);
+            Animated.parallel([
+                Animated.timing(successFade, { 
+                    toValue: 1, 
+                    duration: 400, 
+                    useNativeDriver: true 
+                }),
+                Animated.spring(errorShake, { 
+                    toValue: 1, 
+                    friction: 3, 
+                    tension: 40, 
+                    useNativeDriver: true 
+                })
+            ]).start();
+        }
     };
 
 
