@@ -426,6 +426,13 @@ const styles = StyleSheet.create({
     tabBtnText: { fontSize: 14, fontWeight: "600", color: "#8A9A5B" },
     activeTabText: { color: "#1A3026" },
 
+    // form input 
+    formWrapper: { gap: 24 },
+    inputContainer: { borderBottomWidth: 1.5, borderBottomColor: "#D1DCC9", paddingBottom: 5 },
+    inputLabel: { fontSize: 10, fontWeight: "700", color: "#8A9A5B", textTransform: "uppercase", marginBottom: 6 },
+    minimalInput: { fontSize: 16, color: "#1A3026", paddingVertical: 8 },
+    passRow: { flexDirection: "row", alignItems: "center" },
+    
     // main button
     mainBtn: { 
         backgroundColor: "#3A5A40", 
