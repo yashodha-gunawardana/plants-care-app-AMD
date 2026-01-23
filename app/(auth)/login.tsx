@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView, TextInput} from "react-native";
 
 
@@ -328,7 +328,15 @@ export default function GardinoAuth() {
                                         <TextInput style={styles.minimalInput} placeholder="hello@gardino.com" value={email} onChangeText={setEmail} autoCapitalize="none" placeholderTextColor="#8A9A5B" />
                                     </View>
 
-                                    
+                                    <View style={styles.inputContainer}>
+                                        <Text style={styles.inputLabel}>Password</Text>
+                                        <View style={styles.passRow}>
+                                        <TextInput style={[styles.minimalInput, { flex: 1 }]} placeholder="••••••••" secureTextEntry={!showPassword} value={password} onChangeText={setPassword} placeholderTextColor="#8A9A5B" />
+                                        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                                            <Feather name={showPassword ? "eye" : "eye-off"} size={18} color="#6B8E23" />
+                                        </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </Animated.View>
 
 
