@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { Animated, Dimensions, Platform, StatusBar } from "react-native";
 
@@ -33,7 +33,12 @@ export default function GardinoAuth() {
     const plantGrow = useRef(new Animated.Value(0)).current; 
     const successFade = useRef(new Animated.Value(0)).current; 
 
+    // animation values for rain drop
     const rainAnims = useRef([...Array(RAIN_DROP_COUNT)].map(() => new Animated.Value(0))).current;
 
+
+    useEffect(() => {
+        
+    })
 }
 
