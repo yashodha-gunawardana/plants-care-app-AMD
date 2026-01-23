@@ -280,6 +280,11 @@ const styles = StyleSheet.create({
         transform: [{ rotate: "45deg" }] 
     },
 
+    // success screen styles
+    successOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "#F4F7F2", zIndex: 100, justifyContent: "center", alignItems: "center", padding: 40 },
+    successTitle: { fontSize: 28, fontWeight: "800", color: "#1A3026", marginTop: 20 },
+    successSubtitle: { fontSize: 16, color: "#6B8E23", marginTop: 8, textAlign: "center" },
+
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
     smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
