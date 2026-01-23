@@ -285,10 +285,20 @@ export default function GardinoAuth() {
                         </TouchableOpacity>
 
                         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+                            
+                            {/* keyboard appear */}
                             <ScrollView 
                                 contentContainerStyle={styles.scrollContent} 
                                 showsVerticalScrollIndicator={false} 
                                 keyboardShouldPersistTaps="handled">
+
+                                <Animated.View style={[styles.header, { opacity: fadeAnim, transform: [{ translateY: slideUp }] }]}>
+                                    <View style={styles.iconBadge}>
+                                        <MaterialCommunityIcons name="flower-tulip-outline" size={32} color="#2D5A27" />
+                                    </View>
+                                    <Text style={styles.title}>Gardino</Text>
+                                    <Text style={styles.subtitle}>Let's grow something beautiful today.</Text>
+                                </Animated.View>
                             </ScrollView>
 
                         </KeyboardAvoidingView>
