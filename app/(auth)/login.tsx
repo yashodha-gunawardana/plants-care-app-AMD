@@ -38,7 +38,18 @@ export default function GardinoAuth() {
 
 
     useEffect(() => {
-        
+        Animated.parallel([
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 800,
+                useNativeDriver: true
+            }),
+            Animated.spring(slideUp, {
+                toValue: 0,
+                friction: 8,
+                useNativeDriver: true
+            }),
+        ])
     })
 }
 
