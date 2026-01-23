@@ -79,5 +79,16 @@ export default function GardinoAuth() {
             runAnimation();
         })
     }, []);
+
+
+    // switching login / register
+    useEffect(() => {
+        Animated.spring(tabIndicatorX, {
+            toValue: isLogin ? 0 : (width - 80) / 2,
+            friction: 7,
+            useNativeDriver: true,
+
+        }).start();
+    })
 }
 
