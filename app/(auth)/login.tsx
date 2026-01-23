@@ -303,7 +303,13 @@ export default function GardinoAuth() {
 
                                 {/* tab switcher */}
                                 <View style={styles.modernTabTrack}>
-                                    
+                                    <Animated.View style={[styles.modernTabSlider, { transform: [{ translateX: tabIndicatorX }] }]} />
+                                    <TouchableOpacity style={styles.tabBtn} onPress={() => setIsLogin(true)}>
+                                        <Text style={[styles.tabBtnText, isLogin && styles.activeTabText]}>Sign In</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.tabBtn} onPress={() => setIsLogin(false)}>
+                                        <Text style={[styles.tabBtnText, !isLogin && styles.activeTabText]}>Register</Text>
+                                    </TouchableOpacity>
                                 </View>
 
                             </ScrollView>
