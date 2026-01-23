@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View } from "react-native";
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text } from "react-native";
 
 
 
@@ -243,8 +243,21 @@ export default function GardinoAuth() {
                     </Animated.View>
                 ))}
             </View>
-        </View>
 
+            {/* success screen */}
+            {isSuccess && (
+                <Animated.View style={[styles.successOverlay, { opacity: successFade }]}>
+                <Animated.View style={{ transform: [{ scale: plantGrow }] }}>
+                    <MaterialCommunityIcons name="sprout" size={100} color="#2D5A27" />
+                </Animated.View>
+                <Text style={styles.successTitle}>Welcome to Gardino!</Text>
+                <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
+                <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
+                    <Text style={styles.mainBtnText}>Continue</Text>
+                </TouchableOpacity>
+                </Animated.View>
+            )}
+        </View>
     )
 }
 
@@ -266,7 +279,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 0,
         transform: [{ rotate: "45deg" }] 
     },
-    
+
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
     smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
