@@ -300,6 +300,12 @@ export default function GardinoAuth() {
                                     <Text style={styles.title}>Gardino</Text>
                                     <Text style={styles.subtitle}>Let's grow something beautiful today.</Text>
                                 </Animated.View>
+
+                                {/* tab switcher */}
+                                <View style={styles.modernTabTrack}>
+                                    
+                                </View>
+
                             </ScrollView>
 
                         </KeyboardAvoidingView>
