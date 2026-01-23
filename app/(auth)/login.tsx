@@ -369,6 +369,35 @@ const styles = StyleSheet.create({
     title: { fontSize: 36, fontWeight: "800", color: "#1A3026", letterSpacing: -1 },
     subtitle: { fontSize: 14, color: "#6B8E23", marginTop: 4, textAlign: "center" },
 
+    // tab switcher 
+    modernTabTrack: { 
+        flexDirection: "row", 
+        height: 50, 
+        backgroundColor: "#E1EAD9", 
+        borderRadius: 25, 
+        marginTop: 35, 
+        marginBottom: 30, 
+        padding: 5, 
+        borderWidth: 1, 
+        borderColor: "#D4DDD1"
+    },
+    modernTabSlider: { 
+        position: "absolute", 
+        width: "50%", 
+        height: "100%", 
+        backgroundColor: "#FFF", 
+        borderRadius: 22, 
+        left: 5, 
+        top: 5, 
+        elevation: 4, 
+        shadowColor: "#000", 
+        shadowOpacity: 0.08, 
+        shadowRadius: 5 
+    },
+    tabBtn: { flex: 1, justifyContent: "center", alignItems: "center", zIndex: 1 },
+    tabBtnText: { fontSize: 14, fontWeight: "600", color: "#8A9A5B" },
+    activeTabText: { color: "#1A3026" },
+
     // main button
     mainBtn: { 
         backgroundColor: "#3A5A40", 
