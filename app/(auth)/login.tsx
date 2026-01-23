@@ -20,5 +20,7 @@ export default function GardinoAuth() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [name, setName] = useState<string>("");
+
+    const [activeSocial, setActiveSocial] = useState<string | null>(null);
 }
 
