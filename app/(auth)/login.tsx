@@ -268,11 +268,10 @@ export default function GardinoAuth() {
                 <Text style={styles.errorSubtitle}>We couldn't verify your roots. Please check your details and try again.</Text>
                 <TouchableOpacity 
                     style={[styles.mainBtn, styles.errorBtn, { width: 200, marginTop: 40 }]} 
-                    onPress={() => {
-                    setIsError(false);
-                    errorShake.setValue(0);
-                    }}
-                >
+                        onPress={() => {
+                        setIsError(false);
+                        errorShake.setValue(0);
+                    }}>
                     <Text style={styles.mainBtnText}>Try Again</Text>
                 </TouchableOpacity>
                 </Animated.View>
@@ -300,11 +299,43 @@ const styles = StyleSheet.create({
         transform: [{ rotate: "45deg" }] 
     },
 
-    // success screen styles
+    // success screen 
     successOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "#F4F7F2", zIndex: 100, justifyContent: "center", alignItems: "center", padding: 40 },
     successTitle: { fontSize: 28, fontWeight: "800", color: "#1A3026", marginTop: 20 },
     successSubtitle: { fontSize: 16, color: "#6B8E23", marginTop: 8, textAlign: "center" },
 
+    // error screen
+    errorOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "#FCF8F4", zIndex: 100, justifyContent: "center", alignItems: "center", padding: 40 },
+    errorTitle: { fontSize: 28, fontWeight: "800", color: "#5C4033", marginTop: 20 },
+    errorSubtitle: { fontSize: 16, color: "#8B4513", marginTop: 8, textAlign: "center", lineHeight: 22 },
+    errorBtn: { backgroundColor: "#8B4513", shadowColor: "#5C4033" },
+
+    // main button
+    mainBtn: { 
+        backgroundColor: "#3A5A40", 
+        height: 56, 
+        borderTopLeftRadius: 50, 
+        borderBottomRightRadius: 32,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 50,
+        marginTop: 10, 
+        elevation: 4, 
+        shadowColor: "#1A3026", 
+        shadowOpacity: 0.5, 
+        shadowRadius: 15,
+        shadowOffset: { width: 4, height: 8 },
+        borderTopWidth: 2.5,
+        borderLeftWidth: 1.5,
+        borderColor: "rgba(255, 255, 255, 0.25)", 
+        overflow: "visible"
+    },
+    mainBtnText: { 
+        color: "#FFF", 
+        fontSize: 18, 
+        fontWeight: "700", 
+        letterSpacing: -0.5,
+    },
+    
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
     smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
