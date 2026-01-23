@@ -277,7 +277,10 @@ export default function GardinoAuth() {
             )}
 
             <SafeAreaView style={{ flex: 1 }}>
-
+                {(!isSuccess && !isError) && (
+                    <>
+                    </>
+                )}
             </SafeAreaView>
 
         </View>
