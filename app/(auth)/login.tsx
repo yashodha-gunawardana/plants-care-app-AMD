@@ -312,6 +312,12 @@ export default function GardinoAuth() {
                                     </TouchableOpacity>
                                 </View>
 
+                                {/* form */}
+                                <Animated.View style={[styles.formWrapper, { opacity: fadeAnim }]}>
+                                    
+                                </Animated.View>
+
+
                             </ScrollView>
 
                         </KeyboardAvoidingView>
