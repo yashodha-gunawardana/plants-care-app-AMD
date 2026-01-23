@@ -322,6 +322,13 @@ export default function GardinoAuth() {
                                         </View>
                                         </Animated.View>
                                     )}
+
+                                    <View style={styles.inputContainer}>
+                                        <Text style={styles.inputLabel}>Email Address</Text>
+                                        <TextInput style={styles.minimalInput} placeholder="hello@gardino.com" value={email} onChangeText={setEmail} autoCapitalize="none" placeholderTextColor="#8A9A5B" />
+                                    </View>
+
+                                    
                                 </Animated.View>
 
 
