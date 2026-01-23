@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text } from "react-native";
-
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView } from "react-native";
 
 
 const { width, height } = Dimensions.get("window");
@@ -276,6 +275,11 @@ export default function GardinoAuth() {
                 </TouchableOpacity>
                 </Animated.View>
             )}
+
+            <SafeAreaView style={{ flex: 1 }}>
+
+            </SafeAreaView>
+
         </View>
     )
 }
@@ -335,7 +339,7 @@ const styles = StyleSheet.create({
         fontWeight: "700", 
         letterSpacing: -0.5,
     },
-    
+
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
     smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
