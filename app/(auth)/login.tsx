@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
-import { Dimensions, Platform, StatusBar } from "react-native";
+import { Animated, Dimensions, Platform, StatusBar } from "react-native";
 
 
 
@@ -22,5 +22,18 @@ export default function GardinoAuth() {
     const [name, setName] = useState<string>("");
 
     const [activeSocial, setActiveSocial] = useState<string | null>(null);
+
+    const fadeAnim = useRef(new Animated.Value(0)).current; 
+    const slideUp = useRef(new Animated.Value(30)).current; 
+
+    // move tab slider between login/ register
+    const tabIndicatorX = useRef(new Animated.Value(0)).current; 
+    const blobRotate = useRef(new Animated.Value(0)).current; 
+    const nameFieldOpacity = useRef(new Animated.Value(0)).current; 
+    const nameFieldTranslateY = useRef(new Animated.Value(-15)).current; 
+    const socialScale = useRef(new Animated.Value(1)).current; 
+    const plantGrow = useRef(new Animated.Value(0)).current; 
+    const successFade = useRef(new Animated.Value(0)).current; 
+
 }
 
