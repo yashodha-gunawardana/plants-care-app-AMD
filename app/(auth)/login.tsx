@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View } from "react-native";
 
 
 
@@ -190,27 +190,30 @@ export default function GardinoAuth() {
                 activeOpacity={0.8}
                 style={styles.socialIconWrapper}>
 
-                <Animated.View style={[
-                    styles.socialCircle,
-                    isActive && styles.socialCircleActive, { 
-                        backgroundColor: isActive ? color : bgColor, 
-                        transform: [{ scale: isActive ? socialScale : 1 }], 
-                        borderColor: isActive ? color : '#E8EFE8' 
-                    }
-                ]}>
+                <Animated.View 
+                    style={[
+                        styles.socialCircle,
+                        isActive && styles.socialCircleActive, { 
+                            backgroundColor: isActive ? color : bgColor, 
+                            transform: [{ scale: isActive ? socialScale : 1 }], 
+                            borderColor: isActive ? color : '#E8EFE8' 
+                        }
+                    ]}>
                 
-                {iconType === 'ionicons' ? (
-                    <Ionicons name={iconName} size={22} color={isActive ? "#FFF" : color} />
-                ) : (
-                    <FontAwesome5 name={iconName} size={20} color={isActive ? "#FFF" : color} />
-                )}
+                    {iconType === 'ionicons' ? (
+                        <Ionicons name={iconName} size={22} color={isActive ? "#FFF" : color} />
+                    ) : (
+                        <FontAwesome5 name={iconName} size={20} color={isActive ? "#FFF" : color} />
+                    )}
+
+                    <View style={[styles.plantBadge, { backgroundColor: isActive ? "#FFF" : bgColor }]}>
+                        <MaterialCommunityIcons name={plantIcon} size={12} color={isActive ? color : '#8A9A5B'} />
+                    </View>
 
                 </Animated.View>
-                
-
             </TouchableOpacity>
-        )
-    }
+        );
+    };
 }
 
 
