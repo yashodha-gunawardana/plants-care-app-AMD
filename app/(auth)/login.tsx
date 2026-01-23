@@ -279,6 +279,9 @@ export default function GardinoAuth() {
             <SafeAreaView style={{ flex: 1 }}>
                 {(!isSuccess && !isError) && (
                     <>
+                        <TouchableOpacity style={styles.backButton}>
+                            <Ionicons name="chevron-back" size={28} color="#1A3026" />
+                        </TouchableOpacity>
                     </>
                 )}
             </SafeAreaView>
