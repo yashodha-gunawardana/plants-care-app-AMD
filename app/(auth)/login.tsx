@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
-import { Animated, Dimensions, Platform, StatusBar } from "react-native";
+import { Animated, Dimensions, Easing, Platform, StatusBar } from "react-native";
 
 
 
@@ -49,7 +49,17 @@ export default function GardinoAuth() {
                 friction: 8,
                 useNativeDriver: true
             }),
-        ])
+
+            Animated.loop(
+                Animated.timing(blobRotate, {
+                    toValue: 1,
+                    duration: 35000,
+                    easing: Easing.linear,
+                    useNativeDriver: true
+                })
+            )
+            
+        ]).start();
     })
 }
 
