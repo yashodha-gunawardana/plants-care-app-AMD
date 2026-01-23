@@ -227,6 +227,11 @@ export default function GardinoAuth() {
 
 
 const styles = StyleSheet.create({
+
+    // main container
+    masterContainer: { flex: 1, backgroundColor: "#F4F7F2" }, 
+    backButton: { position: "absolute", top: STATUSBAR_HEIGHT + 25, left: 20, zIndex: 10, padding: 8 },
+
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
     smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
