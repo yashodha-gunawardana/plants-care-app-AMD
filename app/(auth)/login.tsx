@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity } from "react-native";
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet } from "react-native";
 
 
 
@@ -172,10 +172,34 @@ export default function GardinoAuth() {
             <TouchableOpacity
                 onPress={() => {
                     setActiveSocial(platform);
-                }}>
+
+                    Animated.sequence([
+                        Animated.timing(socialScale, {
+                            toValue: 0.9,
+                            duration: 100,
+                            useNativeDriver: true
+                        }),
+                        Animated.timing(socialScale, {
+                            toValue: 1,
+                            duration: 100,
+                            useNativeDriver: true
+                        })
+
+                    ]).start(() => setActiveSocial(null))
+                }}
+                activeOpacity={0.8}
+                style={styles.socialIconWrapper}>
+
+                
+                
 
             </TouchableOpacity>
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+
+})
 
