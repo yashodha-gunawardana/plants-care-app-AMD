@@ -229,7 +229,10 @@ export default function GardinoAuth() {
                             styles.raindrop, {
                                 // distribute raindrops across screen width
                                 left: (width / RAIN_DROP_COUNT) * i + (Math.random() * 20),
-
+                                opacity: anim.interpolate({
+                                    inputRange: [0, 0.2, 0.8, 1],
+                                    outputRange: [0, 0.15, 0.15, 0]
+                                }),
                             }
                         ]}
                     
