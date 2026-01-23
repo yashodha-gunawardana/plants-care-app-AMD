@@ -352,6 +352,16 @@ export default function GardinoAuth() {
                                             </TouchableOpacity>
                                         </View>
                                     )}
+
+                                    <TouchableOpacity style={styles.mainBtn} activeOpacity={0.9} onPress={handleMainAction}>
+                                        <View style={styles.mainBtnContent}>
+                                            <Text style={styles.mainBtnText}>{isLogin ? "Welcome Back" : "Join Gardino"}</Text>
+                                            <View style={styles.leafIconBadge}>
+                                                <MaterialCommunityIcons name="leaf" size={20} color="#1A3026" />
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+
                                 </Animated.View>
 
 
