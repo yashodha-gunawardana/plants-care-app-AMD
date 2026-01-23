@@ -214,19 +214,50 @@ export default function GardinoAuth() {
             </TouchableOpacity>
         );
     };
+
+
+    return (
+        <View style={styles.masterContainer}>
+            <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+
+        </View>
+
+    )
 }
 
 
 const styles = StyleSheet.create({
     // social login 
-    dividerRow: { flexDirection: 'row', alignItems: 'center', marginTop: 15, marginBottom: 15, gap: 10 },
-    smallLine: { height: 1, flex: 1, backgroundColor: '#D1DCC9' },
-    socialText: { fontSize: 11, color: '#A0B0A0', fontWeight: '700', textTransform: 'uppercase' },
-    socialCircleRow: { flexDirection: 'row', justifyContent: 'center', gap: 20 },
-    socialIconWrapper: { alignItems: 'center' },
-    socialCircle: { width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', borderWidth: 2, position: 'relative', elevation: 3 },
+    dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
+    smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
+    socialText: { fontSize: 11, color: "#A0B0A0", fontWeight: "700", textTransform: "uppercase" },
+    socialCircleRow: { flexDirection: "row", justifyContent: "center", gap: 20 },
+    socialIconWrapper: { alignItems: "center" },
+    socialCircle: { 
+        width: 56, 
+        height: 56, 
+        borderRadius: 28, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        borderWidth: 2, 
+        position: "relative", 
+        elevation: 3 
+    },
     socialCircleActive: { shadowOpacity: 0.2, shadowRadius: 8, elevation: 5 },
-    plantBadge: { position: 'absolute', bottom: -4, right: -4, width: 22, height: 22, borderRadius: 11, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#FFF', elevation: 2 },
+    plantBadge: { 
+        position: "absolute", 
+        bottom: -4, 
+        right: -4, 
+        width: 22, 
+        height: 22, 
+        borderRadius: 11, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        borderWidth: 2, 
+        borderColor: "#FFF", 
+        elevation: 2 
+    },
+
 });
 
 
