@@ -190,7 +190,16 @@ export default function GardinoAuth() {
                 activeOpacity={0.8}
                 style={styles.socialIconWrapper}>
 
-                
+                <Animated.View style={[
+                    styles.socialCircle,
+                    isActive && styles.socialCircleActive, { 
+                        backgroundColor: isActive ? color : bgColor, 
+                        transform: [{ scale: isActive ? socialScale : 1 }], 
+                        borderColor: isActive ? color : '#E8EFE8' 
+                    }
+                ]}>
+
+                </Animated.View>
                 
 
             </TouchableOpacity>
