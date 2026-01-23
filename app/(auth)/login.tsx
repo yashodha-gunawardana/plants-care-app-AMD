@@ -124,6 +124,13 @@ export default function GardinoAuth() {
                 useNativeDriver: true
             })
         ]).start();
-    }
+    };
+
+
+    // rotate blob animation
+    const spin = blobRotate.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0deg", "360deg"]
+    });
 }
 
