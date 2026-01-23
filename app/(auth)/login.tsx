@@ -15,6 +15,6 @@ export default function GardinoAuth() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
-    
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 }
 
