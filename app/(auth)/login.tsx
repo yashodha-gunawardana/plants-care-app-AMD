@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar } from "react-native";
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity } from "react-native";
 
 
 
@@ -154,5 +154,28 @@ export default function GardinoAuth() {
         inputRange: [0, 1],
         outputRange: ["0deg", "360deg"]
     });
+
+
+    // social button
+    const SocialIcon = ({
+        platform,
+        iconName,
+        color,
+        bgColor,
+        plantIcon, 
+        iconType = "ionicons"
+    }: any) => {
+
+        const isActive = activeSocial === platform;
+
+        return (
+            <TouchableOpacity
+                onPress={() => {
+                    setActiveSocial(platform);
+                }}>
+
+            </TouchableOpacity>
+        )
+    }
 }
 
