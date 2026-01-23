@@ -90,7 +90,7 @@ export default function GardinoAuth() {
 
         }).start();
 
-        // show name filed in register form
+        // show name field in register form
         const toValue = isLogin ? 0 : 1;
         Animated.parallel([
             Animated.timing(nameFieldOpacity, {
@@ -106,5 +106,11 @@ export default function GardinoAuth() {
         ]).start();
 
     }, [isLogin]);
+
+
+    // button handler in login / register
+    const handleMainAction = () => {
+        
+    }
 }
 
