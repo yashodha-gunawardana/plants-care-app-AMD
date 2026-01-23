@@ -233,16 +233,16 @@ export default function GardinoAuth() {
                                     inputRange: [0, 0.2, 0.8, 1],
                                     outputRange: [0, 0.15, 0.15, 0]
                                 }),
+                                // move from top to bottom of screen
                                 transform: [
                                     { translateY: anim.interpolate({ inputRange: [0, 1], outputRange: [-100, height + 100] }) },
-                                    { rotate: '15deg' }
+                                    { rotate: "15deg" }
                                 ] 
                             }
-                        ]}
-                    
+                        ]}>
+                    </Animated.View>
                 ))}
             </View>
-
         </View>
 
     )
@@ -255,6 +255,18 @@ const styles = StyleSheet.create({
     masterContainer: { flex: 1, backgroundColor: "#F4F7F2" }, 
     backButton: { position: "absolute", top: STATUSBAR_HEIGHT + 25, left: 20, zIndex: 10, padding: 8 },
 
+    raindrop: {
+        position: "absolute",
+        width: 6,
+        height: 10,
+        backgroundColor: "#A0B0A0",
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
+        borderTopRightRadius: 0,
+        transform: [{ rotate: "45deg" }] 
+    },
+    
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
     smallLine: { height: 1, flex: 1, backgroundColor: "#D1DCC9" },
