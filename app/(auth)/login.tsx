@@ -500,6 +500,21 @@ const styles = StyleSheet.create({
         fontWeight: "700", 
         letterSpacing: -0.5,
     },
+    mainBtnContent: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 30,
+    },
+    leafIconBadge: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: "#C5D8B6", 
+        justifyContent: "center",
+        alignItems: "center",
+    },
 
     // social login 
     dividerRow: { flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15, gap: 10 },
