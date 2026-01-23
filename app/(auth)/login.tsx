@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView} from "react-native";
+import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView, TextInput} from "react-native";
 
 
 const { width, height } = Dimensions.get("window");
@@ -314,7 +314,14 @@ export default function GardinoAuth() {
 
                                 {/* form */}
                                 <Animated.View style={[styles.formWrapper, { opacity: fadeAnim }]}>
-                                    
+                                    {!isLogin && (
+                                        <Animated.View style={{ opacity: nameFieldOpacity, transform: [{ translateY: nameFieldTranslateY }] }}>
+                                        <View style={styles.inputContainer}>
+                                            <Text style={styles.inputLabel}>Name</Text>
+                                            <TextInput style={styles.minimalInput} placeholder="Enter your name" value={name} onChangeText={setName} placeholderTextColor="#8A9A5B" />
+                                        </View>
+                                        </Animated.View>
+                                    )}
                                 </Animated.View>
 
 
