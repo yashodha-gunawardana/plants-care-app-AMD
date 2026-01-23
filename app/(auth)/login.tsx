@@ -363,22 +363,25 @@ export default function GardinoAuth() {
                                         </View>
                                     </TouchableOpacity>
 
+                                    {/* divider */}
                                     <View style={styles.dividerRow}>
                                         <View style={styles.smallLine} />
                                         <Text style={styles.socialText}>Quick Access</Text>
                                         <View style={styles.smallLine} />
                                     </View>
 
+                                    <View style={styles.socialCircleRow}>
+                                        <SocialIcon platform="Google" iconName="google" color="#DB4437" bgColor="#FFF" plantIcon="flower-tulip" iconType="fontawesome5" />
+                                        <SocialIcon platform="Apple" iconName="logo-apple" color="#000000" bgColor="#F5F5F5" plantIcon="leaf" />
+                                        <SocialIcon platform="Facebook" iconName="facebook-f" color="#1877F2" bgColor="#F0F7FF" plantIcon="sprout" iconType="fontawesome5" />
+                                    </View>
+
                                 </Animated.View>
-
-
                             </ScrollView>
-
                         </KeyboardAvoidingView>
                     </>
                 )}
             </SafeAreaView>
-
         </View>
     )
 }
