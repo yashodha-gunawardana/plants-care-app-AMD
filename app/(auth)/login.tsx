@@ -353,6 +353,7 @@ export default function GardinoAuth() {
                                         </View>
                                     )}
 
+                                    {/* main button login/ register */}
                                     <TouchableOpacity style={styles.mainBtn} activeOpacity={0.9} onPress={handleMainAction}>
                                         <View style={styles.mainBtnContent}>
                                             <Text style={styles.mainBtnText}>{isLogin ? "Welcome Back" : "Join Gardino"}</Text>
@@ -361,6 +362,12 @@ export default function GardinoAuth() {
                                             </View>
                                         </View>
                                     </TouchableOpacity>
+
+                                    <View style={styles.dividerRow}>
+                                        <View style={styles.smallLine} />
+                                        <Text style={styles.socialText}>Quick Access</Text>
+                                        <View style={styles.smallLine} />
+                                    </View>
 
                                 </Animated.View>
 
