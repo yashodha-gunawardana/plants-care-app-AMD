@@ -448,6 +448,23 @@ const styles = StyleSheet.create({
     minimalInput: { fontSize: 16, color: "#1A3026", paddingVertical: 8 },
     passRow: { flexDirection: "row", alignItems: "center" },
 
+    // remember me and forgot password 
+    utilityRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+    rememberRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+    checkbox: { 
+        width: 18, 
+        height: 18, 
+        borderRadius: 5, 
+        borderWidth: 1.5, 
+        borderColor: "#C1CDC1", 
+        justifyContent: "center", 
+        alignItems: "center", 
+        backgroundColor: "#FFF" 
+    },
+    checkboxActive: { backgroundColor: "#2D5A27", borderColor: "#2D5A27" },
+    rememberText: { fontSize: 13, color: "#8A9A5B", fontWeight: "500" },
+    forgotText: { fontSize: 13, color: "#1A3026", fontWeight: "600" },
+
     // main button
     mainBtn: { 
         backgroundColor: "#3A5A40", 
