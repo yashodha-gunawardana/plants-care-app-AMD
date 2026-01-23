@@ -316,10 +316,10 @@ export default function GardinoAuth() {
                                 <Animated.View style={[styles.formWrapper, { opacity: fadeAnim }]}>
                                     {!isLogin && (
                                         <Animated.View style={{ opacity: nameFieldOpacity, transform: [{ translateY: nameFieldTranslateY }] }}>
-                                        <View style={styles.inputContainer}>
-                                            <Text style={styles.inputLabel}>Name</Text>
-                                            <TextInput style={styles.minimalInput} placeholder="Enter your name" value={name} onChangeText={setName} placeholderTextColor="#8A9A5B" />
-                                        </View>
+                                            <View style={styles.inputContainer}>
+                                                <Text style={styles.inputLabel}>Name</Text>
+                                                <TextInput style={styles.minimalInput} placeholder="Enter your name" value={name} onChangeText={setName} placeholderTextColor="#8A9A5B" />
+                                            </View>
                                         </Animated.View>
                                     )}
 
@@ -331,12 +331,27 @@ export default function GardinoAuth() {
                                     <View style={styles.inputContainer}>
                                         <Text style={styles.inputLabel}>Password</Text>
                                         <View style={styles.passRow}>
-                                        <TextInput style={[styles.minimalInput, { flex: 1 }]} placeholder="••••••••" secureTextEntry={!showPassword} value={password} onChangeText={setPassword} placeholderTextColor="#8A9A5B" />
-                                        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                                            <Feather name={showPassword ? "eye" : "eye-off"} size={18} color="#6B8E23" />
-                                        </TouchableOpacity>
+                                            <TextInput style={[styles.minimalInput, { flex: 1 }]} placeholder="••••••••" secureTextEntry={!showPassword} value={password} onChangeText={setPassword} placeholderTextColor="#8A9A5B" />
+                                            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                                                <Feather name={showPassword ? "eye" : "eye-off"} size={18} color="#6B8E23" />
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
+
+                                    {/* remember me */}
+                                    {isLogin && (
+                                        <View style={styles.utilityRow}>
+                                            <TouchableOpacity style={styles.rememberRow} activeOpacity={0.8} onPress={() => setRememberMe(!rememberMe)}>
+                                                <View style={[styles.checkbox, rememberMe && styles.checkboxActive]}>
+                                                    {rememberMe && <Ionicons name="checkmark" size={12} color="#FFF" />}
+                                                </View>
+                                                <Text style={styles.rememberText}>Remember me</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity activeOpacity={0.7}>
+                                                <Text style={styles.forgotText}>Lost your key?</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )}
                                 </Animated.View>
 
 
@@ -432,7 +447,7 @@ const styles = StyleSheet.create({
     inputLabel: { fontSize: 10, fontWeight: "700", color: "#8A9A5B", textTransform: "uppercase", marginBottom: 6 },
     minimalInput: { fontSize: 16, color: "#1A3026", paddingVertical: 8 },
     passRow: { flexDirection: "row", alignItems: "center" },
-    
+
     // main button
     mainBtn: { 
         backgroundColor: "#3A5A40", 
