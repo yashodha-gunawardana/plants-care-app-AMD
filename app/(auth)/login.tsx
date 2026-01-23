@@ -89,6 +89,22 @@ export default function GardinoAuth() {
             useNativeDriver: true,
 
         }).start();
-    })
+
+        // show name filed in register form
+        const toValue = isLogin ? 0 : 1;
+        Animated.parallel([
+            Animated.timing(nameFieldOpacity, {
+                toValue,
+                duration: 300,
+                useNativeDriver: true
+            }),
+            Animated.timing(nameFieldTranslateY, {
+                toValue: isLogin ? -15 : 0,
+                duration: 300,
+                useNativeDriver: true
+            })
+        ]).start();
+
+    }, [isLogin]);
 }
 
