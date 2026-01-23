@@ -222,7 +222,16 @@ export default function GardinoAuth() {
 
             {/* bg layer with rain animation */}
             <View style={StyleSheet.absoluteFill} pointerEvents="none">
+                {rainAnims.map((anim, i) => (
+                    <Animated.View
+                        key={i}
+                        style={[
+                            styles.raindrop, {
 
+                            }
+                        ]}
+                    
+                ))}
             </View>
 
         </View>
