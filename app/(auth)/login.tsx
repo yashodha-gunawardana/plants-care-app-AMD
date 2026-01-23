@@ -233,6 +233,10 @@ export default function GardinoAuth() {
                                     inputRange: [0, 0.2, 0.8, 1],
                                     outputRange: [0, 0.15, 0.15, 0]
                                 }),
+                                transform: [
+                                    { translateY: anim.interpolate({ inputRange: [0, 1], outputRange: [-100, height + 100] }) },
+                                    { rotate: '15deg' }
+                                ] 
                             }
                         ]}
                     
