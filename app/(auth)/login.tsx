@@ -14,5 +14,7 @@ const RAIN_DROP_COUNT = 15;
 export default function GardinoAuth() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
+    
 }
 
