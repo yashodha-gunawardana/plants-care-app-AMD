@@ -220,6 +220,11 @@ export default function GardinoAuth() {
         <View style={styles.masterContainer}>
             <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
 
+            {/* bg layer with rain animation */}
+            <View style={StyleSheet.absoluteFill} pointerEvents="none">
+
+            </View>
+
         </View>
 
     )
