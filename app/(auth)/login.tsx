@@ -292,6 +292,7 @@ export default function GardinoAuth() {
                                 showsVerticalScrollIndicator={false} 
                                 keyboardShouldPersistTaps="handled">
 
+                                {/* header */}
                                 <Animated.View style={[styles.header, { opacity: fadeAnim, transform: [{ translateY: slideUp }] }]}>
                                     <View style={styles.iconBadge}>
                                         <MaterialCommunityIcons name="flower-tulip-outline" size={32} color="#2D5A27" />
@@ -339,6 +340,22 @@ const styles = StyleSheet.create({
     errorTitle: { fontSize: 28, fontWeight: "800", color: "#5C4033", marginTop: 20 },
     errorSubtitle: { fontSize: 16, color: "#8B4513", marginTop: 8, textAlign: "center", lineHeight: 22 },
     errorBtn: { backgroundColor: "#8B4513", shadowColor: "#5C4033" },
+
+    // header 
+    scrollContent: { paddingHorizontal: 40, paddingTop: 50, paddingBottom: 40, flexGrow: 1 },
+    header: { alignItems: "center" },
+    iconBadge: { 
+        width: 64, 
+        height: 64, 
+        borderRadius: 22, 
+        backgroundColor: "#E1EAD9", 
+        justifyContent: "center", 
+        alignItems: "center", 
+        marginBottom: 15, 
+        transform: [{ rotate: "-10deg" }] 
+    },
+    title: { fontSize: 36, fontWeight: "800", color: "#1A3026", letterSpacing: -1 },
+    subtitle: { fontSize: 14, color: "#6B8E23", marginTop: 4, textAlign: "center" },
 
     // main button
     mainBtn: { 
