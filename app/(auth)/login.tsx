@@ -33,6 +33,7 @@ export default function GardinoAuth() {
     const socialScale = useRef(new Animated.Value(1)).current; 
     const plantGrow = useRef(new Animated.Value(0)).current; 
     const successFade = useRef(new Animated.Value(0)).current; 
+    const errorShake = useRef(new Animated.Value(0)).current;
 
     // animation values for rain drop
     const rainAnims = useRef([...Array(RAIN_DROP_COUNT)].map(() => new Animated.Value(0))).current;
