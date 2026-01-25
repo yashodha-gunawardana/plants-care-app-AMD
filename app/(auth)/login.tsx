@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Ionicons, FontAwesome5, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
-import { Animated, Dimensions, Easing, Platform, StatusBar, TouchableOpacity, StyleSheet, View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView, TextInput} from "react-native";
+import { 
+    Animated, Dimensions, Easing, Platform, StatusBar, 
+    TouchableOpacity, StyleSheet, View, Text, SafeAreaView, 
+    KeyboardAvoidingView, ScrollView, TextInput 
+} from "react-native";
 
 
 const { width, height } = Dimensions.get("window");
