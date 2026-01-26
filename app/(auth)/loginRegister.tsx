@@ -198,7 +198,7 @@ const GardinoAuth = () => {
             ]).start(() => {
 
                 if (isLogin) {
-                    router.replace("/(tabs)/home");
+                    router.replace("/(dashboard)/home");
                 }
             });
 

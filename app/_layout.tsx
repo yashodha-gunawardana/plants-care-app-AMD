@@ -7,12 +7,12 @@ const RootLayout = () => {
     const insets = useSafeAreaInsets();
 
     return ( 
-        <View style={{ marginTop: insets.top, flex: 1 }}>
+        <View style={{ flex: 1 }}>
             
             <Stack screenOptions={{ headerShown: false }}>
 
                 <Stack.Screen name="(auth)" />
-                <Stack.Screen name="(tabs)" />
+                <Stack.Screen name="(dashboard)" />
 
             </Stack>
 
