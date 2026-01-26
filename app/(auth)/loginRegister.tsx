@@ -124,6 +124,14 @@ const GardinoAuth = () => {
     }, [isLogin]);
 
 
+    // leaf spin when loading
+    useEffect(() => {
+        if (isLoading) {
+            
+        }
+    })
+
+
     // button handler in login / register
     const handleMainAction = async () => {
         if (isLoading) return;
