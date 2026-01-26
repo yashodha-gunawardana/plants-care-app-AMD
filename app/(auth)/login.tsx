@@ -170,6 +170,21 @@ export default function GardinoAuth() {
                 await registerUser(name, email, password);
             }
 
+            setIsSuccess(true);
+            Animated.parallel([
+                Animated.timing(successFade, {
+                    toValue: 1,
+                    duration: 400,
+                    useNativeDriver: true
+                }),
+                Animated.spring(plantGrow, {
+                    toValue: 1,
+                    friction: 4,
+                    tension: 10,
+                    useNativeDriver: true
+                })
+            ]).start();
+
         } catch (err) {
 
         }
