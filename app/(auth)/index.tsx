@@ -262,8 +262,9 @@ const WelcomeScreen = () => {
     ).current;
 
 
+    // track movement using pan
     const listenerId = pan.addListener(({ value }) => {
-        
+        const progerss = value / travelDistance;
     }) 
     
 
