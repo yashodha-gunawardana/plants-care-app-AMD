@@ -32,7 +32,7 @@ export default function GardinoAuth() {
 
     const router = useRouter();
 
-    // const [activeSocial, setActiveSocial] = useState<string | null>(null);
+    const [activeSocial, setActiveSocial] = useState<string | null>(null);
 
     // animations
     const fadeAnim = useRef(new Animated.Value(0)).current; 
@@ -165,6 +165,8 @@ export default function GardinoAuth() {
 
             if (isLogin) {
                 await loginUser(email, password);
+
+                router.replace("/home");
             
             } else {
                 await registerUser(name, email, password);
@@ -202,9 +204,8 @@ export default function GardinoAuth() {
                     useNativeDriver: true 
                 })
             ]).start();
-
-        }
-    }
+        };
+    };
 
 
     // rotate blob animation
@@ -305,33 +306,33 @@ export default function GardinoAuth() {
             {/* success screen */}
             {isSuccess && (
                 <Animated.View style={[styles.successOverlay, { opacity: successFade }]}>
-                <Animated.View style={{ transform: [{ scale: plantGrow }] }}>
-                    <MaterialCommunityIcons name="sprout" size={100} color="#2D5A27" />
-                </Animated.View>
-                <Text style={styles.successTitle}>Welcome to Gardino!</Text>
-                <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
-                <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
-                    <Text style={styles.mainBtnText}>Continue</Text>
-                </TouchableOpacity>
+                    <Animated.View style={{ transform: [{ scale: plantGrow }] }}>
+                        <MaterialCommunityIcons name="sprout" size={100} color="#2D5A27" />
+                    </Animated.View>
+                    <Text style={styles.successTitle}>Welcome to Gardino!</Text>
+                    <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
+                    <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
+                        <Text style={styles.mainBtnText}>Continue</Text>
+                    </TouchableOpacity>
                 </Animated.View>
             )}
 
             {/* error screen */}
             {isError && (
                 <Animated.View style={[styles.errorOverlay, { opacity: successFade }]}>
-                <Animated.View style={{ transform: [{ scale: errorShake }] }}>
-                    <MaterialCommunityIcons name="leaf-off" size={100} color="#8B4513" />
-                </Animated.View>
-                <Text style={styles.errorTitle}>Growth Stalled</Text>
-                <Text style={styles.errorSubtitle}>We couldn't verify your roots. Please check your details and try again.</Text>
-                <TouchableOpacity 
-                    style={[styles.mainBtn, styles.errorBtn, { width: 200, marginTop: 40 }]} 
-                        onPress={() => {
-                        setIsError(false);
-                        errorShake.setValue(0);
-                    }}>
-                    <Text style={styles.mainBtnText}>Try Again</Text>
-                </TouchableOpacity>
+                    <Animated.View style={{ transform: [{ scale: errorShake }] }}>
+                        <MaterialCommunityIcons name="leaf-off" size={100} color="#8B4513" />
+                    </Animated.View>
+                    <Text style={styles.errorTitle}>Growth Stalled</Text>
+                    <Text style={styles.errorSubtitle}>We couldn't verify your roots. Please check your details and try again.</Text>
+                    <TouchableOpacity 
+                        style={[styles.mainBtn, styles.errorBtn, { width: 200, marginTop: 40 }]} 
+                            onPress={() => {
+                            setIsError(false);
+                            errorShake.setValue(0);
+                        }}>
+                        <Text style={styles.mainBtnText}>Try Again</Text>
+                    </TouchableOpacity>
                 </Animated.View>
             )}
 
