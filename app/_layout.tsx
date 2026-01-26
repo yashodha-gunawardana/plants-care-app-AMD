@@ -15,7 +15,8 @@ const RootLayout = () => {
 
             </Stack>
 
-            
         </View>
-    )
-}
+    );
+};
+
+export default RootLayout;
