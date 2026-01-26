@@ -127,7 +127,15 @@ const GardinoAuth = () => {
     // leaf spin when loading
     useEffect(() => {
         if (isLoading) {
-            
+
+            Animated.loop(
+                Animated.timing(leafSpin, {
+                    toValue: 1,
+                    duration: 900,
+                    easing: Easing.linear,
+                    useNativeDriver: true
+                })
+            ).start();
         }
     })
 
