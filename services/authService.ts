@@ -14,5 +14,7 @@ export const registerUser = async (
         auth,
         email,
         password
-    )
+    );
+
+    const user = userCredential.user;
 }
