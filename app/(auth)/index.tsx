@@ -232,7 +232,7 @@ const WelcomeScreen = () => {
 
     const panResponder = useRef(
         PanResponder.create({
-            
+            onStartShouldSetPanResponder: () => true,
         })
     )
    /* useEffect(() => {
