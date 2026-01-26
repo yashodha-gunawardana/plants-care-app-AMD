@@ -248,7 +248,7 @@ const WelcomeScreen = () => {
             // when user lifts finger
             onPanResponderRelease: (_, gestureState) => {
                 if (gestureState.dx >= travelDistance * 0.9) {
-                    
+                    router.push("/(auth)/loginRegister");
                 }
             }
         })
