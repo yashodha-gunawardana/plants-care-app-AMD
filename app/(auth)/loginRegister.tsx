@@ -15,7 +15,7 @@ const STATUSBAR_HEIGHT = Platform.OS === "android" ? (StatusBar.currentHeight ||
 const RAIN_DROP_COUNT = 15;
 
 
-export default function GardinoAuth() {
+const GardinoAuth = () => {
 
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -166,8 +166,6 @@ export default function GardinoAuth() {
             if (isLogin) {
                 await loginUser(email, password);
 
-                router.replace("/home");
-            
             } else {
                 await registerUser(name, email, password);
             }
@@ -185,8 +183,16 @@ export default function GardinoAuth() {
                     tension: 10,
                     useNativeDriver: true
                 })
-            ]).start();
+            ]).start(() => {
 
+                if (isLogin) {
+                    router.replace("/(tabs)/home")
+
+                } else {
+                    
+                }
+            })
+ 
         } catch (err: any) {
             console.log("Auth Error:", err.message); 
 
@@ -620,3 +626,4 @@ const styles = StyleSheet.create({
 });
 
 
+export default GardinoAuth;

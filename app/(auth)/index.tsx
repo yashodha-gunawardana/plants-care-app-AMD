@@ -217,7 +217,7 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
 
 
 // welcome screen component
-export default function WelcomeScreen() {
+const WelcomeScreen = () => {
     const router = useRouter();
 
     const glideX = useRef(new Animated.Value(0)).current;
@@ -325,7 +325,7 @@ export default function WelcomeScreen() {
                     <Animated.View style={[styles.buttonContainer]}>
                         <TouchableOpacity
                             activeOpacity={0.9}
-                            onPress={() => router.push("/login")}
+                            onPress={() => router.push("/(auth)/loginRegister")}
                             style={styles.trackShape}>
 
                             <BlurView intensity={30} tint="dark" style={styles.blurStyle}>
@@ -351,8 +351,9 @@ export default function WelcomeScreen() {
                 </SafeAreaView>
             </ImageBackground>
         </View>
-    )
-}
+    );
+};
+
 
 const styles = StyleSheet.create({
     container: { 
@@ -635,4 +636,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 0,                     
     },
-})
+});
+
+
+export default WelcomeScreen;
