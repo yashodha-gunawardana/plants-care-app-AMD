@@ -1,3 +1,4 @@
+import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
@@ -6,7 +7,12 @@ const RootLayout = () => {
 
     return ( 
         <View style={{ marginTop: insets.top, flex: 1 }}>
+            
+            <Stack screenOptions={{ headerShown: false }}>
 
+            </Stack>
+
+            
         </View>
     )
 }
