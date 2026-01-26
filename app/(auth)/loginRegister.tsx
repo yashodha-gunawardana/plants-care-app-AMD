@@ -24,6 +24,7 @@ const GardinoAuth = () => {
     // success and error screens
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     // form inputs
     const [email, setEmail] = useState<string>("");
@@ -186,7 +187,7 @@ const GardinoAuth = () => {
             ]).start(() => {
 
                 if (isLogin) {
-                    router.replace("/(tabs)/home")
+                    router.replace("/(tabs)/home");
 
                 } else {
                     setIsLogin(true);
@@ -195,7 +196,7 @@ const GardinoAuth = () => {
                     plantGrow.setValue(0);
                     successFade.setValue(0);
                 }
-            })
+            });
  
         } catch (err: any) {
             console.log("Auth Error:", err.message); 
