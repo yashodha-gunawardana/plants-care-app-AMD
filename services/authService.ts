@@ -27,4 +27,6 @@ export const registerUser = async (
         email: email,
         createdAt: serverTimestamp() // account creation time
     });
+
+    return user;
 }
