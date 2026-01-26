@@ -287,10 +287,8 @@ const WelcomeScreen = () => {
         <View style={styles.container}>
             <ImageBackground 
                 source={{ uri: 'https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg' }} 
-                style={StyleSheet.absoluteFillObject}
-                resizeMode="cover">
+                style={StyleSheet.absoluteFillObject}>
             
-
                 <View style={styles.overlay} />
 
                 {/* main content */}
@@ -335,7 +333,7 @@ const WelcomeScreen = () => {
                     </View>
 
                     {/* button */}
-                     <Animated.View style={[styles.buttonContainer]}>
+                     <Animated.View style={[styles.buttonContainer, { transform: [{ translateX: 0 }] }]}>
                         <View
                             style={styles.trackShape}
                             {...panResponder.panHandlers}>
@@ -345,7 +343,7 @@ const WelcomeScreen = () => {
                                 <Animated.View 
                                     style={[
                                         styles.iconCircle, 
-                                        { transform: [{ translateX: glideX }] }
+                                        { transform: [{ translateX: pan }] }
                                     ]}>
                                     <PlantIcon stage={currentStageInfo.icon} size={32} />
                                 </Animated.View>
