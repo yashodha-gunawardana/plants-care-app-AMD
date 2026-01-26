@@ -25,6 +25,10 @@ const GardinoAuth = () => {
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [successMessage, setSuccessMessage] = useState<{ title: string, subtitle: string }>({
+        title: "",
+        subtitle: ""
+    });
     const [isLoading, setIsLoading] = useState(false);
 
     // form inputs
@@ -325,7 +329,14 @@ const GardinoAuth = () => {
                     <Text style={styles.successTitle}>Welcome to Gardino!</Text>
                     <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
 
-                    <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
+                    <TouchableOpacity 
+                        style={[styles.mainBtn, { width: 200, marginTop: 40 }]} 
+                        onPress={() => {
+                            setIsSuccess(false);
+                            plantGrow.setValue(0);
+                            successFade.setValue(0);
+                            setIsLogin(true);
+                        }}>
                         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                             <Text style={styles.mainBtnText}>Continue</Text>
                         </View>
