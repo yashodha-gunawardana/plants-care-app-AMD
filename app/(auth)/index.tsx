@@ -258,45 +258,13 @@ const WelcomeScreen = () => {
                 }).start();
             },
         })
-        
+
     ).current;
-   /* useEffect(() => {
-        Animated.loop(
-            Animated.sequence([
-
-                // slide icon to the right
-                Animated.timing(glideX, {
-                    toValue: travelDistance,
-                    duration: 3000,
-                    easing: Easing.bezier(0.4, 0, 0.2, 1),
-                    useNativeDriver: true
-                }),
-
-                Animated.delay(1500),  // 1.5 second pause
-
-                // back to start
-                Animated.timing(glideX, {
-                    toValue: 0,
-                    duration: 800,
-                    useNativeDriver: true
-                }),
-            ])
-        ).start();
 
 
-        // update plant stage based on animation progress
-        const listenerId = glideX.addListener(({ value }) => {
-            const progress = value / travelDistance;
-
-            const stageIndex = Math.min(
-                Math.floor(progress * PLANT_STAGES.length),
-                PLANT_STAGES.length - 1
-            );
-            setCurrentStage(stageIndex)
-        });
-
-        return () => glideX.removeListener(listenerId)
-    }, []);*/
+    const listenerId = pan.addListener(({ value }) => {
+        
+    }) 
     
 
     // get current stage
