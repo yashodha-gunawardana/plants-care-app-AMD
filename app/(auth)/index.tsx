@@ -243,6 +243,10 @@ const WelcomeScreen = () => {
                 // (0 to travelDistance)
                 let newX = Math.max(0, Math.min(gestureState.dx, travelDistance));
                 pan.setValue(newX);
+            },
+
+            onPanResponderRelease: (_, gestureState) => {
+                
             }
         })
     )
