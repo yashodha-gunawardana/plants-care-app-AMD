@@ -11,9 +11,7 @@ import { useRouter } from "expo-router";
 
 
 const { width, height } = Dimensions.get("window");
-
 const STATUSBAR_HEIGHT = Platform.OS === "android" ? (StatusBar.currentHeight || 0) : 0;
-
 const RAIN_DROP_COUNT = 15;
 
 
@@ -36,6 +34,7 @@ export default function GardinoAuth() {
 
     // const [activeSocial, setActiveSocial] = useState<string | null>(null);
 
+    // animations
     const fadeAnim = useRef(new Animated.Value(0)).current; 
     const slideUp = useRef(new Animated.Value(30)).current; 
     const tabIndicatorX = useRef(new Animated.Value(0)).current;   // move tab slider between login/ register
@@ -123,7 +122,7 @@ export default function GardinoAuth() {
 
 
     // button handler in login / register
-    const handleMainAction = () => {
+    /*const handleMainAction = () => {
         const isAuthenticated = Math.random() > 0.5; 
 
         if (isAuthenticated) {
@@ -158,7 +157,15 @@ export default function GardinoAuth() {
                 })
             ]).start();
         }
-    };
+    };*/
+    const handleMainAction = async () => {
+        try {
+            
+
+        } catch (err) {
+
+        }
+    }
 
 
     // rotate blob animation
