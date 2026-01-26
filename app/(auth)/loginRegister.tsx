@@ -168,6 +168,11 @@ const GardinoAuth = () => {
             if (isLogin) {
                 await loginUser(email, password);
 
+                setSuccessMessage({
+                    title: "Welcome Back!",
+                    subtitle: "Your garden is ready to grow."
+                });
+
             } else {
                 await registerUser(name, email, password);
             }
