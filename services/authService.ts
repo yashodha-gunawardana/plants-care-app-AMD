@@ -42,4 +42,6 @@ export const loginUser = async (
         emai,
         password
     );
+
+    return userCredential.user;
 }
