@@ -258,7 +258,8 @@ const WelcomeScreen = () => {
                 }).start();
             },
         })
-    )
+        
+    ).current;
    /* useEffect(() => {
         Animated.loop(
             Animated.sequence([
