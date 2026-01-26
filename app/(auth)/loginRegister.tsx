@@ -25,7 +25,7 @@ const GardinoAuth = () => {
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
-    const [isLoading. setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // form inputs
     const [email, setEmail] = useState<string>("");
@@ -47,11 +47,12 @@ const GardinoAuth = () => {
     const plantGrow = useRef(new Animated.Value(0)).current; 
     const successFade = useRef(new Animated.Value(0)).current; 
     const errorShake = useRef(new Animated.Value(0)).current;
+    const leafSpin = useRef(new Animated.Value(0)).current;
 
     // animation values for rain drop
     const rainAnims = useRef([...Array(RAIN_DROP_COUNT)].map(() => new Animated.Value(0))).current;
 
-
+    
     useEffect(() => {
         Animated.parallel([
             Animated.timing(fadeAnim, {
@@ -125,7 +126,10 @@ const GardinoAuth = () => {
 
     // button handler in login / register
     const handleMainAction = async () => {
+        if (isLoading) return;
+
         try {
+            setIsLoading(true);
             setIsError(false);
             setIsSuccess(false);
             setErrorMessage("");
@@ -187,7 +191,10 @@ const GardinoAuth = () => {
                     useNativeDriver: true 
                 })
             ]).start();
-        };
+
+        } finally {
+            setIsLoading(false);
+        }
     };
 
 
@@ -401,7 +408,7 @@ const GardinoAuth = () => {
                                     )}
 
                                     {/* main button login/ register */}
-                                    <TouchableOpacity style={styles.mainBtn} activeOpacity={0.9} onPress={handleMainAction}>
+                                    <TouchableOpacity style={[styles.mainBtn, isLoading && { opacity: 0.7 }]} activeOpacity={0.9} onPress={handleMainAction} disabled={isLoading}>
                                         <View style={styles.mainBtnContent}>
                                             <Text style={styles.mainBtnText}>{isLogin ? "Welcome Back" : "Join Gardino"}</Text>
                                             <View style={styles.leafIconBadge}>
