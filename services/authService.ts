@@ -1,5 +1,6 @@
 import { auth } from "@/config/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { use } from "react";
 
 
 
@@ -17,4 +18,8 @@ export const registerUser = async (
     );
 
     const user = userCredential.user;
+
+    await updateProfile(user, {
+        displayName: fullname
+    });
 }
