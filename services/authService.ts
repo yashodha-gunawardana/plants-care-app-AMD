@@ -1,8 +1,6 @@
 import { auth } from "@/config/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { serverTimestamp, setDoc } from "firebase/firestore";
-import { use } from "react";
-
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 
 
 
