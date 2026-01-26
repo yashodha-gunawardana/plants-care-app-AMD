@@ -1,3 +1,4 @@
+import { Tabs } from "expo-router";
 
 
 const tabs = [
@@ -7,3 +8,22 @@ const tabs = [
     { name: "log", icon: "water-outline", title: "Water" },
     { name: "settings", icon: "settings-outline", title: "Settings" }
 ];
+
+const DashboardLayout = () => {
+    return (
+        <Tabs
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    height: 75,
+                    backgroundColor: "#1A3C34",
+                    borderTopLeftRadius: 40,
+                    borderTopRightRadius: 40,
+                    position: "absolute"
+                },
+            }}>
+
+        </Tabs>
+    )
+}
