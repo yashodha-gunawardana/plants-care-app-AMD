@@ -191,7 +191,9 @@ const GardinoAuth = () => {
                 } else {
                     setIsLogin(true);
 
-                    
+                    setIsSuccess(false);
+                    plantGrow.setValue(0);
+                    successFade.setValue(0);
                 }
             })
  
