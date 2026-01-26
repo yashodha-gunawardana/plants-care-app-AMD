@@ -165,6 +165,9 @@ export default function GardinoAuth() {
 
             if (isLogin) {
                 await loginUser(email, password);
+            
+            } else {
+                await registerUser(name, email, password);
             }
 
         } catch (err) {
