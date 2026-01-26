@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 
@@ -23,7 +24,22 @@ const DashboardLayout = () => {
                     position: "absolute"
                 },
             }}>
-
+            
+            {tabs.map((tab) => (
+                <Tabs.Screen
+                    key={tab.name}
+                    name={tab.name}
+                    options={{
+                        tabBarIcon: ({ focused }) => (
+                            <Ionicons
+                                name={tab.icon as any}
+                                size={24}
+                                color={focused ? "#C6F062" : "rgba(255,255,255,0.4)"}
+                            />
+                        )
+                    }}
+                />
+            ))}
         </Tabs>
-    )
-}
+    );
+};
