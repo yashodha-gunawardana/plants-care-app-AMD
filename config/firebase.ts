@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBPJLKTxiVlIeoUNIMroUSnfdqWLtQOtuQ",
@@ -16,7 +17,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Intialize authentication with persistence
 export const auth = initializeAuth(app, {
     persistence: getReactNativePersistence(AsyncStorage),
-    
+
 })
