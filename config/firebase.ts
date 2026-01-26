@@ -10,6 +10,7 @@ import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBPJLKTxiVlIeoUNIMroUSnfdqWLtQOtuQ",
