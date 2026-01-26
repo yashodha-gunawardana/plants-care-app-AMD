@@ -25,6 +25,7 @@ const GardinoAuth = () => {
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [isLoading. setIsLoading] = useState(false);
 
     // form inputs
     const [email, setEmail] = useState<string>("");
@@ -123,42 +124,6 @@ const GardinoAuth = () => {
 
 
     // button handler in login / register
-    /*const handleMainAction = () => {
-        const isAuthenticated = Math.random() > 0.5; 
-
-        if (isAuthenticated) {
-            setIsSuccess(true);
-            Animated.parallel([
-                Animated.timing(successFade, {
-                    toValue: 1,
-                    duration: 400,
-                    useNativeDriver: true
-                }),
-                Animated.spring(plantGrow, {
-                    toValue: 1,
-                    friction: 4,
-                    tension: 10,
-                    useNativeDriver: true
-                })
-            ]).start();
-
-        } else {
-            setIsError(true);
-            Animated.parallel([
-                Animated.timing(successFade, { 
-                    toValue: 1, 
-                    duration: 400, 
-                    useNativeDriver: true 
-                }),
-                Animated.spring(errorShake, { 
-                    toValue: 1, 
-                    friction: 3, 
-                    tension: 40, 
-                    useNativeDriver: true 
-                })
-            ]).start();
-        }
-    };*/
     const handleMainAction = async () => {
         try {
             setIsError(false);
@@ -192,6 +157,10 @@ const GardinoAuth = () => {
 
                 } else {
                     setIsLogin(true);
+
+                    setEmail("");
+                    setPassword("");
+                    setName("");
 
                     setIsSuccess(false);
                     plantGrow.setValue(0);
@@ -326,7 +295,7 @@ const GardinoAuth = () => {
 
                     <Text style={styles.successTitle}>Welcome to Gardino!</Text>
                     <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
-                    
+
                     <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
                         <Text style={styles.mainBtnText}>Continue</Text>
                     </TouchableOpacity>
