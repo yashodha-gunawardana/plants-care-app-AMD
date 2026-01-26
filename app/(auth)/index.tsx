@@ -250,7 +250,13 @@ const WelcomeScreen = () => {
                 if (gestureState.dx >= travelDistance * 0.9) {
                     router.push("/(auth)/loginRegister");
                 }
-            }
+
+                Animated.spring(pan, {
+                    toValue: 0,
+                    useNativeDriver: true
+
+                }).start();
+            },
         })
     )
    /* useEffect(() => {
