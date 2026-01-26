@@ -29,4 +29,17 @@ export const registerUser = async (
     });
 
     return user;
+};
+
+
+export const loginUser = async (
+    emai: string,
+    password: string
+) => {
+
+    const userCredential = await signInWithEmailAndPassword(
+        auth,
+        emai,
+        password
+    );
 }
