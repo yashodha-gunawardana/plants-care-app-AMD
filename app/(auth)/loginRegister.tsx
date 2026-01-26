@@ -144,6 +144,13 @@ const GardinoAuth = () => {
     }, [isLoading]);
 
 
+    // leaf totate when loading
+    const leafRotate = leafSpin.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0deg", "360deg"]
+    });
+
+
     // button handler in login / register
     const handleMainAction = async () => {
         if (isLoading) return;
