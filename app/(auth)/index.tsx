@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Animated, Easing, View, Text, ImageBackground, SafeAreaView, TouchableOpacity } from "react-native";
+import { StyleSheet, Animated, Easing, View, Text, ImageBackground, SafeAreaView, PanResponder } from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
@@ -227,6 +227,8 @@ const WelcomeScreen = () => {
 
     const trackWidth = width > 500 ? 320 : width * 0.85;
     const travelDistance = trackWidth - 60 - 12;  // total travel distance for icon
+
+    const pan = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
         Animated.loop(

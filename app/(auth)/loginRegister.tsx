@@ -163,6 +163,7 @@ const GardinoAuth = () => {
         try {
             setIsError(false);
             setIsSuccess(false);
+            setErrorMessage("");
 
             if (isLogin) {
                 await loginUser(email, password);
@@ -200,6 +201,8 @@ const GardinoAuth = () => {
  
         } catch (err: any) {
             console.log("Auth Error:", err.message); 
+
+            setErrorMessage(err.message || "Something went wrong"); 
 
             setIsError(true);
             Animated.parallel([
@@ -320,8 +323,10 @@ const GardinoAuth = () => {
                     <Animated.View style={{ transform: [{ scale: plantGrow }] }}>
                         <MaterialCommunityIcons name="sprout" size={100} color="#2D5A27" />
                     </Animated.View>
+
                     <Text style={styles.successTitle}>Welcome to Gardino!</Text>
                     <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
+                    
                     <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
                         <Text style={styles.mainBtnText}>Continue</Text>
                     </TouchableOpacity>
@@ -334,8 +339,10 @@ const GardinoAuth = () => {
                     <Animated.View style={{ transform: [{ scale: errorShake }] }}>
                         <MaterialCommunityIcons name="leaf-off" size={100} color="#8B4513" />
                     </Animated.View>
+
                     <Text style={styles.errorTitle}>Growth Stalled</Text>
-                    <Text style={styles.errorSubtitle}>We couldn't verify your roots. Please check your details and try again.</Text>
+                    <Text style={styles.errorSubtitle}>{errorMessage}</Text>
+
                     <TouchableOpacity 
                         style={[styles.mainBtn, styles.errorBtn, { width: 200, marginTop: 40 }]} 
                             onPress={() => {
