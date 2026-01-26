@@ -189,6 +189,8 @@ const GardinoAuth = () => {
                     router.replace("/(tabs)/home")
 
                 } else {
+                    setIsLogin(true);
+
                     
                 }
             })
