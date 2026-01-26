@@ -185,19 +185,14 @@ const GardinoAuth = () => {
 
                 if (isLogin) {
                     router.replace("/(tabs)/home");
-
-                } else {
-                    setIsLogin(true);
-
-                    setEmail("");
-                    setPassword("");
-                    setName("");
-
-                    setIsSuccess(false);
-                    plantGrow.setValue(0);
-                    successFade.setValue(0);
                 }
             });
+
+            if (!isLogin) {
+                setEmail("");
+                setPassword("");
+                setName("");
+            }
  
         } catch (err: any) {
             console.log("Auth Error:", err.message); 
@@ -331,7 +326,9 @@ const GardinoAuth = () => {
                     <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
 
                     <TouchableOpacity style={[styles.mainBtn, { width: 200, marginTop: 40 }]} onPress={() => setIsSuccess(false)}>
-                        <Text style={styles.mainBtnText}>Continue</Text>
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <Text style={styles.mainBtnText}>Continue</Text>
+                        </View>
                     </TouchableOpacity>
                 </Animated.View>
             )}
@@ -352,7 +349,9 @@ const GardinoAuth = () => {
                             setIsError(false);
                             errorShake.setValue(0);
                         }}>
-                        <Text style={styles.mainBtnText}>Try Again</Text>
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <Text style={styles.mainBtnText}>Try Again</Text>
+                        </View>
                     </TouchableOpacity>
                 </Animated.View>
             )}
@@ -497,7 +496,7 @@ const styles = StyleSheet.create({
     errorOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "#FCF8F4", zIndex: 100, justifyContent: "center", alignItems: "center", padding: 40 },
     errorTitle: { fontSize: 28, fontWeight: "800", color: "#5C4033", marginTop: 20 },
     errorSubtitle: { fontSize: 16, color: "#8B4513", marginTop: 8, textAlign: "center", lineHeight: 22 },
-    errorBtn: { backgroundColor: "#8B4513", shadowColor: "#5C4033" },
+    errorBtn: { backgroundColor: "#8B4513", shadowColor: "#5C4033"},
 
     // header 
     scrollContent: { paddingHorizontal: 40, paddingTop: 50, paddingBottom: 40, flexGrow: 1 },
