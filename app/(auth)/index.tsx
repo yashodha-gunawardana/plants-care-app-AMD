@@ -265,6 +265,11 @@ const WelcomeScreen = () => {
     // track movement using pan
     const listenerId = pan.addListener(({ value }) => {
         const progerss = value / travelDistance;
+
+        const stageIndex = Math.min(
+            Math.floor(progerss * PLANT_STAGES.length),
+            PLANT_STAGES.length - 1
+        );
     }) 
     
 
