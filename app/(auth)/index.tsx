@@ -235,7 +235,12 @@ const WelcomeScreen = () => {
             // always allow starting drag
             onStartShouldSetPanResponder: () => true,
 
+            // always allow movement drag
             onMoveShouldSetPanResponder: () => true,
+
+            onPanResponderMove: (_, gestureState) => {
+                
+            }
         })
     )
    /* useEffect(() => {
