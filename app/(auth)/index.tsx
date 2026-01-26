@@ -262,21 +262,23 @@ const WelcomeScreen = () => {
     ).current;
 
 
-    // track movement using pan
-    const listenerId = pan.addListener(({ value }) => {
-        const progerss = value / travelDistance;
+    useEffect(() => {
+        // track movement using pan
+        const listenerId = pan.addListener(({ value }) => {
+            const progerss = value / travelDistance;
 
-        const stageIndex = Math.min(
-            Math.floor(progerss * PLANT_STAGES.length),
-            PLANT_STAGES.length - 1
-        );
+            const stageIndex = Math.min(
+                Math.floor(progerss * PLANT_STAGES.length),
+                PLANT_STAGES.length - 1
+            );
 
-        setCurrentStage(stageIndex);
-    });
+            setCurrentStage(stageIndex);
+        });
 
-    return () => pan.removeListener(listenerId);
+        return () => pan.removeListener(listenerId);
+    }, []);
     
-
+    
     // get current stage
     const currentStageInfo = PLANT_STAGES[currentStage] || PLANT_STAGES[0];
 
