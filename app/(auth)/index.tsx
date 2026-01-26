@@ -272,7 +272,9 @@ const WelcomeScreen = () => {
         );
 
         setCurrentStage(stageIndex);
-    }) 
+    });
+
+    return () => pan.removeListener(listenerId);
     
 
     // get current stage
