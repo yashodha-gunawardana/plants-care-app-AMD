@@ -175,6 +175,11 @@ const GardinoAuth = () => {
 
             } else {
                 await registerUser(name, email, password);
+
+                setSuccessMessage({
+                    title: "Registration Successful!",
+                    subtitle: "Your garden is starting to grow..."
+                });
             }
 
             setIsSuccess(true);
