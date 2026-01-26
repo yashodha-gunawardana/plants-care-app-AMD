@@ -287,7 +287,8 @@ const WelcomeScreen = () => {
         <View style={styles.container}>
             <ImageBackground 
                 source={{ uri: 'https://i.pinimg.com/1200x/c8/aa/08/c8aa087994998899f569a74367a9ffd0.jpg' }} 
-                style={StyleSheet.absoluteFillObject}>
+                style={StyleSheet.absoluteFillObject}
+                resizeMode="cover">
             
 
                 <View style={styles.overlay} />

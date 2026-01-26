@@ -336,8 +336,8 @@ const GardinoAuth = () => {
                         <MaterialCommunityIcons name="sprout" size={100} color="#2D5A27" />
                     </Animated.View>
 
-                    <Text style={styles.successTitle}>Welcome to Gardino!</Text>
-                    <Text style={styles.successSubtitle}>Your garden is starting to grow...</Text>
+                    <Text style={styles.successTitle}>{successMessage.title}</Text>
+                    <Text style={styles.successSubtitle}>{successMessage.subtitle}</Text>
 
                     <TouchableOpacity 
                         style={[styles.mainBtn, { width: 200, marginTop: 40 }]} 
