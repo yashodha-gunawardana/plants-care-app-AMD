@@ -232,7 +232,10 @@ const WelcomeScreen = () => {
 
     const panResponder = useRef(
         PanResponder.create({
+            // always allow starting drag
             onStartShouldSetPanResponder: () => true,
+
+            onMoveShouldSetPanResponder: () => true,
         })
     )
    /* useEffect(() => {
