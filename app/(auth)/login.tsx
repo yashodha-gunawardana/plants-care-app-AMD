@@ -160,7 +160,12 @@ export default function GardinoAuth() {
     };*/
     const handleMainAction = async () => {
         try {
-            
+            setIsError(false);
+            setIsSuccess(false);
+
+            if (isLogin) {
+                await loginUser(email, password);
+            }
 
         } catch (err) {
 
