@@ -185,7 +185,23 @@ export default function GardinoAuth() {
                 })
             ]).start();
 
-        } catch (err) {
+        } catch (err: any) {
+            console.log("Auth Error:", err.message); 
+
+            setIsError(true);
+            Animated.parallel([
+                Animated.timing(successFade, { 
+                    toValue: 1, 
+                    duration: 400, 
+                    useNativeDriver: true 
+                }),
+                Animated.spring(errorShake, { 
+                    toValue: 1, 
+                    friction: 3, 
+                    tension: 40, 
+                    useNativeDriver: true 
+                })
+            ]).start();
 
         }
     }
