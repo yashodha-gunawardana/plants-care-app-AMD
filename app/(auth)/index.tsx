@@ -245,8 +245,11 @@ const WelcomeScreen = () => {
                 pan.setValue(newX);
             },
 
+            // when user lifts finger
             onPanResponderRelease: (_, gestureState) => {
-                
+                if (gestureState.dx >= travelDistance * 0.9) {
+                    
+                }
             }
         })
     )
