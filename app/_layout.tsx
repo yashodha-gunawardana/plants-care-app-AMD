@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
+// root layout for the whole application
 const RootLayout = () => {
     const insets = useSafeAreaInsets();
 
