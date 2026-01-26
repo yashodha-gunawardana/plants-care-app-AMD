@@ -334,11 +334,10 @@ const WelcomeScreen = () => {
                     </View>
 
                     {/* button */}
-                    {/* <Animated.View style={[styles.buttonContainer]}>
-                        <TouchableOpacity
-                            activeOpacity={0.9}
-                            onPress={() => router.push("/(auth)/loginRegister")}
-                            style={styles.trackShape}>
+                     <Animated.View style={[styles.buttonContainer]}>
+                        <View
+                            style={styles.trackShape}
+                            {...panResponder.panHandlers}>
 
                             <BlurView intensity={30} tint="dark" style={styles.blurStyle}>
 
@@ -358,8 +357,8 @@ const WelcomeScreen = () => {
                                 </View>
 
                             </BlurView>
-                        </TouchableOpacity>
-                    </Animated.View> */}
+                        </View>
+                    </Animated.View> 
                     
                 </SafeAreaView>
             </ImageBackground>
