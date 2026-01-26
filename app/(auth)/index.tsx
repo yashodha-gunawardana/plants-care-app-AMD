@@ -221,6 +221,7 @@ const WelcomeScreen = () => {
     const router = useRouter();
 
     const glideX = useRef(new Animated.Value(0)).current;
+    const pan = useRef(new Animated.Value(0)).current;
     
     // current plant stage
     const [currentStage, setCurrentStage] = useState<number>(0);
@@ -228,9 +229,13 @@ const WelcomeScreen = () => {
     const trackWidth = width > 500 ? 320 : width * 0.85;
     const travelDistance = trackWidth - 60 - 12;  // total travel distance for icon
 
-    const pan = useRef(new Animated.Value(0)).current;
 
-    useEffect(() => {
+    const panResponder = useRef(
+        PanResponder.create({
+            
+        })
+    )
+   /* useEffect(() => {
         Animated.loop(
             Animated.sequence([
 
@@ -266,8 +271,8 @@ const WelcomeScreen = () => {
         });
 
         return () => glideX.removeListener(listenerId)
-    }, []);
-
+    }, []);*/
+    
 
     // get current stage
     const currentStageInfo = PLANT_STAGES[currentStage] || PLANT_STAGES[0];
@@ -324,7 +329,7 @@ const WelcomeScreen = () => {
                     </View>
 
                     {/* button */}
-                    <Animated.View style={[styles.buttonContainer]}>
+                    {/* <Animated.View style={[styles.buttonContainer]}>
                         <TouchableOpacity
                             activeOpacity={0.9}
                             onPress={() => router.push("/(auth)/loginRegister")}
@@ -349,7 +354,8 @@ const WelcomeScreen = () => {
 
                             </BlurView>
                         </TouchableOpacity>
-                    </Animated.View>
+                    </Animated.View> */}
+                    
                 </SafeAreaView>
             </ImageBackground>
         </View>
