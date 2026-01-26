@@ -12,6 +12,7 @@ const RootLayout = () => {
 
                 <Stack.Screen name="index" />
                 <Stack.Screen name="loginRegister" />
+                <Stack.Screen name="(tabs)" />
 
             </Stack>
 
