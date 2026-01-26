@@ -6,6 +6,9 @@ import {
     KeyboardAvoidingView, ScrollView, TextInput 
 } from "react-native";
 
+import { loginUser, registerUser } from "@/services/authService";
+
+
 
 const { width, height } = Dimensions.get("window");
 
