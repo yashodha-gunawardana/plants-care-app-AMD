@@ -240,7 +240,9 @@ const WelcomeScreen = () => {
 
             // when user moves finger
             onPanResponderMove: (_, gestureState) => {
+                // (0 to travelDistance)
                 let newX = Math.max(0, Math.min(gestureState.dx, travelDistance));
+                pan.setValue(newX);
             }
         })
     )
