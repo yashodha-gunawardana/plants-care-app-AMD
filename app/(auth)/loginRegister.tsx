@@ -136,8 +136,12 @@ const GardinoAuth = () => {
                     useNativeDriver: true
                 })
             ).start();
+
+        } else {
+            leafSpin.stopAnimation();
+            leafSpin.setValue(0);
         }
-    })
+    }, [isLoading]);
 
 
     // button handler in login / register
