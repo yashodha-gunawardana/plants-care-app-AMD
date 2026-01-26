@@ -18,17 +18,23 @@ const RAIN_DROP_COUNT = 15;
 
 
 export default function GardinoAuth() {
+
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [rememberMe, setRememberMe] = useState<boolean>(false);
+
+    // success and error screens
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
 
+    // form inputs
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [name, setName] = useState<string>("");
 
-    const [activeSocial, setActiveSocial] = useState<string | null>(null);
+    const router = useRouter();
+
+    // const [activeSocial, setActiveSocial] = useState<string | null>(null);
 
     const fadeAnim = useRef(new Animated.Value(0)).current; 
     const slideUp = useRef(new Animated.Value(30)).current; 
