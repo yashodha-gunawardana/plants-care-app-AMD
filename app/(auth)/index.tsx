@@ -270,6 +270,8 @@ const WelcomeScreen = () => {
             Math.floor(progerss * PLANT_STAGES.length),
             PLANT_STAGES.length - 1
         );
+
+        setCurrentStage(stageIndex);
     }) 
     
 
