@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import { loginUser, registerUser } from "@/services/authService";
-
+import { useRouter } from "expo-router";
 
 
 const { width, height } = Dimensions.get("window");
