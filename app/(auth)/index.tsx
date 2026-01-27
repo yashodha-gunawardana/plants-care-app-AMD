@@ -223,7 +223,7 @@ const WelcomeScreen = () => {
     const pan = useRef(new Animated.Value(0)).current;
     
     const entranceAnim = useRef(new Animated.Value(0)).current;
-    
+
     // current plant stage
     const [currentStage, setCurrentStage] = useState<number>(0);
 
@@ -264,6 +264,15 @@ const WelcomeScreen = () => {
 
 
     useEffect(() => {
+        // entrance animation
+        Animated.timing(entranceAnim, {
+            toValue: 1,
+            duration: 2500, 
+            easing: Easing.out(Easing.poly(4)), 
+            useNativeDriver: true
+
+        }).start();
+
         // track movement using pan
         const listenerId = pan.addListener(({ value }) => {
             const progerss = value / travelDistance;
