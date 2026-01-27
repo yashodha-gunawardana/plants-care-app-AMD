@@ -31,9 +31,10 @@ const DashboardLayout = () => {
                                 {focused && <View style={styles.indicator} />}
                             
                             <Ionicons
-                                name={tab.icon as any}
+                                name={tab.icon}
                                 size={24}
                                 color={focused ? "#C6F062" : "rgba(255,255,255,0.4)"}
+                                style={focused ? styles.activeIcon : null}
                             />
                             </View>
                         )
