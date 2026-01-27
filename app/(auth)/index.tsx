@@ -312,75 +312,75 @@ const WelcomeScreen = () => {
                             }],
                         }]}>
 
-                {/* main content */}
-                <SafeAreaView style={styles.contentWrapper}>
+                    {/* main content */}
+                    <SafeAreaView style={styles.contentWrapper}>
 
-                    {/* title */}
-                    <View style={styles.textContainer}>
-                        <View style={styles.masterLogoWrapper}>
+                        {/* title */}
+                        <View style={styles.textContainer}>
+                            <View style={styles.masterLogoWrapper}>
 
-                            {/* design for letter "G" */}
-                            <View style={styles.gSculptedWrapper}>
-                                <View style={styles.gBackglow} />
-                            
-                                <View style={styles.gLetterContainer}>
-                                    <Text style={styles.titleG}>G</Text>
-                                </View>
-
-                                {/* leaf design overlaying the G */}
-                                <View style={styles.sculptedLeafContainer}>
-                                    <View style={styles.leafShadowLayer} />
-                                    <View style={styles.leafMainBody}>
-                                        <View style={styles.leafReflectedLight} />
+                                {/* design for letter "G" */}
+                                <View style={styles.gSculptedWrapper}>
+                                    <View style={styles.gBackglow} />
+                                
+                                    <View style={styles.gLetterContainer}>
+                                        <Text style={styles.titleG}>G</Text>
                                     </View>
 
-                                    <View style={styles.dewDropPoint} />
+                                    {/* leaf design overlaying the G */}
+                                    <View style={styles.sculptedLeafContainer}>
+                                        <View style={styles.leafShadowLayer} />
+                                        <View style={styles.leafMainBody}>
+                                            <View style={styles.leafReflectedLight} />
+                                        </View>
+
+                                        <View style={styles.dewDropPoint} />
+                                    </View>
                                 </View>
+
+                                <Text style={styles.titleRestText}>ardino</Text>
                             </View>
 
-                            <Text style={styles.titleRestText}>ardino</Text>
+                            <View style={styles.pulseLineContainer}>
+                                <View style={styles.baseLine} />
+                                <View style={styles.activePulse} />
+                                <View style={styles.pulseNode} />
+                            </View>
+
+                            <View style={styles.subtitleWrapper}>
+                                <Text style={styles.subtitle}>Elegance in Every Detail</Text>
+                                <View style={styles.dot} />
+                            </View>
                         </View>
 
-                        <View style={styles.pulseLineContainer}>
-                            <View style={styles.baseLine} />
-                            <View style={styles.activePulse} />
-                            <View style={styles.pulseNode} />
-                        </View>
+                        {/* button */}
+                        <View style={styles.buttonContainer}>
+                            <View
+                                style={styles.trackShape}
+                                {...panResponder.panHandlers}>
 
-                        <View style={styles.subtitleWrapper}>
-                            <Text style={styles.subtitle}>Elegance in Every Detail</Text>
-                            <View style={styles.dot} />
-                        </View>
-                    </View>
+                                <BlurView intensity={30} tint="dark" style={styles.blurStyle}>
 
-                    {/* button */}
-                     <Animated.View style={[styles.buttonContainer, { transform: [{ translateX: 0 }] }]}>
-                        <View
-                            style={styles.trackShape}
-                            {...panResponder.panHandlers}>
+                                    <Animated.View 
+                                        style={[
+                                            styles.iconCircle, 
+                                            { transform: [{ translateX: pan }] }
+                                        ]}>
+                                        <PlantIcon stage={currentStageInfo.icon} size={32} />
+                                    </Animated.View>
 
-                            <BlurView intensity={30} tint="dark" style={styles.blurStyle}>
+                                    <View style={styles.textContainerInside}>
+                                        <Text style={styles.btnText}>Slide to Bloom</Text>
+                                        <Text style={styles.stageText}>
+                                            {currentStageInfo.name} 
+                                        </Text>
+                                    </View>
 
-                                <Animated.View 
-                                    style={[
-                                        styles.iconCircle, 
-                                        { transform: [{ translateX: pan }] }
-                                    ]}>
-                                    <PlantIcon stage={currentStageInfo.icon} size={32} />
-                                </Animated.View>
-
-                                <View style={styles.textContainerInside}>
-                                    <Text style={styles.btnText}>Slide to Bloom</Text>
-                                    <Text style={styles.stageText}>
-                                        {currentStageInfo.name} 
-                                    </Text>
-                                </View>
-
-                            </BlurView>
-                        </View>
-                    </Animated.View> 
-                    </Animated.View>
-                </SafeAreaView>
+                                </BlurView>
+                            </View>
+                        </View> 
+                    </SafeAreaView>
+                </Animated.View>
             </ImageBackground>
         </View>
     );
@@ -400,7 +400,9 @@ const styles = StyleSheet.create({
         flex: 1,                    
         alignItems: "center",       
         justifyContent: "space-between", 
-        paddingVertical: 80         
+        width: "100%",
+        paddingTop: 20,
+        paddingBottom: 35
     },
     textContainer: {
         alignItems: "center",       

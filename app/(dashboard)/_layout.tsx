@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -17,12 +18,7 @@ const DashboardLayout = () => {
             screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
-                tabBarStyle: {
-                    height: 75,
-                    backgroundColor: "#1A3C34",
-                    
-                    position: "absolute"
-                },
+                tabBarStyle: styles.tabBar
             }}>
             
             {tabs.map((tab) => (
@@ -43,6 +39,19 @@ const DashboardLayout = () => {
         </Tabs>
     );
 };
+
+
+const styles = StyleSheet.create({
+    tabBar: {
+        height: 75,
+        backgroundColor: "#1A3C34", 
+        position: "absolute",
+        borderTopLeftRadius: 35,    
+        borderTopRightRadius: 35,
+        borderTopWidth: 0,          
+        elevation: 10,
+    }
+})
 
 
 export default DashboardLayout;
