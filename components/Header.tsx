@@ -106,7 +106,7 @@ const DashboardHeader = () => {
                     />
 
                     <View style={styles.modalSheet}>
-
+                        <View style={styles.dragBar} />
                     </View>
 
                 </View>
@@ -220,6 +220,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 35, 
         padding: 25, 
         height: "65%",
+    },
+    dragBar: { 
+        width: 40, 
+        height: 4, 
+        backgroundColor: "rgba(255,255,255,0.1)", 
+        alignSelf: "center", 
+        marginBottom: 20 
     },
 });
 
