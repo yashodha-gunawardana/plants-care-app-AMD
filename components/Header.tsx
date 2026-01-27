@@ -1,5 +1,5 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -32,6 +32,20 @@ const DashboardHeader = () => {
 
         return "Dashboard";
     };
+
+
+    const helpItems = [
+        { title: "Plant Name", detail: "Enter the common name (e.g., Peace Lily). Optional: Scientific name for accuracy." },
+        { title: "Photos", detail: "Upload a clear image. Multiple photos help track growth over time." },
+        { title: "Location / Slot", detail: "Where the plant lives (e.g., Living Room, Balcony, Desk)." },
+        { title: "Watering Frequency", detail: "How often you water (e.g., every 7 days). App calculates next watering." },
+        { title: "Last Watered Date", detail: "Optional; helps app generate reminders." },
+        { title: "Light Requirement", detail: "Select Low / Medium / Bright Indirect / Direct. Proper lighting is essential." },
+        { title: "Soil Type / Notes", detail: "Optional, e.g., 'well-draining cactus mix'." },
+        { title: "Care Difficulty", detail: "Easy / Moderate / Hard." },
+        { title: "Fertilizer Schedule", detail: "Optional, e.g., 'Every 4 weeks during growing season'." },
+        { title: "Tags / Categories", detail: "Optional, e.g., indoor, succulent, flowering." },
+    ];
 
 
     return (
@@ -81,8 +95,6 @@ const DashboardHeader = () => {
                     </View>
                 </View>
             </LinearGradient>
-
-            
         </View>
     );
 };
@@ -99,6 +111,7 @@ const styles = StyleSheet.create({
     },
     gradientBg: {
         width: "100%",
+        paddingTop: Platform.OS === 'android' ? 30 : 0,
         overflow: "hidden",
     },
     sunGlow: {
