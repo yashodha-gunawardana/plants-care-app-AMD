@@ -133,8 +133,15 @@ const DashboardHeader = () => {
                                 </View>
                             ))}
                         </ScrollView>
-                    </View>
 
+                        {/* button */}
+                        <TouchableOpacity 
+                            style={styles.confirmBtn} 
+                            onPress={() => setHelpVisible(false)}>
+
+                            <Text style={styles.confirmBtnText}>READY TO PLANT</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Modal>
         </View>
@@ -262,6 +269,13 @@ iconBox: { width: 36, height: 36, borderRadius: 10, backgroundColor: "rgba(255,2
 textColumn: { flex: 1 },
 infoTitle: { color: "#FFF", fontSize: 17, fontWeight: "700", marginBottom: 4 },
 infoDetail: { color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 20 },
+confirmBtn: { 
+  backgroundColor: "#C6F062", 
+  paddingVertical: 18, 
+  borderRadius: 15, 
+  alignItems: "center" 
+},
+confirmBtnText: { color: "#1A3C34", fontWeight: "900", letterSpacing: 0.5 }
 
 
 });
