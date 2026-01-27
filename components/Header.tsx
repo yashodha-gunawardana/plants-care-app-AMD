@@ -105,6 +105,10 @@ const DashboardHeader = () => {
                         style={StyleSheet.absoluteFill} 
                     />
 
+                    <View style={styles.modalSheet}>
+
+                    </View>
+
                 </View>
             </Modal>
         </View>
@@ -208,7 +212,14 @@ const styles = StyleSheet.create({
     },
     modalOverlay: { 
         flex: 1, 
-        justifyContent: "flex-end" 
+        justifyContent: "flex-end",
+    },
+    modalSheet: { 
+        backgroundColor: "#1A3C34", 
+        borderTopLeftRadius: 35, 
+        borderTopRightRadius: 35, 
+        padding: 25, 
+        height: "65%",
     },
 });
 
