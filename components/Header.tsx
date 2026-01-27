@@ -40,6 +40,14 @@ const DashboardHeader = () => {
             <Text style={styles.title}>
                 {getHeaderTitle()}
             </Text>
+
+            <TouchableOpacity>
+                <Ionicons
+                    name="person-circle-outline"
+                    size={26}
+                    color="#2D4F1E"
+                />
+            </TouchableOpacity>
         </View>
     );
 };
