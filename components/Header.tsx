@@ -45,12 +45,17 @@ const DashboardHeader = () => {
                 <View style={styles.sunGlow} />
 
                 <View style={styles.contentRow}>
+                    {/* title */}
                     <View style={styles.titleContainer}>
                         <View style={styles.verticalAccent} />
                         <View>
                             <Text style={styles.brandTag}>GARDINO CARE</Text>
                             <Text style={styles.screenTitle}>{getHeaderTitle()}</Text>
                         </View>
+                    </View>
+
+                    <View style={styles.actionCluster}>
+
                     </View>
                 </View>
             </LinearGradient>
@@ -113,6 +118,11 @@ const styles = StyleSheet.create({
         fontWeight: "900",
         color: "#1A3C34",
         marginTop: -2,
+    },
+    actionCluster: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12,
     },
 });
 
