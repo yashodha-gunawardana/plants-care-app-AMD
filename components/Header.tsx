@@ -1,5 +1,5 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -111,6 +111,11 @@ const DashboardHeader = () => {
                         <Text style={styles.modalHeading}>Add Plant Guide</Text>
                         <Text style={styles.modalSub}>Follow these steps to add your plant correctly:</Text>
 
+                        <ScrollView 
+                            showsVerticalScrollIndicator={false} // Hides default scrollbar
+                            style={styles.scrollArea}>
+
+                        </ScrollView>
                     </View>
 
                 </View>
@@ -233,7 +238,8 @@ const styles = StyleSheet.create({
         marginBottom: 20 
     },
     modalHeading: { color: "#C6F062", fontSize: 24, fontWeight: "900", marginBottom: 5 },
-    modalSub: { color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 25 }
+    modalSub: { color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 25 },
+    scrollArea: { marginBottom: 20 },
 
 });
 
