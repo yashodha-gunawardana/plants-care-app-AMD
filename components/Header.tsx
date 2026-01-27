@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal } from "react
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-
+import { BlurView } from "expo-blur";
 
 const DashboardHeader = () => {
     // current route path
@@ -99,6 +99,11 @@ const DashboardHeader = () => {
             {/* help modal */}
             <Modal animationType="fade" transparent={true} visible={helpVisible}>
                 <View style={styles.modalOverlay}>
+                    <BlurView 
+                        intensity={40}       
+                        tint="dark"          
+                        style={StyleSheet.absoluteFill} 
+                    />
 
                 </View>
             </Modal>
