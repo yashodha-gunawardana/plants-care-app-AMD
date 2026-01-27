@@ -41,6 +41,8 @@ const DashboardHeader = () => {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.gradientBg}>
+
+                <View style={styles.sunGlow} />
             </LinearGradient>
 
             
@@ -61,6 +63,16 @@ const styles = StyleSheet.create({
     gradientBg: {
         width: "100%",
         overflow: "hidden",
+    },
+    sunGlow: {
+        position: "absolute",
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        backgroundColor: "#C6F062",
+        opacity: 0.15,
+        top: -100,
+        right: -50,
     },
 });
 
