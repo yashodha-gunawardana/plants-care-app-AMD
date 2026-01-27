@@ -72,6 +72,12 @@ const DashboardHeader = () => {
                                 <Text style={styles.helpText}>GUIDE</Text>
                             </TouchableOpacity>
                         )}
+
+                        {/* notification icon */}
+                        <TouchableOpacity style={styles.iconCircle}>
+                            <Ionicons name="notifications-outline" size={22} color="#1A3C34" />
+                            <View style={styles.redIndicator} />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </LinearGradient>
@@ -163,6 +169,17 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 12,
         fontWeight: "900",
+    },
+    redIndicator: {
+        position: "absolute",
+        top: 10,
+        right: 10,
+        width: 7,
+        height: 7,
+        borderRadius: 4,
+        backgroundColor: "#FF6B6B",
+        borderWidth: 1.5,
+        borderColor: "#FFF",
     },
 });
 
