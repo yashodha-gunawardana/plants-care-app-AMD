@@ -115,6 +115,18 @@ const DashboardHeader = () => {
                             showsVerticalScrollIndicator={false} // Hides default scrollbar
                             style={styles.scrollArea}>
 
+                            {helpItems.map((item, index) => (
+                                <View key={index} style={styles.infoRow}>
+                        
+                                    <View style={styles.iconBox}>
+                                        <Ionicons 
+                                            name="checkmark-circle" 
+                                            size={20} 
+                                            color="#C6F062" 
+                                        />
+                                    </View>
+                                </View>
+                            ))}
                         </ScrollView>
                     </View>
 
@@ -240,6 +252,8 @@ const styles = StyleSheet.create({
     modalHeading: { color: "#C6F062", fontSize: 24, fontWeight: "900", marginBottom: 5 },
     modalSub: { color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 25 },
     scrollArea: { marginBottom: 20 },
+    infoRow: { flexDirection: "row", gap: 16, marginBottom: 25 },
+iconBox: { width: 36, height: 36, borderRadius: 10, backgroundColor: "rgba(255,255,255,0.05)", justifyContent: "center", alignItems: "center" },
 
 });
 
