@@ -27,7 +27,6 @@ const DashboardLayout = () => {
                     name={tab.name}
                     options={{
                         tabBarIcon: ({ focused }) => {
-                            const translateY = focused ? -30 : 0;
                             return (
                                 <View style={styles.iconContainer}>
                                     
@@ -35,11 +34,11 @@ const DashboardLayout = () => {
                                         <>
                                             <View style={styles.indicator}>
                                             
-                                            <Ionicons
-                                                name={tab.icon as any}
-                                                size={26}
-                                                color="#1A3C34"
-                                            />
+                                                <Ionicons
+                                                    name={tab.icon as any}
+                                                    size={26}
+                                                    color="#1A3C34"
+                                                />
                                             </View>
 
                                             <Text style={styles.tabLabel}>{tab.title}</Text>
@@ -65,11 +64,11 @@ const DashboardLayout = () => {
 
 const styles = StyleSheet.create({
     tabBar: {
-        height: 55,
+        height: 60,
         backgroundColor: "#1A3C34", 
         position: "absolute",
-        borderTopLeftRadius: 35,    
-        borderTopRightRadius: 35,
+        borderTopLeftRadius: 30,    
+        borderTopRightRadius: 30,
         borderTopWidth: 0,          
         elevation: 10,
     },
