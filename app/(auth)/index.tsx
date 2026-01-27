@@ -301,6 +301,17 @@ const WelcomeScreen = () => {
             
                 <View style={styles.overlay} />
 
+                <Animated.View 
+                    style={[styles.contentWrapper, {
+                            opacity: entranceAnim, 
+                            transform: [{
+                                translateY: entranceAnim.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [40, 0], // Drifts up from 40px below
+                                }),
+                            }],
+                        }]}>
+
                 {/* main content */}
                 <SafeAreaView style={styles.contentWrapper}>
 
@@ -368,7 +379,7 @@ const WelcomeScreen = () => {
                             </BlurView>
                         </View>
                     </Animated.View> 
-                    
+                    </Animated.View>
                 </SafeAreaView>
             </ImageBackground>
         </View>
