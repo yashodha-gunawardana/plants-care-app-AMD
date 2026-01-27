@@ -125,6 +125,11 @@ const DashboardHeader = () => {
                                             color="#C6F062" 
                                         />
                                     </View>
+
+                                    <View style={styles.textColumn}>
+                                        <Text style={styles.infoTitle}>{item.title}</Text>
+                                        <Text style={styles.infoDetail}>{item.detail}</Text>
+                                    </View>
                                 </View>
                             ))}
                         </ScrollView>
@@ -254,6 +259,10 @@ const styles = StyleSheet.create({
     scrollArea: { marginBottom: 20 },
     infoRow: { flexDirection: "row", gap: 16, marginBottom: 25 },
 iconBox: { width: 36, height: 36, borderRadius: 10, backgroundColor: "rgba(255,255,255,0.05)", justifyContent: "center", alignItems: "center" },
+textColumn: { flex: 1 },
+infoTitle: { color: "#FFF", fontSize: 17, fontWeight: "700", marginBottom: 4 },
+infoDetail: { color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 20 },
+
 
 });
 
