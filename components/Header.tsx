@@ -1,6 +1,6 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet } from "react-native";
-
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 
 const DashboardHeader = () => {
@@ -29,7 +29,13 @@ const DashboardHeader = () => {
 
     return (
         <View style={styles.container}>
-
+            <TouchableOpacity>
+                <Ionicons
+                    name="menu-outline"
+                    size={24}
+                    color="#2D4F1E"
+                />
+            </TouchableOpacity>
         </View>
     )
 }
