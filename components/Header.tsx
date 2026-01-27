@@ -107,6 +107,10 @@ const DashboardHeader = () => {
 
                     <View style={styles.modalSheet}>
                         <View style={styles.dragBar} />
+
+                        <Text style={styles.modalHeading}>Add Plant Guide</Text>
+                        <Text style={styles.modalSub}>Follow these steps to add your plant correctly:</Text>
+
                     </View>
 
                 </View>
@@ -228,6 +232,9 @@ const styles = StyleSheet.create({
         alignSelf: "center", 
         marginBottom: 20 
     },
+    modalHeading: { color: "#C6F062", fontSize: 24, fontWeight: "900", marginBottom: 5 },
+    modalSub: { color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 25 }
+
 });
 
 
