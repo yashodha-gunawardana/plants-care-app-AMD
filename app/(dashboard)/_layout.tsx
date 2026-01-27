@@ -28,7 +28,7 @@ const DashboardLayout = () => {
                     options={{
                         tabBarIcon: ({ focused }) => (
                             <View style={styles.iconContainer}>
-
+                                {focused && <View style={styles.indicator} />}
                             
                             <Ionicons
                                 name={tab.icon as any}
@@ -56,8 +56,18 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     iconContainer: {
-        alignItems: 'center',       
-        justifyContent: 'center',
+        alignItems: "center",       
+        justifyContent: "center",
+    },
+    indicator: {
+        position: "absolute",
+        top: -45,                   
+        width: 55,
+        height: 55,
+        backgroundColor: "#C6F062", 
+        borderRadius: 30,
+        borderWidth: 6,
+        borderColor: "#fdfdfb",     
     },
 })
 
