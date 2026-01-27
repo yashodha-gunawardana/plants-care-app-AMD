@@ -9,6 +9,10 @@ const DashboardHeader = () => {
     const pathname = usePathname();
     const [helpVisible, setHelpVisible] = useState(false);
 
+    const isHome = pathname.includes("home");
+    const isWiki = pathname.includes("wiki");
+    const isAdd = pathname.includes("add");
+
     const getHeaderTitle = () => {
         if (pathname.includes("home"))
             return "My Garden";
