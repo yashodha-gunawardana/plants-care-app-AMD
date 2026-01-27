@@ -2,6 +2,7 @@ import { usePathname } from "expo-router"
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 const DashboardHeader = () => {
@@ -35,25 +36,14 @@ const DashboardHeader = () => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
-                <Ionicons
-                    name="menu-outline"
-                    size={26}
-                    color="#2D4F1E"
-                />
-            </TouchableOpacity>
+            <LinearGradient
+                colors={["#E8F2E6", "#F9FCF8", "#FFFFFF"]} 
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.gradientBg}>
+            </LinearGradient>
 
-            <Text style={styles.title}>
-                {getHeaderTitle()}
-            </Text>
-
-            <TouchableOpacity>
-                <Ionicons
-                    name="person-circle-outline"
-                    size={30}
-                    color="#2D4F1E"
-                />
-            </TouchableOpacity>
+            
         </View>
     );
 };
@@ -61,16 +51,16 @@ const DashboardHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "row",              
-        alignItems: "center",             
-        justifyContent: "space-between",   
-        paddingHorizontal: 20,
-        paddingVertical: 30,
+        backgroundColor: "#FFF",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 4,
     },
-    title: {
-        fontSize: 20,
-        fontWeight: "700",
-        color: "#2D4F1E",
+    gradientBg: {
+        width: "100%",
+        overflow: "hidden",
     },
 });
 
