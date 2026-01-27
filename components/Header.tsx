@@ -43,6 +43,16 @@ const DashboardHeader = () => {
                 style={styles.gradientBg}>
 
                 <View style={styles.sunGlow} />
+
+                <View style={styles.contentRow}>
+                    <View style={styles.titleContainer}>
+                        <View style={styles.verticalAccent} />
+                        <View>
+                            <Text style={styles.brandTag}>GARDINO CARE</Text>
+                            <Text style={styles.screenTitle}>{getHeaderTitle()}</Text>
+                        </View>
+                    </View>
+                </View>
             </LinearGradient>
 
             
@@ -73,6 +83,36 @@ const styles = StyleSheet.create({
         opacity: 0.15,
         top: -100,
         right: -50,
+    },
+    contentRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 20,
+        paddingVertical: 18,
+    },
+    titleContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    verticalAccent: {
+        width: 4,
+        height: 32,
+        backgroundColor: "#C6F062",
+        borderRadius: 2,
+        marginRight: 12,
+    },
+    brandTag: {
+        fontSize: 10,
+        fontWeight: "800",
+        color: "#8A9687",
+        letterSpacing: 1.8,
+    },
+    screenTitle: {
+        fontSize: 26,
+        fontWeight: "900",
+        color: "#1A3C34",
+        marginTop: -2,
     },
 });
 
