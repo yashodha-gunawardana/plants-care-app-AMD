@@ -1,4 +1,5 @@
 import { usePathname } from "expo-router"
+import { View, StyleSheet } from "react-native";
 
 
 
@@ -24,4 +25,22 @@ const DashboardHeader = () => {
 
         return "Dashboard";
     };
+
+
+    return (
+        <View style={styles.container}>
+
+        </View>
+    )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",              
+        alignItems: "center",             
+        justifyContent: "space-between",   
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+    },
+})
