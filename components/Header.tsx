@@ -1,5 +1,5 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -95,6 +95,10 @@ const DashboardHeader = () => {
                     </View>
                 </View>
             </LinearGradient>
+
+            {/* help modal */}
+            <Modal animationType="fade" transparent={true} visible={helpVisible}>
+            </Modal>
         </View>
     );
 };
