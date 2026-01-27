@@ -1,3 +1,4 @@
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -19,8 +20,7 @@ const DashboardLayout = () => {
                 tabBarStyle: {
                     height: 75,
                     backgroundColor: "#1A3C34",
-                    borderTopLeftRadius: 40,
-                    borderTopRightRadius: 40,
+                    
                     position: "absolute"
                 },
             }}>
@@ -43,3 +43,6 @@ const DashboardLayout = () => {
         </Tabs>
     );
 };
+
+
+export default DashboardLayout;

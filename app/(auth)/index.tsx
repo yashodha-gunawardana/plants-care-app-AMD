@@ -220,8 +220,9 @@ const PlantIcon: React.FC<IconProps> = ({ stage, size = 32 }) => {
 const WelcomeScreen = () => {
     const router = useRouter();
 
-    const glideX = useRef(new Animated.Value(0)).current;
     const pan = useRef(new Animated.Value(0)).current;
+    
+    const entranceAnim = useRef(new Animated.Value(0)).current;
     
     // current plant stage
     const [currentStage, setCurrentStage] = useState<number>(0);
