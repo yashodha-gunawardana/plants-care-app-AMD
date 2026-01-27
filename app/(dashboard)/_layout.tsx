@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -27,11 +27,15 @@ const DashboardLayout = () => {
                     name={tab.name}
                     options={{
                         tabBarIcon: ({ focused }) => (
+                            <View style={styles.iconContainer}>
+
+                            
                             <Ionicons
                                 name={tab.icon as any}
                                 size={24}
                                 color={focused ? "#C6F062" : "rgba(255,255,255,0.4)"}
                             />
+                            </View>
                         )
                     }}
                 />
@@ -50,7 +54,11 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 35,
         borderTopWidth: 0,          
         elevation: 10,
-    }
+    },
+    iconContainer: {
+        alignItems: 'center',       
+        justifyContent: 'center',
+    },
 })
 
 
