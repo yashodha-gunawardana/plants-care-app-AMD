@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -30,12 +30,13 @@ const DashboardLayout = () => {
                             <View style={styles.iconContainer}>
                                 {focused && <View style={styles.indicator} />}
                             
-                            <Ionicons
-                                name={tab.icon}
-                                size={24}
-                                color={focused ? "#C6F062" : "rgba(255,255,255,0.4)"}
-                                style={focused ? styles.activeIcon : null}
-                            />
+                                    <Ionicons
+                                        name={tab.icon}
+                                        size={24}
+                                        color={focused ? "#C6F062" : "rgba(255,255,255,0.4)"}
+                                        style={focused ? styles.activeIcon : null}
+                                    />
+                                {focused && <Text style={styles.tabLabel}>{tab.title}</Text>}
                             </View>
                         )
                     }}
@@ -70,7 +71,17 @@ const styles = StyleSheet.create({
         borderWidth: 6,
         borderColor: "#fdfdfb",     
     },
-})
+    activeIcon: {
+        transform: [{ translateY: -30 }], 
+    },
+    tabLabel: {
+        color: "white",
+        fontSize: 10,
+        fontWeight: "700",
+        position: "absolute",
+        bottom: -15,                
+    }
+});
 
 
 export default DashboardLayout;
