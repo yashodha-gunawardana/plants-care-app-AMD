@@ -61,6 +61,17 @@ const DashboardHeader = () => {
                                 <Ionicons name="search-outline" size={22} color="#1A3C34" />
                             </TouchableOpacity>
                         )}
+
+                        {/* help icon */}
+                        {isAdd && (
+                            <TouchableOpacity 
+                                style={styles.helpPill} 
+                                onPress={() => setHelpVisible(true)}
+                            >
+                                <Ionicons name="help-circle-outline" size={20} color="#FFFFFF" />
+                                <Text style={styles.helpText}>GUIDE</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </View>
             </LinearGradient>
@@ -138,6 +149,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderWidth: 1,
         borderColor: "rgba(255, 255, 255, 0.8)",
+    },
+    helpPill: {
+        flexDirection: "row",
+        backgroundColor: "#1A3C34",
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        borderRadius: 20,
+        alignItems: "center",
+        gap: 6,
+    },
+    helpText: {
+        color: "#FFF",
+        fontSize: 12,
+        fontWeight: "900",
     },
 });
 
