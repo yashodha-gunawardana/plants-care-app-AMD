@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 
 const tabs = [
-    { name: "garden", icon: "home-outline", title: "Home" },
+    { name: "home", icon: "home-outline", title: "Home" },
     { name: "wiki", icon: "book-outline", title: "Wiki" },
     { name: "add", icon: "add-circle-outline", title: "Add" },
     { name: "log", icon: "water-outline", title: "Water" },
@@ -26,19 +26,35 @@ const DashboardLayout = () => {
                     key={tab.name}
                     name={tab.name}
                     options={{
-                        tabBarIcon: ({ focused }) => (
-                            <View style={styles.iconContainer}>
-                                {focused && <View style={styles.indicator} />}
-                            
-                                    <Ionicons
-                                        name={tab.icon}
-                                        size={24}
-                                        color={focused ? "#C6F062" : "rgba(255,255,255,0.4)"}
-                                        style={focused ? styles.activeIcon : null}
-                                    />
-                                {focused && <Text style={styles.tabLabel}>{tab.title}</Text>}
-                            </View>
-                        )
+                        tabBarIcon: ({ focused }) => {
+                            const translateY = focused ? -30 : 0;
+                            return (
+                                <View style={styles.iconContainer}>
+                                    
+                                    {focused ? (
+                                        <>
+                                            <View style={styles.indicator}>
+                                            
+                                            <Ionicons
+                                                name={tab.icon as any}
+                                                size={26}
+                                                color="#1A3C34"
+                                            />
+                                            </View>
+
+                                            <Text style={styles.tabLabel}>{tab.title}</Text>
+                                        </>
+                                        ) : (
+                                        
+                                        <Ionicons
+                                            name={tab.icon as any}
+                                            size={24}
+                                            color="rgba(255,255,255,0.4)"
+                                        />
+                                    )}
+                                </View>
+                            )
+                        }
                     }}
                 />
             ))}
@@ -49,7 +65,7 @@ const DashboardLayout = () => {
 
 const styles = StyleSheet.create({
     tabBar: {
-        height: 75,
+        height: 55,
         backgroundColor: "#1A3C34", 
         position: "absolute",
         borderTopLeftRadius: 35,    
@@ -60,6 +76,7 @@ const styles = StyleSheet.create({
     iconContainer: {
         alignItems: "center",       
         justifyContent: "center",
+        width: 70
     },
     indicator: {
         position: "absolute",
@@ -69,17 +86,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#C6F062", 
         borderRadius: 30,
         borderWidth: 6,
-        borderColor: "#fdfdfb",     
+        borderColor: "#fdfdfb",  
+        alignItems: "center",
+        justifyContent: "center"  
     },
-    activeIcon: {
-        transform: [{ translateY: -30 }], 
-    },
+    
     tabLabel: {
         color: "white",
         fontSize: 10,
         fontWeight: "700",
         position: "absolute",
-        bottom: -15,                
+        bottom: -30,                
     }
 });
 
