@@ -1,5 +1,5 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 
@@ -36,9 +36,13 @@ const DashboardHeader = () => {
                     color="#2D4F1E"
                 />
             </TouchableOpacity>
+
+            <Text style={styles.title}>
+                {getHeaderTitle()}
+            </Text>
         </View>
-    )
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
@@ -49,4 +53,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
     },
-})
+    title: {
+        fontSize: 20,
+        fontWeight: "700",
+        color: "#2D4F1E",
+    },
+});
