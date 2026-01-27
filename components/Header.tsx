@@ -98,6 +98,9 @@ const DashboardHeader = () => {
 
             {/* help modal */}
             <Modal animationType="fade" transparent={true} visible={helpVisible}>
+                <View style={styles.modalOverlay}>
+
+                </View>
             </Modal>
         </View>
     );
@@ -197,6 +200,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF6B6B",
         borderWidth: 1.5,
         borderColor: "#FFF",
+    },
+    modalOverlay: { 
+        flex: 1, 
+        justifyContent: "flex-end" 
     },
 });
 
