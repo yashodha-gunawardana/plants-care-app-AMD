@@ -54,8 +54,13 @@ const DashboardHeader = () => {
                         </View>
                     </View>
 
+                    {/* button and icons */}
                     <View style={styles.actionCluster}>
-
+                        {(isHome || isWiki) && (
+                            <TouchableOpacity style={styles.iconCircle}>
+                                <Ionicons name="search-outline" size={22} color="#1A3C34" />
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </View>
             </LinearGradient>
@@ -123,6 +128,16 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 12,
+    },
+    iconCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: "rgba(255, 255, 255, 0.6)",
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.8)",
     },
 });
 
