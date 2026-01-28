@@ -1,7 +1,7 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 
@@ -35,6 +35,7 @@ const DashboardHeader = () => {
 
 
     const [searchActive, setSearchActive] = useState(false);
+    const animValue = useRef(new Animated.Value(0)).current;
 
 
     const helpItems = [
