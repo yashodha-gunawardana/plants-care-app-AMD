@@ -1,5 +1,5 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView, Animated, Easing } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView, Animated, Easing, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -104,9 +104,27 @@ const DashboardHeader = () => {
                     {/* button and icons */}
                     <View style={styles.actionCluster}>
                         {(isHome || isWiki) && (
-                            <TouchableOpacity style={styles.iconCircle}>
-                                <Ionicons name="search-outline" size={22} color="#1A3C34" />
-                            </TouchableOpacity>
+                            <View style={styles.searchWrapper}>
+                                {!searchActive ? (
+                                    <TouchableOpacity onPress={handleOpenSearch} style={styles.iconCircle}>
+                                        <Ionicons name="search-outline" size={22} color="#1A3C34" />
+                                    </TouchableOpacity>
+                                ) : (
+                                    <Animated.View style={[styles.inputContainer, { width: inputWidth }]}>
+                                        <TextInput
+                                            style={styles.searchInput}
+                                            placeholder="Search..."
+                                            placeholderTextColor="#8A9687"
+                                            value={searchQuery}
+                                            onChangeText={setSearchQuery}
+                                            autoFocus={true}
+                                        />
+                                        <TouchableOpacity onPress={handleCloseSearch} style={styles.closeBtn}>
+                                            <Ionicons name="close-circle" size={18} color="#1A3C34" />
+                                        </TouchableOpacity>
+                                    </Animated.View>
+                                )}
+                            </View>
                         )}
 
                         {/* help icon */}
@@ -305,7 +323,19 @@ const styles = StyleSheet.create({
         borderRadius: 15, 
         alignItems: "center" 
     },
-    confirmBtnText: { color: "#1A3C34", fontWeight: "900", letterSpacing: 0.5 }
+    confirmBtnText: { color: "#1A3C34", fontWeight: "900", letterSpacing: 0.5 },
+    searchWrapper: { flexDirection: "row", alignItems: "center", justifyContent: "flex-end" },
+    inputContainer: { 
+        flexDirection: "row", 
+        alignItems: "center", 
+        backgroundColor: "rgba(26, 60, 52, 0.1)", 
+        borderRadius: 20, 
+        overflow: "hidden",
+        borderWidth: 1,
+        borderColor: "rgba(26, 60, 52, 0.05)"
+    },
+    searchInput: { flex: 1, height: 40, paddingHorizontal: 12, color: "#1A3C34", fontSize: 14 },
+    closeBtn: { paddingRight: 8 },
 
 });
 
