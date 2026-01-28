@@ -9,6 +9,7 @@ const DashboardHeader = () => {
     // current route path
     const pathname = usePathname();
     const [helpVisible, setHelpVisible] = useState(false);
+    const [searchQuery, setSearchQuery] = useState(""); 
 
     const isHome = pathname.includes("home");
     const isWiki = pathname.includes("wiki");
@@ -46,7 +47,19 @@ const DashboardHeader = () => {
             useNativeDriver: false
 
         }).start();
-    }
+    };
+
+    const handleCloseSearch = () => {
+        setSearchQuery("");
+        Animated.timing(animValue, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: false
+
+        }).start(() => {
+            setSearchActive(false);
+        });
+    };
 
 
     const helpItems = [
