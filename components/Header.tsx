@@ -128,21 +128,25 @@ const DashboardHeader = () => {
                         )}
 
                         {/* help icon */}
-                        {isAdd && (
-                            <TouchableOpacity 
-                                style={styles.helpPill} 
-                                onPress={() => setHelpVisible(true)}
-                            >
-                                <Ionicons name="help-circle-outline" size={20} color="#FFFFFF" />
-                                <Text style={styles.helpText}>GUIDE</Text>
-                            </TouchableOpacity>
-                        )}
+                        {!searchActive && (
+                            <>
+                                {isAdd && (
+                                    <TouchableOpacity 
+                                        style={styles.helpPill} 
+                                        onPress={() => setHelpVisible(true)}>
 
-                        {/* notification icon */}
-                        <TouchableOpacity style={styles.iconCircle}>
-                            <Ionicons name="notifications-outline" size={22} color="#1A3C34" />
-                            <View style={styles.redIndicator} />
-                        </TouchableOpacity>
+                                        <Ionicons name="help-circle-outline" size={20} color="#FFFFFF" />
+                                        <Text style={styles.helpText}>GUIDE</Text>
+                                    </TouchableOpacity>
+                                )}
+
+                                {/* notification icon */}
+                                <TouchableOpacity style={styles.iconCircle}>
+                                    <Ionicons name="notifications-outline" size={22} color="#1A3C34" />
+                                    <View style={styles.redIndicator} />
+                                </TouchableOpacity>
+                            </>
+                        )}
                     </View>
                 </View>
             </LinearGradient>
