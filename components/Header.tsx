@@ -34,6 +34,9 @@ const DashboardHeader = () => {
     };
 
 
+    const [searchActive, setSearchActive] = useState(false);
+
+
     const helpItems = [
         { title: "Plant Name", detail: "Enter the common name (e.g., Peace Lily). Optional: Scientific name for accuracy." },
         { title: "Photos", detail: "Upload a clear image. Multiple photos help track growth over time." },
@@ -180,10 +183,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 18,
     },
-    titleContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
+    titleContainer: { flexDirection: "row",  alignItems: "center" },
     verticalAccent: {
         width: 4,
         height: 32,
@@ -227,11 +227,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 6,
     },
-    helpText: {
-        color: "#FFF",
-        fontSize: 12,
-        fontWeight: "900",
-    },
+    helpText: { color: "#FFF", fontSize: 12, fontWeight: "900" },
     redIndicator: {
         position: "absolute",
         top: 10,
@@ -243,10 +239,7 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderColor: "#FFF",
     },
-    modalOverlay: { 
-        flex: 1, 
-        justifyContent: "flex-end",
-    },
+    modalOverlay: { flex: 1, justifyContent: "flex-end" },
     modalSheet: { 
         backgroundColor: "#1A3C34", 
         borderTopLeftRadius: 35, 
@@ -265,18 +258,24 @@ const styles = StyleSheet.create({
     modalSub: { color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 25 },
     scrollArea: { marginBottom: 20 },
     infoRow: { flexDirection: "row", gap: 16, marginBottom: 25 },
-iconBox: { width: 36, height: 36, borderRadius: 10, backgroundColor: "rgba(255,255,255,0.05)", justifyContent: "center", alignItems: "center" },
-textColumn: { flex: 1 },
-infoTitle: { color: "#FFF", fontSize: 17, fontWeight: "700", marginBottom: 4 },
-infoDetail: { color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 20 },
-confirmBtn: { 
-  backgroundColor: "#C6F062", 
-  paddingVertical: 18, 
-  borderRadius: 15, 
-  alignItems: "center" 
-},
-confirmBtnText: { color: "#1A3C34", fontWeight: "900", letterSpacing: 0.5 }
-
+    iconBox: { 
+        width: 36, 
+        height: 36, 
+        borderRadius: 10, 
+        backgroundColor: "rgba(255,255,255,0.05)", 
+        justifyContent: "center", 
+        alignItems: "center" 
+    },
+    textColumn: { flex: 1 },
+    infoTitle: { color: "#FFF", fontSize: 17, fontWeight: "700", marginBottom: 4 },
+    infoDetail: { color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 20 },
+    confirmBtn: { 
+        backgroundColor: "#C6F062", 
+        paddingVertical: 18, 
+        borderRadius: 15, 
+        alignItems: "center" 
+    },
+    confirmBtnText: { color: "#1A3C34", fontWeight: "900", letterSpacing: 0.5 }
 
 });
 

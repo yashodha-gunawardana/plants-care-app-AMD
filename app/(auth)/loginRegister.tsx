@@ -377,7 +377,7 @@ const GardinoAuth = () => {
                 </Animated.View>
             )}
 
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1}}>
                 {(!isSuccess && !isError) && (
                     <>
                         {/* back btn in left top corner */}
