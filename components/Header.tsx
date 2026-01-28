@@ -62,6 +62,11 @@ const DashboardHeader = () => {
     };
 
 
+    const inputWidth = animValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 150]
+    });
+
     const helpItems = [
         { title: "Plant Name", detail: "Enter the common name (e.g., Peace Lily). Optional: Scientific name for accuracy." },
         { title: "Photos", detail: "Upload a clear image. Multiple photos help track growth over time." },
