@@ -1,5 +1,5 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView, Animated } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView, Animated, Easing } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -36,6 +36,17 @@ const DashboardHeader = () => {
 
     const [searchActive, setSearchActive] = useState(false);
     const animValue = useRef(new Animated.Value(0)).current;
+
+    const handleOpenSearch = () => {
+        setSearchActive(true);
+        Animated.timing(animValue, {
+            toValue: 1,
+            duration: 400,
+            easing: Easing.out(Easing.quad),
+            useNativeDriver: false
+
+        }).start();
+    }
 
 
     const helpItems = [
