@@ -162,8 +162,9 @@ const AddPlantScreen = () => {
                         value={notes}
                         onChangeText={setNotes}
                     />
-                </ScrollView>
 
+                    <View style={{ height: 100 }} />
+                </ScrollView>
             </KeyboardAvoidingView>
         </View>
     );
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     row: { flexDirection: "row", justifyContent: "space-between" },
     textArea: { height: 80, textAlignVertical: "top" },
 
-    
+
     // chip section
     section: { marginBottom: 16 },
     label: {
