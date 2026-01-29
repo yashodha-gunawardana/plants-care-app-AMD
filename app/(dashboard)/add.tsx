@@ -31,6 +31,11 @@ const AddPlantScreen = () => {
             );
             return;
         }
+
+        const result = await ImagePicker.launchCameraAsync({
+            quality: 0.7,
+            allowsEditing: true,
+        });
     }
     // save handler
     const handleAddPlant = async () => {
