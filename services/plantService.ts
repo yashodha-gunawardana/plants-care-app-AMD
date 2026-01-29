@@ -13,7 +13,9 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
     let imageUrl = "";
 
     if (loacalImageUrl) {
-
+        
+        const response = await fetch(loacalImageUrl);
+        const blob = await response.blob();
     }
 
     return await addDoc(collection(db, "plants"), {
