@@ -36,6 +36,10 @@ const AddPlantScreen = () => {
             quality: 0.7,
             allowsEditing: true,
         });
+
+        if (!result.canceled) {
+            setPlantPhoto(result.assets[0].uri);
+        }
     }
     // save handler
     const handleAddPlant = async () => {
