@@ -1,4 +1,5 @@
 import { auth } from "@/config/firebase";
+import { loginUser } from "@/services/authService";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 
@@ -36,8 +37,9 @@ useEffect(() => {
 // login function
 const login = async (email: string, password: string) => {
     try {
+        const loggedUser = await loginUser(email, password);
 
     } catch (err) {
-        
+
     }
 }
