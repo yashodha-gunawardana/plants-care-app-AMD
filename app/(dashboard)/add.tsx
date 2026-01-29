@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Alert, View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { createPlant } from "@/services/plantService";
 import DashboardHeader from "@/components/Header";
+import { Ionicons } from "@expo/vector-icons";
 
 const AddPlantScreen = () => {
 
@@ -92,6 +93,12 @@ const AddPlantScreen = () => {
                     showsVerticalScrollIndicator={false}>
 
                     <Text style={styles.title}>Add New Plant 🌿</Text>
+
+                    {/* photo uplaod */}
+                    <TouchableOpacity style={styles.photoUpload}>
+                        <Ionicons name="camera" size={32} color="#3d5a2d" />
+                        <Text style={styles.photoText}>Add Photos</Text>
+                    </TouchableOpacity>
                 </ScrollView>
 
             </KeyboardAvoidingView>
@@ -109,6 +116,23 @@ const styles = StyleSheet.create({
         fontWeight: "800",
         color: "#1A3C34",
         marginBottom: 20,
+    },
+    photoUpload: {
+        height: 120,
+        backgroundColor: "#f3f4f0",
+        borderRadius: 16,
+        borderStyle: "dashed",
+        borderWidth: 2,
+        borderColor: "#c2c5bb",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    photoText: {
+        fontSize: 12,
+        fontWeight: "600",
+        color: "#3d5a2d",
+        marginTop: 4,
     },
 
 
