@@ -1,6 +1,8 @@
-import { auth } from "@/config/firebase"
+import { auth, db } from "@/config/firebase"
 import { addDoc, collection } from "firebase/firestore";
 
+
+// add plant
 export const createPlant = async (plantData: any) => {
     const user = auth.currentUser;
 
@@ -9,6 +11,8 @@ export const createPlant = async (plantData: any) => {
     }
 
     return await addDoc(collection(db, "plants"), {
-        
-    })
-}
+        ...plantData,    // plant form data
+        userId: user.uid,
+        createdAt: new Date().toISOString(),
+    });
+};
