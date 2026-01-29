@@ -116,6 +116,29 @@ const AddPlantScreen = () => {
                         value={plantType}
                         onChangeText={setPlantType}
                     />
+
+                    <View style={styles.row}>
+                        <View style={{ flex: 1, marginRight: 10 }}>
+                            <Text style={styles.label}>Location</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="e.g. Balcony"
+                                value={location}
+                                onChangeText={setLocation}
+                            />
+                        </View>
+
+                        <View style={{ flex: 1 }}>
+                            <Text style={styles.label}>Water (Days) *</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="7"
+                                keyboardType="numeric"
+                                value={waterDays}
+                                onChangeText={setWaterDays}
+                            />
+                        </View>
+                    </View>
                 </ScrollView>
 
             </KeyboardAvoidingView>
@@ -160,6 +183,7 @@ const styles = StyleSheet.create({
         borderColor: "#e0e0e0",
         fontSize: 14,
     },
+    row: { flexDirection: "row", justifyContent: "space-between" },
 
     // chip section
     section: { marginBottom: 16 },
