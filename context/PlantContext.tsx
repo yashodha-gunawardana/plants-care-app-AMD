@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import { AuthContext } from "./AuthContext";
+import { createPlant, getUserPlants, deletePlant, updatePlant } from "@/services/plantService";
 
 export interface Plant {
     id?: string;
@@ -36,4 +37,21 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     const { user } = useContext(AuthContext);   
     const [plants, setPlants] = useState<Plant[]>([]); 
     const [loading, setLoading] = useState<boolean>(true); 
+
+
+    const fetchPlantsData = async () => {
+        if (!user) return;
+        setLoading(true);
+
+        try {
+            const data = await getUserPlants();
+            setPlants(data);
+
+        } catch (err: any) {
+            console.log("Error fetching plants:", err.message);
+        
+        } finally {
+            setLoading(false);
+        }
+    };
 }
