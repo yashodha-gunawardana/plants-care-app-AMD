@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, ReactNode } from "react";
 
 interface AuthContextProps {
     user: any | null;                     
@@ -10,3 +10,7 @@ interface AuthContextProps {
 
 // create context
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
+
+interface Props {
+    children: ReactNode;
+}
