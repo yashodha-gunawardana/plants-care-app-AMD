@@ -19,6 +19,10 @@ const AddPlantScreen = () => {
     const [notes, setNotes] = useState("");
 
 
+    // camera permission
+    const pickImage = async () => {
+        
+    }
     // save handler
     const handleAddPlant = async () => {
 
