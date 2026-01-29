@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 
 // define search contect
@@ -12,5 +12,5 @@ const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
 
 export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
-    
+    const [searchQuery, setSearchQuery] = useState("");
 }
