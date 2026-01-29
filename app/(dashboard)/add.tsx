@@ -37,10 +37,13 @@ const AddPlantScreen = () => {
             allowsEditing: true,
         });
 
+        // check if the user actually took a photo or canceled
         if (!result.canceled) {
             setPlantPhoto(result.assets[0].uri);
         }
-    }
+    };
+
+
     // save handler
     const handleAddPlant = async () => {
 
@@ -62,7 +65,9 @@ const AddPlantScreen = () => {
                 careDifficulty: difficulty,
                 notes: notes,
                 lastWatered: new Date().toISOString(),
-            });
+            },
+            
+        );
 
             Alert.alert("Success 🌱", `${plantName} has been added!.`);
 
@@ -121,7 +126,7 @@ const AddPlantScreen = () => {
                     <Text style={styles.title}>Add New Plant 🌿</Text>
 
                     {/* photo uplaod */}
-                    <TouchableOpacity style={styles.photoUpload}>
+                    <TouchableOpacity style={styles.photoUpload} onPress={pickImage}>
                         <Ionicons name="camera" size={32} color="#3d5a2d" />
                         <Text style={styles.photoText}>Add Photos</Text>
                     </TouchableOpacity>
