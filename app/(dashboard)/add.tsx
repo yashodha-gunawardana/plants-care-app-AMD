@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Alert, View, StyleSheet, Text } from "react-native";
+import { Alert, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { createPlant } from "@/services/plantService";
 
 const AddPlantScreen = () => {
@@ -58,6 +58,14 @@ const AddPlantScreen = () => {
         <View style={styles.section}>
             <Text style={styles.label}>{label}</Text>
 
+            <View style={styles.chipRow}>
+                {options.map((opt: string) => (
+                    <TouchableOpacity
+                        key={opt}>
+                        
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
     )
 };
@@ -65,7 +73,7 @@ const AddPlantScreen = () => {
 
 const styles = StyleSheet.create({
 
-    // chip
+    // chip section
     section: {
         marginBottom: 16,
     },
@@ -75,5 +83,11 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         color: "#3d5a2d",
         marginBottom: 6,
+    },
+    chipRow: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 8,
+        marginTop: 4,
     },
 });
