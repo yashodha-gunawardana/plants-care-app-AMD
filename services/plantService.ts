@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase"
-import { addDoc, collection, query } from "firebase/firestore";
+import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
 
 
 // add plant
@@ -26,8 +26,11 @@ export const getUserPlants = async () => {
         throw new Error("User not authenticated...")
     }
 
+    // only plants belonging to user
     const q = query(
         collection(db, "plants"),
-        where("userId", "===", user.uid)
+        where("userId", "==", user.uid)
     );
+
+    const snapshot = await getDocs(q);
 }
