@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase"
-import { addDoc, collection, query, where, getDocs, doc } from "firebase/firestore";
+import { addDoc, collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
 
 
 // add plant
@@ -45,4 +45,6 @@ export const getUserPlants = async () => {
 // update plants
 export const updatePlant = async (plantId: string, updatedData: any) => {
     const plantRef = doc(db, "plants", plantId);
+
+    return await updateDoc(plantRef, updatedData);
 }
