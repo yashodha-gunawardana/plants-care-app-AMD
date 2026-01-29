@@ -15,4 +15,7 @@ interface PlantContextProps {
     plants: Plant[];
     loading: boolean;
     fetchPlants: () => Promise<void>;
+    addPlant: (plantData: Plant, imageUri?: string) => Promise<void>;
+    updatePlantData: (plantId: string, updatedData: Partial<Plant>) => Promise<void>;
+    removePlant: (plantId: string) => Promise<void>;
 }
