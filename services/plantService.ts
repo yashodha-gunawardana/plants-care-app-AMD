@@ -3,7 +3,7 @@ import { addDoc, collection, query, where, getDocs, doc, updateDoc, deleteDoc } 
 
 
 // add plant
-export const createPlant = async (plantData: any) => {
+export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
     const user = auth.currentUser;
 
     if (!user) {
@@ -11,6 +11,10 @@ export const createPlant = async (plantData: any) => {
     }
 
     let imageUrl = "";
+
+    if (loacalImageUrl) {
+
+    }
 
     return await addDoc(collection(db, "plants"), {
         ...plantData,    // plant form data
