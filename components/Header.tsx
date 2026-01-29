@@ -13,7 +13,8 @@ const DashboardHeader = () => {
     // current route path
     const pathname = usePathname();
     const [helpVisible, setHelpVisible] = useState(false);
-    const [searchQuery, setSearchQuery] = useState(""); 
+    
+    const { searchQuery, setSearchQuery }= useSearch(); 
 
     const isHome = pathname.includes("home");
     const isWiki = pathname.includes("wiki");
