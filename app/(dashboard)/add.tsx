@@ -61,7 +61,9 @@ const AddPlantScreen = () => {
             <View style={styles.chipRow}>
                 {options.map((opt: string) => (
                     <TouchableOpacity
-                        key={opt}>
+                        key={opt}
+                        style={[styles.chip, current === opt && styles.activeChip]}
+                        onPress={() => setter(opt)}>
                         
                     </TouchableOpacity>
                 ))}
@@ -90,4 +92,17 @@ const styles = StyleSheet.create({
         gap: 8,
         marginTop: 4,
     },
+    chip: {
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 20,
+        backgroundColor: "#eee",
+        borderWidth: 1,
+        borderColor: "transparent",
+    },
+    activeChip: {
+        backgroundColor: "#C6F062",
+        borderColor: "#1A3C34",
+    },
+
 });
