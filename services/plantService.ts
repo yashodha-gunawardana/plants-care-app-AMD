@@ -47,7 +47,7 @@ export const updatePlant = async (plantId: string, updatedData: any) => {
     const plantRef = doc(db, "plants", plantId);
 
     return await updateDoc(plantRef, updatedData);
-}
+};
 
 
 // remove plants
@@ -55,4 +55,4 @@ export const deletePlant = async (plantId: string) => {
     const plantRef = doc(db, "plants", plantId);
 
     return await deleteDoc(plantRef);
-}
+};
