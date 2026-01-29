@@ -80,7 +80,19 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
             );
 
         } catch (err: any) {
-
+            console.log("Error updating plant:", err.message)
         }
-    }
+    };
+
+
+    // delete plant
+    const removePlant = async (plantId: string) => {
+        try {
+            await deletePlant(plantId);                
+            setPlants(prev => prev.filter(p => p.id !== plantId));  // remove from local state
+
+        } catch (err: any) {
+            console.log("Error deleting plant:", err.message);
+        }
+    };
 }
