@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { 
-    Alert, View, StyleSheet, Text, TouchableOpacity, 
+    Alert, View, StyleSheet, Text, TouchableOpacity, Image,
     KeyboardAvoidingView, Platform, ScrollView, TextInput 
 } from "react-native";
 import { createPlant } from "@/services/plantService";
@@ -127,8 +127,21 @@ const AddPlantScreen = () => {
 
                     {/* photo uplaod */}
                     <TouchableOpacity style={styles.photoUpload} onPress={pickImage}>
-                        <Ionicons name="camera" size={32} color="#3d5a2d" />
-                        <Text style={styles.photoText}>Add Photos</Text>
+                        {plantPhoto ? (
+                            <Image 
+                                source={{ uri: plantPhoto }} 
+                                style={{
+                                    width: "100%", 
+                                    height: "100%", 
+                                    borderRadius: 16
+                                }} 
+                            />
+                        ) : (
+                            <>
+                                <Ionicons name="camera" size={32} color="#3d5a2d" />
+                                <Text style={styles.photoText}>Add Photos</Text>
+                            </>
+                        )}
                     </TouchableOpacity>
 
                     {/* input fields */}
