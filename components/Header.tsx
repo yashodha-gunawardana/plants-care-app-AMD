@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
+import { useSearch } from "@/context/SearchContext";
 
 const DashboardHeader = () => {
     // current route path
