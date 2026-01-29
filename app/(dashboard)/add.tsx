@@ -108,6 +108,14 @@ const AddPlantScreen = () => {
                         value={plantName}
                         onChangeText={setPlantName}
                     />
+
+                    <Text style={styles.label}>Scientific Name (Optional)</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="e.g. Spathiphyllum"
+                        value={plantType}
+                        onChangeText={setPlantType}
+                    />
                 </ScrollView>
 
             </KeyboardAvoidingView>
