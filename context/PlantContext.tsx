@@ -39,6 +39,7 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(true); 
 
 
+    // fetch all plants for current user
     const fetchPlantsData = async () => {
         if (!user) return;
         setLoading(true);
@@ -52,6 +53,20 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
         
         } finally {
             setLoading(false);
+        }
+    };
+
+
+    // add a new plant
+    const addPlant = async (plantData: Plant, localImageUri?: string) => {
+        if (!user) return; 
+
+        try {
+            await createPlant(plantData, localImageUri);  // upload plant to Firestore + Storage
+            await fetchPlantsData();  
+                               
+        } catch (err: any) {
+            console.log("Error adding plant:", err.message);
         }
     };
 }
