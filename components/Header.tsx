@@ -13,8 +13,8 @@ const DashboardHeader = () => {
     // current route path
     const pathname = usePathname();
     const [helpVisible, setHelpVisible] = useState(false);
-    
-    const { searchQuery, setSearchQuery }= useSearch(); 
+
+    const { searchQuery, setSearchQuery } = useSearch(); 
 
     const isHome = pathname.includes("home");
     const isWiki = pathname.includes("wiki");
@@ -40,6 +40,7 @@ const DashboardHeader = () => {
     };
 
 
+    // controls search animation visibility
     const [searchActive, setSearchActive] = useState(false);
     const animValue = useRef(new Animated.Value(0)).current;
 
@@ -122,7 +123,7 @@ const DashboardHeader = () => {
                                             placeholderTextColor="#8A9687"
                                             value={searchQuery}
                                             onChangeText={setSearchQuery}
-                                            autoFocus={true}
+                                            autoFocus
                                         />
                                         <TouchableOpacity onPress={handleCloseSearch} style={styles.closeBtn}>
                                             <Ionicons name="close-circle" size={18} color="#1A3C34" />
