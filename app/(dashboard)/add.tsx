@@ -153,6 +153,15 @@ const AddPlantScreen = () => {
                         current={difficulty}
                         setter={setDifficulty}
                     />
+
+                    <Text style={styles.label}>Soil Type / Notes</Text>
+                    <TextInput
+                        style={[styles.input, styles.textArea]}
+                        placeholder="e.g. Well-draining soil..."
+                        multiline
+                        value={notes}
+                        onChangeText={setNotes}
+                    />
                 </ScrollView>
 
             </KeyboardAvoidingView>
@@ -198,7 +207,9 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     row: { flexDirection: "row", justifyContent: "space-between" },
+    textArea: { height: 80, textAlignVertical: "top" },
 
+    
     // chip section
     section: { marginBottom: 16 },
     label: {
