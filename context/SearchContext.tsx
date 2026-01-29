@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 
 // define search contect
@@ -27,6 +27,7 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 
+// custome hook to access the search context
 export const useSearch = () => {
-    
+    const context = useContext(SearchContext);
 }
