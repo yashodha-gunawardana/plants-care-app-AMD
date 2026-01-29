@@ -166,6 +166,18 @@ const AddPlantScreen = () => {
                     <View style={{ height: 100 }} />
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            {/* button */}
+            <View style={styles.sideActionContainer}>
+                <TouchableOpacity
+                    style={styles.verticalBtn}
+                    onPress={handleAddPlant}
+                    activeOpacity={0.8}>
+
+                    <Ionicons name="add-circle" size={28} color="#1A3C34" />
+                    <Text style={styles.verticalBtnText}>SAVE</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -210,6 +222,36 @@ const styles = StyleSheet.create({
     row: { flexDirection: "row", justifyContent: "space-between" },
     textArea: { height: 80, textAlignVertical: "top" },
 
+    // button
+    sideActionContainer: {
+        position: "absolute",
+        right: 0,
+        top: "45%",
+        backgroundColor: "#C6F062",
+        borderTopLeftRadius: 25,
+        borderBottomLeftRadius: 25,
+        shadowColor: "#000",
+        shadowOffset: { width: -2, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 6,
+        elevation: 10,
+        borderWidth: 1,
+        borderRightWidth: 0,
+        borderColor: "#1A3C34",
+    },
+    verticalBtn: {
+        paddingVertical: 20,
+        paddingHorizontal: 12,
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 4,
+    },
+    verticalBtnText: {
+        fontSize: 11,
+        fontWeight: "900",
+        color: "#1A3C34",
+        letterSpacing: 0.5,
+    },
 
     // chip section
     section: { marginBottom: 16 },
