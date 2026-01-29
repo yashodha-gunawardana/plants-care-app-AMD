@@ -91,6 +91,7 @@ const AddPlantScreen = () => {
                     contentContainerStyle={styles.content}
                     showsVerticalScrollIndicator={false}>
 
+                    <Text style={styles.title}>Add New Plant 🌿</Text>
                 </ScrollView>
 
             </KeyboardAvoidingView>
@@ -103,6 +104,12 @@ const styles = StyleSheet.create({
     // screen
     container: { flex: 1, backgroundColor: "#fdfdfb" },
     content: { padding: 20 },
+    title: {
+        fontSize: 24,
+        fontWeight: "800",
+        color: "#1A3C34",
+        marginBottom: 20,
+    },
 
 
     // chip section
