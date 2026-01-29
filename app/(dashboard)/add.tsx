@@ -139,6 +139,20 @@ const AddPlantScreen = () => {
                             />
                         </View>
                     </View>
+
+                    <SelectionRow
+                        label="Light Requirement"
+                        options={["Low", "Medium", "Bright", "Direct"]}
+                        current={light}
+                        setter={setLight}
+                    />
+
+                    <SelectionRow
+                        label="Care Difficulty"
+                        options={["Easy", "Moderate", "Hard"]}
+                        current={difficulty}
+                        setter={setDifficulty}
+                    />
                 </ScrollView>
 
             </KeyboardAvoidingView>
