@@ -1,5 +1,8 @@
 import { useState } from "react"
-import { Alert, View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, TextInput } from "react-native";
+import { 
+    Alert, View, StyleSheet, Text, TouchableOpacity, 
+    KeyboardAvoidingView, Platform, ScrollView, TextInput 
+} from "react-native";
 import { createPlant } from "@/services/plantService";
 import DashboardHeader from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
@@ -53,9 +56,9 @@ const AddPlantScreen = () => {
             console.log(err);
         }
     };
+    
 
-
-    {/* chip selection */}
+    // chip section
     const SelectionRow = ({ label, options, current, setter }: any) => (
         <View style={styles.section}>
             <Text style={styles.label}>{label}</Text>
@@ -280,3 +283,6 @@ const styles = StyleSheet.create({
     activeChipText: { color: "#1A3C34", fontWeight: "700" }
 
 });
+
+
+export default AddPlantScreen;

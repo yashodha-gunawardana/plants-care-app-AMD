@@ -10,6 +10,8 @@ export const createPlant = async (plantData: any) => {
         throw new Error("User not authenticated..")
     }
 
+    let imageUrl = "";
+
     return await addDoc(collection(db, "plants"), {
         ...plantData,    // plant form data
         userId: user.uid,
