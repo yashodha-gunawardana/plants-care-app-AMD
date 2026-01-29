@@ -28,4 +28,6 @@ useEffect(() => {
         setUser(currentUser);
         setLoading(false);
     });
-})
+
+    return () => unsubscribe();
+}, []);
