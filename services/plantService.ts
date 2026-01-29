@@ -40,3 +40,9 @@ export const getUserPlants = async () => {
         ...doc.data(),
     }));
 };
+
+
+// update plants
+export const updatePlant = async (plantId: string, updatedData: any) => {
+    
+}
