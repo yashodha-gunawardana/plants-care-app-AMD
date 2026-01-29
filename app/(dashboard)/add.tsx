@@ -50,5 +50,11 @@ const AddPlantScreen = () => {
             Alert.alert("Error", "Failed to save plant. Please try again.");
             console.log(err);
         }
-    }
+    };
+
+
+    {/* chip selection */}
+    const SelectionRow = ({ label, options, current, setter }: any) => (
+        
+    )
 }
