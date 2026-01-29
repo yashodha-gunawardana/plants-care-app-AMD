@@ -13,4 +13,6 @@ export interface Plant {
 
 interface PlantContextProps {
     plants: Plant[];
+    loading: boolean;
+    fetchPlants: () => Promise<void>;
 }
