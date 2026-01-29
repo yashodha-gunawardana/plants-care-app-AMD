@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { createPlant, getUserPlants, deletePlant, updatePlant } from "@/services/plantService";
 
@@ -95,4 +95,10 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
             console.log("Error deleting plant:", err.message);
         }
     };
+
+
+    useEffect(() => {
+        if (user) fetchPlantsData();
+        else setPlants([]); // clear plants if no user logged in
+    }, [user]);
 }
