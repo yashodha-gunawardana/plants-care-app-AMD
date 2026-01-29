@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Alert } from "react-native";
+import { Alert, View, StyleSheet, Text } from "react-native";
 import { createPlant } from "@/services/plantService";
 
 const AddPlantScreen = () => {
@@ -55,6 +55,25 @@ const AddPlantScreen = () => {
 
     {/* chip selection */}
     const SelectionRow = ({ label, options, current, setter }: any) => (
-        
+        <View style={styles.section}>
+            <Text style={styles.label}>{label}</Text>
+
+        </View>
     )
-}
+};
+
+
+const styles = StyleSheet.create({
+
+    // chip
+    section: {
+        marginBottom: 16,
+    },
+
+    label: {
+        fontSize: 13,
+        fontWeight: "700",
+        color: "#3d5a2d",
+        marginBottom: 6,
+    },
+});
