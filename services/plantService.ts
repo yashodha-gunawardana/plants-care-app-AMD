@@ -1,6 +1,6 @@
-import { auth, db } from "@/config/firebase";
-import { ref } from "firebase/storage";
+import { auth, db, storage } from "@/config/firebase";
 import { addDoc, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { ref } from "firebase/storage";
 
 
 // add plant
