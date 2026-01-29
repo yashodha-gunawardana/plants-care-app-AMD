@@ -1,6 +1,7 @@
 import { auth, db, storage } from "@/config/firebase";
 import { addDoc, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { Plant } from "@/context/PlantContext";
 
 
 // add plant
@@ -53,10 +54,25 @@ export const getUserPlants = async () => {
     // execute query
     const snapshot = await getDocs(q);
 
-    return snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-    }));
+    // map Firestore docs to full Plant objects
+    const plants: Plant[] = snapshot.docs.map(doc => {
+        const data = doc.data();
+
+        return {
+            id: doc.id,
+            name: data.name || "Unnamed Plant",       
+            type: data.type || "Unknown Type",        
+            wateringInterval: data.wateringInterval,
+            lastWatered: data.lastWatered,
+            photo: data.photo,
+            location: data.location,
+            notes: data.notes,
+            userId: data.userId,
+            createdAt: data.createdAt || new Date().toISOString(), // required for TS
+        } as Plant;
+    });
+
+    return plants;
 };
 
 

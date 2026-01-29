@@ -101,4 +101,19 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
         if (user) fetchPlantsData();
         else setPlants([]); // clear plants if no user logged in
     }, [user]);
-}
+
+
+    return (
+        <PlantContext.Provider
+            value={{
+                plants,
+                loading,
+                fetchPlants: fetchPlantsData,
+                addPlant,
+                updatePlantData,
+                removePlant,
+            }}>
+            {children}
+        </PlantContext.Provider>
+    );
+};
