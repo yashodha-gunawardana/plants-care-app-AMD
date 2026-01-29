@@ -1,4 +1,5 @@
-import { auth, db } from "@/config/firebase"
+import { auth, db } from "@/config/firebase";
+import { ref } from "firebase/storage";
 import { addDoc, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 
@@ -13,9 +14,11 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
     let imageUrl = "";
 
     if (loacalImageUrl) {
-        
+        // convert local URI to blob for upload
         const response = await fetch(loacalImageUrl);
         const blob = await response.blob();
+
+        const  storageRef = ref(storage, `plants/${Date.now()}.jpg`);
     }
 
     return await addDoc(collection(db, "plants"), {
