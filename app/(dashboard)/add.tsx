@@ -36,6 +36,8 @@ const AddPlantScreen = () => {
                 lastWatered: new Date().toISOString(),
             });
 
+            Alert.alert("Success 🌱", `${plantName} has been added!.`);
+
         } catch (err) {
 
         }
