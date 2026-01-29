@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { Alert, View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Alert, View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { createPlant } from "@/services/plantService";
+import DashboardHeader from "@/components/Header";
 
 const AddPlantScreen = () => {
 
@@ -79,8 +80,20 @@ const AddPlantScreen = () => {
 
 
     return (
-        <View style={styles.conatiner}>
+        <View style={styles.container}>
+            <DashboardHeader />
 
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}>
+
+                <ScrollView
+                    contentContainerStyle={styles.content}
+                    showsVerticalScrollIndicator={false}>
+
+                </ScrollView>
+
+            </KeyboardAvoidingView>
         </View>
     );
 };
@@ -88,17 +101,12 @@ const AddPlantScreen = () => {
 
 const styles = StyleSheet.create({
     // screen
-    container: {
-        flex: 1,
-        backgroundColor: "#fdfdfb",
-    },
+    container: { flex: 1, backgroundColor: "#fdfdfb" },
+    content: { padding: 20 },
 
-    
+
     // chip section
-    section: {
-        marginBottom: 16,
-    },
-
+    section: { marginBottom: 16 },
     label: {
         fontSize: 13,
         fontWeight: "700",
@@ -119,17 +127,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "transparent",
     },
-    activeChip: {
-        backgroundColor: "#C6F062",
-        borderColor: "#1A3C34",
-    },
-    chipText: {
-        fontSize: 12,
-        color: "#666",
-    },
-    activeChipText: {
-        color: "#1A3C34",
-        fontWeight: "700",
-    },
+    activeChip: { backgroundColor: "#C6F062", borderColor: "#1A3C34" },
+    chipText: { fontSize: 12, color: "#666" },
+    activeChipText: { color: "#1A3C34", fontWeight: "700" }
 
 });
