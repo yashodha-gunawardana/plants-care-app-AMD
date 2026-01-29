@@ -31,3 +31,13 @@ useEffect(() => {
 
     return () => unsubscribe();
 }, []);
+
+
+// login function
+const login = async (email: string, password: string) => {
+    try {
+
+    } catch (err) {
+        
+    }
+}
