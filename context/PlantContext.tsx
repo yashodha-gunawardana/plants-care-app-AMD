@@ -10,3 +10,7 @@ export interface Plant {
     userId?: string;
     createdAt?: string
 }
+
+interface PlantContextProps {
+    plants: Plant[];
+}
