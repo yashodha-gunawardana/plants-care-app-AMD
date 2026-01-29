@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Alert } from "react-native";
+import { createPlant } from "@/services/plantService";
 
 const AddPlantScreen = () => {
 
@@ -21,6 +22,22 @@ const AddPlantScreen = () => {
                 "Please provide a name, watering frequency, light, and difficulty."
             );
             return;
+        }
+
+        try {
+            await createPlant({
+                name: plantName,
+                scientificName: plantType,
+                location: location || "Living Room",
+                waterEvery: Number(waterDays),
+                lightRequirement: light,
+                careDifficulty: difficulty,
+                notes: notes,
+                lastWatered: new Date().toISOString(),
+            });
+
+        } catch (err) {
+
         }
     }
 }
