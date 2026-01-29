@@ -75,6 +75,9 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     const updatePlantData = async (plantId: string, updatedData: Partial<Plant>) => {
         try {
             await updatePlant(plantId, updatedData);
+            setPlants(prev =>
+                prev.map(p => (p.id === plantId ? { ...p, ...updatedData } : p))
+            );
 
         } catch (err: any) {
 
