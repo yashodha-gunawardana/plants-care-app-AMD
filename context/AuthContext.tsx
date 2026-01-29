@@ -1,3 +1,5 @@
+import React, { createContext } from "react";
+
 interface AuthContextProps {
     user: any | null;                     
     loading: boolean;       // loading while checking auth state
@@ -5,3 +7,6 @@ interface AuthContextProps {
     register: (fullname: string, email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
 }
+
+// create context
+export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
