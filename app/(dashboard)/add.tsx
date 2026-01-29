@@ -71,17 +71,29 @@ const AddPlantScreen = () => {
                                 {opt}
 
                         </Text>
-                        
                     </TouchableOpacity>
                 ))}
             </View>
         </View>
-    )
+    );
+
+
+    return (
+        <View style={styles.conatiner}>
+
+        </View>
+    );
 };
 
 
 const styles = StyleSheet.create({
+    // screen
+    container: {
+        flex: 1,
+        backgroundColor: "#fdfdfb",
+    },
 
+    
     // chip section
     section: {
         marginBottom: 16,
