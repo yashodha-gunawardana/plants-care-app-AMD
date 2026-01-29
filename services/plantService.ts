@@ -52,5 +52,5 @@ export const updatePlant = async (plantId: string, updatedData: any) => {
 
 // remove plants
 export const deletePlant = async (plantId: string) => {
-    
+    const plantRef = doc(db, "plants", plantId);
 }
