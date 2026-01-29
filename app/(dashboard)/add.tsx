@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const AddPlantScreen = () => {
 
+    const [plantPhoto, setPlantPhoto] = useState<string | null>(null); 
     const [plantName, setPlantName] = useState("");
     const [plantType, setPlantType] = useState("");
     const [location, setLocation] = useState("");
@@ -56,7 +57,7 @@ const AddPlantScreen = () => {
             console.log(err);
         }
     };
-    
+
 
     // chip section
     const SelectionRow = ({ label, options, current, setter }: any) => (
