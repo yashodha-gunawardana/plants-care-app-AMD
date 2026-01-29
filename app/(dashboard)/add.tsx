@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Alert } from "react-native";
 
 const AddPlantScreen = () => {
 
@@ -14,5 +15,12 @@ const AddPlantScreen = () => {
     // save handler
     const handleAddPlant = async () => {
 
+        if (!plantName || !waterDays || !light || !difficulty) {
+            Alert.alert(
+                "Missing Info",
+                "Please provide a name, watering frequency, light, and difficulty."
+            );
+            return;
+        }
     }
 }
