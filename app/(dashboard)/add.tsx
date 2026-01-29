@@ -38,6 +38,14 @@ const AddPlantScreen = () => {
 
             Alert.alert("Success 🌱", `${plantName} has been added!.`);
 
+            setPlantName("");
+            setPlantType("");
+            setLocation("");
+            setWaterDays("");
+            setLight("");
+            setDifficulty("");
+            setNotes("");
+
         } catch (err) {
 
         }
