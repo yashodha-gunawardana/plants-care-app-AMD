@@ -1,3 +1,6 @@
+import React, { createContext, ReactNode } from "react";
+
+
 export interface Plant {
     id?: string;
     name: string;
@@ -18,4 +21,12 @@ interface PlantContextProps {
     addPlant: (plantData: Plant, imageUri?: string) => Promise<void>;
     updatePlantData: (plantId: string, updatedData: Partial<Plant>) => Promise<void>;
     removePlant: (plantId: string) => Promise<void>;
+}
+
+
+export const PlantContext = createContext<PlantContextProps>({} as PlantContextProps);
+
+
+interface Props {
+    children: ReactNode;
 }
