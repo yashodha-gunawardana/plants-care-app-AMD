@@ -1,5 +1,8 @@
 import { usePathname } from "expo-router"
-import { View, StyleSheet, TouchableOpacity, Text, Platform, Modal, ScrollView, Animated, Easing, TextInput } from "react-native";
+import { 
+    View, StyleSheet, TouchableOpacity, Text, Platform, 
+    Modal, ScrollView, Animated, Easing, TextInput 
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -64,7 +67,7 @@ const DashboardHeader = () => {
 
     const inputWidth = animValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, 150]
+        outputRange: [0, 200]
     });
 
     const helpItems = [
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
     },
     gradientBg: {
         width: "100%",
-        paddingTop: Platform.OS === 'android' ? 30 : 0,
+        paddingTop: Platform.OS === 'android' ? 25 : 0,
         overflow: "hidden",
     },
     sunGlow: {
@@ -339,7 +342,7 @@ const styles = StyleSheet.create({
         borderColor: "rgba(26, 60, 52, 0.05)"
     },
     searchInput: { flex: 1, height: 40, paddingHorizontal: 12, color: "#1A3C34", fontSize: 14 },
-    closeBtn: { paddingRight: 8 },
+    closeBtn: { paddingRight: 8 }
 
 });
 

@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Animated, Easing, View, Text, ImageBackground, SafeAreaView, PanResponder } from "react-native";
+import { 
+    StyleSheet, Animated, Easing, View, 
+    Text, ImageBackground, SafeAreaView, PanResponder 
+} from "react-native";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
 import { Dimensions } from "react-native";
