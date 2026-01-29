@@ -16,3 +16,13 @@ export const createPlant = async (plantData: any) => {
         createdAt: new Date().toISOString(),
     });
 };
+
+
+// get all plants
+export const getUserPlants = async () => {
+    const user = auth.currentUser;
+
+    if (!user) {
+        throw new Error("User not authenticated...")
+    }
+}
