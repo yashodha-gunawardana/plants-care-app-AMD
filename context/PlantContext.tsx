@@ -69,4 +69,15 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
             console.log("Error adding plant:", err.message);
         }
     };
+
+
+    // update plants
+    const updatePlantData = async (plantId: string, updatedData: Partial<Plant>) => {
+        try {
+            await updatePlant(plantId, updatedData);
+
+        } catch (err: any) {
+
+        }
+    }
 }
