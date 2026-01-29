@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Alert, View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Alert, View, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, TextInput } from "react-native";
 import { createPlant } from "@/services/plantService";
 import DashboardHeader from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
@@ -99,6 +99,15 @@ const AddPlantScreen = () => {
                         <Ionicons name="camera" size={32} color="#3d5a2d" />
                         <Text style={styles.photoText}>Add Photos</Text>
                     </TouchableOpacity>
+
+                    {/* input fields */}
+                    <Text style={styles.label}>Plant Name *</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="e.g. Peace Lily"
+                        value={plantName}
+                        onChangeText={setPlantName}
+                    />
                 </ScrollView>
 
             </KeyboardAvoidingView>
@@ -134,7 +143,15 @@ const styles = StyleSheet.create({
         color: "#3d5a2d",
         marginTop: 4,
     },
-
+    input: {
+        backgroundColor: "#fff",
+        borderRadius: 12,
+        padding: 14,
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: "#e0e0e0",
+        fontSize: 14,
+    },
 
     // chip section
     section: { marginBottom: 16 },
