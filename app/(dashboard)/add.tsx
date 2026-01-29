@@ -47,7 +47,8 @@ const AddPlantScreen = () => {
             setNotes("");
 
         } catch (err) {
-
+            Alert.alert("Error", "Failed to save plant. Please try again.");
+            console.log(err);
         }
     }
 }
