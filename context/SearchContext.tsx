@@ -17,8 +17,16 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     return (
+
+        // makes searchQuery and setSearchQuery
+            // available to all components inside this provider
         <SearchContext.Provider value={{ searchQuery, setSearchQuery }}>
             {children}
         </SearchContext.Provider>
     );
+};
+
+
+export const useSearch = () => {
+    
 }
