@@ -6,6 +6,7 @@ import {
 import { createPlant } from "@/services/plantService";
 import DashboardHeader from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 const AddPlantScreen = () => {
 
@@ -21,7 +22,7 @@ const AddPlantScreen = () => {
 
     // camera permission
     const pickImage = async () => {
-        
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
     }
     // save handler
     const handleAddPlant = async () => {
