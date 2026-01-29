@@ -1,7 +1,7 @@
 import { auth } from "@/config/firebase";
 import { loginUser, registerUser } from "@/services/authService";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, { Children, createContext, ReactNode, useEffect, useState } from "react";
 
 interface AuthContextProps {
     user: any | null;                     
@@ -21,50 +21,57 @@ interface Props {
 export const AuthProvider: React.FC<Props> = ({ children }) => {
     const [user, setUser] = useState<any | null>(null); // store current user
     const [loading, setLoading] = useState<boolean>(true); // loading state while checking auth
-}
 
 
-useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        setLoading(false);
-    });
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setLoading(false);
+        });
 
-    return () => unsubscribe();
-}, []);
-
-
-// login function
-const login = async (email: string, password: string) => {
-    try {
-        const loggedUser = await loginUser(email, password);
-        setUser(loggedUser);
-
-    } catch (err: any) {
-        throw new Error(err.message);
-    }
-};
+        return () => unsubscribe();
+    }, []);
 
 
-// register function
-const register = async (fullname: string, email: string, password: string) => {
-    try {
-        const newUser = await registerUser(fullname, email, password);
-        setUser(newUser); 
-        
-    } catch (error: any) {
-        throw new Error(error.message); 
-    }
-};
+    // login function
+    const login = async (email: string, password: string) => {
+        try {
+            const loggedUser = await loginUser(email, password);
+            setUser(loggedUser);
+
+        } catch (err: any) {
+            throw new Error(err.message);
+        }
+    };
 
 
-// logout function
-const logout = async () => {
-    try {
-        await signOut(auth);   // firebase logout
-        setUser(null);
+    // register function
+    const register = async (fullname: string, email: string, password: string) => {
+        try {
+            const newUser = await registerUser(fullname, email, password);
+            setUser(newUser); 
+            
+        } catch (error: any) {
+            throw new Error(error.message); 
+        }
+    };
 
-    } catch (err: any) {
-        throw new Error(err.message);
-    }
+
+    // logout function
+    const logout = async () => {
+        try {
+            await signOut(auth);   // firebase logout
+            setUser(null);
+
+        } catch (err: any) {
+            throw new Error(err.message);
+        }
+    };
+
+
+    return (
+        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
