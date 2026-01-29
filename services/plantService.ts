@@ -1,6 +1,6 @@
 import { auth, db, storage } from "@/config/firebase";
 import { addDoc, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { ref } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 
 // add plant
@@ -18,7 +18,10 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
         const response = await fetch(loacalImageUrl);
         const blob = await response.blob();
 
+        // unique path in firebase storage
         const  storageRef = ref(storage, `plants/${Date.now()}.jpg`);
+
+        await uploadBytes(storageRef, blob);
     }
 
     return await addDoc(collection(db, "plants"), {
