@@ -1,6 +1,6 @@
 import { auth } from "@/config/firebase";
 import { loginUser, registerUser } from "@/services/authService";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 interface AuthContextProps {
@@ -56,3 +56,14 @@ const register = async (fullname: string, email: string, password: string) => {
         throw new Error(error.message); 
     }
 };
+
+
+// logout function
+const logout = async () => {
+    try {
+        await signOut(auth);
+
+    } catch (err) {
+
+    }
+}
