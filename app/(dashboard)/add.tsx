@@ -62,8 +62,15 @@ const AddPlantScreen = () => {
                 {options.map((opt: string) => (
                     <TouchableOpacity
                         key={opt}
+                        // apply active style if selected
                         style={[styles.chip, current === opt && styles.activeChip]}
                         onPress={() => setter(opt)}>
+
+                        <Text
+                            style={[styles.chipText, current === opt && styles.activeChipText]}>
+                                {opt}
+
+                        </Text>
                         
                     </TouchableOpacity>
                 ))}
@@ -103,6 +110,14 @@ const styles = StyleSheet.create({
     activeChip: {
         backgroundColor: "#C6F062",
         borderColor: "#1A3C34",
+    },
+    chipText: {
+        fontSize: 12,
+        color: "#666",
+    },
+    activeChipText: {
+        color: "#1A3C34",
+        fontWeight: "700",
     },
 
 });
