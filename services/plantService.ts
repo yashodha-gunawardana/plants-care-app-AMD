@@ -29,6 +29,7 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
 
     return await addDoc(collection(db, "plants"), {
         ...plantData,    // plant form data
+        photo: imageUrl,
         userId: user.uid,
         createdAt: new Date().toISOString(),
     });
