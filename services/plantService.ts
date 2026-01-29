@@ -48,3 +48,9 @@ export const updatePlant = async (plantId: string, updatedData: any) => {
 
     return await updateDoc(plantRef, updatedData);
 }
+
+
+// remove plants
+export const deletePlant = async (plantId: string) => {
+    
+}
