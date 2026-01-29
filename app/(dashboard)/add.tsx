@@ -23,6 +23,14 @@ const AddPlantScreen = () => {
     // camera permission
     const pickImage = async () => {
         const { status } = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (status !== "granted") {
+            Alert.alert(
+                "Permission denied",
+                "Camera permission is required to take photos"
+            );
+            return;
+        }
     }
     // save handler
     const handleAddPlant = async () => {
