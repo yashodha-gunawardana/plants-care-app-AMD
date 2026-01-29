@@ -65,11 +65,14 @@ const AddPlantScreen = () => {
                 careDifficulty: difficulty,
                 notes: notes,
                 lastWatered: new Date().toISOString(),
-                photoUrl: plantPhoto ?? undefined
-            });
+                
+            },
+            plantPhoto ?? undefined
+        );
 
             Alert.alert("Success 🌱", `${plantName} has been added!.`);
 
+            setPlantPhoto(null);
             setPlantName("");
             setPlantType("");
             setLocation("");
