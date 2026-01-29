@@ -32,5 +32,11 @@ export const getUserPlants = async () => {
         where("userId", "==", user.uid)
     );
 
+    // execute query
     const snapshot = await getDocs(q);
-}
+
+    return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+};
