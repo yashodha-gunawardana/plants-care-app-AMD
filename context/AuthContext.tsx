@@ -1,5 +1,5 @@
 import { auth } from "@/config/firebase";
-import { loginUser } from "@/services/authService";
+import { loginUser, registerUser } from "@/services/authService";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 
@@ -40,7 +40,19 @@ const login = async (email: string, password: string) => {
         const loggedUser = await loginUser(email, password);
         setUser(loggedUser);
 
-    } catch (err) {
-
+    } catch (err: any) {
+        throw new Error(err.message);
     }
-}
+};
+
+
+// register function
+const register = async (fullname: string, email: string, password: string) => {
+    try {
+        const newUser = await registerUser(fullname, email, password);
+        setUser(newUser); 
+        
+    } catch (error: any) {
+        throw new Error(error.message); 
+    }
+};
