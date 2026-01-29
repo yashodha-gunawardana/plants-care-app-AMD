@@ -38,6 +38,7 @@ useEffect(() => {
 const login = async (email: string, password: string) => {
     try {
         const loggedUser = await loginUser(email, password);
+        setUser(loggedUser);
 
     } catch (err) {
 
