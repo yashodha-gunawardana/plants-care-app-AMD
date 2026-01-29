@@ -61,9 +61,10 @@ const register = async (fullname: string, email: string, password: string) => {
 // logout function
 const logout = async () => {
     try {
-        await signOut(auth);
+        await signOut(auth);   // firebase logout
+        setUser(null);
 
-    } catch (err) {
-
+    } catch (err: any) {
+        throw new Error(err.message);
     }
-}
+};
