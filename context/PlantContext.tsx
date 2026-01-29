@@ -1,5 +1,5 @@
-import React, { createContext, ReactNode } from "react";
-
+import React, { createContext, ReactNode, useContext, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
 export interface Plant {
     id?: string;
@@ -29,4 +29,11 @@ export const PlantContext = createContext<PlantContextProps>({} as PlantContextP
 
 interface Props {
     children: ReactNode;
+}
+
+
+export const PlantProvider: React.FC<Props> = ({ children }) => {
+    const { user } = useContext(AuthContext);   
+    const [plants, setPlants] = useState<Plant[]>([]); 
+    const [loading, setLoading] = useState<boolean>(true); 
 }
