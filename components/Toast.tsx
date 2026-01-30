@@ -64,7 +64,7 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
         }
     }, [visible]);
 
-    if (!visible) return null;
+    if (!shouldRender) return null;
 
 
     const icon =
