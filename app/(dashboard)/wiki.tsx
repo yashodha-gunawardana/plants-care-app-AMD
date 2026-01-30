@@ -2,7 +2,7 @@ import DashboardHeader from "@/components/Header";
 import { useSearch } from "@/context/SearchContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { Platform, UIManager, Text, StyleSheet, View, ScrollView } from "react-native";
+import { Platform, UIManager, Text, StyleSheet, View, ScrollView, TouchableOpacity, LayoutAnimation } from "react-native";
 
 
 
@@ -199,6 +199,20 @@ const WikiScreen = () => {
                             key={category}
                             style={styles.categoryWrapper}> 
 
+                            <TouchableOpacity
+                                style={styles.categoryPressable}
+                                activeOpacity={0.8}
+                                onPress={() => {
+                                    LayoutAnimation.configureNext(
+                                        LayoutAnimation.Presets.easeInEaseOut
+                                    );
+                                    setExpandedCategory(
+                                        expandedCategory === category ? null : category
+                                    );
+                                }}>
+
+                            </TouchableOpacity>
+
                         </View>
                     )
                 })}
@@ -225,7 +239,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#F2F2F2",
     },
-    
+    categoryPressable: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: 22,
+    },
     highlight: {
         backgroundColor: "#D1E9FF",
         color: "#1A3C34",
