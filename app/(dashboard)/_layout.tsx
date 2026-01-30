@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Text, Animated } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-
 
 const tabs = [
     { name: "home", icon: "home-outline", title: "Home" },
@@ -33,7 +32,6 @@ const DashboardLayout = () => {
                                     {focused ? (
                                         <>
                                             <View style={styles.indicator}>
-                                            
                                                 <Ionicons
                                                     name={tab.icon as any}
                                                     size={26}
@@ -48,7 +46,8 @@ const DashboardLayout = () => {
                                         <Ionicons
                                             name={tab.icon as any}
                                             size={24}
-                                            color="rgba(255,255,255,0.4)"
+                                            color="#1A3C34" 
+                                            style={{ marginTop: 5 }}
                                         />
                                     )}
                                 </View>
@@ -65,10 +64,10 @@ const DashboardLayout = () => {
 const styles = StyleSheet.create({
     tabBar: {
         height: 60,
-        backgroundColor: "#1A3C34", 
+        backgroundColor: "#FFFFFF", 
         position: "absolute",
-        borderTopLeftRadius: 30,    
-        borderTopRightRadius: 30,
+        borderTopLeftRadius: 35,    
+        borderTopRightRadius: 35,
         borderTopWidth: 0,          
         elevation: 10,
     },
@@ -85,19 +84,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#C6F062", 
         borderRadius: 30,
         borderWidth: 6,
-        borderColor: "#fdfdfb",  
+        borderColor: "#FFFFFF",     
         alignItems: "center",
         justifyContent: "center"  
     },
     
     tabLabel: {
-        color: "white",
+        color: "#1A3C34",           
         fontSize: 10,
         fontWeight: "700",
         position: "absolute",
         bottom: -30,                
     }
 });
-
 
 export default DashboardLayout;

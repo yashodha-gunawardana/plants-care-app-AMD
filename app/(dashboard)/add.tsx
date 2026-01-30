@@ -125,7 +125,7 @@ const AddPlantScreen = () => {
                     contentContainerStyle={styles.content}
                     showsVerticalScrollIndicator={false}>
 
-                    <Text style={styles.title}>Add New Plant 🌿</Text>
+                    <Text style={styles.title}>Add Your Green Friend 🌿</Text>
 
                     {/* photo uplaod */}
                     <TouchableOpacity style={styles.photoUpload} onPress={pickImage}>
@@ -231,7 +231,7 @@ const AddPlantScreen = () => {
 
 const styles = StyleSheet.create({
     // screen
-    container: { flex: 1, backgroundColor: "#fdfdfb" },
+    container: { flex: 1, backgroundColor: "#fdfdfb7e" },
     content: { padding: 20 },
     title: {
         fontSize: 24,
