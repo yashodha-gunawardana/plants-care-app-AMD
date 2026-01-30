@@ -29,18 +29,22 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
             setShouldRender(true);
             progress.setValue(0);
 
-            // animate toast IN (fade + slide up)
             Animated.parallel([
-                Animated.timing(opacity, {
-                    toValue: 1,
-                    duration: 250,
-                    useNativeDriver: true,
+                Animated.spring(scale, { 
+                    toValue: 1, 
+                    useNativeDriver: true, 
+                    friction: 8 
                 }),
-                Animated.timing(translateY, {
-                    toValue: 0,
-                    duration: 250,
-                    useNativeDriver: true,
+                Animated.timing(opacity, { 
+                    toValue: 1, 
+                    duration: 300, 
+                    useNativeDriver: true 
                 }),
+                Animated.timing(progress, { 
+                    toValue: 1, 
+                    duration: 3000, 
+                    useNativeDriver: false 
+                })
             ]).start();
 
         } else {
