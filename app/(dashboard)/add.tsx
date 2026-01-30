@@ -217,12 +217,23 @@ const AddPlantScreen = () => {
                         onChangeText={setNotes}
                     />
 
-                    <View style={{ height: 20 }} />
+                    {/* <View style={{ height: 20 }} /> */}
 
                     {/* show ActivityIndicator when saving */}
-                    {loading && <ActivityIndicator size="large" color="#1A3C34" style={{ marginVertical: 20 }} />}
+                    {/* {loading && <ActivityIndicator size="large" color="#1A3C34" style={{ marginVertical: 20 }} />} */}
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            {/* loading */}
+            {loading && (
+                <View style={styles.loadingOverlay}>
+                    <View style={styles.loadingCard}>
+                        {/* Circular loader using your requested color #1A3C34 */}
+                        <ActivityIndicator size="large" color="#1A3C34" />
+                        <Text style={styles.loadingText}>Planting your friend...</Text>
+                    </View>
+                </View>
+            )}
 
             {/* button */}
             <View style={styles.sideActionContainer}>
