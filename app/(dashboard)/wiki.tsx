@@ -262,7 +262,19 @@ const WikiScreen = () => {
                                                     </TouchableOpacity>
                                                 </View>
 
-                                                
+                                                {/* title */}
+                                                <HighlightedText
+                                                    text={item.title}
+                                                    highlight={searchQuery}
+                                                    style={styles.cardTitle}
+                                                />
+
+                                                {/* description */}
+                                                <HighlightedText
+                                                    text={item.description}
+                                                    highlight={searchQuery}
+                                                    style={styles.cardDescription}
+                                                />
                                             </View>
                                         ))}
                                 </View>
@@ -339,6 +351,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    cardTitle: {
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#1A3C34",
+        marginBottom: 10,
+    },
+    cardDescription: { fontSize: 14, color: "#5A6359", lineHeight: 22 },
+
     highlight: {
         backgroundColor: "#D1E9FF",
         color: "#1A3C34",
