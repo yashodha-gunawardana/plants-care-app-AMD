@@ -287,6 +287,31 @@ const WikiScreen = () => {
                                                 </View>
                                             </View>
                                         ))}
+
+                                        {/* fav shortcut */}
+                                        {bookmarks.length > 0 && !searchQuery && (
+                                            <View style={styles.favSection}>
+                                                <Text style={styles.favHeader}>Quick Access Favorites</Text>
+
+                                                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                                    {wikiData
+                                                        .filter((item) => bookmarks.includes(item.id))
+                                                        .map((item) => (
+                                                        <TouchableOpacity key={item.id} style={styles.favMiniCard}>
+                                                            <Ionicons
+                                                                name={item.icon as any}
+                                                                size={14}
+                                                                color="#C6F062"
+                                                                style={{ marginRight: 6 }}
+                                                            />
+                                                            <Text numberOfLines={1} style={styles.favMiniTitle}>
+                                                                {item.title}
+                                                            </Text>
+                                                        </TouchableOpacity>
+                                                    ))}
+                                                </ScrollView>
+                                            </View>
+                                        )}
                                 </View>
                             )}
 
@@ -384,7 +409,7 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         borderRadius: 8,
     },
-    
+
     badgeText: { fontSize: 11, color: "#2E7D32", fontWeight: "700" },
 
     highlight: {
@@ -392,6 +417,26 @@ const styles = StyleSheet.create({
         color: "#1A3C34",
         fontWeight: "bold",
     },
+
+    favSection: { marginTop: 30 },
+
+    favHeader: {
+        fontSize: 18,
+        fontWeight: "800",
+        color: "#1A3C34",
+        marginBottom: 15,
+    },
+    favMiniCard: {
+        backgroundColor: "#1A3C34",
+        paddingHorizontal: 18,
+        paddingVertical: 14,
+        borderRadius: 18,
+        marginRight: 12,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+
+    favMiniTitle: { color: "#FFF", fontSize: 13, fontWeight: "600" }
 });
 
 
