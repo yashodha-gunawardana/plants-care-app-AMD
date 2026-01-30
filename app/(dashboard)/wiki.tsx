@@ -2,7 +2,7 @@ import DashboardHeader from "@/components/Header";
 import { useSearch } from "@/context/SearchContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { Platform, UIManager, Text, StyleSheet, View } from "react-native";
+import { Platform, UIManager, Text, StyleSheet, View, ScrollView } from "react-native";
 
 
 
@@ -178,6 +178,10 @@ const WikiScreen = () => {
     return (
         <View style={styles.mainWrapper}>
             <DashboardHeader />
+
+            <ScrollView style={styles.container} showsHorizontalScrollIndicator={false}>
+
+            </ScrollView>
         </View>
 
     );
@@ -187,7 +191,7 @@ const WikiScreen = () => {
 const styles = StyleSheet.create({
 
     mainWrapper: { flex: 1, backgroundColor: "#fdfdfb7e" },
-
+    container: { flex: 1, paddingHorizontal: 20 },
 
     highlight: {
         backgroundColor: "#D1E9FF",
@@ -195,3 +199,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 });
+
+
+export default WikiScreen;
