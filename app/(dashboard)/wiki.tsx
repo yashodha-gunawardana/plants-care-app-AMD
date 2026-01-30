@@ -275,6 +275,16 @@ const WikiScreen = () => {
                                                     highlight={searchQuery}
                                                     style={styles.cardDescription}
                                                 />
+
+                                                {/* footer */}
+                                                <View style={styles.cardFooter}>
+                                                    <Text style={styles.readTime}>Essential Guide</Text>
+                                                    <View style={styles.categoryBadge}>
+                                                        <Text style={styles.badgeText}>
+                                                            {category}
+                                                        </Text>
+                                                    </View>
+                                                </View>
                                             </View>
                                         ))}
                                 </View>
@@ -357,7 +367,25 @@ const styles = StyleSheet.create({
         color: "#1A3C34",
         marginBottom: 10,
     },
+
     cardDescription: { fontSize: 14, color: "#5A6359", lineHeight: 22 },
+
+    cardFooter: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 18,
+    },
+
+    readTime: { fontSize: 11, color: "#8A9687", fontWeight: "700" },
+
+    categoryBadge: {
+        backgroundColor: "#E8F5E9",
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 8,
+    },
+    
+    badgeText: { fontSize: 11, color: "#2E7D32", fontWeight: "700" },
 
     highlight: {
         backgroundColor: "#D1E9FF",
