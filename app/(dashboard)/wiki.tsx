@@ -143,6 +143,11 @@ const WikiScreen = () => {
             item.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
             item.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    // extract unique category names
+    const categories = Array.from(
+        new Set(filteredData.map((item) => item.category))
+    );
 }
 
 
