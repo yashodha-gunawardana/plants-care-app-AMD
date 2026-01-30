@@ -1,3 +1,4 @@
+import DashboardHeader from "@/components/Header";
 import { useSearch } from "@/context/SearchContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
@@ -176,7 +177,7 @@ const WikiScreen = () => {
 
     return (
         <View style={styles.mainWrapper}>
-
+            <DashboardHeader />
         </View>
 
     );
@@ -186,7 +187,7 @@ const WikiScreen = () => {
 const styles = StyleSheet.create({
 
     mainWrapper: { flex: 1, backgroundColor: "#fdfdfb7e" },
-    
+
 
     highlight: {
         backgroundColor: "#D1E9FF",
