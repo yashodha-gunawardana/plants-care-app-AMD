@@ -219,6 +219,7 @@ const AddPlantScreen = () => {
 
                     <View style={{ height: 20 }} />
 
+                    {/* show ActivityIndicator when saving */}
                     {loading && <ActivityIndicator size="large" color="#1A3C34" style={{ marginVertical: 20 }} />}
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -226,9 +227,10 @@ const AddPlantScreen = () => {
             {/* button */}
             <View style={styles.sideActionContainer}>
                 <TouchableOpacity
-                    style={styles.verticalBtn}
+                    style={[styles.verticalBtn, loading && { opacity: 0.5 }]}
                     onPress={handleAddPlant}
                     activeOpacity={0.8}>
+                    
 
                     <Ionicons name="add-circle" size={28} color="#1A3C34" />
                     <Text style={styles.verticalBtnText}>SAVE</Text>
