@@ -187,7 +187,11 @@ const WikiScreen = () => {
                     <Text style={styles.pageSubtitle}>Master the art of plant care</Text>
                 </View>
 
-
+                {/* category */}
+                {categories.map((category) => {
+                    const isSearching = searchQuery.length > 0;
+                    const isExpanded = isSearching || expandedCategory === category;
+                })}
             </ScrollView>
         </View>
 
