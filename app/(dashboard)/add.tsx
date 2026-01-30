@@ -95,7 +95,7 @@ const AddPlantScreen = () => {
                 setToast(prev => ({ ...prev, visible: false }));
             }, 2500);
 
-            
+
             setPlantPhoto(null);
             setPlantName("");
             setPlantType("");
@@ -106,8 +106,17 @@ const AddPlantScreen = () => {
             setNotes("");
 
         } catch (err) {
-            Alert.alert("Error", "Failed to save plant. Please try again.");
-            console.log(err);
+            setToast({
+                visible: true,
+                message: "Failed to save plant. Please try again.",
+                type: "error",
+            });
+        
+            setTimeout(() => {
+                setToast(prev => ({ ...prev, visible: false }));
+            }, 2500);
+
+            console.log("Add plant error:", err);
         
         } finally {
             setLoading(false);
