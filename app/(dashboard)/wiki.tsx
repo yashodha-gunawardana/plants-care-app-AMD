@@ -180,6 +180,13 @@ const WikiScreen = () => {
             <DashboardHeader />
 
             <ScrollView style={styles.container} showsHorizontalScrollIndicator={false}>
+                
+                {/* page title */}
+                <View style={styles.headerTextContainer}>
+                    <Text style={styles.pageTitle}>Growing & care Guide</Text>
+                    <Text style={styles.pageSubtitle}>Master the art of plant care</Text>
+                </View>
+
 
             </ScrollView>
         </View>
@@ -192,6 +199,9 @@ const styles = StyleSheet.create({
 
     mainWrapper: { flex: 1, backgroundColor: "#fdfdfb7e" },
     container: { flex: 1, paddingHorizontal: 20 },
+    headerTextContainer: { marginVertical: 25 },
+    pageTitle: { fontSize: 28, fontWeight: "800", color: "#1A3C34" },
+    pageSubtitle: { fontSize: 14, color: "#8A9687", marginTop: 4 },
 
     highlight: {
         backgroundColor: "#D1E9FF",
