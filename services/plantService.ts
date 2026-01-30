@@ -19,8 +19,18 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
     let imageUrl = "";
 
     if (loacalImageUrl) {
-        
+        // create formdata for image upload
         const data = new FormData();
+
+        data.append("file", {
+            uri: loacalImageUrl,
+            type: "image/jpeg",
+            name: plantData.jpeg
+
+        } as any)
+
+        data.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); 
+
     }
 
     return await addDoc(collection(db, "plants"), {
