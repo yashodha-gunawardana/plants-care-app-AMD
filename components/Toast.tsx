@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
-import { Animated } from "react-native";
+import { Animated, StyleSheet, Text } from "react-native";
 
 
 
@@ -52,4 +53,73 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
     }, [visible]);
 
     if (!visible) return null;
-}
+
+
+    const icon =
+        type === "success"
+            ? "checkmark-circle"
+        : type === "error"
+            ? "close-circle"
+        : "information-circle";
+
+
+    return (
+        <Animated.View
+            style={[
+                styles.toast,
+                styles[type],                
+                {
+                    opacity,                   
+                    transform: [{ translateY }],
+                },
+            ]}>
+
+            {/* Toast icon */}
+            <Ionicons name={icon} size={18} color="#fff" />
+
+            {/* Toast message */}
+            <Text style={styles.text}>{message}</Text>
+        </Animated.View>
+    );
+};
+
+
+const styles = StyleSheet.create({
+    toast: {
+        position: "absolute",      
+        bottom: 40,                
+        alignSelf: "center",
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        borderRadius: 30,          
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        elevation: 10,             
+        maxWidth: "85%",
+    },
+
+    text: {
+        color: "#fff",
+        fontSize: 13,
+        fontWeight: "600",
+    },
+
+    // success toast
+    success: {
+        backgroundColor: "#2E7D32",
+    },
+
+    // error toast
+    error: {
+        backgroundColor: "#C62828",
+    },
+
+    // info / neutral toast
+    info: {
+        backgroundColor: "#1A3C34",
+    }
+});
+
+
+export default Toast;
