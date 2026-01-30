@@ -64,15 +64,18 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
         }
     }, [visible]);
 
+
+    // if the toast is hidden and animations finished, return null to save memory
     if (!shouldRender) return null;
 
 
-    const icon =
-        type === "success"
-            ? "checkmark-circle"
-        : type === "error"
-            ? "close-circle"
-        : "information-circle";
+    const config = {
+        success: { icon: "shield-checkmark", color: "#2DD4BF" },
+        error: { icon: "bug", color: "#FB7185" },
+        info: { icon: "sparkles", color: "#818CF8" },
+    };
+
+    const { icon, color } = config[type];
 
 
     return (
