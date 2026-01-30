@@ -1,5 +1,6 @@
 import DashboardHeader from "@/components/Header";
 import { useSearch } from "@/context/SearchContext";
+import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { Platform, UIManager, Text, StyleSheet, View, ScrollView, TouchableOpacity, LayoutAnimation } from "react-native";
@@ -221,7 +222,14 @@ const WikiScreen = () => {
                                     </Text>
                                 </View>
 
+                                <Ionicons 
+                                    name={isExpanded ? "remove-circle" : "add-circle"}
+                                    size={24}
+                                    color={isExpanded ? "#1A3C34" : "#8A9687"}
+                                />
                             </TouchableOpacity>
+
+                            
 
                         </View>
                     )
@@ -255,7 +263,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 22,
     },
-    
+
     categoryInfo: { flexDirection: "row", alignItems: "center" },
 
     dot: {
