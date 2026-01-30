@@ -287,40 +287,41 @@ const WikiScreen = () => {
                                                 </View>
                                             </View>
                                         ))}
-
-                                        {/* fav shortcut */}
-                                        {bookmarks.length > 0 && !searchQuery && (
-                                            <View style={styles.favSection}>
-                                                <Text style={styles.favHeader}>Quick Access Favorites</Text>
-
-                                                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                                    {wikiData
-                                                        .filter((item) => bookmarks.includes(item.id))
-                                                        .map((item) => (
-                                                        <TouchableOpacity key={item.id} style={styles.favMiniCard}>
-                                                            <Ionicons
-                                                                name={item.icon as any}
-                                                                size={14}
-                                                                color="#C6F062"
-                                                                style={{ marginRight: 6 }}
-                                                            />
-                                                            <Text numberOfLines={1} style={styles.favMiniTitle}>
-                                                                {item.title}
-                                                            </Text>
-                                                        </TouchableOpacity>
-                                                    ))}
-                                                </ScrollView>
-                                            </View>
-                                        )}
                                 </View>
                             )}
-
                         </View>
                     )
                 })}
+
+                {/* fav shortcut */}
+                {bookmarks.length > 0 && !searchQuery && (
+                    <View style={styles.favSection}>
+                        <Text style={styles.favHeader}>Quick Access Favorites</Text>
+
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                            {wikiData
+                                .filter((item) => bookmarks.includes(item.id))
+                                .map((item) => (
+                                    <TouchableOpacity key={item.id} style={styles.favMiniCard}>
+                                        <Ionicons
+                                            name={item.icon as any}
+                                            size={14}
+                                            color="#C6F062"
+                                            style={{ marginRight: 6 }}
+                                        />
+                                        <Text numberOfLines={1} style={styles.favMiniTitle}>
+                                            {item.title}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                        </ScrollView>
+                    </View>
+                )}
+                                        
+                
+                <View style={{ height: 120 }} />
             </ScrollView>
         </View>
-
     );
 };
 
