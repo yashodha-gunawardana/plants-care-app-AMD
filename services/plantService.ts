@@ -1,6 +1,5 @@
-import { auth, db, storage } from "@/config/firebase";
+import { auth, db } from "@/config/firebase";
 import { addDoc, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Plant } from "@/context/PlantContext";
 
 
@@ -25,7 +24,7 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
         data.append("file", {
             uri: loacalImageUrl,
             type: "image/jpeg",
-            name: plantData.jpeg
+            name: "plant.jpg"
 
         } as any)
 
@@ -41,11 +40,12 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
             imageUrl = json.secure_url;
         
         } catch (err) {
-
+            console.log("Cloudinary upload error:", err);
+            throw new Error("Failed to upload image to Cloudinary");
         }
-
     }
 
+    // save plant data in Firestore
     return await addDoc(collection(db, "plants"), {
         ...plantData,    // plant form data
         photo: imageUrl,

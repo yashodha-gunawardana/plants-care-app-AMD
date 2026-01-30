@@ -18,6 +18,7 @@ const AddPlantScreen = () => {
     const [light, setLight] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [notes, setNotes] = useState("");
+    const [loading, setLoading] = useState(false);
 
 
     // camera permission
@@ -123,7 +124,8 @@ const AddPlantScreen = () => {
 
                 <ScrollView
                     contentContainerStyle={styles.content}
-                    showsVerticalScrollIndicator={false}>
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled">
 
                     <Text style={styles.title}>Add Your Green Friend 🌿</Text>
 
