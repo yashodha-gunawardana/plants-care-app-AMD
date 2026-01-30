@@ -1,5 +1,6 @@
 import { useSearch } from "@/context/SearchContext";
-import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import { Platform, UIManager, Text, StyleSheet } from "react-native";
 
 
@@ -148,6 +149,17 @@ const WikiScreen = () => {
     const categories = Array.from(
         new Set(filteredData.map((item) => item.category))
     );
+
+
+    useEffect(() => {
+        const loadBookmarks = async () => {
+            const stored = await AsyncStorage.getItem("WikiBookmarks");
+            if (stored) {
+                setBookmarks(JSON.parse(stored));
+            }
+        };
+        loadBookmarks();
+    }, []);
 }
 
 
