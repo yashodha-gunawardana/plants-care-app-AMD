@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { 
     Alert, View, StyleSheet, Text, TouchableOpacity, Image,
-    KeyboardAvoidingView, Platform, ScrollView, TextInput 
+    KeyboardAvoidingView, Platform, ScrollView, TextInput, 
+    ActivityIndicator
 } from "react-native";
 import { createPlant } from "@/services/plantService";
 import DashboardHeader from "@/components/Header";
@@ -127,6 +128,7 @@ const AddPlantScreen = () => {
                 style={{ flex: 1 }}>
 
                 <ScrollView
+                    // added extra paddingBottom to ScrollView to prevent Notes field drag
                     contentContainerStyle={[styles.content, {paddingBottom: 180 }]}
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps="handled">
@@ -215,7 +217,9 @@ const AddPlantScreen = () => {
                         onChangeText={setNotes}
                     />
 
-                    <View style={{ height: 100 }} />
+                    <View style={{ height: 20 }} />
+
+                    {loading && <ActivityIndicator size="large" color="#1A3C34" style={{ marginVertical: 20 }} />}
                 </ScrollView>
             </KeyboardAvoidingView>
 
