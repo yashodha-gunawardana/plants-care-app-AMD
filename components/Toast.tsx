@@ -32,7 +32,7 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
                     useNativeDriver: true,
                 }),
             ]).start();
-            
+
         } else {
 
             // animate toast OUT (fade + slide down)
@@ -50,4 +50,6 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
             ]).start();
         }
     }, [visible]);
+
+    if (!visible) return null;
 }
