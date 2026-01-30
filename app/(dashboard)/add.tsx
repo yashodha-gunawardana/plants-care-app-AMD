@@ -20,7 +20,7 @@ const AddPlantScreen = () => {
     const [difficulty, setDifficulty] = useState("");
     const [notes, setNotes] = useState("");
     const [loading, setLoading] = useState(false);
-    
+
     const [toast, setToast] = useState({
         visible: false,
         message: "",
@@ -56,10 +56,16 @@ const AddPlantScreen = () => {
     const handleAddPlant = async () => {
 
         if (!plantName || !waterDays || !light || !difficulty) {
-            Alert.alert(
-                "Missing Info",
-                "Please provide a name, watering frequency, light, and difficulty."
-            );
+            setToast({
+                visible: true,
+                message: "Please fill all required fields",
+                type: "error",
+            });
+
+            setTimeout(() => {
+                setToast(prev => ({ ...prev, visible: false }));
+            }, 2500);
+
             return;
         }
 
