@@ -229,9 +229,9 @@ const AddPlantScreen = () => {
                 <TouchableOpacity
                     style={[styles.verticalBtn, loading && { opacity: 0.5 }]}
                     onPress={handleAddPlant}
-                    activeOpacity={0.8}>
+                    activeOpacity={0.8}
+                    disabled={loading}>
                     
-
                     <Ionicons name="add-circle" size={28} color="#1A3C34" />
                     <Text style={styles.verticalBtnText}>SAVE</Text>
                 </TouchableOpacity>
