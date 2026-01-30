@@ -90,3 +90,16 @@ const wikiData: WikiItem[] = [
         icon: "cut" 
     },
 ];
+
+
+const HighlightedText = ({
+    text,
+    highlight,
+    style,
+}: {
+    text: string;
+    highlight: string;
+    style: any;
+}) => {
+
+}
