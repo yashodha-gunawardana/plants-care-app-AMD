@@ -8,6 +8,7 @@ import { createPlant } from "@/services/plantService";
 import DashboardHeader from "@/components/Header";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import Toast from "@/components/Toast";
 
 const AddPlantScreen = () => {
 
@@ -152,6 +153,12 @@ const AddPlantScreen = () => {
     return (
         <View style={styles.container}>
             <DashboardHeader />
+
+            <Toast
+                visible={toast.visible}
+                message={toast.message}
+                type={toast.type}
+            />
 
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
