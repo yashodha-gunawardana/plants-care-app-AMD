@@ -228,7 +228,7 @@ const AddPlantScreen = () => {
             {loading && (
                 <View style={styles.loadingOverlay}>
                     <View style={styles.loadingCard}>
-                        {/* Circular loader using your requested color #1A3C34 */}
+                        {/* circular loader using */}
                         <ActivityIndicator size="large" color="#1A3C34" />
                         <Text style={styles.loadingText}>Planting your friend...</Text>
                     </View>
