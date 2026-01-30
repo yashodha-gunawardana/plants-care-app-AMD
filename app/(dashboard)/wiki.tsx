@@ -203,6 +203,8 @@ const WikiScreen = () => {
                                 style={styles.categoryPressable}
                                 activeOpacity={0.8}
                                 onPress={() => {
+
+                                    // smooth animation when the section opens/closes
                                     LayoutAnimation.configureNext(
                                         LayoutAnimation.Presets.easeInEaseOut
                                     );
@@ -210,6 +212,14 @@ const WikiScreen = () => {
                                         expandedCategory === category ? null : category
                                     );
                                 }}>
+
+                                <View style={styles.categoryInfo}>
+                                    <View style={[styles.dot, isExpanded && styles.activeDot]}></View>
+
+                                    <Text style={[styles.categoryTitle, isExpanded && styles.activeCategoryTitle]}>
+                                        {category}
+                                    </Text>
+                                </View>
 
                             </TouchableOpacity>
 
@@ -245,6 +255,25 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 22,
     },
+    
+    categoryInfo: { flexDirection: "row", alignItems: "center" },
+
+    dot: {
+        width: 6,
+        height: 6,
+        borderRadius: 3,
+        backgroundColor: "#D0D0D0",
+        marginRight: 12,
+    },
+    activeDot: {
+        backgroundColor: "#C6F062",
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+    },
+    categoryTitle: { fontSize: 17, fontWeight: "600", color: "#8A9687" },
+    activeCategoryTitle: { color: "#1A3C34", fontWeight: "700" },
+
     highlight: {
         backgroundColor: "#D1E9FF",
         color: "#1A3C34",
