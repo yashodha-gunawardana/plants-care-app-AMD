@@ -127,7 +127,7 @@ const AddPlantScreen = () => {
                 style={{ flex: 1 }}>
 
                 <ScrollView
-                    contentContainerStyle={styles.content}
+                    contentContainerStyle={[styles.content, {paddingBottom: 180 }]}
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps="handled">
 
