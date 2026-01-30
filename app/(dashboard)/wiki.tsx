@@ -1,7 +1,7 @@
 import { useSearch } from "@/context/SearchContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { Platform, UIManager, Text, StyleSheet } from "react-native";
+import { Platform, UIManager, Text, StyleSheet, View } from "react-native";
 
 
 
@@ -172,10 +172,21 @@ const WikiScreen = () => {
         setBookmarks(updatedBookmarks);
         await AsyncStorage.setItem("WikiBookmarks", JSON.stringify(updatedBookmarks));
     };
-}
+
+
+    return (
+        <View style={styles.mainWrapper}>
+
+        </View>
+
+    );
+};
 
 
 const styles = StyleSheet.create({
+
+    mainWrapper: { flex: 1, backgroundColor: "#fdfdfb7e" },
+    
 
     highlight: {
         backgroundColor: "#D1E9FF",
