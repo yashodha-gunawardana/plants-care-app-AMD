@@ -151,6 +151,7 @@ const WikiScreen = () => {
     );
 
 
+    // load saved bookmarks when screen loads
     useEffect(() => {
         const loadBookmarks = async () => {
             const stored = await AsyncStorage.getItem("WikiBookmarks");
@@ -160,6 +161,17 @@ const WikiScreen = () => {
         };
         loadBookmarks();
     }, []);
+
+
+    // add 0r remore bookmark and save
+    const toggleBookmark = async (id: string) => {
+        const updatedBookmarks = bookmarks.includes(id)
+            ? bookmarks.filter((b) => b !== id)
+            : [...bookmarks, id];
+
+        setBookmarks(updatedBookmarks);
+        await AsyncStorage.setItem("WikiBookmarks", JSON.stringify(updatedBookmarks));
+    };
 }
 
 
