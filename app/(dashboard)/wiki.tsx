@@ -133,7 +133,16 @@ const WikiScreen = () => {
 
     const { searchQuery } = useSearch();
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+
+    // store bookmarked wiki item IDs
     const [bookmarks, setBookmarks] = useState<string[]>([]);
+
+    const filteredData = wikiData.filter(
+        (item) =>
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            item.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 }
 
 
