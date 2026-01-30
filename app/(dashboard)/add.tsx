@@ -85,8 +85,17 @@ const AddPlantScreen = () => {
             plantPhoto ?? undefined
         );
 
-            Alert.alert("Success 🌱", `${plantName} has been added!.`);
+            setToast({
+                visible: true,
+                message: `${plantName} added successfully 🌿`,
+                type: "success",
+            });
 
+            setTimeout(() => {
+                setToast(prev => ({ ...prev, visible: false }));
+            }, 2500);
+
+            
             setPlantPhoto(null);
             setPlantName("");
             setPlantType("");
