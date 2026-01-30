@@ -133,6 +133,7 @@ const WikiScreen = () => {
 
     const { searchQuery } = useSearch();
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+    const [bookmarks, setBookmarks] = useState<string[]>([]);
 }
 
 
