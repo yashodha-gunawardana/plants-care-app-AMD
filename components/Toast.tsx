@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, Text, Dimensions } from "react-native";
 
 
@@ -17,9 +17,12 @@ const { width } = Dimensions.get("window");
 
 const Toast = ({ visible, message, type = "info" }: ToastProps) => {
     
+    // local state to keep the component mounted during the "fade out" animation
+    const [shouldRender, setShouldRender] = useState(visible);
+    
     const opacity = useRef(new Animated.Value(0)).current;
-    const translateY = useRef(new Animated.Value(20)).current;
-
+    const scale = useRef(new Animated.Value(0.9)).current;
+    const progress = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
         if (visible) {
