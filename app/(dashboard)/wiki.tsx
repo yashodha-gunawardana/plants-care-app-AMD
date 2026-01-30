@@ -190,7 +190,17 @@ const WikiScreen = () => {
                 {/* category */}
                 {categories.map((category) => {
                     const isSearching = searchQuery.length > 0;
+
+                    // section is auto expaned when searching
                     const isExpanded = isSearching || expandedCategory === category;
+
+                    return (
+                        <View
+                            key={category}
+                            style={styles.categoryWrapper}> 
+
+                        </View>
+                    )
                 })}
             </ScrollView>
         </View>
@@ -207,6 +217,15 @@ const styles = StyleSheet.create({
     pageTitle: { fontSize: 28, fontWeight: "800", color: "#1A3C34" },
     pageSubtitle: { fontSize: 14, color: "#8A9687", marginTop: 4 },
 
+    categoryWrapper: {
+        marginBottom: 12,
+        backgroundColor: "#FFF",
+        borderRadius: 24,
+        overflow: "hidden",
+        borderWidth: 1,
+        borderColor: "#F2F2F2",
+    },
+    
     highlight: {
         backgroundColor: "#D1E9FF",
         color: "#1A3C34",
