@@ -56,6 +56,7 @@ const AddPlantScreen = () => {
             return;
         }
 
+        setLoading(true);
         try {
             await createPlant({
                 name: plantName,
