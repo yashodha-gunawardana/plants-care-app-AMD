@@ -1,4 +1,4 @@
-import { Platform, UIManager } from "react-native";
+import { Platform, UIManager, Text } from "react-native";
 
 
 
@@ -91,7 +91,7 @@ const wikiData: WikiItem[] = [
     },
 ];
 
-
+// component for highlight search words
 const HighlightedText = ({
     text,
     highlight,
@@ -101,5 +101,7 @@ const HighlightedText = ({
     highlight: string;
     style: any;
 }) => {
-
+    if (!highlight.trim()) {
+        return <Text style={style}>{text}</Text>
+    }
 }
