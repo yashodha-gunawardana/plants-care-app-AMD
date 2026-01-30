@@ -49,19 +49,18 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
 
         } else {
 
-            // animate toast OUT (fade + slide down)
             Animated.parallel([
-                Animated.timing(opacity, {
-                    toValue: 0,
-                    duration: 200,
-                    useNativeDriver: true,
+                Animated.timing(opacity, { 
+                    toValue: 0, 
+                    duration: 200, 
+                    useNativeDriver: true 
                 }),
-                Animated.timing(translateY, {
-                    toValue: 20,
-                    duration: 200,
-                    useNativeDriver: true,
+                Animated.timing(scale, { 
+                    toValue: 0.95, 
+                    duration: 200, 
+                    useNativeDriver: true 
                 }),
-            ]).start();
+            ]).start(() => setShouldRender(false));
         }
     }, [visible]);
 
