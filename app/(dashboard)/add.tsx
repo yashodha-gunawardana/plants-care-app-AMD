@@ -86,6 +86,9 @@ const AddPlantScreen = () => {
         } catch (err) {
             Alert.alert("Error", "Failed to save plant. Please try again.");
             console.log(err);
+        
+        } finally {
+            setLoading(false);
         }
     };
 
