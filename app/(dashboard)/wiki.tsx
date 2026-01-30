@@ -1,3 +1,4 @@
+import { useSearch } from "@/context/SearchContext";
 import { Platform, UIManager, Text, StyleSheet } from "react-native";
 
 
@@ -127,8 +128,13 @@ const HighlightedText = ({
 };
 
 
+const WikiScreen = () => {
+    const { searchQuery } = useSearch();
+}
+
+
 const styles = StyleSheet.create({
-    
+
     highlight: {
         backgroundColor: "#D1E9FF",
         color: "#1A3C34",
