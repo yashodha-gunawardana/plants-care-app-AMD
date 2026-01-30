@@ -31,6 +31,17 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
 
         data.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); 
 
+        try {
+            const res = await fetch(CLOUDINARY_URL, {
+                method: "POST",
+                body: data,
+            });
+            const json = await res.json();
+        
+        } catch (err) {
+            
+        }
+
     }
 
     return await addDoc(collection(db, "plants"), {
