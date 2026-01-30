@@ -20,6 +20,12 @@ const AddPlantScreen = () => {
     const [difficulty, setDifficulty] = useState("");
     const [notes, setNotes] = useState("");
     const [loading, setLoading] = useState(false);
+    
+    const [toast, setToast] = useState({
+        visible: false,
+        message: "",
+        type: "info" as "success" | "error" | "info",
+    });
 
 
     // camera permission
