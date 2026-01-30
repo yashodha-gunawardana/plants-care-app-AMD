@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
-import { Animated, StyleSheet, Text, Dimensions } from "react-native";
+import { Animated, StyleSheet, Text, Dimensions, View, Platform, StatusBar } from "react-native";
 
 
 
@@ -69,6 +69,7 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
     if (!shouldRender) return null;
 
 
+    // configuration mapping for icons and colors based on type
     const config = {
         success: { icon: "shield-checkmark", color: "#2DD4BF" },
         error: { icon: "bug", color: "#FB7185" },
@@ -77,63 +78,98 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
 
     const { icon, color } = config[type];
 
+    const progressWidth = progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0%", "100%"],
+    });
+
 
     return (
-        <Animated.View
-            style={[
-                styles.toast,
-                styles[type],                
-                {
-                    opacity,                   
-                    transform: [{ translateY }],
-                },
-            ]}>
+        <View style={styles.overlayWrapper} pointerEvents="none">
+            <Animated.View
+                style={[
+                    styles.toastCard,
+                    {
+                        opacity,
+                        transform: [{ scale }],
+                    },
+                ]}>
 
-            {/* Toast icon */}
-            <Ionicons name={icon} size={18} color="#fff" />
+                <View style={styles.innerContent}>
 
-            {/* Toast message */}
-            <Text style={styles.text}>{message}</Text>
-        </Animated.View>
+                    {/* icon Circle with 20% opacity background of the main color */}
+                    <View style={[styles.iconCircle, { backgroundColor: `${color}20` }]}>
+                        <Ionicons name={icon as any} size={18} color={color} />
+                    </View>
+                
+                    {/* Toast Message - limited to 2 lines for design consistency */}
+                    <Text style={styles.messageText} numberOfLines={2}>
+                        {message}
+                    </Text>
+                </View>
+
+                <View style={styles.progressBarContainer}>
+                    <Animated.View 
+                        style={[
+                            styles.progressBar, 
+                            { backgroundColor: color, width: progressWidth } 
+                        ]} 
+                    />
+                </View>
+            </Animated.View>
+        </View>        
     );
 };
 
 
 const styles = StyleSheet.create({
-    toast: {
-        position: "absolute",      
-        bottom: 40,                
-        alignSelf: "center",
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderRadius: 30,          
+    overlayWrapper: {
+        ...StyleSheet.absoluteFillObject, 
+        zIndex: 9999,                   
+        elevation: 99,                  
+        alignItems: "center",           
+        justifyContent: "flex-start",   
+        paddingTop: Platform.OS === "ios" ? 60 : (StatusBar.currentHeight || 0) + 20,
+    },
+    toastCard: {
+        backgroundColor: "rgba(45, 52, 54, 0.95)", 
+        borderRadius: 20,
+        overflow: "hidden",             
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.1)", 
+        elevation: 12,
+    },
+    innerContent: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 8,
-        elevation: 10,             
-        maxWidth: "85%",
+        paddingVertical: 14,
+        paddingHorizontal: 16,
     },
-
-    text: {
-        color: "#fff",
-        fontSize: 13,
+    iconCircle: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 12,
+    },
+    messageText: {
+        fontSize: 14,
+        color: "#FFFFFF",
         fontWeight: "600",
+        flex: 1,
+        letterSpacing: 0.2,
     },
-
-    // success toast
-    success: {
-        backgroundColor: "#2E7D32",
+    progressBarContainer: {
+        height: 3,
+        width: "100%",
+        backgroundColor: "rgba(255, 255, 255, 0.05)", 
+        position: "absolute",
+        bottom: 0,
     },
-
-    // error toast
-    error: {
-        backgroundColor: "#C62828",
+    progressBar: {
+        height: "100%",
     },
-
-    // info / neutral toast
-    info: {
-        backgroundColor: "#1A3C34",
-    }
 });
 
 
