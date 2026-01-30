@@ -20,6 +20,7 @@ const AddPlantScreen = () => {
     const [light, setLight] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [notes, setNotes] = useState("");
+    const [plantYear, setPlantYear] = useState("");
     const [loading, setLoading] = useState(false);
 
     const [toast, setToast] = useState({
