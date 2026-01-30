@@ -26,6 +26,8 @@ const Toast = ({ visible, message, type = "info" }: ToastProps) => {
 
     useEffect(() => {
         if (visible) {
+            setShouldRender(true);
+            
             // animate toast IN (fade + slide up)
             Animated.parallel([
                 Animated.timing(opacity, {
