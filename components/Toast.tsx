@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, Text, Dimensions, View, Platform, StatusBar } from "react-native";
 
 
-
 type ToastType = "success" | "error" | "info";
 
 interface ToastProps {
@@ -11,7 +10,6 @@ interface ToastProps {
     message: string;
     type?: ToastType;
 }
-
 
 const { width } = Dimensions.get("window");
 
@@ -132,6 +130,7 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === "ios" ? 60 : (StatusBar.currentHeight || 0) + 20,
     },
     toastCard: {
+        width: width * 0.85,
         backgroundColor: "rgba(45, 52, 54, 0.95)", 
         borderRadius: 20,
         overflow: "hidden",             

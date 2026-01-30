@@ -254,21 +254,17 @@ const AddPlantScreen = () => {
                         onChangeText={setNotes}
                     />
 
-                    {/* <View style={{ height: 20 }} /> */}
+                    <View style={{ height: 100 }} /> 
 
-                    {/* show ActivityIndicator when saving */}
-                    {/* {loading && <ActivityIndicator size="large" color="#1A3C34" style={{ marginVertical: 20 }} />} */}
                 </ScrollView>
             </KeyboardAvoidingView>
 
             {/* loading */}
             {loading && (
                 <View style={styles.loadingOverlay}>
-                    <View style={styles.loadingCard}>
-                        {/* circular loader using */}
-                        <ActivityIndicator size="large" color="#1A3C34" />
-                        <Text style={styles.loadingText}>Planting your friend...</Text>
-                    </View>
+                    <ActivityIndicator size="large" color="#1A3C34" />
+                    <Text style={styles.loadingText}>Syncing Garden...</Text>
+                    <Text style={styles.loadingSubText}>This will only take a moment</Text>
                 </View>
             )}
 
@@ -388,27 +384,25 @@ const styles = StyleSheet.create({
     // loading
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
-        backgroundColor: "rgba(0, 0, 0, 0.4)", 
+        backgroundColor: "rgba(253, 253, 251, 0.92)", 
         justifyContent: "center",
         alignItems: "center",
         zIndex: 1000, 
     },
-    loadingCard: {
-        backgroundColor: "#fff",
-        padding: 30,
-        borderRadius: 20,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
     loadingText: {
-        marginTop: 15,
+        marginTop: 20,
         color: "#1A3C34",
-        fontWeight: "700",
-        fontSize: 14,
+        fontWeight: "800",
+        fontSize: 18,
+        letterSpacing: 1,
+        textTransform: 'uppercase'
+    },
+    loadingSubText: {
+        marginTop: 5,
+        color: "#3d5a2d",
+        fontSize: 12,
+        fontWeight: "500",
+        opacity: 0.7
     }
 
 });

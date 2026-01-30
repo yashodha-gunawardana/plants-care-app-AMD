@@ -2,6 +2,8 @@ import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { SearchProvider } from "@/context/SearchContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { PlantProvider } from "@/context/PlantContext";
 
 
 // root layout for the whole application
@@ -10,14 +12,18 @@ const RootLayout = () => {
 
     return ( 
         <View style={{ flex: 1 }}>
-            <SearchProvider>
-                <Stack screenOptions={{ headerShown: false }}>
+            <AuthProvider>
+                
+                    <SearchProvider>
+                        <Stack screenOptions={{ headerShown: false }}>
 
-                    <Stack.Screen name="(auth)" />
-                    <Stack.Screen name="(dashboard)" />
+                            <Stack.Screen name="(auth)" />
+                            <Stack.Screen name="(dashboard)" />
 
-                </Stack>
-            </SearchProvider>
+                        </Stack>
+                    </SearchProvider>
+                
+            </AuthProvider>
         </View>
     );
 };
