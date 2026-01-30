@@ -1,4 +1,5 @@
 import { useSearch } from "@/context/SearchContext";
+import { useState } from "react";
 import { Platform, UIManager, Text, StyleSheet } from "react-native";
 
 
@@ -129,7 +130,9 @@ const HighlightedText = ({
 
 
 const WikiScreen = () => {
+
     const { searchQuery } = useSearch();
+    const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 }
 
 
