@@ -1,4 +1,4 @@
-import { Platform, UIManager, Text } from "react-native";
+import { Platform, UIManager, Text, StyleSheet } from "react-native";
 
 
 
@@ -109,4 +109,29 @@ const HighlightedText = ({
     // split text using search keyword
     const regex = new RegExp(`(${highlight})`, "gi");
     const parts = text.split(regex);
-}
+
+    return (
+        <Text style={style}>
+            {parts.map((part, index) => (
+                <Text
+                    key={index}
+                    style={part.toLowerCase() === highlight.toLowerCase()
+                        ? styles.highlight : undefined
+                    }>
+                        
+                        {part}
+                </Text>
+            ))}
+        </Text>
+    );
+};
+
+
+const styles = StyleSheet.create({
+    
+    highlight: {
+        backgroundColor: "#D1E9FF",
+        color: "#1A3C34",
+        fontWeight: "bold",
+    },
+});
