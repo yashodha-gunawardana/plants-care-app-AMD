@@ -229,7 +229,30 @@ const WikiScreen = () => {
                                 />
                             </TouchableOpacity>
 
-                            
+                            {/* category items */}
+                            {isExpanded && (
+                                <View style={styles.itemsContainer}>
+                                    {filteredData
+                                        .filter((item) => item.category === category)
+                                        .map((item) => (
+                                            <View
+                                                key={item.id}
+                                                style={styles.modernCard}>
+                                                
+                                                <View style={styles.cardTopRow}>
+                                                    <View style={styles.iconCircle}>
+                                                        <Ionicons
+                                                            name={item.icon as any}
+                                                            size={18}
+                                                            color="#1A3C34" 
+                                                        />
+                                                    </View>
+
+                                                </View>
+                                            </View>
+                                        ))}
+                                </View>
+                            )}
 
                         </View>
                     )
@@ -281,7 +304,27 @@ const styles = StyleSheet.create({
     },
     categoryTitle: { fontSize: 17, fontWeight: "600", color: "#8A9687" },
     activeCategoryTitle: { color: "#1A3C34", fontWeight: "700" },
+    itemsContainer: { paddingHorizontal: 16, paddingBottom: 16 },
 
+    modernCard: {
+        backgroundColor: "#F7FBF7",
+        borderRadius: 20,
+        padding: 18,
+        marginBottom: 12,
+    },
+    cardTopRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 14,
+    },
+    iconCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: "#FFF",
+        justifyContent: "center",
+        alignItems: "center",
+    },
     highlight: {
         backgroundColor: "#D1E9FF",
         color: "#1A3C34",
