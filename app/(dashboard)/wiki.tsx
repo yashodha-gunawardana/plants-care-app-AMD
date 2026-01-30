@@ -248,7 +248,21 @@ const WikiScreen = () => {
                                                         />
                                                     </View>
 
+                                                    {/* bookmark */}
+                                                    <TouchableOpacity
+                                                        onPress={() => toggleBookmark(item.id)}>
+
+                                                        <Ionicons 
+                                                            name={bookmarks.includes(item.id)
+                                                                ? "bookmark" : "bookmark-outline"
+                                                            }
+                                                            size={22}
+                                                            color="#1A3C34"
+                                                        />
+                                                    </TouchableOpacity>
                                                 </View>
+
+                                                
                                             </View>
                                         ))}
                                 </View>
