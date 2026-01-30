@@ -101,7 +101,12 @@ const HighlightedText = ({
     highlight: string;
     style: any;
 }) => {
+    // if search text empty, show normal
     if (!highlight.trim()) {
         return <Text style={style}>{text}</Text>
     }
+
+    // split text using search keyword
+    const regex = new RegExp(`(${highlight})`, "gi");
+    
 }
