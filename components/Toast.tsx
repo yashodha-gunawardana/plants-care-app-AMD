@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { Animated } from "react-native";
 
 
 
@@ -10,5 +12,7 @@ interface ToastProps {
 }
 
 const Toast = ({ visible, message, type = "info" }: ToastProps) => {
+    
     const opacity = useRef(new Animated.Value(0)).current;
+    const translateY = useRef(new Animated.Value(20)).current;
 }
