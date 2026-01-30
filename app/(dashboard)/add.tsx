@@ -346,7 +346,33 @@ const styles = StyleSheet.create({
     },
     activeChip: { backgroundColor: "#C6F062", borderColor: "#1A3C34" },
     chipText: { fontSize: 12, color: "#666" },
-    activeChipText: { color: "#1A3C34", fontWeight: "700" }
+    activeChipText: { color: "#1A3C34", fontWeight: "700" },
+
+    // loading
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject, 
+        backgroundColor: "rgba(0, 0, 0, 0.4)", 
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000, 
+    },
+    loadingCard: {
+        backgroundColor: "#fff",
+        padding: 30,
+        borderRadius: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    loadingText: {
+        marginTop: 15,
+        color: "#1A3C34",
+        fontWeight: "700",
+        fontSize: 14,
+    }
 
 });
 
