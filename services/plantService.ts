@@ -4,6 +4,10 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Plant } from "@/context/PlantContext";
 
 
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dnefdegz0/image/upload";
+const CLOUDINARY_UPLOAD_PRESET = "unsigned_plant_upload";
+
+
 // add plant
 export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
     const user = auth.currentUser;
@@ -15,17 +19,8 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
     let imageUrl = "";
 
     if (loacalImageUrl) {
-        // convert local URI to blob for upload
-        const response = await fetch(loacalImageUrl);
-        const blob = await response.blob();
-
-        // unique path in firebase storage
-        const  storageRef = ref(storage, `plants/${Date.now()}.jpg`);
-
-        // upload image
-        await uploadBytes(storageRef, blob);
-
-        imageUrl = await getDownloadURL(storageRef);
+        
+        const data = new FormData();
     }
 
     return await addDoc(collection(db, "plants"), {
