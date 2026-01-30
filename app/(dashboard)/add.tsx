@@ -57,7 +57,7 @@ const AddPlantScreen = () => {
     // save handler
     const handleAddPlant = async () => {
 
-        if (!plantName || !waterDays || !light || !difficulty) {
+        if (!plantName || !waterDays || !light || !difficulty || !plantYear) {
             setToast({
                 visible: true,
                 message: "Please fill all required fields",
@@ -82,6 +82,7 @@ const AddPlantScreen = () => {
                 careDifficulty: difficulty,
                 notes: notes,
                 lastWatered: new Date().toISOString(),
+                yearPlanted: Number(plantYear)
                 
             },
             plantPhoto ?? undefined
