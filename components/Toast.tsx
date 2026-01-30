@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
-import { Animated, StyleSheet, Text } from "react-native";
+import { Animated, StyleSheet, Text, Dimensions } from "react-native";
 
 
 
@@ -11,6 +11,9 @@ interface ToastProps {
     message: string;
     type?: ToastType;
 }
+
+
+const { width } = Dimensions.get("window");
 
 const Toast = ({ visible, message, type = "info" }: ToastProps) => {
     
