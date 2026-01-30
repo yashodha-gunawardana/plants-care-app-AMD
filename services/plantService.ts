@@ -32,14 +32,16 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
         data.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); 
 
         try {
+            // upload image to cloudinary
             const res = await fetch(CLOUDINARY_URL, {
                 method: "POST",
                 body: data,
             });
             const json = await res.json();
+            imageUrl = json.secure_url;
         
         } catch (err) {
-            
+
         }
 
     }
