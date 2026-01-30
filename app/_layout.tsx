@@ -13,7 +13,7 @@ const RootLayout = () => {
     return ( 
         <View style={{ flex: 1 }}>
             <AuthProvider>
-                
+                <PlantProvider>
                     <SearchProvider>
                         <Stack screenOptions={{ headerShown: false }}>
 
@@ -22,7 +22,7 @@ const RootLayout = () => {
 
                         </Stack>
                     </SearchProvider>
-                
+                </PlantProvider>
             </AuthProvider>
         </View>
     );
