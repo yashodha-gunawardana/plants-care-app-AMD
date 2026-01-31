@@ -29,5 +29,15 @@ const AddPlantScreen = () => {
     const [location, setLocation] = useState("");
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+    // tracks which care item is being edited
     const [activeCare, setActiveCare] = useState<CareType | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const [toast, setToast] = useState({
+        visible: false,
+        message: "",
+        type: "info" as "success" | "error" | "info",
+    });
+
 }
