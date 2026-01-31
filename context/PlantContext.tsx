@@ -23,7 +23,7 @@ export interface Plant {
         light?: CareSchedule | null;
         temp?: CareSchedule | null;
         fertilize?: CareSchedule | null;
-        repot?: CareSchedule | null;
+        report?: CareSchedule | null;
     };
 }
 

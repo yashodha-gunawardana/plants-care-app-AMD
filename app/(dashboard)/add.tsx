@@ -6,7 +6,7 @@ import * as ImagePicker  from "expo-image-picker";
 
 const { width } = Dimensions.get("window");
 
-type CareType = "watering" | "light" | "temp" | "fertilize" | "repot";
+type CareType = "watering" | "light" | "temp" | "fertilize" | "report";
 
 
 // structure for a single care activity's schedule
@@ -55,7 +55,7 @@ const AddPlantScreen = () => {
         light: { interval: 0, selectedDays: [], selectedTime: "" },
         temp: { interval: 0, selectedDays: [], selectedTime: "" },
         fertilize: { interval: 0, selectedDays: [], selectedTime: "" },
-        repot: { interval: 0, selectedDays: [], selectedTime: "" }
+        report: { interval: 0, selectedDays: [], selectedTime: "" }
     });
 
 
@@ -72,9 +72,11 @@ const AddPlantScreen = () => {
         light: { title: "Light", icon: "sunny-outline", color: "#FFB300", unit: "hours", options: [{ label: "Low", value: "4" }, { label: "High", value: "12" }] },
         temp: { title: "Temperature", icon: "thermometer", color: "#FF5722", unit: "°C", isMaterial: true, options: [{ label: "Cool", value: "18" }, { label: "Warm", value: "25" }] },
         fertilize: { title: "Fertilize", icon: "seed-outline", color: "#8BC34A", isMaterial: true, unit: "weeks", options: [{ label: "Bi-weekly", value: "2" }, { label: "Monthly", value: "4" }] },
-        repot: { title: "Repot", icon: "shovel", color: "#795548", isMaterial: true, unit: "months", options: [{ label: "Yearly", value: "12" }] },
+        report: { title: "Repot", icon: "shovel", color: "#795548", isMaterial: true, unit: "months", options: [{ label: "Yearly", value: "12" }] },
     };
 
+
+    // function to request camera access and take a photo
     const pickImage = async () => {
         const { status } = await ImagePicker.requestCameraPermissionsAsync();
         
@@ -90,8 +92,27 @@ const AddPlantScreen = () => {
             quality: 0.7, 
             allowsEditing: true 
         });
-        
+
         if (!result.canceled) setPlantPhoto(result.assets[0].uri);
     };
 
+
+    const toggleCare = (key: CareType) => {
+        if (!reminders[key]) {
+
+            setActiveCare(key);
+            const current = careSchedules[key];
+
+                setModalConfig({
+                    interval: current.interval,
+                    selectedDays: current.selectedDays,
+                    selectedTime: current.selectedTime || "09:00",
+                    selectedOption: "",
+                });
+                setIsModalVisible(true);
+
+        } else {
+            setReminders(prev => ({ ...prev, [key]: false }));
+        }
+    };
 }
