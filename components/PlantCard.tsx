@@ -91,13 +91,25 @@ const PlantCard = ({ item }: PlantCardProps) => {
                             {renderCareBadges()}
                     </View>
 
-
+                    {/* action btn open details modal */}
+                    <View style={styles.goAction}>
+                        <Ionicons 
+                            name="chevron-forward" 
+                            size={16} 
+                            color="#1A3C34"
+                            onPress={() =>
+                                router.push({
+                                    pathname: "/(modals)/plant-details",
+                                    params: { id: item.id },
+                                })
+                            } 
+                        />
+                    </View>
                 </View>
             </View>
         </TouchableOpacity>
-    )
-
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
@@ -181,6 +193,15 @@ const styles = StyleSheet.create({
         color: "#BCC6BC",
         textTransform: "uppercase",
         marginBottom: 6,
+    },
+    goAction: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: '#F0F4F0',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10
     },
             
     badgeRow: { flexDirection: "row", gap: 6 },
