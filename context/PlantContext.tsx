@@ -101,7 +101,7 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     // delete plant
     const removePlant = async (plantId: string) => {
         try {
-            
+            await cancelPlantNotifications(plantId);
             await deletePlant(plantId);                
             setPlants(prev => prev.filter(p => p.id !== plantId));  // remove from local state
 
