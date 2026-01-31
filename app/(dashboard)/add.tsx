@@ -40,4 +40,12 @@ const AddPlantScreen = () => {
         type: "info" as "success" | "error" | "info",
     });
 
+    const [reminders, setReminders] = useState({
+        watering: false,
+        light: false,
+        temp: false,
+        fertilize: false,
+        report: false
+    });
+
 }
