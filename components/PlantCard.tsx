@@ -1,7 +1,7 @@
 import { Plant } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 
 interface PlantCardProps {
@@ -57,12 +57,27 @@ const PlantCard = ({ item }: PlantCardProps) => {
     };
 
 
+    return (
+        <TouchableOpacity
+            activeOpacity={0.95}
+            style={styles.cardWrapper}>
+
+        </TouchableOpacity>
+    )
 
 }
 
 
 const styles = StyleSheet.create({
-
+    
+    cardWrapper: {
+        flexDirection: "row",
+        backgroundColor: "#FFF",
+        borderRadius: 24,
+        marginBottom: 20,
+        padding: 12,
+        elevation: 4
+    },
     badgeRow: { flexDirection: "row", gap: 6 },
 
     careBadge: {
@@ -75,5 +90,5 @@ const styles = StyleSheet.create({
     },
 
     badgeText: { fontSize: 10, fontWeight: "800" }
-    
+
 });
