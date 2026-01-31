@@ -243,7 +243,21 @@ const AddPlantScreen = () => {
             }, 400);
 
         } catch (err) {
+            console.log("Plant save error: ", err);
+            setToast({
+                visible: true,
+                message: "Plant save failed..Try againg",
+                type: "error"
+            });
 
+        } finally {
+            setLoading(false);
+            setTimeout(() =>
+                setToast(p => ({ ...p, visible: false})
+            ), 2500);
         }
-    }
+    };
+
+
+    
 }
