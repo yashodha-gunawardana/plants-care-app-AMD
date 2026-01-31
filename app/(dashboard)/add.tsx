@@ -1,8 +1,8 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Dimensions } from "react-native";
-
+import { Alert, Dimensions } from "react-native";
+import * as ImagePicker  from "expo-image-picker";
 
 const { width } = Dimensions.get("window");
 
@@ -73,6 +73,25 @@ const AddPlantScreen = () => {
         temp: { title: "Temperature", icon: "thermometer", color: "#FF5722", unit: "°C", isMaterial: true, options: [{ label: "Cool", value: "18" }, { label: "Warm", value: "25" }] },
         fertilize: { title: "Fertilize", icon: "seed-outline", color: "#8BC34A", isMaterial: true, unit: "weeks", options: [{ label: "Bi-weekly", value: "2" }, { label: "Monthly", value: "4" }] },
         repot: { title: "Repot", icon: "shovel", color: "#795548", isMaterial: true, unit: "months", options: [{ label: "Yearly", value: "12" }] },
+    };
+
+    const pickImage = async () => {
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+        
+        if (status !== "granted") {
+            Alert.alert(
+                "Permission denied", 
+                "Camera permission is required"
+            );
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync({ 
+            quality: 0.7, 
+            allowsEditing: true 
+        });
+        
+        if (!result.canceled) setPlantPhoto(result.assets[0].uri);
     };
 
 }
