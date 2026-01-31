@@ -16,7 +16,12 @@ const EditPlantModal = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
 
+    // access global state and functions from the PlantContext
     const { plants, updatePlantData, removePlant } = useContext(PlantContext);
+
+    const plant = plants.find((p) => p.id === id);
+    if (!plant) return null;
 }
+
 
 
