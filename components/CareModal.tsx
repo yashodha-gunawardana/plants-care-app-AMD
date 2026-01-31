@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import { Dimensions, Modal, StyleSheet, View } from "react-native";
 
 
 const { width } = Dimensions.get("window");
@@ -37,4 +37,33 @@ const CareSetupModal = ({
     if (!activeCare || !config) return null;
 
     const days = ["M", "T", "W", "T", "F", "S", "S"];
+
+
+    return (
+        <Modal visible={visible} animationType="slide" transparent={true}>
+            <View style={styles.modalOverlay}>
+                <View style={styles.modalContent}>
+
+                </View>
+
+            </View>
+
+        </Modal>
+    );
 }
+
+
+const styles = StyleSheet.create({
+    modalOverlay: { 
+        flex: 1, 
+        backgroundColor: "rgba(0,0,0,0.45)", 
+        justifyContent: "flex-end" 
+    },
+    modalContent: { 
+        backgroundColor: "#FFF", 
+        borderTopLeftRadius: 35, 
+        borderTopRightRadius: 35, 
+        padding: 30, 
+        minHeight: "65%" 
+    },
+});
