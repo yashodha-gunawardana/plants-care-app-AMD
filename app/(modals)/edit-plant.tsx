@@ -1,7 +1,7 @@
 import { Plant, PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 
  
 const { width } = Dimensions.get("window");
@@ -122,7 +122,51 @@ const EditPlantModal = () => {
         setLoading(false);
         router.back();
     };
+
+
+    const CareRow = ({ type }: { type: CareType }) => {
+        const config = careConfigs[type];
+        const isEnabled = reminders[type];
+        const schedule = (careSchedules as any)[type];
+
+
+        return (
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                    setActiveCare(type);
+                    setModalConfig({
+                        interval: schedule?.interval || 1,
+                        selectedDays: schedule?.selectedDays || [],
+                        selectedTime: schedule?.selectedTime || "09:00",
+                        selectedOption: ""
+                    });
+                    setIsModalVisible(true);
+                }}
+                style={[styles.careRow, isEnabled && styles.careRowEnabled]}>
+
+            </TouchableOpacity>
+        );
+    };
 }
+
+
+const styles = StyleSheet.create({
+
+    careRow: { 
+        flexDirection: "row", 
+        alignItems: "center", 
+        backgroundColor: "#FFF", 
+        padding: 12, 
+        borderRadius: 20, 
+        marginBottom: 12, 
+        borderWidth: 1, 
+        borderColor: "#F0F0F0"
+    },
+    
+    careRowEnabled: { borderColor: "#E0E8E0", backgroundColor: "#F9FCF9" }
+
+});
 
 
 
