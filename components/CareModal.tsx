@@ -32,5 +32,9 @@ const CareSetupModal = ({
     onApply,
     onTrackPress,
 }: CareSetupModalProps) => {
+
+    // if no care type or config is selected, don't render anything
     if (!activeCare || !config) return null;
+
+    const days = ["M", "T", "W", "T", "F", "S", "S"];
 }
