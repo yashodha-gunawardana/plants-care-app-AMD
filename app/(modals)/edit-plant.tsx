@@ -255,6 +255,11 @@ const EditPlantModal = () => {
                             <Text style={styles.sectionTitle}>Care Schedule</Text>
                             <Text style={styles.sectionSubtitle}>Tap to configure details</Text>
                         </View>
+
+                        {(Object.keys(careConfigs) as CareType[]).map(type => (
+                            <CareRow key={type} type={type} />
+                        ))}
+                        
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
