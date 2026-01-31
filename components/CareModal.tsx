@@ -20,4 +20,17 @@ interface CareSetupModalProps {
     setTempConfig: React.Dispatch<React.SetStateAction<any>>;
     onApply: () => void;
     onTrackPress: (event: any) => void;
+};
+
+const CareSetupModal = ({
+    visible,
+    onClose,
+    activeCare,
+    config,
+    tempConfig,
+    setTempConfig,
+    onApply,
+    onTrackPress,
+}: CareSetupModalProps) => {
+    if (!activeCare || !config) return null;
 }
