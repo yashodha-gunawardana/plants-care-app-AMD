@@ -1,10 +1,10 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, Image } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import DashboardHeader from "@/components/Header";
 import Toast from "@/components/Toast";
 
@@ -329,7 +329,30 @@ const AddPlantScreen = () => {
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={[styles.scrollContent, {paddingBottom: 180 }]}>
 
+                    {/* bg curve */}
                     <View style={styles.headerCurve} />
+
+                    {/* image picker */}
+                    <View style={styles.imageContainer}>
+                        <View style={styles.imageCircle}>
+                            {plantPhoto ? (
+                                <Image source={{ uri: plantPhoto }} style={styles.mainImage} />
+                            ) : (
+                                <Image sourec={{ uri: "https://cdn-icons-png.flaticon.com/512/628/628283.png" }} style={styles.placeholderIcon} />
+                            )}
+
+                            <TouchableOpacity
+                                style={styles.cameraFab}
+                                onPress={pickImage}>
+
+                                <Ionicons 
+                                    name="camera-outline"
+                                    size={20}
+                                    color="#1A3C34"
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
 
@@ -354,6 +377,35 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 400,
         alignSelf: "center",
         zIndex: -1,
+    },
+
+    imageContainer: { alignItems: "center", marginBottom: 30 },
+    
+    imageCircle: {
+        width: 180,
+        height: 180,
+        borderRadius: 90,
+        backgroundColor: "#FFF",
+        justifyContent: "center",
+        alignItems: "center",
+        elevation: 8,
+        shadowColor: "#000",
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+    },
+
+    mainImage: { width: "100%", height: "100%", borderRadius: 90 },
+    placeholderIcon: { width: 80, height: 80, opacity: 0.3 },
+    
+    cameraFab: {
+        position: "absolute",
+        bottom: 10,
+        right: 10,
+        backgroundColor: "#FFF",
+        padding: 8,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "#1A3C3420",
     },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
