@@ -2,7 +2,7 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text } from "react-native";
 
  
 const { width } = Dimensions.get("window");
@@ -148,13 +148,21 @@ const EditPlantModal = () => {
 
 
                 {/* care icon box */}
-                <View style={[styles.careIconContainer, { backgroundColor: isEnabled ? `${config.color}15` : '#F5F5F5' }]}>
+                <View style={[styles.careIconContainer, { backgroundColor: isEnabled ? `${config.color}15` : "#F5F5F5" }]}>
                     <Ionicons 
                         name={config.icon} s
                         ize={22} 
                         color={isEnabled ? config.color : "#BCBCBC"} 
                     />
                 </View>
+
+                {/* care text indo */}
+                <View style={styles.careTextContainer}>
+                    <Text style={styles.careTitle}>{config.title}</Text>
+                    <Text style={styles.careSubtitle}>
+                        {isEnabled ? `Every ${schedule?.interval} ${config.unit}` : "Reminder Off"}
+                    </Text>
+                </View>                
             </TouchableOpacity>
         );
     };
@@ -184,6 +192,10 @@ const styles = StyleSheet.create({
         alignItems: "center", 
         marginRight: 16 
     },
+
+    careTextContainer: { flex: 1 },
+    careTitle: { fontWeight: "700", fontSize: 16, color: "#1A3C34" },
+    careSubtitle: { fontSize: 13, color: "#8E918E", marginTop: 2 },
 
 });
 
