@@ -1,4 +1,4 @@
-import { PlantContext } from "@/context/PlantContext";
+import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
@@ -68,6 +68,17 @@ const PlantDetailsModal = () => {
             </View>
         </View>
     );
+
+
+    const getCareValue = (type: keyof Required<Plant>['careSchedules'], unit: string) => {
+        const schedule = plant.careSchedules?.[type];
+        if (!schedule || !schedule.interval || schedule.interval === 0) return "Not scheduled";
+        
+        const interval = schedule.interval;
+        if (interval === 1 && unit === "day") return `Daily`;
+        if (interval === 7 && unit === "day") return `Once a week`;
+        return `Every ${interval} ${unit}${interval > 1 ? "s" : ""}`; // handles pluralization
+    };
 }
 
 
