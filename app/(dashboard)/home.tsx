@@ -2,7 +2,7 @@ import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet } from "react-native";
+import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -133,6 +133,18 @@ const HomeScreen = () => {
 
             <SafeAreaView style={{ flex: 1 }}>
 
+                {/* main scrollable area */}
+                <Animated.ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    style={{ opacity: fadeAnim }}
+                    refreshControl={
+                        <RefreshControl refreshing={loading}
+                            onRefresh={fetchPlants}
+                            tintColor="#1A3C34" 
+                        />
+                    }>
+
+                </Animated.ScrollView>
             </SafeAreaView>
         </View>
     );
@@ -142,5 +154,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
 
     container: { flex: 1, backgroundColor: "#F8F9F8" },
+    scrollContent: { paddingHorizontal: 20, paddingTop: 10 },
     
 });
