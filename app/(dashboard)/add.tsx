@@ -329,6 +329,7 @@ const AddPlantScreen = () => {
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={[styles.scrollContent, {paddingBottom: 180 }]}>
 
+                    <View style={styles.headerCurve} />
                 </ScrollView>
             </KeyboardAvoidingView>
 
@@ -342,7 +343,18 @@ const styles = StyleSheet.create({
 
     container: { flex: 1, backgroundColor: "#FFF" },
     scrollContent: { paddingHorizontal: 20, paddingTop: 20 },
-    
+
+    headerCurve: {
+        position: "absolute",
+        top: -250,
+        width: "150%",
+        height: 450,
+        backgroundColor: "#1A3C34",
+        borderBottomLeftRadius: 400,
+        borderBottomRightRadius: 400,
+        alignSelf: "center",
+        zIndex: -1,
+    },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
 
