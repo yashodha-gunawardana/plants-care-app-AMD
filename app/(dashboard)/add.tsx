@@ -386,9 +386,16 @@ const AddPlantScreen = () => {
                             </View>
                         </View>
 
-                    
+                        {/* toggle field */}
+                        <Text style={styles.sectionTitle}>Plant care</Text>
+
+                        {(Object.keys(careConfigs) as CareType[]).map(type => (
+                            <CareRow key={type} type={type} />
+                        ))}
 
                     </View>
+
+                    <View style={{ height: 100 }} />
                 </ScrollView>
             </KeyboardAvoidingView>
 
@@ -481,6 +488,12 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontSize: 13,
         textAlign: "center",
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: "800",
+        color: "#000",
+        marginBottom: 20,
     },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
