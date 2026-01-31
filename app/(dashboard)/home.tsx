@@ -1,7 +1,9 @@
+import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, Animated, PanResponder } from "react-native";
+import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 // get screen dimensions for initial placement of the draggable button
@@ -111,8 +113,34 @@ const HomeScreen = () => {
     // sort the plant list based on user preference
     const sortedPlants = useMemo(() => {
         const list = [...plants];
-        if (sortType === 'alphabetical') return list.sort((a, b) => a.name.localeCompare(b.name));
+        if (sortType === "alphabetical") return list.sort((a, b) => a.name.localeCompare(b.name));
         return list.reverse(); 
 
     }, [plants, sortType]);
+
+    const handleSortPress = () => {
+        Alert.alert("Sort Collection", "Choose viewing preference", [
+            { text: "Newest First", onPress: () => setSortType("newest") },
+            { text: "Alphabetical (A-Z)", onPress: () => setSortType("alphabetical") },
+            { text: "Cancel", style: "cancel" },
+        ]);
+    };
+
+
+    return (
+        <View style={styles.container}>
+            <DashboardHeader />
+
+            <SafeAreaView style={{ flex: 1 }}>
+
+            </SafeAreaView>
+        </View>
+    );
 }
+
+
+const styles = StyleSheet.create({
+
+    container: { flex: 1, backgroundColor: "#F8F9F8" },
+    
+});
