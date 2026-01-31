@@ -124,5 +124,20 @@ const AddPlantScreen = () => {
             );
             return;
         }
+
+        if (activeCare) {
+            setCareSchedules(prev => ({
+                ...prev,
+                [activeCare]: {
+                    interval: modalConfig.interval,
+                    selectedDays: modalConfig.selectedDays,
+                    selectedItem: modalConfig.selectedTime
+                }
+            }));
+            setReminders(prev => ({
+                ...prev,
+                [activeCare]: true
+            }));
+        }
     }
 }
