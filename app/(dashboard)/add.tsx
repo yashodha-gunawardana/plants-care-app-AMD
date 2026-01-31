@@ -1,6 +1,6 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Dimensions } from "react-native";
 
 
@@ -20,5 +20,11 @@ interface ScheduleConfig {
 const AddPlantScreen = () => {
     const router = useRouter();
 
+    // access the global plant context to save new data
     const { addPlant } = useContext(PlantContext);
+
+    const [plantPhoto, setPlantPhoto] = useState<string | null>(null);
+    const [plantName, setPlantName] = useState("");
+    const [plantType, setPlantType] = useState("");
+    const [location, setLocation] = useState("");
 }
