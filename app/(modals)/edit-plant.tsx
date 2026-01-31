@@ -2,7 +2,7 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch } from "react-native";
 
  
 const { width } = Dimensions.get("window");
@@ -162,7 +162,15 @@ const EditPlantModal = () => {
                     <Text style={styles.careSubtitle}>
                         {isEnabled ? `Every ${schedule?.interval} ${config.unit}` : "Reminder Off"}
                     </Text>
-                </View>                
+                </View>   
+
+                {/* toggle switch */}
+                <Switch
+                    value={isEnabled}
+                    onValueChange={() => toggleCare(type)}
+                    trackColor={{ false: "#E0E0E0", true: "#C6F062" }}
+                    thumbColor={isEnabled ? "#1A3C34" : "#FFF"}
+                />             
             </TouchableOpacity>
         );
     };
