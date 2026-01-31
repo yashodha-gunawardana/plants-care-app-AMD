@@ -419,6 +419,20 @@ const AddPlantScreen = () => {
                     <Text style={styles.loadingSubText}>This will only take a moment</Text>
                 </View>
             )}
+
+            {/* save btn */}
+            <View style={styles.sideActionContainer}>
+                <TouchableOpacity style={styles.verticalBtn} onPress={handleAddPlant} disabled={loading}>
+                {loading ? (
+                    <ActivityIndicator size="small" color="#1A3C34" />
+                ) : (
+                    <>
+                        <Ionicons name="add-circle" size={26} color="#1A3C34" />
+                        <Text style={styles.verticalBtnText}>SAVE</Text>
+                    </>
+                )}
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -537,6 +551,28 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         opacity: 0.7
     },
+    sideActionContainer: {
+        position: "absolute",
+        right: 0,
+        top: "45%",
+        backgroundColor: "#C6F062",
+        borderTopLeftRadius: 25,
+        borderBottomLeftRadius: 25,
+        elevation: 8,
+        borderWidth: 1,
+        borderColor: "#1A3C34",
+    },
+    verticalBtn: {
+        paddingVertical: 18,
+        paddingHorizontal: 10,
+        alignItems: "center",
+        gap: 5,
+    },
+    verticalBtnText: {
+        fontSize: 10,
+        fontWeight: "900",
+        color: "#1A3C34",
+    },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
 
@@ -554,5 +590,5 @@ const styles = StyleSheet.create({
 
     careTextContainer: { flex: 1 },
     careTitle: { fontSize: 15, fontWeight: "700", color: "#000" },
-    careSubtitle: { fontSize: 11, color: "#888", marginTop: 2 },
+    careSubtitle: { fontSize: 11, color: "#888", marginTop: 2 }
 });
