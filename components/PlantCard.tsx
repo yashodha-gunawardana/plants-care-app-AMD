@@ -82,7 +82,7 @@ const PlantCard = ({ item }: PlantCardProps) => {
 
                 <Text style={styles.plantName} numberOfLines={1}>{item.name}</Text>
 
-
+                <View style={styles.spacer} />
             </View>
         </TouchableOpacity>
     )
@@ -151,6 +151,11 @@ const styles = StyleSheet.create({
         fontWeight: "900",
         color: "#1A3C34",
         marginTop: 4,
+    },
+    spacer: {
+        height: 1,
+        backgroundColor: "#F5F7F5",
+        marginVertical: 10
     },
             
     badgeRow: { flexDirection: "row", gap: 6 },
