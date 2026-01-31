@@ -1,6 +1,6 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Dimensions, Animated } from "react-native";
 
 
@@ -21,4 +21,11 @@ const HomeScreen = () => {
 
     // 'lastOffset' stores the static position where the user stopped dragging
     const lastOffset = useRef({ x: width - 85, y: height - 200 });
+
+
+    useEffect(() => {
+        const listenerId = pan.addListener((value) => {
+            lastOffset.current = value;
+        });
+    })
 }
