@@ -1,7 +1,7 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
-import { Dimensions, StyleSheet, View, Text } from "react-native";
+import { Dimensions, StyleSheet, View, Text, Alert } from "react-native";
 
 
 
@@ -21,6 +21,7 @@ const PlantDetailsModal = () => {
     // find the specific plant object that matches the ID from the URL
     const plant = plants.find((p) => p.id === id);
 
+    // if no plant is found, show message
     if (!plant) {
         return (
             <View style={styles.center}>
@@ -28,10 +29,31 @@ const PlantDetailsModal = () => {
             </View>
         );
     }
+
+
+    // handle plants delete
+    const handleDelete = () => {
+        Alert.alert(
+            "Delete Plant",
+            `Are you sure you want to remove  ${plant.name}?`,[
+                { text: "Cancel", style: "cancel"},
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: async () => {
+                        // remove from global state
+                        await removePlant(plant.id!);
+                        router.back();
+                    }
+                }
+        ]);
+    };
+
+    
 }
 
 
 const styles = StyleSheet.create({
-    
+
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
 })
