@@ -84,6 +84,14 @@ const EditPlantModal = () => {
             setReminders(prev => ({ ...prev, [key]: false }));
         }
     };
+
+    const handleApplySchedule = () => {
+        if (activeCare) {
+            setCareSchedules(prev => ({ ...prev, [activeCare]: { ...modalConfig } }));
+            setReminders(prev => ({ ...prev, [activeCare]: true }));
+        }
+        setIsModalVisible(false);
+    };
 }
 
 
