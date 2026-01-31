@@ -215,7 +215,10 @@ const AddPlantScreen = () => {
                 }
             };
 
-            const cleanPlantDat = JSON.parse(JSON.stringify(newPlant));
+            // remove undefined fields
+            const cleanPlantData = JSON.parse(JSON.stringify(newPlant));
+
+            await addPlant(cleanPlantData, plantPhoto ?? undefined);
         } catch (err) {
 
         }
