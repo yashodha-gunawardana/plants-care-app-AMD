@@ -1,4 +1,6 @@
-import { useLocalSearchParams } from "expo-router";
+import { PlantContext } from "@/context/PlantContext";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useContext } from "react";
 import { Dimensions } from "react-native";
 
  
@@ -12,6 +14,9 @@ type CareType = "watering" | "light" | "temp" | "fertilize" | "report";
 
 const EditPlantModal = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
+    const router = useRouter();
+
+    const { plants, updatePlantData, removePlant } = useContext(PlantContext);
 }
 
 
