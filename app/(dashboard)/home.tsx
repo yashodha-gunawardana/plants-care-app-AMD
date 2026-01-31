@@ -46,10 +46,13 @@ const HomeScreen = () => {
                     x: lastOffset.current.x,
                     y: lastOffset.current.y
                 });
-                pan.setValue({ x: 0, y: 0 });
+                pan.setValue({ x: 0, y: 0 });  // reset movement delta for the new gesture
             },
 
-            
+            onPanResponderMove: Animated.event(
+                [null, { dx: pan.x, dy: pan.y }],
+                { useNativeDriver: false }
+            ),
         })
     )
 }
