@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { Alert, Dimensions } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
+import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 
 const { width } = Dimensions.get("window");
 
@@ -219,6 +220,24 @@ const AddPlantScreen = () => {
             const cleanPlantData = JSON.parse(JSON.stringify(newPlant));
 
             await addPlant(cleanPlantData, plantPhoto ?? undefined);
+
+            resetForm();
+
+            setToast({
+                visible: true,
+                message: `${plantName} added successfully 🌿`,
+                type: "success"
+            });
+
+            // handle Notifications in the background
+            try {
+                await requestNotificationPermissions();
+                await scheduleAllPlantReminders(cleanPlantData);
+
+            } catch (NotifiErr) {
+                console.error("Notification scheduling failed: ", NotifiErr);
+            }
+
         } catch (err) {
 
         }
