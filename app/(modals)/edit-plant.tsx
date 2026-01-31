@@ -32,6 +32,14 @@ const EditPlantModal = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);   // controls the care config modal
     const [activeCare, setActiveCare] = useState<CareType | null>(null);  // tracks which care item is being edited
     const [loading, setLoading] = useState(false); 
+
+    const [reminders, setReminders] = useState({
+        watering: !!plant.careSchedules?.watering,
+        light: !!plant.careSchedules?.light,
+        temp: !!plant.careSchedules?.temp,
+        fertilize: !!plant.careSchedules?.fertilize,
+        report: !!plant.careSchedules?.report,
+    });
 }
 
 
