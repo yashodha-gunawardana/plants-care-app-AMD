@@ -1,4 +1,5 @@
 import DashboardHeader from "@/components/Header";
+import PlantCard from "@/components/PlantCard";
 import { PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -195,6 +196,17 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
 
+                    {/* render plant cards */}
+                    <View style={styles.collectionWrapper}>
+                        {sortedPlants.map((plant, index) => (
+                            <View key={plant.id || index.toString()} style={styles.cardMargin}>
+                                <PlantCard item={plant} />
+                            </View>
+                        ))}
+                    </View>
+
+                    {/* extra padding at bottom for the FAB */}
+                    <View style={{ height: 100 }} />
                 </Animated.ScrollView>
             </SafeAreaView>
         </View>
@@ -226,6 +238,8 @@ const styles = StyleSheet.create({
         paddingVertical: 8, 
         borderRadius: 12 
     },
-    
+
     filterText: { fontSize: 13, fontWeight: "700", color: "#1A3C34" },
+    collectionWrapper: { flex: 1 },
+    cardMargin: { marginBottom: 16 },
 });
