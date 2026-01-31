@@ -90,6 +90,12 @@ const CareSetupModal = ({
                             </TouchableOpacity>
                         ))}
                     </View>
+
+                    {/* slider section */}
+                    <Text style={styles.modalLabel}>
+                        Frequency: {tempConfig.interval > 0 ? tempConfig.interval : "__"}{" "}
+                        {config.unit}
+                    </Text>
                 </View>
             </View>
         </Modal>
