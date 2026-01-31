@@ -53,6 +53,8 @@ export async function scheduleAllPlantReminders(plant: Plant) {
         // check if the user has actually set up a schedule for this care type
         if (schedule && schedule.selectedDays && schedule.selectedDays.length > 0) {
 
+            // convert the "HH:MM" string into numbers for the system clock
+            const [hour, minute] = (schedule.selectedTime || "09:00").split(':').map(Number);
         }
     }
 }
