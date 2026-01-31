@@ -63,6 +63,27 @@ const EditPlantModal = () => {
         fertilize: { title: "Fertilize", icon: "leaf", color: "#4CAF50", unit: "weeks", options: [{ label: "Bi-weekly", value: "2" }, { label: "Monthly", value: "4" }] },
         report: { title: "Repot", icon: "archive", color: "#4CAF50", unit: "months", options: [{ label: "Yearly", value: "12" }] },
     };
+
+    const toggleCare = (key: CareType) => {
+        if (!reminders[key]) {
+            setActiveCare(key);
+            const current = (careSchedules as any)[key] || { 
+                interval: 1, 
+                selectedDays: [], 
+                selectedTime: "09:00" 
+            };
+            setModalConfig({
+                interval: current.interval || 1,
+                selectedDays: current.selectedDays || [],
+                selectedTime: current.selectedTime || "09:00",
+                selectedOption: "",
+            });
+            setIsModalVisible(true);
+        
+        } else {
+            setReminders(prev => ({ ...prev, [key]: false }));
+        }
+    };
 }
 
 
