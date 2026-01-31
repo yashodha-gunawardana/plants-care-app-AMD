@@ -1,7 +1,7 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -290,6 +290,14 @@ const AddPlantScreen = () => {
                         />
                     )}
                 </TouchableOpacity>
+
+                {/* text lables */}
+                <View style={styles.careTextContainer}>
+                    <Text style={styles.careTitle}>{config.title}</Text>
+                    <Text style={styles.careSubtitle}>
+                        {isEnabled ? `Every ${schedule.interval} ${config.unit}` : "No schedule set"}
+                    </Text>
+                </View>
             </View>
         )
     }
@@ -312,4 +320,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#E0E0E0",
     },
+
+    careTextContainer: { flex: 1 },
+    careTitle: { fontSize: 15, fontWeight: "700", color: "#000" },
+    careSubtitle: { fontSize: 11, color: "#888", marginTop: 2 },
 });
