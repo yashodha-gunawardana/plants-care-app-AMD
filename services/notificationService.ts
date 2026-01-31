@@ -1,3 +1,4 @@
+import { Plant } from "@/context/PlantContext";
 import * as Notifications from "expo-notifications";
 
 
@@ -32,4 +33,10 @@ export async function cancelPlantNotifications(plantId: string) {
             await Notifications.cancelAllScheduledNotificationsAsync(notification.identifier);
         }
     }
+};
+
+
+export async function scheduleAllPlantReminders(plant: Plant) {
+    if (!plant.careSchedules) return;
 }
+
