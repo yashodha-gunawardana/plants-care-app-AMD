@@ -1,4 +1,5 @@
-import { Dimensions, Modal, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Dimensions, Modal, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 
 const { width } = Dimensions.get("window");
@@ -44,6 +45,17 @@ const CareSetupModal = ({
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}>
 
+                    {/* header */}
+                    <View style={styles.modalHeader}>
+                        <Text style={[styles.modalTitle, { color: config.color }]}>
+                            {config.title} Setup
+                        </Text>
+
+                        {/* close button to discard changes */}
+                        <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
+                            <Ionicons name="close" size={20} color="#1A3C34" />
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
             </View>
@@ -66,4 +78,13 @@ const styles = StyleSheet.create({
         padding: 30, 
         minHeight: "65%" 
     },
+    modalHeader: { 
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        marginBottom: 25 
+    },
+    
+    modalTitle: { fontSize: 24, fontWeight: "800" },
+    closeBtn: { backgroundColor: "#F5F5F5", padding: 10, borderRadius: 12 },
 });
