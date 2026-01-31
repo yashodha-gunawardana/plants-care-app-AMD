@@ -65,6 +65,10 @@ const PlantCard = ({ item }: PlantCardProps) => {
             {/* image & location */}
             <View style={styles.imageContainer}>
                 <Image source={{ uri: item.photo || DEFAULT_PLANT_IMAGE }} style={styles.cardImage} />
+
+                <View style={styles.locationPill}>
+                    <Text style={styles.locationText}>{item.location || "Indoor"}</Text>
+                </View>
             </View>
         </TouchableOpacity>
     )
@@ -82,6 +86,30 @@ const styles = StyleSheet.create({
         padding: 12,
         elevation: 4
     },
+    imageContainer: {
+        width: 110,
+        height: 140,
+        borderRadius: 20,
+        overflow: "hidden",
+        position: "relative"
+    },
+    locationPill: {
+        position: "absolute",
+        bottom: 8,
+        left: 8,
+        right: 8,
+        backgroundColor: "rgba(255,255,255,0.85)",
+        paddingVertical: 4,
+        borderRadius: 8,
+        alignItems: "center"
+    },
+    locationText: {
+        fontSize: 9,
+        fontWeight: "800",
+        color: "#1A3C34",
+        textTransform: "uppercase"
+    },
+        
     badgeRow: { flexDirection: "row", gap: 6 },
 
     careBadge: {
