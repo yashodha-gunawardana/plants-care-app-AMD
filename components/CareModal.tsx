@@ -56,10 +56,42 @@ const CareSetupModal = ({
                             <Ionicons name="close" size={20} color="#1A3C34" />
                         </TouchableOpacity>
                     </View>
+
+                    {/* selction options */}
+                    <Text style={styles.modalLabel}>Quick Options</Text>
+                    <View style={styles.optionsContainer}>
+                        {config.options.map((opt: any) => (
+                            <TouchableOpacity
+                                key={opt.value}
+                                style={[
+                                    styles.optionButton,
+
+                                    // highlight button if it matches the current selected interval
+                                    tempConfig.selectedOption === opt.value && {
+                                        borderColor: config.color,
+                                        backgroundColor: config.color + "10"
+                                    }]}
+                                    onPress={() => 
+                                        setTempConfig((prev: any) => ({
+                                            ...prev,
+                                            selectedOption: opt.value,
+                                            interval: parseInt(opt.value)
+                                        }))
+                                    }>
+                                    
+                                    <Text
+                                        style={[
+                                            styles.optionButtonText,
+                                            tempConfig.selectedOption === opt.value && {
+                                                color: config.color,
+                                        }]}>
+                                        {opt.label}
+                                    </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
                 </View>
-
             </View>
-
         </Modal>
     );
 }
@@ -84,7 +116,32 @@ const styles = StyleSheet.create({
         alignItems: "center", 
         marginBottom: 25 
     },
-    
+
     modalTitle: { fontSize: 24, fontWeight: "800" },
     closeBtn: { backgroundColor: "#F5F5F5", padding: 10, borderRadius: 12 },
+
+    modalLabel: { 
+        fontSize: 16, 
+        fontWeight: "700", 
+        color: "#333", 
+        marginBottom: 15, 
+        marginTop: 10 
+    },
+    optionsContainer: { 
+        flexDirection: "row", 
+        gap: 10, 
+        marginBottom: 20 
+    },
+    optionButton: { 
+        paddingHorizontal: 16, 
+        paddingVertical: 10, 
+        borderRadius: 25, 
+        borderWidth: 1.5, 
+        borderColor: "#EEE" 
+    },
+    optionButtonText: { 
+        fontSize: 13, 
+        fontWeight: "700", 
+        color: "#777" 
+    },
 });
