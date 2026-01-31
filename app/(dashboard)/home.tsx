@@ -106,4 +106,13 @@ const HomeScreen = () => {
             isUrgent: diffInHours !== null && diffInHours <= 0 // highlight if watering is overdue
         };
     }, [plants]);
+
+
+    // sort the plant list based on user preference
+    const sortedPlants = useMemo(() => {
+        const list = [...plants];
+        if (sortType === 'alphabetical') return list.sort((a, b) => a.name.localeCompare(b.name));
+        return list.reverse(); 
+
+    }, [plants, sortType]);
 }
