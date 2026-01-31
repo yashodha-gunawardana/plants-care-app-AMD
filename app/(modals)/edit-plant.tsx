@@ -2,7 +2,7 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator, Image } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 
@@ -214,6 +214,42 @@ const EditPlantModal = () => {
                             </View>
                         </View>
                     </View>
+
+                    {/* input fields */}
+                    <View style={styles.formContainer}>
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.inputLabel}>Display Name</Text>
+                            <TextInput 
+                                style={styles.mainInput} 
+                                value={plantName} 
+                                onChangeText={setPlantName} 
+                                placeholder="e.g. Monstera Deliciosa" 
+                                placeholderTextColor="#C0C0C0"
+                            />
+                        </View>
+
+                        <View style={styles.pillRow}>
+                            <View style={styles.pillInputBox}>
+                                <Ionicons name="leaf-outline" size={16} color="#1A3C3480" />
+                                <TextInput 
+                                    style={styles.smallInput} 
+                                    value={plantType} 
+                                    onChangeText={setPlantType} 
+                                    placeholder="Species" 
+                                />
+                            </View>
+
+                            <View style={styles.pillInputBox}>
+                                <Ionicons name="location-outline" size={16} color="#1A3C3480" />
+                                <TextInput 
+                                    style={styles.smallInput} 
+                                    value={location} 
+                                    onChangeText={setLocation} 
+                                    placeholder="Location" 
+                                />
+                            </View>
+                        </View>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
         </View>
@@ -289,6 +325,46 @@ const styles = StyleSheet.create({
         borderWidth: 4, 
         borderColor: "#F2F5F2" 
     },
+
+    formContainer: { paddingHorizontal: 24, marginTop: 25 },
+    inputGroup: { marginBottom: 20 },
+
+    inputLabel: { 
+        fontSize: 11, 
+        fontWeight: "800", 
+        color: "#1A3C3460", 
+        textTransform: "uppercase", 
+        marginBottom: 8, 
+        marginLeft: 4 
+    },
+    mainInput: { 
+        fontSize: 20, 
+        fontWeight: "700", 
+        color: "#1A3C34", 
+        backgroundColor: "#FFF", 
+        borderRadius: 16, 
+        padding: 16,
+        borderWidth: 1, 
+        borderColor: "#EBECEB"
+    },
+
+    pillRow: { flexDirection: "row", gap: 12, marginBottom: 30 },
+
+    pillInputBox: { 
+        flex: 1, 
+        flexDirection: "row", 
+        alignItems: "center", 
+        backgroundColor: "#FFF", 
+        borderRadius: 14, 
+        paddingHorizontal: 15, 
+        height: 50, 
+        borderWidth: 1, 
+        borderColor: "#EBECEB", 
+        gap: 8
+    },
+    
+    smallInput: { fontWeight: "600", color: "#1A3C34", flex: 1, fontSize: 14 },
+
     careRow: { 
         flexDirection: "row", 
         alignItems: "center", 
