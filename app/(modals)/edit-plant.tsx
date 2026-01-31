@@ -256,10 +256,25 @@ const EditPlantModal = () => {
                             <Text style={styles.sectionSubtitle}>Tap to configure details</Text>
                         </View>
 
+                        {/* generate the list of Care Rows */}
                         {(Object.keys(careConfigs) as CareType[]).map(type => (
                             <CareRow key={type} type={type} />
                         ))}
-                        
+
+                        {/* delete btn */}
+                        <TouchableOpacity 
+                            style={styles.deleteBtn} 
+                            onPress={() => {
+                                Alert.alert("Remove Plant", "This will permanently delete this plant's history.", [
+                                { text: "Cancel", style: "cancel" },
+                                { text: "Delete", style: "destructive", 
+                                    onPress: () => { removePlant(id); router.back(); } }
+                                ]);
+                            }}>
+                            
+                            <Ionicons name="trash-outline" size={18} color="#FF5252" />
+                            <Text style={styles.deleteText}>Delete Plant Profile</Text>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -378,6 +393,21 @@ const styles = StyleSheet.create({
     sectionHeader: { marginBottom: 15 },
     sectionTitle: { fontSize: 18, fontWeight: "800", color: '#1A3C34' },
     sectionSubtitle: { fontSize: 12, color: '#1A3C3450', fontWeight: "600" },
+
+    deleteBtn: { 
+        marginTop: 35, 
+        flexDirection: "row", 
+        alignItems: "center", 
+        justifyContent: "center", 
+        gap: 10, 
+        padding: 18, 
+        borderRadius: 18, 
+        backgroundColor: "#FFF", 
+        borderWidth: 1, 
+        borderColor: "#FFE5E5" 
+    },
+
+    deleteText: { color: "#FF5252", fontWeight: "700", fontSize: 14 },
 
     careRow: { 
         flexDirection: "row", 
