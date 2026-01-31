@@ -399,6 +399,19 @@ const AddPlantScreen = () => {
                 </ScrollView>
             </KeyboardAvoidingView>
 
+            {/* reusable modal */}
+            <CareSetupModal
+                visible={isModalVisible}
+                onClose={() => setIsModalVisible(false)}
+                activeCare={activeCare}
+                config={activeCare ? careConfigs[activeCare] : null}
+                tempConfig={modalConfig}
+                setTempConfig={setModalConfig}
+                onApply={handleApplySchedule}
+                onTrackPress={handleTrackPress}
+            />
+
+            
         </View>
     );
 }
