@@ -1,5 +1,6 @@
 import { Plant } from "@/context/PlantContext";
 import * as Notifications from "expo-notifications";
+import { SchedulableTriggerInputTypes } from "expo-notifications";
 
 
 Notifications.setNotificationHandler({
@@ -61,6 +62,7 @@ export async function scheduleAllPlantReminders(plant: Plant) {
                 // implement weekday conversion logic for Expo Notifications
                 const weekday = dayIndex === 6 ? 1 : dayIndex + 2;
 
+                // register the notification with the device OS
                 await Notifications.scheduleNotificationAsync({
                     content: {
                         title: `${care.emoji} ${care.label} Time!`,
@@ -68,11 +70,11 @@ export async function scheduleAllPlantReminders(plant: Plant) {
                         data: { plantId: plant.id, type: care.key }, 
                     },
                     trigger: {
-                        type: SchedulableTriggerInputTypes.CALENDAR, // Use calendar-based scheduling
+                        type: SchedulableTriggerInputTypes.CALENDAR, 
                         hour,
                         minute,
-                        weekday,    // Specific day of the week
-                        repeats: true, // Make it repeat every week on this day
+                        weekday,    // specific day of the week
+                        repeats: true, // make it repeat every week on this day
                     },
                 })
             }
