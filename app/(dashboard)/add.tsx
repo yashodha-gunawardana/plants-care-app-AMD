@@ -1,7 +1,7 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput, ActivityIndicator } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -411,7 +411,14 @@ const AddPlantScreen = () => {
                 onTrackPress={handleTrackPress}
             />
 
-            
+            {/* loading */}
+            {loading && (
+                <View style={styles.loadingOverlay}>
+                    <ActivityIndicator size="large" color="#1A3C34" />
+                    <Text style={styles.loadingText}>Syncing Garden...</Text>
+                    <Text style={styles.loadingSubText}>This will only take a moment</Text>
+                </View>
+            )}
         </View>
     );
 }
@@ -507,6 +514,28 @@ const styles = StyleSheet.create({
         fontWeight: "800",
         color: "#000",
         marginBottom: 20,
+    },
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject, 
+        backgroundColor: "rgba(253, 253, 251, 0.92)", 
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000, 
+    },
+    loadingText: {
+        marginTop: 20,
+        color: "#1A3C34",
+        fontWeight: "800",
+        fontSize: 18,
+        letterSpacing: 1,
+        textTransform: 'uppercase'
+    },
+    loadingSubText: {
+        marginTop: 5,
+        color: "#3d5a2d",
+        fontSize: 12,
+        fontWeight: "500",
+        opacity: 0.7
     },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
