@@ -1,7 +1,7 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View } from "react-native";
+import { Alert, Dimensions, View, StyleSheet } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 
@@ -266,9 +266,16 @@ const AddPlantScreen = () => {
         const schedule = careSchedules[type];
 
         return (
-            <View>
+            <View style={styles.careRow}>
 
             </View>
         )
     }
 }
+
+
+
+const styles = StyleSheet.create({
+    
+    careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
+});
