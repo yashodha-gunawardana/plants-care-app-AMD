@@ -31,7 +31,7 @@ export async function cancelPlantNotifications(plantId: string) {
 
         // look inside the 'data' object we stored to find the specific plant ID
         if (notification.content.data?.plantId === plantId) {
-            await Notifications.cancelAllScheduledNotificationsAsync(notification.identifier);
+            await Notifications.cancelScheduledNotificationAsync(notification.identifier);
         }
     }
 };

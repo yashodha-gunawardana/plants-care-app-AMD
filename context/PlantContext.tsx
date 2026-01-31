@@ -3,6 +3,7 @@ import { AuthContext } from "./AuthContext";
 import { createPlant, getUserPlants, deletePlant, updatePlant } from "@/services/plantService";
 import { cancelPlantNotifications } from "@/services/notificationService";
 
+
 // define the schedule structure
 export interface CareSchedule {
     interval: number;
@@ -87,6 +88,7 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
         try {
             // cancel old notifications first to prevent double-alerts after an update
             await cancelPlantNotifications(plantId);
+
             await updatePlant(plantId, updatedData);
             setPlants(prev =>
                 prev.map(p => (p.id === plantId ? { ...p, ...updatedData } : p))
@@ -101,7 +103,9 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     // delete plant
     const removePlant = async (plantId: string) => {
         try {
+            //stop all future alerts for this plant
             await cancelPlantNotifications(plantId);
+
             await deletePlant(plantId);                
             setPlants(prev => prev.filter(p => p.id !== plantId));  // remove from local state
 
