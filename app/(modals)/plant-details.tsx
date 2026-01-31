@@ -131,6 +131,13 @@ const PlantDetailsModal = () => {
                         resizeMode="cover"
                     />
                 </View>
+
+                <View style={styles.locationTag}>
+                    <Ionicons name="location" size={18} color="#1A3C34" />
+                    <Text style={styles.locationText}>{plant.location || "Living Room"}</Text>
+                </View>
+
+                <Text style={styles.sectionTitle}>Plant care</Text>
             </ScrollView>
             
         </View>
@@ -206,8 +213,8 @@ const styles = StyleSheet.create({
         width: 130,
         height: 130,
         borderRadius: 65,
-        backgroundColor: '#FFF',
-        position: 'absolute',
+        backgroundColor: "#FFF",
+        position: "absolute",
         top: -65, 
         right: 30,
         padding: 6,
@@ -217,8 +224,23 @@ const styles = StyleSheet.create({
         elevation: 10,
         zIndex: 4,
     },
-    
-    portalImage: { width: '100%', height: '100%', borderRadius: 60 },
+
+    portalImage: { width: "100%", height: "100%", borderRadius: 60 },
+
+    locationTag: { 
+        flexDirection: "row", 
+        alignItems: "center", 
+        marginBottom: 25, 
+        gap: 6 
+    },
+    locationText: { color: "#1A3C34", fontSize: 16, fontWeight: "700" },
+  
+    sectionTitle: { 
+        fontSize: 22, 
+        fontWeight: "800", 
+        color: "#000", 
+        marginBottom: 25 
+    },
 
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
