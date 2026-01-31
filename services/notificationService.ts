@@ -19,3 +19,12 @@ export async function requestNotificationPermissions() {
         await Notifications.requestPermissionsAsync();
     }
 };
+
+
+export async function cancelPlantNotifications(plantId: string) {
+    const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+
+    for (const notification of scheduled) {
+        
+    }
+}
