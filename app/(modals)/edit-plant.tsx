@@ -1,7 +1,8 @@
 import { Plant, PlantContext } from "@/context/PlantContext";
+import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 
  
 const { width } = Dimensions.get("window");
@@ -145,6 +146,15 @@ const EditPlantModal = () => {
                 }}
                 style={[styles.careRow, isEnabled && styles.careRowEnabled]}>
 
+
+                {/* care icon box */}
+                <View style={[styles.careIconContainer, { backgroundColor: isEnabled ? `${config.color}15` : '#F5F5F5' }]}>
+                    <Ionicons 
+                        name={config.icon} s
+                        ize={22} 
+                        color={isEnabled ? config.color : "#BCBCBC"} 
+                    />
+                </View>
             </TouchableOpacity>
         );
     };
@@ -163,8 +173,17 @@ const styles = StyleSheet.create({
         borderWidth: 1, 
         borderColor: "#F0F0F0"
     },
-    
-    careRowEnabled: { borderColor: "#E0E8E0", backgroundColor: "#F9FCF9" }
+
+    careRowEnabled: { borderColor: "#E0E8E0", backgroundColor: "#F9FCF9" },
+
+    careIconContainer: { 
+        width: 48, 
+        height: 48, 
+        borderRadius: 14, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        marginRight: 16 
+    },
 
 });
 
