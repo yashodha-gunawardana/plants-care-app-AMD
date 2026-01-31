@@ -41,7 +41,10 @@ const HomeScreen = () => {
             onMoveShouldSetPanResponder: () => true,
 
             onPanResponderGrant: () => {
-
+                pan.setOffset({
+                    x: lastOffset.current.x,
+                    y: lastOffset.current.y
+                });
             }
         })
     )
