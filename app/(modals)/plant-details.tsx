@@ -2,7 +2,8 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
-import { Dimensions, StyleSheet, View, Text, Alert } from "react-native";
+import { Dimensions, StyleSheet, View, Text, Alert, TouchableOpacity, Platform } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -89,6 +90,25 @@ const PlantDetailsModal = () => {
         <View style={styles.mainContainer}>
             <View style={styles.topGreenBg} />
 
+            <SafeAreaView style={styles.headerRow}>
+                <TouchableOpacity
+                    onPress={() => router.back()}
+                    style={styles.backBtn}>
+
+                    <Ionicons name="arrow-back" size={28} color="#FFF" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.editBtn}
+                    onPress={() => 
+                        router.push({ 
+                            pathname: "/(modals)/edit-plant", 
+                            params: { id: plant.id } 
+                        })
+                    }>
+                    <Ionicons name="pencil" size={18} color="#1A3C34" />
+                </TouchableOpacity>
+            </SafeAreaView>
             
         </View>
     );
@@ -106,7 +126,30 @@ const styles = StyleSheet.create({
         height: height * 0.35,
         backgroundColor: "#1A3C34",
     },
-    
+    headerRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 20,
+        paddingTop: Platform.OS === "android" ? 40 : 10,
+        zIndex: 10,
+    },
+
+    backBtn: { padding: 5 },
+
+    editBtn: {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FFF",
+        borderRadius: 50,
+        width: 42,
+        height: 42,
+        elevation: 4,
+        shadowColor: "#000",
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+    },
+
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
 
