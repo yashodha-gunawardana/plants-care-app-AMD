@@ -1,7 +1,7 @@
-import { PlantContext } from "@/context/PlantContext";
+import { Plant, PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Dimensions } from "react-native";
+import { Alert, Dimensions } from "react-native";
 
  
 const { width } = Dimensions.get("window");
@@ -85,12 +85,42 @@ const EditPlantModal = () => {
         }
     };
 
+
+    // saves the modal changes into the local careSchedules state
     const handleApplySchedule = () => {
         if (activeCare) {
             setCareSchedules(prev => ({ ...prev, [activeCare]: { ...modalConfig } }));
             setReminders(prev => ({ ...prev, [activeCare]: true }));
         }
         setIsModalVisible(false);
+    };
+
+
+    // handle plant update
+    const handleUpdate = async () => {
+        if (!plantName.trim()) return
+        Alert.alert(
+            "Required",
+            "Plant name is needed"
+        );
+        setLoading(true);
+
+        const updatedPlant: Partial<Plant> = {
+            name: plantName.trim(),
+            type: plantType.trim(),
+            location: location.trim(),
+            photo: plantPhoto || undefined,
+            careSchedules: {
+                watering: reminders.watering ? careSchedules.watering : undefined,
+                light: reminders.light ? careSchedules.light : undefined,
+                temp: reminders.temp ? careSchedules.temp : undefined,
+                fertilize: reminders.fertilize ? careSchedules.fertilize : undefined,
+                report: reminders.report ? careSchedules.report : undefined,
+            }
+        };
+        await updatePlantData(id, updatedPlant);
+        setLoading(false);
+        router.back();
     };
 }
 
