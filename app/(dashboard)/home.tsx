@@ -143,6 +143,11 @@ const HomeScreen = () => {
                             tintColor="#1A3C34" 
                         />
                     }>
+                    
+                    {/* garden state */}
+                    <View style={styles.bentoGrid}>
+
+                    </View>
 
                 </Animated.ScrollView>
             </SafeAreaView>
@@ -155,5 +160,5 @@ const styles = StyleSheet.create({
 
     container: { flex: 1, backgroundColor: "#F8F9F8" },
     scrollContent: { paddingHorizontal: 20, paddingTop: 10 },
-    
+    bentoGrid: { flexDirection: "row", gap: 12, marginBottom: 25, height: 140 },
 });
