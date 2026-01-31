@@ -238,6 +238,10 @@ const AddPlantScreen = () => {
                 console.error("Notification scheduling failed: ", NotifiErr);
             }
 
+            setTimeout(() => {
+                router.replace("/(dashboard)/home");
+            }, 400);
+
         } catch (err) {
 
         }
