@@ -79,14 +79,10 @@ export const getUserPlants = async () => {
         return {
             id: doc.id,
             name: data.name || "Unnamed Plant",       
-            type: data.type || "Unknown Type",        
-            wateringInterval: data.wateringInterval,
-            lastWatered: data.lastWatered,
-            photo: data.photo,
+            type: data.type || "Unknown Type",  
             location: data.location,
-            notes: data.notes,
-            userId: data.userId,
-            createdAt: data.createdAt || new Date().toISOString(), // required for TS
+            photo: data.photo,
+            careSchedules: data.careSchedules ?? {},      
         } as Plant;
     });
 
@@ -95,12 +91,16 @@ export const getUserPlants = async () => {
 
 
 // update plants
-export const updatePlant = async (plantId: string, updatedData: any) => {
+export const updatePlant = async (plantId: string, updatedData: Partial<Plant>) => {
     const plantRef = doc(db, "plants", plantId);
+    
+    // remove any undefined keys to prevent Firestore errors
+    const cleanData = Object.fromEntries(
+        Object.entries(updatedData).filter(([_, v]) => v !== undefined)
+    );
 
-    return await updateDoc(plantRef, updatedData);
+    return await updateDoc(plantRef, cleanData);
 };
-
 
 // remove plants
 export const deletePlant = async (plantId: string) => {

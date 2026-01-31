@@ -2,17 +2,28 @@ import React, { createContext, ReactNode, useContext, useEffect, useState } from
 import { AuthContext } from "./AuthContext";
 import { createPlant, getUserPlants, deletePlant, updatePlant } from "@/services/plantService";
 
+
+// define the schedule structure
+export interface CareSchedule {
+    interval: number;
+    selectedDays: number[];
+    selectedTime: string;
+}
+
 export interface Plant {
     id?: string;
     name: string;
     type: string;
-    wateringInterval?: number;
-    lastWatered?: string;
-    photo?: string;
     location?: string;
-    notes?: string;
-    userId?: string;
-    createdAt?: string
+    photo?: string;
+    // added this to store our care data
+    careSchedules?: {
+        watering?: CareSchedule | null;
+        light?: CareSchedule | null;
+        temp?: CareSchedule | null;
+        fertilize?: CareSchedule | null;
+        repot?: CareSchedule | null;
+    };
 }
 
 interface PlantContextProps {
@@ -74,6 +85,7 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     // update plants
     const updatePlantData = async (plantId: string, updatedData: Partial<Plant>) => {
         try {
+             
             await updatePlant(plantId, updatedData);
             setPlants(prev =>
                 prev.map(p => (p.id === plantId ? { ...p, ...updatedData } : p))
@@ -88,6 +100,7 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     // delete plant
     const removePlant = async (plantId: string) => {
         try {
+            
             await deletePlant(plantId);                
             setPlants(prev => prev.filter(p => p.id !== plantId));  // remove from local state
 

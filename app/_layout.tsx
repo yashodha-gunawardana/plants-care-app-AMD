@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { SearchProvider } from "@/context/SearchContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { PlantProvider } from "@/context/PlantContext";
+import { useEffect } from "react";
 
 
 // root layout for the whole application
