@@ -1,8 +1,9 @@
 import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet, RefreshControl } from "react-native";
+import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet, RefreshControl, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -146,7 +147,11 @@ const HomeScreen = () => {
                     
                     {/* garden state */}
                     <View style={styles.bentoGrid}>
-
+                        <View style={[styles.bentoMain, { backgroundColor: '#1A3C34' }]}>
+                            <Text style={styles.bentoMainTitle}>Your Garden</Text>
+                            <Text style={styles.bentoMainSub}>{plants.length} Plants Total</Text>
+                            <MaterialCommunityIcons name="flower-tulip" size={40} color="#C6F062" style={styles.bentoIcon} />
+                        </View>
                     </View>
 
                 </Animated.ScrollView>
@@ -161,4 +166,8 @@ const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#F8F9F8" },
     scrollContent: { paddingHorizontal: 20, paddingTop: 10 },
     bentoGrid: { flexDirection: "row", gap: 12, marginBottom: 25, height: 140 },
+    bentoMain: { flex: 2, borderRadius: 24, padding: 20, justifyContent: "flex-end", overflow: "hidden" },
+    bentoMainTitle: { color: "#FFF", fontSize: 18, fontWeight: "900" },
+    bentoMainSub: { color: "rgba(255,255,255,0.6)", fontSize: 12, fontWeight: "600" },
+    bentoIcon: { position: "absolute", top: 15, right: 15 },
 });
