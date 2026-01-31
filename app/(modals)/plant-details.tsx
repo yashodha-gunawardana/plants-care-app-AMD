@@ -83,11 +83,30 @@ const PlantDetailsModal = () => {
 
 
     const imageSource = plant.photo ? { uri: plant.photo } : { uri: DEFAULT_PLANT_IMAGE };
+
+
+    return (
+        <View style={styles.mainContainer}>
+            <View style={styles.topGreenBg} />
+
+            
+        </View>
+    );
 }
 
 
 const styles = StyleSheet.create({
 
+    mainContainer: { flex: 1, backgroundColor: "#FFF" },
+
+    topGreenBg: {
+        position: "absolute",
+        top: 0,
+        width: width,
+        height: height * 0.35,
+        backgroundColor: "#1A3C34",
+    },
+    
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
 
