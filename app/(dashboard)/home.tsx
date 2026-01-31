@@ -1,6 +1,6 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Dimensions, Animated, PanResponder } from "react-native";
 
 
@@ -55,9 +55,13 @@ const HomeScreen = () => {
                 { useNativeDriver: false }
             ),
 
+            // when released merge the offset so the button stays at the new spot
             onPanResponderRelease: () => {
                 pan.flattenOffset();
             },
         })
     ).current;
+
+
+    const [sortType, setSortType] = useState<'newest' | 'alphabetical'>('newest');
 }
