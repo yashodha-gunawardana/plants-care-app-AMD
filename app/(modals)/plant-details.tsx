@@ -120,6 +120,8 @@ const PlantDetailsModal = () => {
                     <Text style={styles.plantName}>{plant.name}</Text>
                     <Text style={styles.plantType}>{plant.type || "Houseplant"}</Text>
                 </View>
+
+                <View style={styles.contentCard} />
             </ScrollView>
             
         </View>
@@ -181,6 +183,15 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,0.7)", 
         marginTop: 2, 
         fontWeight: "500" 
+    },
+    contentCard: {
+        backgroundColor: "#FFF",
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        padding: 30,
+        paddingTop: 50,
+        minHeight: height * 0.7,
+        zIndex: 3,
     },
 
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
