@@ -48,4 +48,13 @@ const AddPlantScreen = () => {
         report: false
     });
 
+
+    const [careSchedules, setCareSchedules] = useState<Record<CareType, ScheduleConfig>>({
+        watering: { interval: 0, selectedDays: [], selectedTime: "" },
+        light: { interval: 0, selectedDays: [], selectedTime: "" },
+        temp: { interval: 0, selectedDays: [], selectedTime: "" },
+        fertilize: { interval: 0, selectedDays: [], selectedTime: "" },
+        repot: { interval: 0, selectedDays: [], selectedTime: "" }
+    });
+
 }
