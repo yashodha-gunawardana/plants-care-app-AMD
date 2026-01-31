@@ -1,7 +1,7 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions } from "react-native";
+import { Alert, Dimensions, View } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 
@@ -259,5 +259,16 @@ const AddPlantScreen = () => {
     };
 
 
-    
+    // sub-component for rendering individual care options
+    const CareRow = ({ type }: { type: CareType }) => {
+        const config = careConfigs[type];
+        const isEnabled = reminders[type];
+        const schedule = careSchedules[type];
+
+        return (
+            <View>
+
+            </View>
+        )
+    }
 }
