@@ -74,6 +74,15 @@ const PlantCard = ({ item }: PlantCardProps) => {
             {/* deatils */}
             <View style={styles.detailsContainer}>
 
+                {/* plant type */}
+                <View style={styles.topRow}>
+                    <Text style={styles.plantType} numberOfLines={1}>{item.type || "Houseplant"}</Text>
+                    <Ionicons name="ellipsis-horizontal" size={16} color="#BCC6BC" />
+                </View>
+
+                <Text style={styles.plantName} numberOfLines={1}>{item.name}</Text>
+
+
             </View>
         </TouchableOpacity>
     )
@@ -124,6 +133,24 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         justifyContent: "space-between",
         paddingVertical: 4,
+    },
+    topRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    plantType: {
+        fontSize: 11,
+        fontWeight: "700",
+        color: "#8A9687",
+        textTransform: "uppercase",
+        letterSpacing: 1,
+    },
+    plantName: {
+        fontSize: 22,
+        fontWeight: "900",
+        color: "#1A3C34",
+        marginTop: 4,
     },
             
     badgeRow: { flexDirection: "row", gap: 6 },
