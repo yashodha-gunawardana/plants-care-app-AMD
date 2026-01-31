@@ -29,4 +29,5 @@ const AddPlantScreen = () => {
     const [location, setLocation] = useState("");
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [activeCare, setActiveCare] = useState<CareType | null>(null);
 }
