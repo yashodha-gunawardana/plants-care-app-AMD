@@ -1,6 +1,6 @@
 import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet, RefreshControl, Text } from "react-native";
@@ -152,7 +152,39 @@ const HomeScreen = () => {
                             <Text style={styles.bentoMainSub}>{plants.length} Plants Total</Text>
                             <MaterialCommunityIcons name="flower-tulip" size={40} color="#C6F062" style={styles.bentoIcon} />
                         </View>
+
+                        {/* watering and light status */}
+                        <View style={styles.bentoCol}>
+
+                            {/* watering card Changes color if urgent */}
+                            <View 
+                                style={[
+                                    styles.bentoSmall, { 
+                                        backgroundColor: bentoStats.isUrgent ? "#FFEBEE" : "#E1F5FE"
+                                }]}>
+                                <Ionicons 
+                                    name={bentoStats.isUrgent ? "warning" : "water"} 
+                                    size={20} 
+                                    color={bentoStats.isUrgent ? "#D32F2F" : "#0288D1"} 
+                                />
+                                <Text 
+                                    style={[styles.bentoSmallText, bentoStats.isUrgent && { 
+                                        color: "#D32F2F" 
+                                    }]}>
+                                        
+                                    Next: {bentoStats.water}
+                                </Text>
+                            </View>
+
+                            {/* light coverage card */}
+                            <View style={[styles.bentoSmall, { backgroundColor: '#FFF8E1' }]}>
+                                <Ionicons name="sunny" size={20} color="#FBC02D" />
+                                <Text style={styles.bentoSmallText}>{bentoStats.light} Care</Text>
+                            </View>
+                        </View>
                     </View>
+
+
 
                 </Animated.ScrollView>
             </SafeAreaView>
@@ -170,4 +202,7 @@ const styles = StyleSheet.create({
     bentoMainTitle: { color: "#FFF", fontSize: 18, fontWeight: "900" },
     bentoMainSub: { color: "rgba(255,255,255,0.6)", fontSize: 12, fontWeight: "600" },
     bentoIcon: { position: "absolute", top: 15, right: 15 },
+    bentoCol: { flex: 1, gap: 12 },
+    bentoSmall: { flex: 1, borderRadius: 20, padding: 15, justifyContent: "center", alignItems: "center", gap: 4 },
+    bentoSmallText: { fontSize: 10, fontWeight: "800", color: "#1A3C34", textAlign: "center" },
 });
