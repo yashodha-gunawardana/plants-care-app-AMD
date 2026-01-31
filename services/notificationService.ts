@@ -21,10 +21,15 @@ export async function requestNotificationPermissions() {
 };
 
 
+// removes all scheduled reminders for a specific plant (for plant deleted or schedules updated)
 export async function cancelPlantNotifications(plantId: string) {
     const scheduled = await Notifications.getAllScheduledNotificationsAsync();
 
     for (const notification of scheduled) {
-        
+
+        // look inside the 'data' object we stored to find the specific plant ID
+        if (notification.content.data?.plantId === plantId) {
+            await Notifications.cancelAllScheduledNotificationsAsync(notification.identifier);
+        }
     }
 }
