@@ -1,7 +1,7 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -298,9 +298,17 @@ const AddPlantScreen = () => {
                         {isEnabled ? `Every ${schedule.interval} ${config.unit}` : "No schedule set"}
                     </Text>
                 </View>
+
+                {/* switch reminder */}
+                <Switch
+                    value={isEnabled}
+                    onValueChange={() => toggleCare(type)}
+                    trackColor={{ false: "#EEE", true: "#C6F062" }}
+                    thumbColor={isEnabled ?"#1A3C34" : "#f4f3f4"}>
+                </Switch>
             </View>
-        )
-    }
+        );
+    };
 }
 
 
