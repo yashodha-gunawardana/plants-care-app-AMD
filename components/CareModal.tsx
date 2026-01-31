@@ -98,15 +98,23 @@ const CareSetupModal = ({
                         {config.unit}
                     </Text>
 
+                    {/* 'onTrackPress' calculates the value based on where the user taps */}
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={onTrackPress}
                         style={styles.sliderBox}>
                     
                         <View style={styles.track}>
-                            
+                            <View
+                                style={[
+                                    styles.thumb,
+                                    {
+                                        backgroundColor: config.color,
+                                        left: `${(tempConfig.interval / 30) * 100}%`,
+                                    },
+                                ]}
+                            />
                         </View>
-
                     </TouchableOpacity>
                 </View>
             </View>
@@ -161,5 +169,22 @@ const styles = StyleSheet.create({
         fontSize: 13, 
         fontWeight: "700", 
         color: "#777" 
+    },
+
+    sliderBox: { paddingVertical: 25, marginBottom: 15 },
+
+    track: { 
+        height: 5, 
+        backgroundColor: "#F0F0F0", 
+        borderRadius: 3, 
+        position: "relative" 
+    },
+    thumb: { 
+        width: 22, 
+        height: 22, 
+        borderRadius: 11, 
+        position: "absolute", 
+        top: -8.5, 
+        transform: [{ translateX: -11 }] 
     },
 });
