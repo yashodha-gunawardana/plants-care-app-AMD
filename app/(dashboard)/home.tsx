@@ -209,6 +209,26 @@ const HomeScreen = () => {
                     <View style={{ height: 100 }} />
                 </Animated.ScrollView>
             </SafeAreaView>
+
+            {/* draggable add btn */}
+            <Animated.View
+                {...panResponder.panHandlers} // attach the drag gesture handlers
+                    
+                style={[
+                    styles.draggableFab,
+                    {
+                        transform: pan.getTranslateTransform() // sync the UI position with pan values
+                    }
+                ]}>
+            
+                <TouchableOpacity 
+                    activeOpacity={0.9} 
+                    onPress={() => router.push("/add" as any)}
+                    style={styles.fabInner}>
+                
+                    <Ionicons name="add" size={30} color="#FFF" />
+                </TouchableOpacity>
+            </Animated.View>
         </View>
     );
 }
@@ -242,4 +262,24 @@ const styles = StyleSheet.create({
     filterText: { fontSize: 13, fontWeight: "700", color: "#1A3C34" },
     collectionWrapper: { flex: 1 },
     cardMargin: { marginBottom: 16 },
+    draggableFab: { position: "absolute", zIndex: 1000 },
+
+    fabInner: { 
+        width: 60, 
+        height: 60, 
+        borderRadius: 30, 
+        backgroundColor: "#1A3C34", 
+        justifyContent: "center", 
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        elevation: 8,
+        borderWidth: 2,
+        borderColor: "#C6F062" 
+    }
+
 });
+
+
+export default HomeScreen;
