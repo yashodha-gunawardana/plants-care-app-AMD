@@ -218,3 +218,6 @@ const styles = StyleSheet.create({
     badgeText: { fontSize: 10, fontWeight: "800" }
 
 });
+
+
+export default PlantCard;
