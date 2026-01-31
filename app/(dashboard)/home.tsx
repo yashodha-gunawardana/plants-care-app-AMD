@@ -49,10 +49,15 @@ const HomeScreen = () => {
                 pan.setValue({ x: 0, y: 0 });  // reset movement delta for the new gesture
             },
 
+            // update pan values as the finger moves
             onPanResponderMove: Animated.event(
                 [null, { dx: pan.x, dy: pan.y }],
                 { useNativeDriver: false }
             ),
+
+            onPanResponderRelease: () => {
+                pan.flattenOffset();
+            },
         })
-    )
+    ).current;
 }
