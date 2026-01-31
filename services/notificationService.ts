@@ -36,7 +36,14 @@ export async function cancelPlantNotifications(plantId: string) {
 };
 
 
+// loops through a plant's care requirements and schedules recurring weekly alerts
 export async function scheduleAllPlantReminders(plant: Plant) {
     if (!plant.careSchedules) return;
+
+    const careTypes = [
+        { key: "watering", emoji: "💧", label: "Water" },
+        { key: "fertilize", emoji: "🧪", label: "Fertilize" },
+        { key: "repot", emoji: "🪴", label: "Repot" },
+    ] as const;
 }
 
