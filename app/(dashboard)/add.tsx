@@ -182,4 +182,28 @@ const AddPlantScreen = () => {
         setActiveCare(null);
         setIsModalVisible(false);
     };
+
+
+    const handleAddPlant = async () => {
+        if (!plantName.trim()) {
+            
+            setToast({
+                visible: true,
+                message: "Plant name is required",
+                type: "error"
+            });
+            setTimeout(() =>
+                setToast(p => ({ ...p, visible: false})
+            ), 2500);
+
+            return;
+        }
+        setLoading(true);
+
+        try {
+
+        } catch (err) {
+            
+        }
+    }
 }
