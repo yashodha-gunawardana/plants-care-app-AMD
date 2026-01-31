@@ -1,6 +1,6 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, Animated, PanResponder } from "react-native";
 
 
@@ -70,7 +70,40 @@ const HomeScreen = () => {
             toValue: 1,
             duration: 800,
             useNativeDriver: true
-            
+
         }).start();
     }, []);
+
+
+    // calculate Garden Health Stats (Next watering time and Light percentage)
+    const bentoStats = useMemo(() => {
+        if (plants.length === 0) return { water: "N/A", light: "0%", isUrgent: false };
+        const now = new Date();
+    
+        const nextWateringTimes = plants.map(p => {
+            const sched = p.careSchedules?.watering;
+            if (!sched || !sched.selectedTime) return null;
+        
+            const [hours, minutes] = sched.selectedTime.split(':').map(Number);
+            const target = new Date();
+            target.setHours(hours, minutes, 0, 0);
+        
+            // if time passed today, look at the next scheduled interval day
+            if (target < now) target.setDate(target.getDate() + (sched.interval || 1));
+            return target.getTime();
+
+        }).filter((t): t is number => t !== null);
+
+        const soonest = nextWateringTimes.length > 0 ? Math.min(...nextWateringTimes) : null;
+        const diffInHours = soonest ? Math.round((soonest - now.getTime()) / (1000 * 60 * 60)) : null;
+    
+        // calculate what % of plants have a light schedule set
+        const lightAvg = Math.round((plants.filter(p => p.careSchedules?.light).length / plants.length) * 100);
+
+        return {
+            water: diffInHours === null ? "None" : diffInHours <= 0 ? "Due" : `${diffInHours}h`,
+            light: `${lightAvg}%`,
+            isUrgent: diffInHours !== null && diffInHours <= 0 // highlight if watering is overdue
+        };
+    }, [plants]);
 }
