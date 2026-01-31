@@ -1,7 +1,7 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, Image } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -338,7 +338,7 @@ const AddPlantScreen = () => {
                             {plantPhoto ? (
                                 <Image source={{ uri: plantPhoto }} style={styles.mainImage} />
                             ) : (
-                                <Image sourec={{ uri: "https://cdn-icons-png.flaticon.com/512/628/628283.png" }} style={styles.placeholderIcon} />
+                                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/628/628283.png" }} style={styles.placeholderIcon} />
                             )}
 
                             <TouchableOpacity
@@ -352,6 +352,42 @@ const AddPlantScreen = () => {
                                 />
                             </TouchableOpacity>
                         </View>
+                    </View>
+
+                    {/* form field */}
+                    <View style={styles.formContainer}>
+                        <TextInput
+                            style={styles.nameInput}
+                            placeholder="Plant's Name"
+                            placeholderTextColor="#1A3C3480"
+                            value={plantName}
+                            onChangeText={setPlantName}
+                        />
+
+                        <View style={styles.row}>
+                            <View style={styles.pillInputContainer}>
+                                <TextInput 
+                                    style={styles.pillTextInput}
+                                    placeholder="Add Type"
+                                    value={plantType}
+                                    onChangeText={setPlantType}
+                                />
+                                <Ionicons name="add" size={18} color="#1A3C34"/>
+                            </View>
+
+                            <View style={styles.pillInputContainer}>
+                                <TextInput
+                                    style={styles.pillTextInput}
+                                    placeholder="Add Location"
+                                    value={location}
+                                    onChangeText={setLocation}
+                                />
+                                <Ionicons name="add" size={18} color="#1A3C34" />
+                            </View>
+                        </View>
+
+                    
+
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -406,6 +442,45 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 1,
         borderColor: "#1A3C3420",
+    },
+
+    formContainer: { marginTop: 10 },
+
+    nameInput: {
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#1A3C34",
+        borderWidth: 1.5,
+        borderColor: "#1A3C34",
+        borderRadius: 12,
+        padding: 12,
+        textAlign: "center",
+        marginBottom: 15,
+        backgroundColor: "#FFF",
+    },
+    row: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 12,
+        marginBottom: 30,
+    },
+    pillInputContainer: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1.5,
+        borderColor: "#1A3C34",
+        borderRadius: 12,
+        paddingHorizontal: 10,
+        height: 45,
+        backgroundColor: "#FFF",
+    },
+    pillTextInput: {
+        flex: 1,
+        color: "#1A3C34",
+        fontWeight: "600",
+        fontSize: 13,
+        textAlign: "center",
     },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
