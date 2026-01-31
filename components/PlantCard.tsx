@@ -83,6 +83,16 @@ const PlantCard = ({ item }: PlantCardProps) => {
                 <Text style={styles.plantName} numberOfLines={1}>{item.name}</Text>
 
                 <View style={styles.spacer} />
+
+                {/* footer */}
+                <View style={styles.footer}>
+                    <View style={styles.badgeColumn}>
+                        <Text style={styles.scheduleLabel}>Schedules</Text>
+                            {renderCareBadges()}
+                    </View>
+
+
+                </View>
             </View>
         </TouchableOpacity>
     )
@@ -156,6 +166,21 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: "#F5F7F5",
         marginVertical: 10
+    },
+    footer: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between'
+    },
+    badgeColumn: {
+        flex: 1
+    },
+    scheduleLabel: {
+        fontSize: 9,
+        fontWeight: "800",
+        color: "#BCC6BC",
+        textTransform: "uppercase",
+        marginBottom: 6,
     },
             
     badgeRow: { flexDirection: "row", gap: 6 },
