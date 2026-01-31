@@ -40,6 +40,14 @@ const EditPlantModal = () => {
         fertilize: !!plant.careSchedules?.fertilize,
         report: !!plant.careSchedules?.report,
     });
+
+    const [careSchedules, setCareSchedules] = useState(plant.careSchedules || {
+        watering: { interval: 0, selectedDays: [], selectedTime: "09:00" },
+        light: { interval: 0, selectedDays: [], selectedTime: "09:00" },
+        temp: { interval: 0, selectedDays: [], selectedTime: "09:00" },
+        fertilize: { interval: 0, selectedDays: [], selectedTime: "09:00" },
+        report: { interval: 0, selectedDays: [], selectedTime: "09:00" },
+    });
 }
 
 
