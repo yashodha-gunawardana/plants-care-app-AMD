@@ -201,6 +201,7 @@ const AddPlantScreen = () => {
         setLoading(true);
 
         try {
+            // plant object with enabled schedules only
             const newPlant: Plant = {
                 name: plantName,
                 type: plantType,
@@ -214,7 +215,7 @@ const AddPlantScreen = () => {
                 }
             };
 
-            
+            const cleanPlantDat = JSON.parse(JSON.stringify(newPlant));
         } catch (err) {
 
         }
