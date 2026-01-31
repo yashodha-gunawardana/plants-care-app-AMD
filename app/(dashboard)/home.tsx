@@ -41,11 +41,15 @@ const HomeScreen = () => {
             onMoveShouldSetPanResponder: () => true,
 
             onPanResponderGrant: () => {
+                // when touched set the start point to the last known location
                 pan.setOffset({
                     x: lastOffset.current.x,
                     y: lastOffset.current.y
                 });
-            }
+                pan.setValue({ x: 0, y: 0 });
+            },
+
+            
         })
     )
 }
