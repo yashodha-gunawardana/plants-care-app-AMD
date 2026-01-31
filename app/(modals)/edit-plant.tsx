@@ -55,6 +55,14 @@ const EditPlantModal = () => {
         selectedDays: [] as number[],
         selectedTime: "09:00",
     });
+
+    const careConfigs: Record<CareType, any> = {
+        watering: { title: "Watering", icon: "water", color: "#4CAF50", unit: "days", options: [{ label: "Daily", value: "1" }, { label: "Weekly", value: "7" }] },
+        light: { title: "Light", icon: "sunny", color: "#4CAF50", unit: "hours", options: [{ label: "Low", value: "4" }, { label: "High", value: "12" }] },
+        temp: { title: "Temperature", icon: "thermometer", color: "#4CAF50", unit: "°C", options: [{ label: "Cool", value: "18" }, { label: "Warm", value: "25" }] },
+        fertilize: { title: "Fertilize", icon: "leaf", color: "#4CAF50", unit: "weeks", options: [{ label: "Bi-weekly", value: "2" }, { label: "Monthly", value: "4" }] },
+        report: { title: "Repot", icon: "archive", color: "#4CAF50", unit: "months", options: [{ label: "Yearly", value: "12" }] },
+    };
 }
 
 
