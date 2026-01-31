@@ -2,7 +2,7 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform } from "react-native";
 
  
 const { width } = Dimensions.get("window");
@@ -178,7 +178,9 @@ const EditPlantModal = () => {
 
     return (
         <View style={styles.container}>
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
 
+            </KeyboardAvoidingView>
         </View>
     );
 }
