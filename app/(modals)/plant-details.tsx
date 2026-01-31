@@ -2,7 +2,7 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
-import { Dimensions, StyleSheet, View, Text, Alert, TouchableOpacity, Platform, ScrollView } from "react-native";
+import { Dimensions, StyleSheet, View, Text, Alert, TouchableOpacity, Platform, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -121,7 +121,16 @@ const PlantDetailsModal = () => {
                     <Text style={styles.plantType}>{plant.type || "Houseplant"}</Text>
                 </View>
 
+                {/* white rounded content details */}
                 <View style={styles.contentCard} />
+
+                <View style={styles.imagePortalContainer}>
+                    <Image
+                        source={imageSource}
+                        style={styles.portalImage}
+                        resizeMode="cover"
+                    />
+                </View>
             </ScrollView>
             
         </View>
@@ -193,6 +202,23 @@ const styles = StyleSheet.create({
         minHeight: height * 0.7,
         zIndex: 3,
     },
+    imagePortalContainer: {
+        width: 130,
+        height: 130,
+        borderRadius: 65,
+        backgroundColor: '#FFF',
+        position: 'absolute',
+        top: -65, 
+        right: 30,
+        padding: 6,
+        shadowColor: "#000",
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+        elevation: 10,
+        zIndex: 4,
+    },
+    
+    portalImage: { width: '100%', height: '100%', borderRadius: 60 },
 
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
