@@ -55,6 +55,10 @@ export async function scheduleAllPlantReminders(plant: Plant) {
 
             // convert the "HH:MM" string into numbers for the system clock
             const [hour, minute] = (schedule.selectedTime || "09:00").split(':').map(Number);
+
+            for (const dayIndex of schedule.selectedDays) {
+                const weekday = dayIndex === 6 ? 1 : dayIndex + 2;
+            }
         }
     }
 }
