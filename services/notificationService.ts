@@ -45,5 +45,15 @@ export async function scheduleAllPlantReminders(plant: Plant) {
         { key: "fertilize", emoji: "🧪", label: "Fertilize" },
         { key: "repot", emoji: "🪴", label: "Repot" },
     ] as const;
+
+
+    for (const care of careTypes) {
+        const schedule = plant.careSchedules[care.key as keyof typeof plant.careSchedules];
+
+        // check if the user has actually set up a schedule for this care type
+        if (schedule && schedule.selectedDays && schedule.selectedDays.length > 0) {
+
+        }
+    }
 }
 
