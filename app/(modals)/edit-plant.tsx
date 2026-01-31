@@ -249,6 +249,12 @@ const EditPlantModal = () => {
                                 />
                             </View>
                         </View>
+
+                        {/* care schedule */}
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Care Schedule</Text>
+                            <Text style={styles.sectionSubtitle}>Tap to configure details</Text>
+                        </View>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -362,8 +368,11 @@ const styles = StyleSheet.create({
         borderColor: "#EBECEB", 
         gap: 8
     },
-    
+
     smallInput: { fontWeight: "600", color: "#1A3C34", flex: 1, fontSize: 14 },
+    sectionHeader: { marginBottom: 15 },
+    sectionTitle: { fontSize: 18, fontWeight: "800", color: '#1A3C34' },
+    sectionSubtitle: { fontSize: 12, color: '#1A3C3450', fontWeight: "600" },
 
     careRow: { 
         flexDirection: "row", 
