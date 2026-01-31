@@ -591,4 +591,8 @@ const styles = StyleSheet.create({
     careTextContainer: { flex: 1 },
     careTitle: { fontSize: 15, fontWeight: "700", color: "#000" },
     careSubtitle: { fontSize: 11, color: "#888", marginTop: 2 }
+
 });
+
+
+export default AddPlantScreen;
