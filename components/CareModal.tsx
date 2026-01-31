@@ -116,6 +116,43 @@ const CareSetupModal = ({
                             />
                         </View>
                     </TouchableOpacity>
+
+                    {/* day selection */}
+                    <Text style={styles.modalLabel}>Preferred Days</Text>
+                    <View style={styles.daysRow}>
+                        {days.map((day, i) => (
+                            <TouchableOpacity
+                                key={i}
+                                style={[
+                                    styles.dayCircle,
+                                
+                                    // if current day index is in the selectedDays array, fill with color
+                                    tempConfig.selectedDays.includes(i) && {
+                                        backgroundColor: config.color,
+                                    },
+                                ]}
+                                onPress={() => {
+                                    setTempConfig((prev: any) => ({
+                                        ...prev,
+
+                                        // toggle logic: add day if missing, remove if already present
+                                        selectedDays: prev.selectedDays.includes(i)
+                                        ? prev.selectedDays.filter((d: number) => d !== i)
+                                        : [...prev.selectedDays, i],
+                                    }));
+                                }}>
+                        
+                                <Text
+                                    style={[
+                                        styles.dayText,
+                                        tempConfig.selectedDays.includes(i) && { color: "#FFF" },
+                                    ]}>
+                                
+                                    {day}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -187,4 +224,19 @@ const styles = StyleSheet.create({
         top: -8.5, 
         transform: [{ translateX: -11 }] 
     },
+    daysRow: { 
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        marginBottom: 30 
+    },
+    dayCircle: { 
+        width: 40, 
+        height: 40, 
+        borderRadius: 20, 
+        backgroundColor: "#F2F2F2", 
+        justifyContent: "center", 
+        alignItems: "center" 
+    },
+    
+    dayText: { fontWeight: "800", fontSize: 13, color: "#1A3C34" },
 });
