@@ -18,4 +18,7 @@ const HomeScreen = () => {
 
     // 'pan' tracks the X and Y animated coordinates
     const pan = useRef(new Animated.ValueXY({ x: width - 85, y: height - 200 })).current;
+
+    // 'lastOffset' stores the static position where the user stopped dragging
+    const lastOffset = useRef({ x: width - 85, y: height - 200 });
 }
