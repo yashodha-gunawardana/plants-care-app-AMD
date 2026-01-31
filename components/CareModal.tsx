@@ -153,6 +153,14 @@ const CareSetupModal = ({
                             </TouchableOpacity>
                         ))}
                     </View>
+
+                    {/* apply btn */}
+                    <TouchableOpacity
+                        style={[styles.applyBtn, { backgroundColor: config.color }]}
+                        onPress={onApply}>
+
+                        <Text style={styles.applyBtnText}>Apply Schedule</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </Modal>
@@ -237,6 +245,12 @@ const styles = StyleSheet.create({
         justifyContent: "center", 
         alignItems: "center" 
     },
-    
+
     dayText: { fontWeight: "800", fontSize: 13, color: "#1A3C34" },
+    applyBtn: { padding: 20, borderRadius: 20, alignItems: "center", marginTop: 10 },
+    applyBtnText: { color: "#FFF", fontSize: 17, fontWeight: "800" }
+
 });
+
+
+export default CareSetupModal;
