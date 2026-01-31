@@ -48,6 +48,13 @@ const EditPlantModal = () => {
         fertilize: { interval: 0, selectedDays: [], selectedTime: "09:00" },
         report: { interval: 0, selectedDays: [], selectedTime: "09:00" },
     });
+
+    const [modalConfig, setModalConfig] = useState({
+        interval: 0,
+        selectedOption: "",
+        selectedDays: [] as number[],
+        selectedTime: "09:00",
+    });
 }
 
 
