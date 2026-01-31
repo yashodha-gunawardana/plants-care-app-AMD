@@ -2,7 +2,7 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
-import { Dimensions, StyleSheet, View, Text, Alert, TouchableOpacity, Platform } from "react-native";
+import { Dimensions, StyleSheet, View, Text, Alert, TouchableOpacity, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -109,6 +109,13 @@ const PlantDetailsModal = () => {
                     <Ionicons name="pencil" size={18} color="#1A3C34" />
                 </TouchableOpacity>
             </SafeAreaView>
+
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.scrollContent}
+                bounces={false}>
+
+            </ScrollView>
             
         </View>
     );
@@ -149,6 +156,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 5,
     },
+
+    scrollContent: { flexGrow: 1 },
 
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
