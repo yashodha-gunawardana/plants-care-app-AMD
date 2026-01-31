@@ -115,4 +115,14 @@ const AddPlantScreen = () => {
             setReminders(prev => ({ ...prev, [key]: false }));
         }
     };
+
+    const handleAppSchedule = () => {
+        if (modalConfig.interval === 0 || modalConfig.selectedDays.length === 0) {
+            Alert.alert(
+                "Required Fields",
+                "Please select an interval and at least one day.."
+            );
+            return;
+        }
+    }
 }
