@@ -115,6 +115,11 @@ const PlantDetailsModal = () => {
                 contentContainerStyle={styles.scrollContent}
                 bounces={false}>
 
+                {/* name and type */}
+                <View style={styles.infoTopSection}>
+                    <Text style={styles.plantName}>{plant.name}</Text>
+                    <Text style={styles.plantType}>{plant.type || "Houseplant"}</Text>
+                </View>
             </ScrollView>
             
         </View>
@@ -158,6 +163,25 @@ const styles = StyleSheet.create({
     },
 
     scrollContent: { flexGrow: 1 },
+
+    infoTopSection: {
+        paddingHorizontal: 25,
+        paddingTop: 30,
+        height: height * 0.22,
+        justifyContent: 'center',
+    },
+    plantName: { 
+        fontSize: 40, 
+        fontWeight: "900", 
+        color: "#FFF", 
+        letterSpacing: -1.5 
+    },
+    plantType: { 
+        fontSize: 18, 
+        color: "rgba(255,255,255,0.7)", 
+        marginTop: 2, 
+        fontWeight: "500" 
+    },
 
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
