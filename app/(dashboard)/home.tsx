@@ -3,7 +3,7 @@ import { PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet, RefreshControl, Text } from "react-native";
+import { Dimensions, Animated, PanResponder, Alert, View, StyleSheet, RefreshControl, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -184,7 +184,16 @@ const HomeScreen = () => {
                         </View>
                     </View>
 
-
+                    {/* list section header */}
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Collection</Text>
+                        
+                        {/* sort button */}
+                        <TouchableOpacity style={styles.filterChip} onPress={handleSortPress}>
+                            <Ionicons name={sortType === 'alphabetical' ? "text-outline" : "options-outline"} size={16} color="#1A3C34" />
+                            <Text style={styles.filterText}>{sortType === 'alphabetical' ? 'A-Z' : 'Sort'}</Text>
+                        </TouchableOpacity>
+                    </View>
 
                 </Animated.ScrollView>
             </SafeAreaView>
@@ -205,4 +214,18 @@ const styles = StyleSheet.create({
     bentoCol: { flex: 1, gap: 12 },
     bentoSmall: { flex: 1, borderRadius: 20, padding: 15, justifyContent: "center", alignItems: "center", gap: 4 },
     bentoSmallText: { fontSize: 10, fontWeight: "800", color: "#1A3C34", textAlign: "center" },
+    sectionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 15 },
+    sectionTitle: { fontSize: 22, fontWeight: "900", color: "#1A3C34" },
+
+    filterChip: { 
+        flexDirection: "row", 
+        alignItems: "center", 
+        gap: 6, 
+        backgroundColor: "#FFF", 
+        paddingHorizontal: 12, 
+        paddingVertical: 8, 
+        borderRadius: 12 
+    },
+    
+    filterText: { fontSize: 13, fontWeight: "700", color: "#1A3C34" },
 });
