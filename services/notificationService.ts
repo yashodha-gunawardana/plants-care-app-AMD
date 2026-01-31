@@ -57,7 +57,24 @@ export async function scheduleAllPlantReminders(plant: Plant) {
             const [hour, minute] = (schedule.selectedTime || "09:00").split(':').map(Number);
 
             for (const dayIndex of schedule.selectedDays) {
+
+                // implement weekday conversion logic for Expo Notifications
                 const weekday = dayIndex === 6 ? 1 : dayIndex + 2;
+
+                await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: `${care.emoji} ${care.label} Time!`,
+                        body: `Your ${plant.name} is ready for its ${care.key} routine.`,
+                        data: { plantId: plant.id, type: care.key }, 
+                    },
+                    trigger: {
+                        type: SchedulableTriggerInputTypes.CALENDAR, // Use calendar-based scheduling
+                        hour,
+                        minute,
+                        weekday,    // Specific day of the week
+                        repeats: true, // Make it repeat every week on this day
+                    },
+                })
             }
         }
     }
