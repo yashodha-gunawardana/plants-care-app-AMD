@@ -1,4 +1,4 @@
-import { PlantContext } from "@/context/PlantContext";
+import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { Alert, Dimensions } from "react-native";
@@ -201,9 +201,22 @@ const AddPlantScreen = () => {
         setLoading(true);
 
         try {
+            const newPlant: Plant = {
+                name: plantName,
+                type: plantType,
+                location: location || "Living Room",
+                careSchedules: {
+                    watering: reminders.watering ? careSchedules.watering : undefined,
+                    light: reminders.light ? careSchedules.light : undefined,
+                    temp: reminders.temp ? careSchedules.temp : undefined,
+                    fertilize: reminders.fertilize ? careSchedules.fertilize : undefined,
+                    report: reminders.report ? careSchedules.report : undefined,
+                }
+            };
 
-        } catch (err) {
             
+        } catch (err) {
+
         }
     }
 }
