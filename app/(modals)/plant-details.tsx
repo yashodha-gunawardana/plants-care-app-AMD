@@ -138,6 +138,17 @@ const PlantDetailsModal = () => {
                 </View>
 
                 <Text style={styles.sectionTitle}>Plant care</Text>
+
+                {/* care row */}
+                <CareRow icon="water-outline" label="Watering" value={getCareValue("watering", "day")} />
+                <CareRow icon="sunny-outline" label="Light" value={getCareValue("light", "hour")} />
+                <CareRow 
+                    icon="thermometer-outline" 
+                    label="Temperature" 
+                    value={plant.careSchedules?.temp?.interval ? `${plant.careSchedules.temp.interval}°C` : "Not set"} 
+                />
+                <CareRow icon="seed-outline" label="Fertilize" value={getCareValue("fertilize", "month")} isMaterial />
+                <CareRow icon="shovel" label="Repot" value={getCareValue("report", "year")} isMaterial />
             </ScrollView>
             
         </View>
