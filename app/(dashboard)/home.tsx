@@ -1,7 +1,7 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useRef } from "react";
-import { Dimensions, Animated } from "react-native";
+import { Dimensions, Animated, PanResponder } from "react-native";
 
 
 // get screen dimensions for initial placement of the draggable button
@@ -24,8 +24,25 @@ const HomeScreen = () => {
 
 
     useEffect(() => {
+        // keep lastOffset synchronized with the animated value to prevent jumping
         const listenerId = pan.addListener((value) => {
             lastOffset.current = value;
         });
-    })
+        return () => {
+            pan.removeListener(listenerId);
+        };
+    }, []);
+
+
+    // PanResponder handles the touch gestures
+    const panResponder = useRef(
+        PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onMoveShouldSetPanResponder: () => true,
+
+            onPanResponderGrant: () => {
+
+            }
+        })
+    )
 }
