@@ -1,7 +1,7 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, StyleSheet, View, Text } from "react-native";
 
 
 
@@ -17,5 +17,21 @@ const PlantDetailsModal = () => {
     const router = useRouter();
 
     const { plants, removePlant } = useContext(PlantContext);
+
+    // find the specific plant object that matches the ID from the URL
     const plant = plants.find((p) => p.id === id);
+
+    if (!plant) {
+        return (
+            <View style={styles.center}>
+                <Text>Plant not found</Text>
+            </View>
+        );
+    }
 }
+
+
+const styles = StyleSheet.create({
+    
+    center: { flex: 1, justifyContent: "center", alignItems: "center" },
+})
