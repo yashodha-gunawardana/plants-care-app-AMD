@@ -70,6 +70,7 @@ const PlantDetailsModal = () => {
     );
 
 
+    // format the interval numbers into human-readable text
     const getCareValue = (type: keyof Required<Plant>['careSchedules'], unit: string) => {
         const schedule = plant.careSchedules?.[type];
         if (!schedule || !schedule.interval || schedule.interval === 0) return "Not scheduled";
@@ -79,6 +80,9 @@ const PlantDetailsModal = () => {
         if (interval === 7 && unit === "day") return `Once a week`;
         return `Every ${interval} ${unit}${interval > 1 ? "s" : ""}`; // handles pluralization
     };
+
+
+    const imageSource = plant.photo ? { uri: plant.photo } : { uri: DEFAULT_PLANT_IMAGE };
 }
 
 
