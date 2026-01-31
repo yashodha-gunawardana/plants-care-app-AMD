@@ -49,12 +49,21 @@ const AddPlantScreen = () => {
     });
 
 
+    // saved Schedules for each care activity
     const [careSchedules, setCareSchedules] = useState<Record<CareType, ScheduleConfig>>({
         watering: { interval: 0, selectedDays: [], selectedTime: "" },
         light: { interval: 0, selectedDays: [], selectedTime: "" },
         temp: { interval: 0, selectedDays: [], selectedTime: "" },
         fertilize: { interval: 0, selectedDays: [], selectedTime: "" },
         repot: { interval: 0, selectedDays: [], selectedTime: "" }
+    });
+
+
+    const [modalConfig, setModalConfig] = useState({
+        interval: 0,
+        selectedOption: "",
+        selectedDays: [] as number[],
+        selectedTime: "09:00"
     });
 
 }
