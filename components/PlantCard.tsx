@@ -1,7 +1,7 @@
 import { Plant } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 
 
 interface PlantCardProps {
@@ -62,6 +62,10 @@ const PlantCard = ({ item }: PlantCardProps) => {
             activeOpacity={0.95}
             style={styles.cardWrapper}>
 
+            {/* image & location */}
+            <View style={styles.imageContainer}>
+                <Image source={{ uri: item.photo || DEFAULT_PLANT_IMAGE }} style={styles.cardImage} />
+            </View>
         </TouchableOpacity>
     )
 
@@ -69,7 +73,7 @@ const PlantCard = ({ item }: PlantCardProps) => {
 
 
 const styles = StyleSheet.create({
-    
+
     cardWrapper: {
         flexDirection: "row",
         backgroundColor: "#FFF",
