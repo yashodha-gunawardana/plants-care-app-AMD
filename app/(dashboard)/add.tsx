@@ -126,6 +126,8 @@ const AddPlantScreen = () => {
         }
 
         if (activeCare) {
+            // apply the selected schedule: if a care type is active, update its interval, days, 
+            // and time in the main careSchedules,  enable its reminder, and then close the modal.
             setCareSchedules(prev => ({
                 ...prev,
                 [activeCare]: {
@@ -139,5 +141,16 @@ const AddPlantScreen = () => {
                 [activeCare]: true
             }));
         }
-    }
+        setIsModalVisible(false);
+    };
+
+
+    // handles the custom horizontal slider math for selecting intervals
+    const handleTrackPress = (event: any) => {
+        const { locationX } = event.nativeEvent;
+        const trackWidth = width - 120; 
+        const percentage = Math.max(0, Math.min(1, locationX / trackWidth));
+        const newValue = Math.round(percentage * 30) || 1;
+        setModalConfig(prev => ({ ...prev, interval: newValue, selectedOption: "" }));
+    };
 }
