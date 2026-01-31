@@ -284,4 +284,7 @@ const styles = StyleSheet.create({
     careTextContainer: { flex: 1 },
     careLabel: { fontSize: 18, fontWeight: "800", color: "#1A3C34" },
     careValue: { fontSize: 14, color: "#7A8A7A", marginTop: 2, fontWeight: "500" },
-})
+});
+
+
+export default PlantDetailsModal;
