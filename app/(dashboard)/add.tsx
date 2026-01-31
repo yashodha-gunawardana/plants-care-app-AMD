@@ -7,6 +7,7 @@ import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/ser
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import DashboardHeader from "@/components/Header";
 import Toast from "@/components/Toast";
+import CareSetupModal from "@/components/CareModal";
 
 const { width } = Dimensions.get("window");
 
@@ -120,7 +121,7 @@ const AddPlantScreen = () => {
         }
     };
 
-    const handleAppSchedule = () => {
+    const handleApplySchedule = () => {
         if (modalConfig.interval === 0 || modalConfig.selectedDays.length === 0) {
             Alert.alert(
                 "Required Fields",
