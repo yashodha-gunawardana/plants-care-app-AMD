@@ -2,7 +2,8 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
  
 const { width } = Dimensions.get("window");
@@ -185,6 +186,20 @@ const EditPlantModal = () => {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.scrollContent}>
 
+                    {/* header */}
+                    <View style={styles.headerBackground}>
+                        <SafeAreaView style={styles.topBar}>
+                            <TouchableOpacity onPress={() => router.back()} style={styles.roundBtn}>
+                                <Ionicons name="close" size={24} color="#1A3C34" />
+                            </TouchableOpacity>
+
+                            <Text style={styles.headerLabel}>Edit Plant</Text>
+                            
+                            <TouchableOpacity onPress={handleUpdate} style={styles.saveBtn} disabled={loading}>
+                                {loading ? <ActivityIndicator size="small" color="#FFF" /> : <Text style={styles.saveBtnText}>Save</Text>}
+                            </TouchableOpacity>
+                        </SafeAreaView>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
         </View>
@@ -196,7 +211,43 @@ const styles = StyleSheet.create({
 
     container: { flex: 1, backgroundColor: "#FBFCFB" },
     scrollContent: { paddingBottom: 60 },
-    
+
+    headerBackground: { 
+        backgroundColor: "#F2F5F2", 
+        paddingBottom: 40, 
+        borderBottomLeftRadius: 40, 
+        borderBottomRightRadius: 40 
+    },
+    topBar: { 
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        paddingHorizontal: 20,
+        paddingTop: Platform.OS === "android" ? 15 : 0
+    },
+    roundBtn: { 
+        backgroundColor: "#FFF", 
+        padding: 8, 
+        borderRadius: 20 
+    },
+    headerLabel: { 
+        fontWeight: "800", 
+        color: "#1A3C34", 
+        textTransform: "uppercase", 
+        fontSize: 12, 
+        letterSpacing: 1.2 
+    },
+    saveBtn: { 
+        backgroundColor: "#1A3C34", 
+        paddingHorizontal: 20, 
+        paddingVertical: 10, 
+        borderRadius: 12 
+    },
+    saveBtnText: { 
+        color: "#FFF", 
+        fontWeight: "700", 
+        fontSize: 14 
+    },
     careRow: { 
         flexDirection: "row", 
         alignItems: "center", 
