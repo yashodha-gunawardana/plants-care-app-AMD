@@ -27,4 +27,6 @@ const AddPlantScreen = () => {
     const [plantName, setPlantName] = useState("");
     const [plantType, setPlantType] = useState("");
     const [location, setLocation] = useState("");
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
 }
