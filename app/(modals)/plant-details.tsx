@@ -17,5 +17,5 @@ const PlantDetailsModal = () => {
     const router = useRouter();
 
     const { plants, removePlant } = useContext(PlantContext);
-
+    const plant = plants.find((p) => p.id === id);
 }
