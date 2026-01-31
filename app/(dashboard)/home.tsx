@@ -64,4 +64,13 @@ const HomeScreen = () => {
 
 
     const [sortType, setSortType] = useState<'newest' | 'alphabetical'>('newest');
+
+    useEffect(() => {
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true
+            
+        }).start();
+    }, []);
 }
