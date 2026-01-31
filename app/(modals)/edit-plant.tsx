@@ -2,8 +2,9 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator } from "react-native";
+import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from "expo-image-picker";
 
  
 const { width } = Dimensions.get("window");
@@ -199,6 +200,19 @@ const EditPlantModal = () => {
                                 {loading ? <ActivityIndicator size="small" color="#FFF" /> : <Text style={styles.saveBtnText}>Save</Text>}
                             </TouchableOpacity>
                         </SafeAreaView>
+
+                        {/* plant image and camera */}
+                        <View style={styles.imageWrapper}>
+                            <View style={styles.imageShadow}>
+                                <Image source={{ uri: plantPhoto || DEFAULT_IMAGE }} style={styles.plantImg} />
+                                <TouchableOpacity style={styles.camBadge} onPress={async () => {
+                                    const result = await ImagePicker.launchCameraAsync({ quality: 0.7, allowsEditing: true });
+                                    if (!result.canceled) setPlantPhoto(result.assets[0].uri);
+                                }}>
+                                    <Ionicons name="camera" size={20} color="#FFF" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -247,6 +261,33 @@ const styles = StyleSheet.create({
         color: "#FFF", 
         fontWeight: "700", 
         fontSize: 14 
+    },
+
+    imageWrapper: { alignItems: "center", marginTop: 20 },
+
+    imageShadow: {
+        width: 160, 
+        height: 160, 
+        borderRadius: 80,
+        backgroundColor: "#FFF", 
+        elevation: 15
+    },
+    plantImg: { 
+        width: "100%", 
+        height: "100%", 
+        borderRadius: 80, 
+        borderWidth: 4, 
+        borderColor: "#FFF" 
+    },
+    camBadge: { 
+        position: "absolute", 
+        bottom: 0, 
+        right: 0, 
+        backgroundColor: "#1A3C34", 
+        padding: 10, 
+        borderRadius: 20, 
+        borderWidth: 4, 
+        borderColor: "#F2F5F2" 
     },
     careRow: { 
         flexDirection: "row", 
