@@ -1,6 +1,6 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Dimensions } from "react-native";
 
  
@@ -13,6 +13,7 @@ type CareType = "watering" | "light" | "temp" | "fertilize" | "report";
 
 
 const EditPlantModal = () => {
+
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
 
@@ -21,6 +22,16 @@ const EditPlantModal = () => {
 
     const plant = plants.find((p) => p.id === id);
     if (!plant) return null;
+
+
+    const [plantPhoto, setPlantPhoto] = useState<string | null>(plant.photo || null);
+    const [plantName, setPlantName] = useState(plant.name || "");
+    const [plantType, setPlantType] = useState(plant.type || "");
+    const [location, setLocation] = useState(plant.location || "");
+
+    const [isModalVisible, setIsModalVisible] = useState(false);   // controls the care config modal
+    const [activeCare, setActiveCare] = useState<CareType | null>(null);  // tracks which care item is being edited
+    const [loading, setLoading] = useState(false); 
 }
 
 
