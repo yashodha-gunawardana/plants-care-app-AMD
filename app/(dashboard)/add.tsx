@@ -1,9 +1,10 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
@@ -70,10 +71,10 @@ const AddPlantScreen = () => {
 
     const careConfigs: Record<CareType, any> = {
         watering: { title: "Watering", icon: "water-outline", color: "#4CAF50", unit: "days", options: [{ label: "Daily", value: "1" }, { label: "Weekly", value: "7" }] },
-        light: { title: "Light", icon: "sunny-outline", color: "#FFB300", unit: "hours", options: [{ label: "Low", value: "4" }, { label: "High", value: "12" }] },
-        temp: { title: "Temperature", icon: "thermometer", color: "#FF5722", unit: "°C", isMaterial: true, options: [{ label: "Cool", value: "18" }, { label: "Warm", value: "25" }] },
-        fertilize: { title: "Fertilize", icon: "seed-outline", color: "#8BC34A", isMaterial: true, unit: "weeks", options: [{ label: "Bi-weekly", value: "2" }, { label: "Monthly", value: "4" }] },
-        report: { title: "Repot", icon: "shovel", color: "#795548", isMaterial: true, unit: "months", options: [{ label: "Yearly", value: "12" }] },
+        light: { title: "Light", icon: "sunny-outline", color: "#4CAF50", unit: "hours", options: [{ label: "Low", value: "4" }, { label: "High", value: "12" }] },
+        temp: { title: "Temperature", icon: "thermometer", color: "#4CAF50", unit: "°C", isMaterial: true, options: [{ label: "Cool", value: "18" }, { label: "Warm", value: "25" }] },
+        fertilize: { title: "Fertilize", icon: "seed-outline", color: "#4CAF50", isMaterial: true, unit: "weeks", options: [{ label: "Bi-weekly", value: "2" }, { label: "Monthly", value: "4" }] },
+        report: { title: "Repot", icon: "shovel", color: "#4CAF50", isMaterial: true, unit: "months", options: [{ label: "Yearly", value: "12" }] },
     };
 
 
@@ -267,7 +268,28 @@ const AddPlantScreen = () => {
 
         return (
             <View style={styles.careRow}>
-
+                <TouchableOpacity
+                    style={[styles.careIconContainer, isEnabled && { borderColor: config.color }]}
+                    onPress={() => {
+                        setActiveCare(type);
+                        setModalConfig({ ...schedule, selectedOption: "" });
+                        setIsModalVisible(true);
+                    }}>
+                    
+                    {config.isMaterial ? (
+                        <MaterialCommunityIcons 
+                            name={config.icon} 
+                            size={22} 
+                            color={isEnabled ? config.color : "#1A3C34"}
+                        />
+                    ) : (
+                        <MaterialCommunityIcons
+                            name={config.icon}
+                            size={22}
+                            color={isEnabled ? config.color : "#1A3C34"}
+                        />
+                    )}
+                </TouchableOpacity>
             </View>
         )
     }
@@ -276,6 +298,18 @@ const AddPlantScreen = () => {
 
 
 const styles = StyleSheet.create({
-    
+
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
+
+    careIconContainer: {
+        width: 42,
+        height: 42,
+        backgroundColor: "#F8F9F8",
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 15,
+        borderWidth: 1,
+        borderColor: "#E0E0E0",
+    },
 });
