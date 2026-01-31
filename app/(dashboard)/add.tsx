@@ -151,6 +151,35 @@ const AddPlantScreen = () => {
         const trackWidth = width - 120; 
         const percentage = Math.max(0, Math.min(1, locationX / trackWidth));
         const newValue = Math.round(percentage * 30) || 1;
-        setModalConfig(prev => ({ ...prev, interval: newValue, selectedOption: "" }));
+        setModalConfig(prev => ({ 
+            ...prev, 
+            interval: newValue, 
+            selectedOption: "" 
+        }));
+    };
+
+
+    const resetForm = () => {
+        setPlantPhoto(null);
+        setPlantName("");
+        setPlantType("");
+        setLocation("");
+        setReminders({ 
+            watering: false, 
+            light: false, 
+            temp: false, 
+            fertilize: false, 
+            report: false 
+        });
+        setCareSchedules({
+            watering: { interval: 0, selectedDays: [], selectedTime: "" },
+            light: { interval: 0, selectedDays: [], selectedTime: "" },
+            temp: { interval: 0, selectedDays: [], selectedTime: "" },
+            fertilize: { interval: 0, selectedDays: [], selectedTime: "" },
+            report: { interval: 0, selectedDays: [], selectedTime: "" },
+        });
+        setModalConfig({ interval: 0, selectedOption: "", selectedDays: [], selectedTime: "09:00" });
+        setActiveCare(null);
+        setIsModalVisible(false);
     };
 }
