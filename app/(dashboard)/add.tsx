@@ -1,10 +1,12 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch } from "react-native";
+import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import DashboardHeader from "@/components/Header";
+import Toast from "@/components/Toast";
 
 const { width } = Dimensions.get("window");
 
@@ -309,11 +311,38 @@ const AddPlantScreen = () => {
             </View>
         );
     };
+
+
+    return (
+        <View style={styles.container}>
+            <DashboardHeader />
+
+            <Toast
+                visible={toast.visible}
+                message={toast.message}
+                type={toast.type}
+            />
+
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerStyle={[styles.scrollContent, {paddingBottom: 180 }]}>
+
+                </ScrollView>
+            </KeyboardAvoidingView>
+
+        </View>
+    );
 }
 
 
 
 const styles = StyleSheet.create({
+
+    container: { flex: 1, backgroundColor: "#FFF" },
+    scrollContent: { paddingHorizontal: 20, paddingTop: 20 },
+    
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
 
