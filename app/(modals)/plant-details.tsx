@@ -149,11 +149,16 @@ const PlantDetailsModal = () => {
                 />
                 <CareRow icon="seed-outline" label="Fertilize" value={getCareValue("fertilize", "month")} isMaterial />
                 <CareRow icon="shovel" label="Repot" value={getCareValue("report", "year")} isMaterial />
+
+                {/* delete btn */}
+                <TouchableOpacity style={styles.deleteBtn} onPress={handleDelete}>
+                    <Ionicons name="trash-outline" size={16} color="#FF5252" />
+                    <Text style={styles.deleteBtnText}>Remove Plant</Text>
+                </TouchableOpacity>
             </ScrollView>
-            
         </View>
     );
-}
+};
 
 
 const styles = StyleSheet.create({
@@ -253,6 +258,16 @@ const styles = StyleSheet.create({
         marginBottom: 25 
     },
 
+    deleteBtn: {
+        marginTop: 40,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        padding: 10,
+    },
+
+    deleteBtnText: { color: "#FF5252", fontWeight: "700", fontSize: 14 },
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
 
