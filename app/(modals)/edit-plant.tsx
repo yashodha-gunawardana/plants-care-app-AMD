@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
+import CareSetupModal from "@/components/CareModal";
 
  
 const { width } = Dimensions.get("window");
@@ -278,9 +279,28 @@ const EditPlantModal = () => {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            {/* configuration modal */}
+            {isModalVisible && activeCare && careConfigs[activeCare] && (
+                <CareSetupModal
+                    visible={isModalVisible}
+                    onClose={() => setIsModalVisible(false)}
+                    activeCare={activeCare}
+                    config={careConfigs[activeCare]}
+                    tempConfig={modalConfig}
+                    setTempConfig={setModalConfig}
+                    onApply={handleApplySchedule}
+                    onTrackPress={(e: any) => {
+                        const { locationX } = e.nativeEvent;
+                        const trackWidth = width - 100; 
+                        const newValue = Math.round((locationX / trackWidth) * 30) || 1;
+                        setModalConfig(p => ({ ...p, interval: newValue }));
+                    }}
+                />
+            )}
         </View>
     );
-}
+};
 
 
 const styles = StyleSheet.create({
@@ -438,4 +458,4 @@ const styles = StyleSheet.create({
 });
 
 
-
+export default EditPlantModal;
