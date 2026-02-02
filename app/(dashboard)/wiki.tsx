@@ -3,7 +3,11 @@ import { useSearch } from "@/context/SearchContext";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { Platform, UIManager, Text, StyleSheet, View, ScrollView, TouchableOpacity, LayoutAnimation } from "react-native";
+import { 
+    Platform, UIManager, Text, StyleSheet, 
+    View, ScrollView, TouchableOpacity, LayoutAnimation 
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 
@@ -180,147 +184,159 @@ const WikiScreen = () => {
         <View style={styles.mainWrapper}>
             <DashboardHeader />
 
-            <ScrollView style={styles.container} showsHorizontalScrollIndicator={false}>
-                
-                {/* page title */}
-                <View style={styles.headerTextContainer}>
-                    <Text style={styles.pageTitle}>Growing & care Guide</Text>
-                    <Text style={styles.pageSubtitle}>Master the art of plant care</Text>
-                </View>
+            <View style={styles.leafOverlay} pointerEvents="none">
+                <Ionicons name="leaf" size={320} color="#3E4D48" style={{ opacity: 0.04 }} />
+            </View>
 
-                {/* category */}
-                {categories.map((category) => {
-                    const isSearching = searchQuery.length > 0;
+            <LinearGradient
+                colors={["#D6DED9", "#FFFFFF"]}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.mainWrapper}>
+            
 
-                    // section is auto expaned when searching
-                    const isExpanded = isSearching || expandedCategory === category;
-
-                    return (
-                        <View
-                            key={category}
-                            style={styles.categoryWrapper}> 
-
-                            <TouchableOpacity
-                                style={styles.categoryPressable}
-                                activeOpacity={0.8}
-                                onPress={() => {
-
-                                    // smooth animation when the section opens/closes
-                                    LayoutAnimation.configureNext(
-                                        LayoutAnimation.Presets.easeInEaseOut
-                                    );
-                                    setExpandedCategory(
-                                        expandedCategory === category ? null : category
-                                    );
-                                }}>
-
-                                <View style={styles.categoryInfo}>
-                                    <View style={[styles.dot, isExpanded && styles.activeDot]}></View>
-
-                                    <Text style={[styles.categoryTitle, isExpanded && styles.activeCategoryTitle]}>
-                                        {category}
-                                    </Text>
-                                </View>
-
-                                <Ionicons 
-                                    name={isExpanded ? "remove-circle" : "add-circle"}
-                                    size={24}
-                                    color={isExpanded ? "#1A3C34" : "#8A9687"}
-                                />
-                            </TouchableOpacity>
-
-                            {/* category items */}
-                            {isExpanded && (
-                                <View style={styles.itemsContainer}>
-                                    {filteredData
-                                        .filter((item) => item.category === category)
-                                        .map((item) => (
-                                            <View
-                                                key={item.id}
-                                                style={styles.modernCard}>
-                                                
-                                                <View style={styles.cardTopRow}>
-                                                    <View style={styles.iconCircle}>
-                                                        <Ionicons
-                                                            name={item.icon as any}
-                                                            size={18}
-                                                            color="#1A3C34" 
-                                                        />
-                                                    </View>
-
-                                                    {/* bookmark */}
-                                                    <TouchableOpacity
-                                                        onPress={() => toggleBookmark(item.id)}>
-
-                                                        <Ionicons 
-                                                            name={bookmarks.includes(item.id)
-                                                                ? "bookmark" : "bookmark-outline"
-                                                            }
-                                                            size={22}
-                                                            color="#1A3C34"
-                                                        />
-                                                    </TouchableOpacity>
-                                                </View>
-
-                                                {/* title */}
-                                                <HighlightedText
-                                                    text={item.title}
-                                                    highlight={searchQuery}
-                                                    style={styles.cardTitle}
-                                                />
-
-                                                {/* description */}
-                                                <HighlightedText
-                                                    text={item.description}
-                                                    highlight={searchQuery}
-                                                    style={styles.cardDescription}
-                                                />
-
-                                                {/* footer */}
-                                                <View style={styles.cardFooter}>
-                                                    <Text style={styles.readTime}>Essential Guide</Text>
-                                                    <View style={styles.categoryBadge}>
-                                                        <Text style={styles.badgeText}>
-                                                            {category}
-                                                        </Text>
-                                                    </View>
-                                                </View>
-                                            </View>
-                                        ))}
-                                </View>
-                            )}
-                        </View>
-                    )
-                })}
-
-                {/* fav shortcut */}
-                {bookmarks.length > 0 && !searchQuery && (
-                    <View style={styles.favSection}>
-                        <Text style={styles.favHeader}>Quick Access Favorites</Text>
-
-                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                            {wikiData
-                                .filter((item) => bookmarks.includes(item.id))
-                                .map((item) => (
-                                    <TouchableOpacity key={item.id} style={styles.favMiniCard}>
-                                        <Ionicons
-                                            name={item.icon as any}
-                                            size={14}
-                                            color="#C6F062"
-                                            style={{ marginRight: 6 }}
-                                        />
-                                        <Text numberOfLines={1} style={styles.favMiniTitle}>
-                                            {item.title}
-                                        </Text>
-                                    </TouchableOpacity>
-                                ))}
-                        </ScrollView>
+                <ScrollView style={styles.container} showsHorizontalScrollIndicator={false}>
+                    
+                    {/* page title */}
+                    <View style={styles.headerTextContainer}>
+                        <Text style={styles.pageTitle}>Growing & care Guide</Text>
+                        <Text style={styles.pageSubtitle}>Master the art of plant care</Text>
                     </View>
-                )}
-                                        
-                
-                <View style={{ height: 120 }} />
-            </ScrollView>
+
+                    {/* category */}
+                    {categories.map((category) => {
+                        const isSearching = searchQuery.length > 0;
+
+                        // section is auto expaned when searching
+                        const isExpanded = isSearching || expandedCategory === category;
+
+                        return (
+                            <View
+                                key={category}
+                                style={styles.categoryWrapper}> 
+
+                                <TouchableOpacity
+                                    style={styles.categoryPressable}
+                                    activeOpacity={0.8}
+                                    onPress={() => {
+
+                                        // smooth animation when the section opens/closes
+                                        LayoutAnimation.configureNext(
+                                            LayoutAnimation.Presets.easeInEaseOut
+                                        );
+                                        setExpandedCategory(
+                                            expandedCategory === category ? null : category
+                                        );
+                                    }}>
+
+                                    <View style={styles.categoryInfo}>
+                                        <View style={[styles.dot, isExpanded && styles.activeDot]}></View>
+
+                                        <Text style={[styles.categoryTitle, isExpanded && styles.activeCategoryTitle]}>
+                                            {category}
+                                        </Text>
+                                    </View>
+
+                                    <Ionicons 
+                                        name={isExpanded ? "remove-circle" : "add-circle"}
+                                        size={24}
+                                        color={isExpanded ? "#1A3C34" : "#8A9687"}
+                                    />
+                                </TouchableOpacity>
+
+                                {/* category items */}
+                                {isExpanded && (
+                                    <View style={styles.itemsContainer}>
+                                        {filteredData
+                                            .filter((item) => item.category === category)
+                                            .map((item) => (
+                                                <View
+                                                    key={item.id}
+                                                    style={styles.modernCard}>
+                                                    
+                                                    <View style={styles.cardTopRow}>
+                                                        <View style={styles.iconCircle}>
+                                                            <Ionicons
+                                                                name={item.icon as any}
+                                                                size={18}
+                                                                color="#1A3C34" 
+                                                            />
+                                                        </View>
+
+                                                        {/* bookmark */}
+                                                        <TouchableOpacity
+                                                            onPress={() => toggleBookmark(item.id)}>
+
+                                                            <Ionicons 
+                                                                name={bookmarks.includes(item.id)
+                                                                    ? "bookmark" : "bookmark-outline"
+                                                                }
+                                                                size={22}
+                                                                color="#1A3C34"
+                                                            />
+                                                        </TouchableOpacity>
+                                                    </View>
+
+                                                    {/* title */}
+                                                    <HighlightedText
+                                                        text={item.title}
+                                                        highlight={searchQuery}
+                                                        style={styles.cardTitle}
+                                                    />
+
+                                                    {/* description */}
+                                                    <HighlightedText
+                                                        text={item.description}
+                                                        highlight={searchQuery}
+                                                        style={styles.cardDescription}
+                                                    />
+
+                                                    {/* footer */}
+                                                    <View style={styles.cardFooter}>
+                                                        <Text style={styles.readTime}>Essential Guide</Text>
+                                                        <View style={styles.categoryBadge}>
+                                                            <Text style={styles.badgeText}>
+                                                                {category}
+                                                            </Text>
+                                                        </View>
+                                                    </View>
+                                                </View>
+                                            ))}
+                                    </View>
+                                )}
+                            </View>
+                        )
+                    })}
+
+                    {/* fav shortcut */}
+                    {bookmarks.length > 0 && !searchQuery && (
+                        <View style={styles.favSection}>
+                            <Text style={styles.favHeader}>Quick Access Favorites</Text>
+
+                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                {wikiData
+                                    .filter((item) => bookmarks.includes(item.id))
+                                    .map((item) => (
+                                        <TouchableOpacity key={item.id} style={styles.favMiniCard}>
+                                            <Ionicons
+                                                name={item.icon as any}
+                                                size={14}
+                                                color="#C6F062"
+                                                style={{ marginRight: 6 }}
+                                            />
+                                            <Text numberOfLines={1} style={styles.favMiniTitle}>
+                                                {item.title}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
+                            </ScrollView>
+                        </View>
+                    )}
+                                            
+                    
+                    <View style={{ height: 120 }} />
+                </ScrollView>
+            </LinearGradient>
         </View>
     );
 };
@@ -328,7 +344,14 @@ const WikiScreen = () => {
 
 const styles = StyleSheet.create({
 
-    mainWrapper: { flex: 1, backgroundColor: "#fdfdfb7e" },
+    mainWrapper: { flex: 1 },
+    leafOverlay: { 
+        position: 'absolute', 
+        bottom: -60, 
+        right: -80, 
+        transform: [{ rotate: '-15deg' }], 
+        zIndex: 10
+    },
     container: { flex: 1, paddingHorizontal: 20 },
     headerTextContainer: { marginVertical: 25 },
     pageTitle: { fontSize: 28, fontWeight: "800", color: "#1A3C34" },

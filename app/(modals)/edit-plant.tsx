@@ -2,7 +2,10 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator, Image, TextInput } from "react-native";
+import { 
+    Alert, Dimensions, StyleSheet, TouchableOpacity, View, Text, Switch, 
+    KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator, Image, TextInput 
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import CareSetupModal from "@/components/CareModal";
@@ -307,7 +310,7 @@ const styles = StyleSheet.create({
 
     container: { flex: 1, backgroundColor: "#FBFCFB" },
     scrollContent: { paddingBottom: 60 },
-    
+
     headerBackground: { 
         backgroundColor: "#F2F5F2", 
         paddingBottom: 40, 

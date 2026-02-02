@@ -1,13 +1,17 @@
 import { PlantContext, Plant } from "@/context/PlantContext";
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
-import { Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, KeyboardAvoidingView, Platform, ScrollView, Image, TextInput, ActivityIndicator } from "react-native";
+import { 
+    Alert, Dimensions, View, StyleSheet, TouchableOpacity, Text, Switch, 
+    KeyboardAvoidingView, Platform, ScrollView, Image, TextInput, ActivityIndicator 
+} from "react-native";
 import * as ImagePicker  from "expo-image-picker";
 import { requestNotificationPermissions, scheduleAllPlantReminders } from "@/services/notificationService";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import DashboardHeader from "@/components/Header";
 import Toast from "@/components/Toast";
 import CareSetupModal from "@/components/CareModal";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width } = Dimensions.get("window");
 
@@ -306,8 +310,8 @@ const AddPlantScreen = () => {
                 <Switch
                     value={isEnabled}
                     onValueChange={() => toggleCare(type)}
-                    trackColor={{ false: "#EEE", true: "#C6F062" }}
-                    thumbColor={isEnabled ?"#1A3C34" : "#f4f3f4"}>
+                    trackColor={{ false: "#fff", true: "#C6F062" }}
+                    thumbColor={isEnabled ?"#1A3C34" : "#fff"}>
                 </Switch>
             </View>
         );
@@ -316,124 +320,131 @@ const AddPlantScreen = () => {
 
     return (
         <View style={styles.container}>
-            <DashboardHeader />
+            <LinearGradient
+                colors={["#D6DED9", "#FFFFFF"]}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.container}>
+            
+                <DashboardHeader />
 
-            <Toast
-                visible={toast.visible}
-                message={toast.message}
-                type={toast.type}
-            />
+                <Toast
+                    visible={toast.visible}
+                    message={toast.message}
+                    type={toast.type}
+                />
 
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={[styles.scrollContent, {paddingBottom: 180 }]}>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
+                        contentContainerStyle={[styles.scrollContent, {paddingBottom: 180 }]}>
 
-                    {/* bg curve */}
-                    <View style={styles.headerCurve} />
+                        {/* bg curve */}
+                        <View style={styles.headerCurve} />
 
-                    {/* image picker */}
-                    <View style={styles.imageContainer}>
-                        <View style={styles.imageCircle}>
-                            {plantPhoto ? (
-                                <Image source={{ uri: plantPhoto }} style={styles.mainImage} />
-                            ) : (
-                                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/628/628283.png" }} style={styles.placeholderIcon} />
-                            )}
+                        {/* image picker */}
+                        <View style={styles.imageContainer}>
+                            <View style={styles.imageCircle}>
+                                {plantPhoto ? (
+                                    <Image source={{ uri: plantPhoto }} style={styles.mainImage} />
+                                ) : (
+                                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/628/628283.png" }} style={styles.placeholderIcon} />
+                                )}
 
-                            <TouchableOpacity
-                                style={styles.cameraFab}
-                                onPress={pickImage}>
+                                <TouchableOpacity
+                                    style={styles.cameraFab}
+                                    onPress={pickImage}>
 
-                                <Ionicons 
-                                    name="camera-outline"
-                                    size={20}
-                                    color="#1A3C34"
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
-                    {/* form field */}
-                    <View style={styles.formContainer}>
-                        <TextInput
-                            style={styles.nameInput}
-                            placeholder="Plant's Name"
-                            placeholderTextColor="#1A3C3480"
-                            value={plantName}
-                            onChangeText={setPlantName}
-                        />
-
-                        <View style={styles.row}>
-                            <View style={styles.pillInputContainer}>
-                                <TextInput 
-                                    style={styles.pillTextInput}
-                                    placeholder="Add Type"
-                                    value={plantType}
-                                    onChangeText={setPlantType}
-                                />
-                                <Ionicons name="add" size={18} color="#1A3C34"/>
-                            </View>
-
-                            <View style={styles.pillInputContainer}>
-                                <TextInput
-                                    style={styles.pillTextInput}
-                                    placeholder="Add Location"
-                                    value={location}
-                                    onChangeText={setLocation}
-                                />
-                                <Ionicons name="add" size={18} color="#1A3C34" />
+                                    <Ionicons 
+                                        name="camera-outline"
+                                        size={20}
+                                        color="#1A3C34"
+                                    />
+                                </TouchableOpacity>
                             </View>
                         </View>
 
-                        {/* toggle field */}
-                        <Text style={styles.sectionTitle}>Plant care</Text>
+                        {/* form field */}
+                        <View style={styles.formContainer}>
+                            <TextInput
+                                style={styles.nameInput}
+                                placeholder="Plant's Name"
+                                placeholderTextColor="#1A3C3480"
+                                value={plantName}
+                                onChangeText={setPlantName}
+                            />
 
-                        {(Object.keys(careConfigs) as CareType[]).map(type => (
-                            <CareRow key={type} type={type} />
-                        ))}
+                            <View style={styles.row}>
+                                <View style={styles.pillInputContainer}>
+                                    <TextInput 
+                                        style={styles.pillTextInput}
+                                        placeholder="Add Type"
+                                        value={plantType}
+                                        onChangeText={setPlantType}
+                                    />
+                                    <Ionicons name="add" size={18} color="#1A3C34"/>
+                                </View>
 
+                                <View style={styles.pillInputContainer}>
+                                    <TextInput
+                                        style={styles.pillTextInput}
+                                        placeholder="Add Location"
+                                        value={location}
+                                        onChangeText={setLocation}
+                                    />
+                                    <Ionicons name="add" size={18} color="#1A3C34" />
+                                </View>
+                            </View>
+
+                            {/* toggle field */}
+                            <Text style={styles.sectionTitle}>Plant care</Text>
+
+                            {(Object.keys(careConfigs) as CareType[]).map(type => (
+                                <CareRow key={type} type={type} />
+                            ))}
+
+                        </View>
+
+                        <View style={{ height: 100 }} />
+                    </ScrollView>
+                </KeyboardAvoidingView>
+
+                {/* reusable modal */}
+                <CareSetupModal
+                    visible={isModalVisible}
+                    onClose={() => setIsModalVisible(false)}
+                    activeCare={activeCare}
+                    config={activeCare ? careConfigs[activeCare] : null}
+                    tempConfig={modalConfig}
+                    setTempConfig={setModalConfig}
+                    onApply={handleApplySchedule}
+                    onTrackPress={handleTrackPress}
+                />
+
+                {/* loading */}
+                {loading && (
+                    <View style={styles.loadingOverlay}>
+                        <ActivityIndicator size="large" color="#1A3C34" />
+                        <Text style={styles.loadingText}>Syncing Garden...</Text>
+                        <Text style={styles.loadingSubText}>This will only take a moment</Text>
                     </View>
-
-                    <View style={{ height: 100 }} />
-                </ScrollView>
-            </KeyboardAvoidingView>
-
-            {/* reusable modal */}
-            <CareSetupModal
-                visible={isModalVisible}
-                onClose={() => setIsModalVisible(false)}
-                activeCare={activeCare}
-                config={activeCare ? careConfigs[activeCare] : null}
-                tempConfig={modalConfig}
-                setTempConfig={setModalConfig}
-                onApply={handleApplySchedule}
-                onTrackPress={handleTrackPress}
-            />
-
-            {/* loading */}
-            {loading && (
-                <View style={styles.loadingOverlay}>
-                    <ActivityIndicator size="large" color="#1A3C34" />
-                    <Text style={styles.loadingText}>Syncing Garden...</Text>
-                    <Text style={styles.loadingSubText}>This will only take a moment</Text>
-                </View>
-            )}
-
-            {/* save btn */}
-            <View style={styles.sideActionContainer}>
-                <TouchableOpacity style={styles.verticalBtn} onPress={handleAddPlant} disabled={loading}>
-                {loading ? (
-                    <ActivityIndicator size="small" color="#1A3C34" />
-                ) : (
-                    <>
-                        <Ionicons name="add-circle" size={26} color="#1A3C34" />
-                        <Text style={styles.verticalBtnText}>SAVE</Text>
-                    </>
                 )}
-                </TouchableOpacity>
-            </View>
+
+                {/* save btn */}
+                <View style={styles.sideActionContainer}>
+                    <TouchableOpacity style={styles.verticalBtn} onPress={handleAddPlant} disabled={loading}>
+                    {loading ? (
+                        <ActivityIndicator size="small" color="#1A3C34" />
+                    ) : (
+                        <>
+                            <Ionicons name="add-circle" size={26} color="#1A3C34" />
+                            <Text style={styles.verticalBtnText}>SAVE</Text>
+                        </>
+                    )}
+                    </TouchableOpacity>
+                </View>
+            </LinearGradient>
         </View>
     );
 }
@@ -442,7 +453,7 @@ const AddPlantScreen = () => {
 
 const styles = StyleSheet.create({
 
-    container: { flex: 1, backgroundColor: "#FFF" },
+    container: { flex: 1, backgroundColor: "#fdfdfb7e" },
     scrollContent: { paddingHorizontal: 20, paddingTop: 20 },
 
     headerCurve: {

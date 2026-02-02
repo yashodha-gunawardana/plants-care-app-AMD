@@ -2,7 +2,10 @@ import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useContext } from "react";
-import { Dimensions, StyleSheet, View, Text, Alert, TouchableOpacity, Platform, ScrollView, Image } from "react-native";
+import { 
+    Dimensions, StyleSheet, View, Text, Alert, 
+    TouchableOpacity, Platform, ScrollView, Image 
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
