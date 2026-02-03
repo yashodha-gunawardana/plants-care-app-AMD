@@ -145,7 +145,20 @@ const WateringHistoryScreen = () => {
                             <Ionicons name="water-outline" size={60} color="#E0E0E0" />
                             <Text style={styles.emptyText}>No watering records found</Text>
                         </View>
-                    }>
+                    }
+                    
+                    renderItem={({ item }) => {
+                        const date = new Date(item);
+
+                        return (
+                            <View style={styles.historyCard}>
+                                <View style={styles.iconCircle}>
+                                    <Ionicons name="water" size={20} color="#3498DB" />
+                                </View>
+
+                            </View>
+                        );
+                    }}>
 
                     
 
@@ -188,6 +201,31 @@ const styles = StyleSheet.create({
         marginHorizontal: 20, 
         marginBottom: 15, 
         marginTop: 8 
+    },
+
+    emptyContainer: { alignItems: 'center', marginTop: 80 },
+    emptyText: { color: '#BDBDBD', fontSize: 16, marginTop: 10 },
+    
+    historyCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#FFF',
+        padding: 16,
+        borderRadius: 22,
+        marginBottom: 12,
+        shadowColor: '#000',
+        shadowOpacity: 0.04,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 2,
+    },
+    iconCircle: { 
+        width: 44, 
+        height: 44, 
+        borderRadius: 22, 
+        backgroundColor: '#EBF5FB', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        marginRight: 15 
     },
 
     loadingOverlay: {
