@@ -137,7 +137,17 @@ const WateringHistoryScreen = () => {
                 <FlatList
                     data={sortedHistory}
                     keyExtractor={( item, index) => index.toString()}
-                    contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }}>
+                    contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }}
+                    
+                    // if no have data, show this 
+                    ListEmptyComponent={
+                        <View style={styles.emptyContainer}>
+                            <Ionicons name="water-outline" size={60} color="#E0E0E0" />
+                            <Text style={styles.emptyText}>No watering records found</Text>
+                        </View>
+                    }>
+
+                    
 
                 </FlatList>
 
@@ -179,7 +189,7 @@ const styles = StyleSheet.create({
         marginBottom: 15, 
         marginTop: 8 
     },
-    
+
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
         backgroundColor: "rgba(253, 253, 251, 0.92)", 
