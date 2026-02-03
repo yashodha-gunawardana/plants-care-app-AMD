@@ -57,9 +57,9 @@ const WateringHistoryScreen = () => {
                         
                         // remove the selected date and create new array
                         const updatedHistory = wateringHistory.filter(item => item !== logDate);
-                        await updatePlantData(plant.id!, 
-                            { wateringHistory: updatedHistory }
-                        );
+                        await updatePlantData(plant.id!, { 
+                            wateringHistory: updatedHistory 
+                        });
                     }
                 }
             ]
@@ -79,12 +79,15 @@ const WateringHistoryScreen = () => {
                     style: "destructive",
                     onPress: async () => {
 
-                        
+                        // empty the array and update firestore
+                        await updatePlantData(plant.id!, {
+                            wateringHistory: []
+                        });
                     }
                 }
             ]
-        )
-    }
+        );
+    };
 }
 
 
