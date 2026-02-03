@@ -43,17 +43,23 @@ const WateringHistoryScreen = () => {
     const wateringHistory = plant.wateringHistory ?? [];
 
 
+    // delete individual history
     const handleDeleteLog = (logDate: string) => {
         Alert.alert(
             "Delete Record",
             "Are you sure, you want to delete this record?",
             [
-                { text: "Cancel", style: "Cancel" },
+                { text: "Cancel", style: "cancel" },
                 {
                     text: "Delete",
                     style: "destructive",
                     onPress: async () => {
                         
+                        // remove the selected date and create new array
+                        const updatedHistory = wateringHistory.filter(item => item !== logDate);
+                        await updatePlantData(plant.id!, 
+                            { wateringHistory: updatedHistory }
+                        );
                     }
                 }
             ]
