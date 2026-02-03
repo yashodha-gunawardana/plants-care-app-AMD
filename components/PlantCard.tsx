@@ -1,7 +1,7 @@
 import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image, Alert } from "react-native";
 
 
@@ -16,11 +16,45 @@ const PlantCard = ({ item }: PlantCardProps) => {
     const router = useRouter();
     const { updatePlantData } = useContext(PlantContext);
 
+    const [toast, setToast] = useState({
+        visible: false,
+        message: "",
+        type: "info" as "success" | "error" | "info",
+    });
+
 
     const handleWaterToday = async () => {
         const now = new Date().toISOString();
+
         const updatedHistory = [now, ...(item.wateringHistory || [])];
-    }
+
+        try {
+            await updatePlantData(item.id!, {
+                lastWatered: now,
+                wateringHistory: updatedHistory,
+            });
+
+            setToast({
+                visible: true,
+                message: `${item.name} watered successfully 💧`,
+                type: "success"
+            });
+
+            setTimeout(() => {
+                setToast(p => ({ ...p, visible: false }));
+            }, 2000);
+            
+        } catch (err) {
+            console.log("Plant watering error: ", err);
+            setToast({
+                visible: true,
+                message: "Could not update data.",
+                type: "error"
+            });
+        }
+    };
+
+    
 
     const renderCareBadges = () => {
         const schedules = item.careSchedules;
