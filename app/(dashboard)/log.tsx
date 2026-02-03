@@ -27,8 +27,16 @@ const WateringHistoryScreen = () => {
                 <Text style={styles.loadingText}>Loading history...</Text>
                 <Text style={styles.loadingSubText}>This will only take a moment</Text>
             </View>
-        )
-    }
+        );
+    };
+
+    if (!plant) {
+        return (
+            <View style={styles.center}>
+                <Text style={styles.text}>Plant not found 🌱</Text>
+            </View>
+        );
+    };
 }
 
 
@@ -57,5 +65,8 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         opacity: 0.7
     },
+
+    center: { flex: 1, justifyContent: "center", alignItems: "center" },
+    text: {  fontSize: 20,  color: "#5DA87A" },
 
 });
