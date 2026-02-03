@@ -25,15 +25,17 @@ export interface Plant {
         fertilize?: CareSchedule | null;
         report?: CareSchedule | null;
     };
+    lastWatered?: string;
     wateringHistory?: string[];
 }
+
 
 interface PlantContextProps {
     plants: Plant[];
     loading: boolean;
     fetchPlants: () => Promise<void>;
     addPlant: (plantData: Plant, imageUri?: string) => Promise<void>;
-    updatePlantData: (plantId: string, updatedData: Partial<Plant>) => Promise<void>;
+    updatePlantData: (plantId: string, updatedData: Partial<Plant>, addWateringHistory?: boolean) => Promise<void>;
     removePlant: (plantId: string) => Promise<void>;
 }
 
@@ -85,15 +87,26 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
 
 
     // update plants
-    const updatePlantData = async (plantId: string, updatedData: Partial<Plant>) => {
+    const updatePlantData = async (plantId: string, updatedData: Partial<Plant>, addWateringHistory?: boolean) => {
         try {
             // cancel old notifications first to prevent double-alerts after an update
             await cancelPlantNotifications(plantId);
 
-            await updatePlant(plantId, updatedData);
+            await updatePlant(plantId, updatedData, addWateringHistory);
+
             setPlants(prev =>
-                prev.map(p => (p.id === plantId ? { ...p, ...updatedData } : p))
-            );
+            prev.map(p => {
+                if (p.id === plantId) {
+                    let newPlant = { ...p, ...updatedData };
+                    // if watering, also update local wateringHistory
+                    if (addWateringHistory) {
+                        newPlant.wateringHistory = [...(p.wateringHistory || []), new Date().toISOString()];
+                    }
+                    return newPlant;
+                }
+                return p;
+            })
+        );
 
         } catch (err: any) {
             console.log("Error updating plant:", err.message)

@@ -1,8 +1,8 @@
-import { Plant } from "@/context/PlantContext";
+import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
-
+import { useContext } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, Image, Alert } from "react-native";
 
 
 interface PlantCardProps {
@@ -93,7 +93,6 @@ const PlantCard = ({ item }: PlantCardProps) => {
                                 {item.type || "Houseplant"}
                             </Text>
                         </View>
-                        <Ionicons name="ellipsis-vertical" size={16} color="#CBD5CB" />
                     </View>
 
                     {/* plant name*/}

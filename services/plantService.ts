@@ -51,6 +51,7 @@ export const createPlant = async (plantData: any, loacalImageUrl?: string) => {
         photo: imageUrl,
         userId: user.uid,
         createdAt: new Date().toISOString(),
+        wateringHistory: []
     });
 };
 
@@ -82,7 +83,8 @@ export const getUserPlants = async () => {
             type: data.type || "Unknown Type",  
             location: data.location,
             photo: data.photo,
-            careSchedules: data.careSchedules ?? {},      
+            careSchedules: data.careSchedules ?? {},   
+            wateringHistory: data.wateringHistory ?? []   
         } as Plant;
     });
 
@@ -91,7 +93,7 @@ export const getUserPlants = async () => {
 
 
 // update plants
-export const updatePlant = async (plantId: string, updatedData: Partial<Plant>) => {
+export const updatePlant = async (plantId: string, updatedData: Partial<Plant>, addWateringHistory?: boolean) => {
     const plantRef = doc(db, "plants", plantId);
     
     // remove any undefined keys to prevent Firestore errors
@@ -99,7 +101,21 @@ export const updatePlant = async (plantId: string, updatedData: Partial<Plant>) 
         Object.entries(updatedData).filter(([_, v]) => v !== undefined)
     );
 
-    return await updateDoc(plantRef, cleanData);
+    // return await updateDoc(plantRef, cleanData);
+    if (addWateringHistory) {
+        const oldHistory = Array.isArray(cleanData.wateringHistory)
+            ? cleanData.wateringHistory
+            : [];
+
+        await updateDoc(plantRef, {
+            ...cleanData,
+            wateringHistory: [...oldHistory, new Date().toISOString()]
+        });
+        
+    } else {
+        await updateDoc(plantRef, cleanData);
+    }
+
 };
 
 // remove plants
@@ -108,3 +124,4 @@ export const deletePlant = async (plantId: string) => {
 
     return await deleteDoc(plantRef);
 };
+

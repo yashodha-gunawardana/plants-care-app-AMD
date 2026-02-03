@@ -169,6 +169,20 @@ const PlantDetailsModal = () => {
                     <Text style={styles.sectionTitle}>Plant care</Text>
 
                     <CareRow icon="water-outline" label="Watering" value={getCareValue("watering", "day")} />
+                    
+                    <TouchableOpacity
+                        style={styles.historyBtn}
+                        onPress={() => 
+                            router.push({ 
+                                pathname: "/(dashboard)/log", 
+                                params: { plantId: plant.id } 
+                            })
+                        }>
+                    
+                        <Ionicons name="time-outline" size={18} color="#2E6B46" />
+                        <Text style={styles.historyBtnText}>View Watering History</Text>
+                    </TouchableOpacity>
+
                     <CareRow icon="sunny-outline" label="Light" value={getCareValue("light", "hour")} />
                     <CareRow 
                         icon="thermometer-outline" 
@@ -190,7 +204,7 @@ const PlantDetailsModal = () => {
 
 
 const styles = StyleSheet.create({
-
+    
     mainContainer: { flex: 1, backgroundColor: "#FFF" },
     topGreenBg: {
         position: "absolute",
@@ -288,6 +302,22 @@ const styles = StyleSheet.create({
     deleteBtnText: { color: "#FF5252", fontWeight: "700", fontSize: 14 },
     center: { flex: 1, justifyContent: "center", alignItems: "center" },
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
+
+    historyBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        marginBottom: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        backgroundColor: "#E6F2EC",
+        borderRadius: 12,
+    },
+    historyBtnText: {
+        fontSize: 16,
+        fontWeight: "700",
+        color: "#2E6B46",
+    },
     careIconBox: {
         width: 58,
         height: 58,
