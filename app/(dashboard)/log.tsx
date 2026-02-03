@@ -2,7 +2,7 @@ import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useContext } from "react";
-import { View, StyleSheet, ActivityIndicator, Text, Alert, TouchableOpacity } from "react-native";
+import { View, StyleSheet, ActivityIndicator, Text, Alert, TouchableOpacity, FlatList } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -105,33 +105,43 @@ const WateringHistoryScreen = () => {
                 start={{ x: 0.5, y: 1 }}
                 end={{ x: 0.5, y: 0 }}>
                
-            <DashboardHeader />
+                <DashboardHeader />
 
-            <View style={styles.headerRow}>
-                <View style={styles.headerLeft}>
-                    <TouchableOpacity
-                        onPress={() =>
-                            router.replace("/(dashboard)/home")}
-                            style={styles.backBtn}>
-                    
-                        <Ionicons name="arrow-back" size={24} color="#1A3C34" />
+                <View style={styles.headerRow}>
+                    <View style={styles.headerLeft}>
+                        <TouchableOpacity
+                            onPress={() =>
+                                router.replace("/(dashboard)/home")}
+                                style={styles.backBtn}>
+                        
+                            <Ionicons name="arrow-back" size={24} color="#1A3C34" />
 
-                        <Text style={styles.title}>{plant.name}</Text>
-                    </TouchableOpacity>
+                            <Text style={styles.title}>{plant.name}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* btn clear all */}
+                    {wateringHistory.length > 0 && (
+                        <TouchableOpacity
+                            onPress={handleClearAll}
+                            style={styles.clearBtn}>
+                            
+                            <Text style={styles.clearBtnText}>Clear All</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
 
-                {/* btn clear all */}
-                {wateringHistory.length > 0 && (
-                    <TouchableOpacity
-                        onPress={handleClearAll}
-                        style={styles.clearBtn}>
-                        
-                        <Text style={styles.clearBtnText}>Clear All</Text>
-                    </TouchableOpacity>
-                )}
-            </View>
+                <Text style={styles.subtitle}>Watering Logs ({wateringHistory.length})</Text>
 
-            </LinearGradient>
+                {/* history data list */}
+                <FlatList
+                    data={sortedHistory}
+                    keyExtractor={( item, index) => index.toString()}
+                    contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }}>
+
+                </FlatList>
+
+        </LinearGradient>
             
 
         </View>
@@ -159,9 +169,17 @@ const styles = StyleSheet.create({
         paddingVertical: 6, 
         borderRadius: 10 
     },
-    
+
     clearBtnText: { color: '#D32F2F', fontWeight: '700', fontSize: 12 },
 
+    subtitle: { 
+        fontSize: 15, 
+        color: "#7A8A7A", 
+        marginHorizontal: 20, 
+        marginBottom: 15, 
+        marginTop: 8 
+    },
+    
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
         backgroundColor: "rgba(253, 253, 251, 0.92)", 
