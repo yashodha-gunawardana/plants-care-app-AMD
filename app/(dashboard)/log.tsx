@@ -120,6 +120,15 @@ const WateringHistoryScreen = () => {
                     </TouchableOpacity>
                 </View>
 
+                {/* btn clear all */}
+                {wateringHistory.length > 0 && (
+                    <TouchableOpacity
+                        onPress={handleClearAll}
+                        style={styles.clearBtn}>
+                        
+                        <Text style={styles.clearBtnText}>Clear All</Text>
+                    </TouchableOpacity>
+                )}
             </View>
 
             </LinearGradient>
@@ -143,6 +152,15 @@ const styles = StyleSheet.create({
     headerLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
     backBtn: { padding: 4 },
     title: { fontSize: 24, fontWeight: "800", color: "#1A3C34" },
+
+    clearBtn: { 
+        backgroundColor: '#FFF0F0', 
+        paddingHorizontal: 12, 
+        paddingVertical: 6, 
+        borderRadius: 10 
+    },
+    
+    clearBtnText: { color: '#D32F2F', fontWeight: '700', fontSize: 12 },
 
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
