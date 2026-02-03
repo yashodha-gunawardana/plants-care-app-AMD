@@ -14,6 +14,7 @@ const DEFAULT_PLANT_IMAGE = "https://i.pinimg.com/1200x/9b/77/f6/9b77f61cdb7dffb
 
 const PlantCard = ({ item }: PlantCardProps) => {
     const router = useRouter();
+    const { updatePlantData } = useContext(PlantContext);
 
     const renderCareBadges = () => {
         const schedules = item.careSchedules;
