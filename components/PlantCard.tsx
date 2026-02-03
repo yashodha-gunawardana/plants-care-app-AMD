@@ -40,9 +40,10 @@ const PlantCard = ({ item }: PlantCardProps) => {
     // today water btn handle
     const handleWaterToday = async () => {
         if (watered) return;
-        
+
         const now = new Date().toISOString();
 
+        // add new record to the history
         const updatedHistory = [now, ...(item.wateringHistory || [])];
 
         try {
@@ -154,10 +155,18 @@ const PlantCard = ({ item }: PlantCardProps) => {
                         {/* water btn */}
                         <TouchableOpacity
                             onPress={handleWaterToday}
-                            style={styles.quickWaterCircle}
+                            disabled={watered}
+                            style={[
+                                styles.quickWaterCircle,
+                                watered && { backgroundColor: "#5DA87A" }
+                            ]}
                             activeOpacity={0.6}>
 
-                            <Ionicons name="water" size={18} color="#4A90E2" />
+                            <Ionicons 
+                                name={watered ? "checkmark-circle" : "water"} 
+                                size={18} 
+                                color={watered ? "#4CAF50" : "#4A90E2"}
+                            />
                         </TouchableOpacity>
                     </View>
 

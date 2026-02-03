@@ -33,6 +33,11 @@ export interface Plant {
 interface PlantContextProps {
     plants: Plant[];
     loading: boolean;
+
+    searchQuery: string;
+    setSearchQuery: (text: string) => void;
+    filteredPlants: Plant[];
+
     fetchPlants: () => Promise<void>;
     addPlant: (plantData: Plant, imageUri?: string) => Promise<void>;
     updatePlantData: (plantId: string, updatedData: Partial<Plant>, addWateringHistory?: boolean) => Promise<void>;
@@ -50,9 +55,11 @@ interface Props {
 
 export const PlantProvider: React.FC<Props> = ({ children }) => {
     const { user } = useContext(AuthContext);   
+
     const [plants, setPlants] = useState<Plant[]>([]); 
     const [loading, setLoading] = useState<boolean>(true); 
 
+    const [searchQuery, setSearchQuery] = useState<string>("");
 
     // fetch all plants for current user
     const fetchPlantsData = async () => {
