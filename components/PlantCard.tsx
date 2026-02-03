@@ -23,6 +23,7 @@ const PlantCard = ({ item }: PlantCardProps) => {
     });
 
 
+    // today water btn handle
     const handleWaterToday = async () => {
         const now = new Date().toISOString();
 
@@ -54,7 +55,6 @@ const PlantCard = ({ item }: PlantCardProps) => {
         }
     };
 
-    
 
     const renderCareBadges = () => {
         const schedules = item.careSchedules;
@@ -134,6 +134,15 @@ const PlantCard = ({ item }: PlantCardProps) => {
                                 {item.type || "Houseplant"}
                             </Text>
                         </View>
+
+                        {/* water btn */}
+                        <TouchableOpacity
+                            onPress={handleWaterToday}
+                            style={styles.quickWaterCircle}
+                            activeOpacity={0.6}>
+
+                            <Ionicons name="water" size={18} color="#4A90E2" />
+                        </TouchableOpacity>
                     </View>
 
                     {/* plant name*/}
@@ -257,6 +266,15 @@ const styles = StyleSheet.create({
         color: "#2E6B46",
         textTransform: "uppercase",
         letterSpacing: 0.5,
+    },
+    quickWaterCircle: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: '#E1F5FE', 
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: -5, 
     },
     plantName: {
         fontSize: 22,
