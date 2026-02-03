@@ -15,4 +15,7 @@ const WateringHistoryScreen = () => {
 
     // get plants data and update function from plantContext
     const { plants, loading, updatePlantData } = useContext(PlantContext);
+
+    // find the relevant plants using id
+    const plant = plants.find(p => p.id === plantId);
 }
