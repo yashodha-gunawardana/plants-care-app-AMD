@@ -16,6 +16,12 @@ const PlantCard = ({ item }: PlantCardProps) => {
     const router = useRouter();
     const { updatePlantData } = useContext(PlantContext);
 
+
+    const handleWaterToday = async () => {
+        const now = new Date().toISOString();
+        const updatedHistory = [now, ...(item.wateringHistory || [])];
+    }
+
     const renderCareBadges = () => {
         const schedules = item.careSchedules;
         if (!schedules) return null;
