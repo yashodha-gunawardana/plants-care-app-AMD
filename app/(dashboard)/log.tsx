@@ -156,6 +156,22 @@ const WateringHistoryScreen = () => {
                                     <Ionicons name="water" size={20} color="#3498DB" />
                                 </View>
 
+                                <View style={styles.dateContainer}>
+                                    <Text style={styles.dateText}>
+                                        {date.toLocaleDateString('en-US', {
+                                            weekday: "long", 
+                                            month: "short",
+                                            day: "numeric"
+                                        })}
+                                    </Text>
+
+                                    <Text style={styles.timeText}>
+                                        {date.toLocaleTimeString([], {
+                                            hour: "2-digit",
+                                            minute: "2-digit"
+                                        })}
+                                    </Text>
+                                </View>
                             </View>
                         );
                     }}>
@@ -205,7 +221,7 @@ const styles = StyleSheet.create({
 
     emptyContainer: { alignItems: 'center', marginTop: 80 },
     emptyText: { color: '#BDBDBD', fontSize: 16, marginTop: 10 },
-    
+
     historyCard: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -227,6 +243,10 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         marginRight: 15 
     },
+
+    dateContainer: { flex: 1 },
+    dateText: { fontSize: 16, fontWeight: '700', color: '#1A3C34' },
+    timeText: { fontSize: 13, color: '#7A8A7A', marginTop: 2 },
 
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
