@@ -43,7 +43,7 @@ const WateringHistoryScreen = () => {
     const wateringHistory = plant.wateringHistory ?? [];
 
 
-    // delete individual history
+    // delete individual watering history
     const handleDeleteLog = (logDate: string) => {
         Alert.alert(
             "Delete Record",
@@ -60,6 +60,26 @@ const WateringHistoryScreen = () => {
                         await updatePlantData(plant.id!, 
                             { wateringHistory: updatedHistory }
                         );
+                    }
+                }
+            ]
+        );
+    };
+
+
+    // delete all watering history
+    const handleClearAll = () => {
+        Alert.alert(
+            "Clear History",
+            "This will permanently delete all watering logs, Continue?",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Clear All",
+                    style: "destructive",
+                    onPress: async () => {
+
+                        
                     }
                 }
             ]
