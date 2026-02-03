@@ -37,6 +37,10 @@ const WateringHistoryScreen = () => {
             </View>
         );
     };
+
+
+    // get the plants watering history
+    const wateringHistory = plant.wateringHistory ?? [];
 }
 
 
