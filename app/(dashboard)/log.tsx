@@ -1,7 +1,7 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useContext } from "react";
-
+import { View, StyleSheet, ActivityIndicator, Text } from "react-native";
 
 
 
@@ -18,4 +18,44 @@ const WateringHistoryScreen = () => {
 
     // find the relevant plants using id
     const plant = plants.find(p => p.id === plantId);
+
+    
+    if (loading) {
+        return (
+             <View style={styles.loadingOverlay}>
+                <ActivityIndicator size="large" color="#1A3C34" />
+                <Text style={styles.loadingText}>Loading history...</Text>
+                <Text style={styles.loadingSubText}>This will only take a moment</Text>
+            </View>
+        )
+    }
 }
+
+
+
+const styles = StyleSheet.create({
+
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject, 
+        backgroundColor: "rgba(253, 253, 251, 0.92)", 
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000, 
+    },
+    loadingText: {
+        marginTop: 20,
+        color: "#1A3C34",
+        fontWeight: "800",
+        fontSize: 18,
+        letterSpacing: 1,
+        textTransform: 'uppercase'
+    },
+    loadingSubText: {
+        marginTop: 5,
+        color: "#3d5a2d",
+        fontSize: 12,
+        fontWeight: "500",
+        opacity: 0.7
+    },
+
+});
