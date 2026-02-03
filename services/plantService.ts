@@ -111,7 +111,7 @@ export const updatePlant = async (plantId: string, updatedData: Partial<Plant>, 
             ...cleanData,
             wateringHistory: [...oldHistory, new Date().toISOString()]
         });
-        
+
     } else {
         await updateDoc(plantRef, cleanData);
     }
@@ -125,3 +125,9 @@ export const deletePlant = async (plantId: string) => {
     return await deleteDoc(plantRef);
 };
 
+
+// history clear
+export const clearWateringHistory = async (plantId: string) => {
+    const plantRef = doc(db, "plants", plantId);
+    await updateDoc(plantRef, { wateringHistory: [] });
+};
