@@ -25,6 +25,7 @@ export interface Plant {
         fertilize?: CareSchedule | null;
         report?: CareSchedule | null;
     };
+    wateringHistory?: string[];
 }
 
 interface PlantContextProps {
