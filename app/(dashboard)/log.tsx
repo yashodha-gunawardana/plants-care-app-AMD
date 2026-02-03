@@ -1,7 +1,7 @@
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useContext } from "react";
-import { View, StyleSheet, ActivityIndicator, Text } from "react-native";
+import { View, StyleSheet, ActivityIndicator, Text, Alert } from "react-native";
 
 
 
@@ -41,6 +41,24 @@ const WateringHistoryScreen = () => {
 
     // get the plants watering history
     const wateringHistory = plant.wateringHistory ?? [];
+
+
+    const handleDeleteLog = (logDate: string) => {
+        Alert.alert(
+            "Delete Record",
+            "Are you sure, you want to delete this record?",
+            [
+                { text: "Cancel", style: "Cancel" },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: async () => {
+                        
+                    }
+                }
+            ]
+        )
+    }
 }
 
 
