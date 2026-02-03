@@ -23,6 +23,18 @@ const PlantCard = ({ item }: PlantCardProps) => {
     });
 
 
+    // check water btn is disabale
+    const isWateredToday = () => {
+        if (!item.lastWatered) return false;
+
+        const lastDate = new Date(item.lastWatered).toDateString();
+        const today = new Date().toDateString();
+
+        // if matching date give true
+        return lastDate === today;
+    };
+
+
     // today water btn handle
     const handleWaterToday = async () => {
         const now = new Date().toISOString();
