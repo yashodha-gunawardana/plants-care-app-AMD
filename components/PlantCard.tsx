@@ -35,8 +35,12 @@ const PlantCard = ({ item }: PlantCardProps) => {
     };
 
 
+    const watered = isWateredToday();
+
     // today water btn handle
     const handleWaterToday = async () => {
+        if (watered) return;
+        
         const now = new Date().toISOString();
 
         const updatedHistory = [now, ...(item.wateringHistory || [])];
