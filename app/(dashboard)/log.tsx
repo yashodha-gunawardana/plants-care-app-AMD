@@ -2,8 +2,9 @@ import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useContext } from "react";
-import { View, StyleSheet, ActivityIndicator, Text, Alert } from "react-native";
+import { View, StyleSheet, ActivityIndicator, Text, Alert, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 
 
 const WateringHistoryScreen = () => {
@@ -104,8 +105,22 @@ const WateringHistoryScreen = () => {
                 start={{ x: 0.5, y: 1 }}
                 end={{ x: 0.5, y: 0 }}>
                
-
             <DashboardHeader />
+
+            <View style={styles.headerRow}>
+                <View style={styles.headerLeft}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            router.replace("/(dashboard)/home")}
+                            style={styles.backBtn}>
+                    
+                        <Ionicons name="arrow-back" size={24} color="#1A3C34" />
+
+                        <Text style={styles.title}>{plant.name}</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
 
             </LinearGradient>
             
@@ -116,6 +131,18 @@ const WateringHistoryScreen = () => {
 
 
 const styles = StyleSheet.create({
+
+    headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        marginTop: 15,
+    },
+
+    headerLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+    backBtn: { padding: 4 },
+    title: { fontSize: 24, fontWeight: "800", color: "#1A3C34" },
 
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
@@ -144,3 +171,6 @@ const styles = StyleSheet.create({
     text: {  fontSize: 20,  color: "#5DA87A" },
 
 });
+
+
+export default WateringHistoryScreen;
