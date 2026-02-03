@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { createPlant, getUserPlants, deletePlant, updatePlant } from "@/services/plantService";
 import { cancelPlantNotifications } from "@/services/notificationService";
@@ -60,6 +60,7 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(true); 
 
     const [searchQuery, setSearchQuery] = useState<string>("");
+
 
     // fetch all plants for current user
     const fetchPlantsData = async () => {
@@ -136,6 +137,20 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
     };
 
 
+    // search logic
+    const filteredPlants = useMemo(() => {
+        if (!searchQuery.trim()) return plants;
+
+        const query = searchQuery.toLowerCase();
+
+        return plants.filter(plant =>
+            plant.name.toLowerCase().includes(query) ||
+            plant.type.toLowerCase().includes(query) ||
+            (plant.location?.toLocaleLowerCase().includes(query) ?? false)
+        );
+    }, [plants, searchQuery]);
+
+
     useEffect(() => {
         if (user) fetchPlantsData();
         else setPlants([]); // clear plants if no user logged in
@@ -147,6 +162,11 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
             value={{
                 plants,
                 loading,
+
+                searchQuery,
+                setSearchQuery,
+                filteredPlants,
+                
                 fetchPlants: fetchPlantsData,
                 addPlant,
                 updatePlantData,
