@@ -1,4 +1,6 @@
+import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
+import { useContext } from "react";
 
 
 
@@ -11,5 +13,6 @@ const WateringHistoryScreen = () => {
     // get plantId from url or modal
     const plantId = Array.isArray(params.plantId) ? params.plantId[0] : params.plantId;
 
-
+    // get plants data and update function from plantContext
+    const { plants, loading, updatePlantData } = useContext(PlantContext);
 }
