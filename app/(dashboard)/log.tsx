@@ -1,8 +1,9 @@
+import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useContext } from "react";
 import { View, StyleSheet, ActivityIndicator, Text, Alert } from "react-native";
-
+import { LinearGradient } from "expo-linear-gradient";
 
 
 const WateringHistoryScreen = () => {
@@ -90,11 +91,28 @@ const WateringHistoryScreen = () => {
     };
 
 
+    // sort the newest data comes first
     const sortedHistory = [...wateringHistory].sort(
         (a, b) => new Date(b).getTime() - new Date(a).getTime()
     );
-}
 
+
+    return (
+        <View style={{ flex: 1 }}>
+            <LinearGradient
+                colors={["#D6DED9", "#FFFFFF"]}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}>
+               
+
+            <DashboardHeader />
+
+            </LinearGradient>
+            
+
+        </View>
+    );
+};
 
 
 const styles = StyleSheet.create({
