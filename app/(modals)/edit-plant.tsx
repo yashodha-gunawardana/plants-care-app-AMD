@@ -9,27 +9,28 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import CareSetupModal from "@/components/CareModal";
+import Toast from "@/components/Toast";
 
- 
-const { width } = Dimensions.get("window");
 
+const { width, height } = Dimensions.get("window");
 const DEFAULT_IMAGE = "https://i.pinimg.com/1200x/9b/77/f6/9b77f61cdb7dffbd979b1d7b02cfa937.jpg";
+
 
 type CareType = "watering" | "light" | "temp" | "fertilize" | "report";
 
 
-
 const EditPlantModal = () => {
 
-    const { id } = useLocalSearchParams<{ id: string }>();
+    const params = useLocalSearchParams();
+    const plantId = Array.isArray(params.id) ? params.id[0] : params.id;
+
     const router = useRouter();
 
     // access global state and functions from the PlantContext
     const { plants, updatePlantData, removePlant } = useContext(PlantContext);
 
-    const plant = plants.find((p) => p.id === id);
+    const plant = plants.find((p) => p.id === plantId);
     if (!plant) return null;
-
 
     const [plantPhoto, setPlantPhoto] = useState<string | null>(plant.photo || null);
     const [plantName, setPlantName] = useState(plant.name || "");
@@ -37,8 +38,14 @@ const EditPlantModal = () => {
     const [location, setLocation] = useState(plant.location || "");
 
     const [isModalVisible, setIsModalVisible] = useState(false);   // controls the care config modal
-    const [activeCare, setActiveCare] = useState<CareType | null>(null);  // tracks which care item is being edited
+    const [activeCare, setActiveCare] = useState<CareType | null>(null);   // // tracks which care item is being edited
     const [loading, setLoading] = useState(false); 
+
+    const [toast, setToast] = useState({
+        visible: false,
+        message: "",
+        type: "info" as "success" | "error" | "info",
+    });
 
     const [reminders, setReminders] = useState({
         watering: !!plant.careSchedules?.watering,
@@ -86,7 +93,7 @@ const EditPlantModal = () => {
                 selectedOption: "",
             });
             setIsModalVisible(true);
-        
+
         } else {
             setReminders(prev => ({ ...prev, [key]: false }));
         }
@@ -105,29 +112,59 @@ const EditPlantModal = () => {
 
     // handle plant update
     const handleUpdate = async () => {
-        if (!plantName.trim()) return
-        Alert.alert(
-            "Required",
-            "Plant name is needed"
-        );
-        setLoading(true);
+        if (!plantName.trim()) {
+            Alert.alert("Required", "Plant name is needed");
+            return;
+        }
 
-        const updatedPlant: Partial<Plant> = {
-            name: plantName.trim(),
-            type: plantType.trim(),
-            location: location.trim(),
-            photo: plantPhoto || undefined,
-            careSchedules: {
-                watering: reminders.watering ? careSchedules.watering : undefined,
-                light: reminders.light ? careSchedules.light : undefined,
-                temp: reminders.temp ? careSchedules.temp : undefined,
-                fertilize: reminders.fertilize ? careSchedules.fertilize : undefined,
-                report: reminders.report ? careSchedules.report : undefined,
-            }
-        };
-        await updatePlantData(id, updatedPlant);
-        setLoading(false);
-        router.back();
+        try {
+            setLoading(true);
+            
+            const updatedPlant: Partial<Plant> = {
+                name: plantName.trim(),
+                type: plantType.trim(),
+                location: location.trim(),
+                photo: plantPhoto || undefined,
+                careSchedules: {
+                    watering: reminders.watering ? careSchedules.watering : null,
+                    light: reminders.light ? careSchedules.light : null,
+                    temp: reminders.temp ? careSchedules.temp : null,
+                    fertilize: reminders.fertilize ? careSchedules.fertilize : null,
+                    report: reminders.report ? careSchedules.report : null,
+                }
+            };
+            await updatePlantData(plantId, updatedPlant);
+
+            setToast({
+                visible: true,
+                message: `${plantName} updated🌿, Your changes were saved successfully.`,
+                type: "success"
+            });
+
+            setTimeout(() => {
+                setToast(p => ({ ...p, visible: false }));
+            }, 2500);
+
+            router.replace({
+                pathname: "/(modals)/plant-details",
+                params: { id: plantId }   
+            });
+
+
+        } catch (err) {
+            console.error("Update failed:", err);
+            setToast({
+                visible: true,
+                message: "Plant update failed.Try againg",
+                type: "error"
+            });
+
+        } finally {
+            setLoading(false);
+            setTimeout(() =>
+                setToast(p => ({ ...p, visible: false})
+            ), 2500);
+        }
     };
 
 
@@ -136,10 +173,9 @@ const EditPlantModal = () => {
         const isEnabled = reminders[type];
         const schedule = (careSchedules as any)[type];
 
-
         return (
             <TouchableOpacity
-                activeOpacity={0.7}
+                activeOpacity={0.8}
                 onPress={() => {
                     setActiveCare(type);
                     setModalConfig({
@@ -150,33 +186,29 @@ const EditPlantModal = () => {
                     });
                     setIsModalVisible(true);
                 }}
-                style={[styles.careRow, isEnabled && styles.careRowEnabled]}>
 
+                // care icon box 
+                style={styles.careRow}>
 
-                {/* care icon box */}
-                <View style={[styles.careIconContainer, { backgroundColor: isEnabled ? `${config.color}15` : "#F5F5F5" }]}>
-                    <Ionicons 
-                        name={config.icon} s
-                        ize={22} 
-                        color={isEnabled ? config.color : "#BCBCBC"} 
-                    />
+                <View style={[styles.careIconBox, { backgroundColor: isEnabled ? config.color : "#EEE" }]}>
+                    <Ionicons name={config.icon} size={20} color={isEnabled ? "#FFF" : "#AAA"} />
                 </View>
 
                 {/* care text indo */}
-                <View style={styles.careTextContainer}>
+                <View style={styles.careInfo}>
                     <Text style={styles.careTitle}>{config.title}</Text>
-                    <Text style={styles.careSubtitle}>
-                        {isEnabled ? `Every ${schedule?.interval} ${config.unit}` : "Reminder Off"}
+                    <Text style={styles.careStatus}>
+                        {isEnabled ? `Every ${schedule?.interval} ${config.unit}` : "Disabled"}
                     </Text>
-                </View>   
+                </View>
 
                 {/* toggle switch */}
                 <Switch
                     value={isEnabled}
                     onValueChange={() => toggleCare(type)}
-                    trackColor={{ false: "#E0E0E0", true: "#C6F062" }}
-                    thumbColor={isEnabled ? "#1A3C34" : "#FFF"}
-                />             
+                    trackColor={{ false: "#DDD", true: "#A5D6A7" }}
+                    thumbColor={isEnabled ? "#1A3C34" : "#F4F4F4"}
+                />
             </TouchableOpacity>
         );
     };
@@ -185,68 +217,87 @@ const EditPlantModal = () => {
     return (
         <View style={styles.container}>
 
+            <Toast
+                visible={toast.visible}
+                message={toast.message}
+                type={toast.type}
+            />
+
+            {/* Full-screen loading overlay */}
+            {loading && (
+                <View style={styles.loadingOverlay}>
+                    <ActivityIndicator size="large" color="#1A3C34" />
+                    <Text style={styles.loadingText}>Syncing Garden...</Text>
+                    <Text style={styles.loadingSubText}>This will only take a moment</Text>
+                </View>
+            )}
+
             {/* ensures the keyboard doesn't cover input fields on iOS */}
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={styles.scrollContent}>
+                
+                {/* Visual Nature Header */}
+                <View style={styles.headerContainer}>
+                    <View style={styles.curvedBg} />
+                    
+                    <SafeAreaView style={styles.navRow}>
+                        <TouchableOpacity onPress={() => router.back()} style={styles.circleBtn}>
+                            <Ionicons name="chevron-down" size={24} color="#1A3C34" />
+                        </TouchableOpacity>
 
-                    {/* header */}
-                    <View style={styles.headerBackground}>
-                        <SafeAreaView style={styles.topBar}>
-                            <TouchableOpacity onPress={() => router.back()} style={styles.roundBtn}>
-                                <Ionicons name="close" size={24} color="#1A3C34" />
+                        <Text style={styles.navTitle}>Edit Plant</Text>
+
+                        <TouchableOpacity onPress={handleUpdate} style={styles.saveBtn} disabled={loading}>
+                            <Text style={styles.doneBtnText}>Done</Text>
+                        </TouchableOpacity>
+
+                    </SafeAreaView>
+
+                    {/* plant image and camera */}
+                    <View style={styles.imageWrapper}>
+                        <View style={styles.imageBorder}>
+                            <Image source={{ uri: plantPhoto || DEFAULT_IMAGE }} style={styles.profileImg} />
+                            <TouchableOpacity style={styles.cameraIcon} onPress={async () => {
+                                const result = await ImagePicker.launchCameraAsync({ quality: 0.7, allowsEditing: true });
+                                if (!result.canceled) setPlantPhoto(result.assets[0].uri);
+                            }}>
+                                <Ionicons name="camera" size={18} color="#FFF" />
                             </TouchableOpacity>
-
-                            <Text style={styles.headerLabel}>Edit Plant</Text>
-                            
-                            <TouchableOpacity onPress={handleUpdate} style={styles.saveBtn} disabled={loading}>
-                                {loading ? <ActivityIndicator size="small" color="#FFF" /> : <Text style={styles.saveBtnText}>Save</Text>}
-                            </TouchableOpacity>
-                        </SafeAreaView>
-
-                        {/* plant image and camera */}
-                        <View style={styles.imageWrapper}>
-                            <View style={styles.imageShadow}>
-                                <Image source={{ uri: plantPhoto || DEFAULT_IMAGE }} style={styles.plantImg} />
-                                <TouchableOpacity style={styles.camBadge} onPress={async () => {
-                                    const result = await ImagePicker.launchCameraAsync({ quality: 0.7, allowsEditing: true });
-                                    if (!result.canceled) setPlantPhoto(result.assets[0].uri);
-                                }}>
-                                    <Ionicons name="camera" size={20} color="#FFF" />
-                                </TouchableOpacity>
-                            </View>
                         </View>
                     </View>
+                </View>
 
-                    {/* input fields */}
-                    <View style={styles.formContainer}>
-                        <View style={styles.inputGroup}>
-                            <Text style={styles.inputLabel}>Display Name</Text>
+                {/* input fields */}
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+                    <View style={styles.formCard}>
+                        {/* Name Input */}
+                        <View style={styles.mainInputGroup}>
+                            <Text style={styles.label}>Plant Name</Text>
                             <TextInput 
-                                style={styles.mainInput} 
+                                style={styles.nameInput} 
                                 value={plantName} 
                                 onChangeText={setPlantName} 
-                                placeholder="e.g. Monstera Deliciosa" 
+                                placeholder="E.g. Monstera" 
                                 placeholderTextColor="#C0C0C0"
                             />
                         </View>
 
-                        <View style={styles.pillRow}>
-                            <View style={styles.pillInputBox}>
+                        {/* Split Inputs */}
+                        <View style={styles.splitRow}>
+                            <View style={styles.pillInput}>
                                 <Ionicons name="leaf-outline" size={16} color="#1A3C3480" />
+
                                 <TextInput 
-                                    style={styles.smallInput} 
+                                    style={styles.flexInput} 
                                     value={plantType} 
                                     onChangeText={setPlantType} 
                                     placeholder="Species" 
                                 />
                             </View>
-
-                            <View style={styles.pillInputBox}>
+                            <View style={styles.pillInput}>
                                 <Ionicons name="location-outline" size={16} color="#1A3C3480" />
+
                                 <TextInput 
-                                    style={styles.smallInput} 
+                                    style={styles.flexInput} 
                                     value={location} 
                                     onChangeText={setLocation} 
                                     placeholder="Location" 
@@ -254,37 +305,20 @@ const EditPlantModal = () => {
                             </View>
                         </View>
 
-                        {/* care schedule */}
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionTitle}>Care Schedule</Text>
-                            <Text style={styles.sectionSubtitle}>Tap to configure details</Text>
+                        <Text style={styles.subHeading}>Care Schedule</Text>
+                        
+                        {/* Care Rows */}
+                        <View style={styles.careContainer}>
+                            {(Object.keys(careConfigs) as CareType[]).map(type => (
+                                <CareRow key={type} type={type} />
+                            ))}
                         </View>
-
-                        {/* generate the list of Care Rows */}
-                        {(Object.keys(careConfigs) as CareType[]).map(type => (
-                            <CareRow key={type} type={type} />
-                        ))}
-
-                        {/* delete btn */}
-                        <TouchableOpacity 
-                            style={styles.deleteBtn} 
-                            onPress={() => {
-                                Alert.alert("Remove Plant", "This will permanently delete this plant's history.", [
-                                { text: "Cancel", style: "cancel" },
-                                { text: "Delete", style: "destructive", 
-                                    onPress: () => { removePlant(id); router.back(); } }
-                                ]);
-                            }}>
-                            
-                            <Ionicons name="trash-outline" size={18} color="#FF5252" />
-                            <Text style={styles.deleteText}>Delete Plant Profile</Text>
-                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
 
             {/* configuration modal */}
-            {isModalVisible && activeCare && careConfigs[activeCare] && (
+            {isModalVisible && activeCare && (
                 <CareSetupModal
                     visible={isModalVisible}
                     onClose={() => setIsModalVisible(false)}
@@ -307,156 +341,116 @@ const EditPlantModal = () => {
 
 
 const styles = StyleSheet.create({
-
-    container: { flex: 1, backgroundColor: "#FBFCFB" },
-    scrollContent: { paddingBottom: 60 },
-
-    headerBackground: { 
-        backgroundColor: "#F2F5F2", 
-        paddingBottom: 40, 
-        borderBottomLeftRadius: 40, 
-        borderBottomRightRadius: 40 
+    container: { flex: 1, backgroundColor: "#FFF" },
+    headerContainer: { height: 230, width: '100%', alignItems: 'center' },
+    curvedBg: {
+        position: 'absolute',
+        top: -height * 0.1,
+        width: width * 1.5,
+        height: height * 0.4,
+        backgroundColor: '#E8F0E8',
+        borderRadius: width,
+        transform: [{ scaleX: 1.2 }]
     },
-    topBar: { 
-        flexDirection: "row", 
-        justifyContent: "space-between", 
-        alignItems: "center", 
+    navRow: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         paddingHorizontal: 20,
-        paddingTop: Platform.OS === "android" ? 15 : 0
+        paddingTop: 10,
     },
-    roundBtn: { 
-        backgroundColor: "#FFF", 
-        padding: 8, 
-        borderRadius: 20 
+    circleBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center' },
+    navTitle: { fontSize: 16, fontWeight: '800', color: '#1A3C34', textTransform: 'uppercase', letterSpacing: 1 },
+    saveBtn: { backgroundColor: '#FFF', paddingHorizontal: 15, paddingVertical: 8, borderRadius: 15, borderWidth: 1, borderColor: '#1A3C3420' },
+    doneBtnText: { color: '#1A3C34', fontWeight: '700' },
+    
+    imageWrapper: { marginTop: 25 },
+    imageBorder: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        borderWidth: 5,
+        borderColor: '#FFF',
+        backgroundColor: '#FFF',
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
     },
-    headerLabel: { 
-        fontWeight: "800", 
-        color: "#1A3C34", 
-        textTransform: "uppercase", 
-        fontSize: 12, 
-        letterSpacing: 1.2 
-    },
-    saveBtn: { 
-        backgroundColor: "#1A3C34", 
-        paddingHorizontal: 20, 
-        paddingVertical: 10, 
-        borderRadius: 12 
-    },
-    saveBtnText: { 
-        color: "#FFF", 
-        fontWeight: "700", 
-        fontSize: 14 
-    },
-
-    imageWrapper: { alignItems: "center", marginTop: 20 },
-
-    imageShadow: {
-        width: 160, 
-        height: 160, 
-        borderRadius: 80,
-        backgroundColor: "#FFF", 
-        elevation: 15
-    },
-    plantImg: { 
-        width: "100%", 
-        height: "100%", 
-        borderRadius: 80, 
-        borderWidth: 4, 
-        borderColor: "#FFF" 
-    },
-    camBadge: { 
-        position: "absolute", 
-        bottom: 0, 
-        right: 0, 
-        backgroundColor: "#1A3C34", 
-        padding: 10, 
-        borderRadius: 20, 
-        borderWidth: 4, 
-        borderColor: "#F2F5F2" 
+    profileImg: { width: '100%', height: '100%', borderRadius: 60 },
+    cameraIcon: {
+        position: 'absolute',
+        bottom: 5,
+        right: 5,
+        backgroundColor: '#1A3C34',
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#FFF',
     },
 
-    formContainer: { paddingHorizontal: 24, marginTop: 25 },
-    inputGroup: { marginBottom: 20 },
-
-    inputLabel: { 
-        fontSize: 11, 
-        fontWeight: "800", 
-        color: "#1A3C3460", 
-        textTransform: "uppercase", 
-        marginBottom: 8, 
-        marginLeft: 4 
-    },
-    mainInput: { 
-        fontSize: 20, 
-        fontWeight: "700", 
-        color: "#1A3C34", 
-        backgroundColor: "#FFF", 
-        borderRadius: 16, 
-        padding: 16,
-        borderWidth: 1, 
-        borderColor: "#EBECEB"
-    },
-
-    pillRow: { flexDirection: "row", gap: 12, marginBottom: 30 },
-
-    pillInputBox: { 
+    scrollContent: { paddingBottom: 50 },
+    formCard: { paddingHorizontal: 25, marginTop: 40 },
+    mainInputGroup: { marginBottom: 25 },
+    label: { fontSize: 12, fontWeight: '800', color: '#7A8A7A', textTransform: 'uppercase', marginBottom: 10 },
+    nameInput: { fontSize: 26, fontWeight: '700', color: '#1A3C34', borderBottomWidth: 2, borderBottomColor: '#E8F0E8', paddingBottom: 5 },
+    
+    splitRow: { flexDirection: 'row', gap: 15, marginBottom: 35 },
+    pillInput: { 
         flex: 1, 
-        flexDirection: "row", 
-        alignItems: "center", 
-        backgroundColor: "#FFF", 
-        borderRadius: 14, 
-        paddingHorizontal: 15, 
-        height: 50, 
-        borderWidth: 1, 
-        borderColor: "#EBECEB", 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        backgroundColor: '#F9FAF9', 
+        paddingHorizontal: 12, 
+        height: 45, 
+        borderRadius: 12,
         gap: 8
     },
-
-    smallInput: { fontWeight: "600", color: "#1A3C34", flex: 1, fontSize: 14 },
-    sectionHeader: { marginBottom: 15 },
-    sectionTitle: { fontSize: 18, fontWeight: "800", color: '#1A3C34' },
-    sectionSubtitle: { fontSize: 12, color: '#1A3C3450', fontWeight: "600" },
-
-    deleteBtn: { 
-        marginTop: 35, 
-        flexDirection: "row", 
-        alignItems: "center", 
-        justifyContent: "center", 
-        gap: 10, 
-        padding: 18, 
-        borderRadius: 18, 
-        backgroundColor: "#FFF", 
-        borderWidth: 1, 
-        borderColor: "#FFE5E5" 
+    flexInput: { flex: 1, fontSize: 14, fontWeight: '600', color: '#1A3C34' },
+    
+    subHeading: { fontSize: 18, fontWeight: '800', color: '#1A3C34', marginBottom: 20 },
+    careContainer: { backgroundColor: '#FDFDFD' },
+    careRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#F0F0F0',
     },
+    careIconBox: { width: 40, height: 40, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginRight: 15 },
+    careInfo: { flex: 1 },
+    careTitle: { fontSize: 15, fontWeight: '700', color: '#1A3C34' },
+    careStatus: { fontSize: 12, color: '#7A8A7A', marginTop: 2 },
+    
+    deleteLink: { marginTop: 40, alignItems: 'center' },
+    deleteText: { color: '#FF5252', fontWeight: '600', opacity: 0.6 },
 
-    deleteText: { color: "#FF5252", fontWeight: "700", fontSize: 14 },
-
-    careRow: { 
-        flexDirection: "row", 
-        alignItems: "center", 
-        backgroundColor: "#FFF", 
-        padding: 12, 
-        borderRadius: 20, 
-        marginBottom: 12, 
-        borderWidth: 1, 
-        borderColor: "#F0F0F0"
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject, 
+        backgroundColor: "rgba(253, 253, 251, 0.92)", 
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000, 
     },
-
-    careRowEnabled: { borderColor: "#E0E8E0", backgroundColor: "#F9FCF9" },
-
-    careIconContainer: { 
-        width: 48, 
-        height: 48, 
-        borderRadius: 14, 
-        justifyContent: "center", 
-        alignItems: "center", 
-        marginRight: 16 
+    loadingText: {
+        marginTop: 20,
+        color: "#1A3C34",
+        fontWeight: "800",
+        fontSize: 18,
+        letterSpacing: 1,
+        textTransform: 'uppercase'
     },
-
-    careTextContainer: { flex: 1 },
-    careTitle: { fontWeight: "700", fontSize: 16, color: "#1A3C34" },
-    careSubtitle: { fontSize: 13, color: "#8E918E", marginTop: 2 },
+    loadingSubText: {
+        marginTop: 5,
+        color: "#3d5a2d",
+        fontSize: 12,
+        fontWeight: "500",
+        opacity: 0.7
+    }
 
 });
 

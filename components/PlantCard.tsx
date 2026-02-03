@@ -4,10 +4,10 @@ import { useRouter } from "expo-router";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 
 
-interface PlantCardProps {
-    item: Plant
-};
 
+interface PlantCardProps {
+    item: Plant;
+}
 
 const DEFAULT_PLANT_IMAGE = "https://i.pinimg.com/1200x/9b/77/f6/9b77f61cdb7dffbd979b1d7b02cfa937.jpg";
 
@@ -15,37 +15,47 @@ const DEFAULT_PLANT_IMAGE = "https://i.pinimg.com/1200x/9b/77/f6/9b77f61cdb7dffb
 const PlantCard = ({ item }: PlantCardProps) => {
     const router = useRouter();
 
-    // render small status icons 
     const renderCareBadges = () => {
         const schedules = item.careSchedules;
-
         if (!schedules) return null;
 
         const activeSchedules = [
             { key: 'watering', val: schedules.watering, icon: 'water', color: '#4A90E2', bg: '#E1F5FE', unit: 'd' },
+            { key: 'light', val: schedules.light, icon: 'sunny', color: '#FBC02D', bg: '#FFF9C4', unit: 'h' },
+            { key: 'temp', val: schedules.temp, icon: 'thermometer', color: '#FF7043', bg: '#FBE9E7', unit: '°' },
             { key: 'fertilize', val: schedules.fertilize, icon: 'leaf', color: '#4CAF50', bg: '#E8F5E9', unit: 'w', isMaterial: true },
-            { key: 'repot', val: schedules.report, icon: 'shovel', color: '#795548', bg: '#EFEBE9', unit: 'm', isMaterial: true },
+            { key: 'report', val: schedules.report, icon: 'shovel', color: '#795548', bg: '#EFEBE9', unit: 'm', isMaterial: true },
         ];
 
 
+        // filter out only active care schedules
+        const visible = activeSchedules.filter(
+            c => c.val && typeof c.val.interval === "number" && c.val.interval > 0
+        );
+
+
+        // if no active schedules are found, show an empty-state message
+        if (visible.length === 0) {
+            return (
+                <Text style={{ fontSize: 10, color: "#C0C8C0", fontWeight: "700" }}>
+                    No schedules
+                </Text>
+            );
+        }
+
+        
         return (
             <View style={styles.badgeRow}>
-                {activeSchedules.map((care) => {
-
-                    // only show a badge if an interval (frequency) is actually set
+                {visible.map((care) => {
                     if (!care.val || !care.val.interval) return null;
 
                     return (
-                        <View 
-                            key={care.key} 
-                            style={[styles.careBadge, { backgroundColor: care.bg }]}>
-
+                        <View key={care.key} style={[styles.careBadge, { backgroundColor: care.bg }]}>
                             {care.isMaterial ? (
                                 <MaterialCommunityIcons name={care.icon as any} size={12} color={care.color} />
                             ) : (
                                 <Ionicons name={care.icon as any} size={12} color={care.color} />
                             )}
-
                             <Text style={[styles.badgeText, { color: care.color }]}>
                                 {care.val.interval}{care.unit}
                             </Text>
@@ -58,56 +68,71 @@ const PlantCard = ({ item }: PlantCardProps) => {
 
 
     return (
-        <TouchableOpacity
-            activeOpacity={0.95}
-            style={styles.cardWrapper}>
-
-            {/* image & location */}
-            <View style={styles.imageContainer}>
-                <Image source={{ uri: item.photo || DEFAULT_PLANT_IMAGE }} style={styles.cardImage} />
-
-                <View style={styles.locationPill}>
-                    <Text style={styles.locationText}>{item.location || "Indoor"}</Text>
+        <View style={styles.cardWrapper}>
+            {/* Image Section - 3 Corner Arch with Front Overlay Border */}
+            <View style={styles.imageSectionWrapper}>
+                <View style={styles.imageArchContainer}>
+                    <Image source={{ uri: item.photo || DEFAULT_PLANT_IMAGE }} style={styles.cardImage} />
                 </View>
+
+                {/* front overlay border */}
+                <View style={styles.floatingBorderOverlay} pointerEvents="none" />
             </View>
 
-            {/* deatils */}
+            {/* Details Section */}
             <View style={styles.detailsContainer}>
 
-                {/* plant type */}
-                <View style={styles.topRow}>
-                    <Text style={styles.plantType} numberOfLines={1}>{item.type || "Houseplant"}</Text>
-                    <Ionicons name="ellipsis-horizontal" size={16} color="#BCC6BC" />
-                </View>
+                {/* Upper Section */}
+                <View>
+                    <View style={styles.topRow}>
+                        
+                        {/* plant type*/}
+                        <View style={styles.typeBadge}>
+                            <Ionicons name="pricetag" size={8} color="#2D5A27" style={{ marginRight: 4 }} />
+                            <Text style={styles.plantType} numberOfLines={1}>
+                                {item.type || "Houseplant"}
+                            </Text>
+                        </View>
+                        <Ionicons name="ellipsis-vertical" size={16} color="#CBD5CB" />
+                    </View>
 
-                <Text style={styles.plantName} numberOfLines={1}>{item.name}</Text>
+                    {/* plant name*/}
+                    <Text style={styles.plantName} numberOfLines={2}>{`" ${item.name} "`}</Text>
+
+                    {/* location row */}
+                    <View style={styles.locationRow}>
+                        <View style={styles.iconCircle}>
+                            <Ionicons name="leaf" size={10} color="#FFF" />
+                        </View>
+                        <Text style={styles.locationText}>{item.location || "Indoor Garden"}</Text>
+                    </View>
+                </View>
 
                 <View style={styles.spacer} />
 
-                {/* footer */}
+                {/* Footer Section */}
                 <View style={styles.footer}>
                     <View style={styles.badgeColumn}>
                         <Text style={styles.scheduleLabel}>Schedules</Text>
-                            {renderCareBadges()}
+                        {renderCareBadges()}
                     </View>
 
-                    {/* action btn open details modal */}
-                    <View style={styles.goAction}>
-                        <Ionicons 
-                            name="chevron-forward" 
-                            size={16} 
-                            color="#1A3C34"
-                            onPress={() =>
-                                router.push({
-                                    pathname: "/(modals)/plant-details",
-                                    params: { id: item.id },
-                                })
-                            } 
-                        />
-                    </View>
+                    <TouchableOpacity 
+                        activeOpacity={0.7}
+                        style={styles.goAction}
+                        onPress={() => 
+                            router.push({ 
+                                pathname: "/(modals)/plant-details", 
+                                params: { id: item.id } 
+                            })
+                        }>
+                    
+                        {/* arrow in the card */}
+                        <Ionicons name="arrow-down-right-box" size={18} color="#2E6B46" />
+                    </TouchableOpacity>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 };
 
@@ -116,106 +141,151 @@ const styles = StyleSheet.create({
 
     cardWrapper: {
         flexDirection: "row",
-        backgroundColor: "#FFF",
-        borderRadius: 24,
+        backgroundColor: "#FBFBF9", 
+        borderRadius: 28,
         marginBottom: 20,
-        padding: 12,
-        elevation: 4
+        padding: 10,
+        alignItems: 'center',
+        borderBottomWidth: 4,
+        borderBottomColor: "#E0E5E0", 
+        borderRightWidth: 1,
+        borderRightColor: "#E8EBE8",
+        elevation: 5,
     },
-    imageContainer: {
-        width: 110,
-        height: 140,
-        borderRadius: 20,
+    imageSectionWrapper: {
+        width: 125,
+        height: 165,
+        position: 'relative',
+    },
+    imageArchContainer: {
+        width: 130,
+        height: 160,
+        backgroundColor: "#F5F5F3",
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderBottomRightRadius: 50,
+        borderBottomLeftRadius: 0,
         overflow: "hidden",
-        position: "relative"
+        zIndex: 1,
+        marginTop: 5,
+        marginLeft: 10,
+    },
+    floatingBorderOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: 130, 
+        height: 160,
+        borderWidth: 1.2,
+        borderColor: "#2E6B46", 
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderBottomRightRadius: 50,
+        borderBottomLeftRadius: 0,
+        zIndex: 2,
     },
     cardImage: {
         width: "100%",
         height: "100%",
         resizeMode: "cover",
     },
-    locationPill: {
-        position: "absolute",
-        bottom: 8,
-        left: 8,
-        right: 8,
-        backgroundColor: "rgba(255,255,255,0.85)",
-        paddingVertical: 4,
-        borderRadius: 8,
-        alignItems: "center"
-    },
-    locationText: {
-        fontSize: 9,
-        fontWeight: "800",
-        color: "#1A3C34",
-        textTransform: "uppercase"
-    },
+    
     detailsContainer: {
         flex: 1,
-        marginLeft: 16,
+        marginLeft: 30,
         justifyContent: "space-between",
-        paddingVertical: 4,
+        height: 165,
+        paddingVertical: 5,
     },
     topRow: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        marginBottom: 8,
+    },
+    typeBadge: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: "#E8F0E8", 
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 20,
     },
     plantType: {
-        fontSize: 11,
-        fontWeight: "700",
-        color: "#8A9687",
+        fontSize: 9,
+        fontWeight: "800",
+        color: "#2E6B46",
         textTransform: "uppercase",
-        letterSpacing: 1,
+        letterSpacing: 0.5,
     },
     plantName: {
         fontSize: 22,
         fontWeight: "900",
         color: "#1A3C34",
-        marginTop: 4,
+        lineHeight: 26,
+        marginBottom: 6,
+    },
+    locationRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 2,
+    },
+    iconCircle: {
+        width: 18,
+        height: 18,
+        borderRadius: 9,
+        backgroundColor: "#2E6B46", 
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 6,
+    },
+    locationText: {
+        fontSize: 10,
+        fontWeight: "700",
+        color: "#5C735C", 
+        textTransform: "uppercase",
+        letterSpacing: 0.3,
     },
     spacer: {
         height: 1,
-        backgroundColor: "#F5F7F5",
-        marginVertical: 10
+        backgroundColor: "#E8EBE8",
+        width: '40%',
+        marginVertical: 10,
     },
     footer: {
         flexDirection: 'row',
         alignItems: 'flex-end',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     badgeColumn: {
-        flex: 1
+        flex: 1,
     },
     scheduleLabel: {
         fontSize: 9,
         fontWeight: "800",
         color: "#BCC6BC",
         textTransform: "uppercase",
-        marginBottom: 6,
+        marginBottom: 8,
     },
     goAction: {
-        width: 28,
-        height: 28,
-        borderRadius: 14,
-        backgroundColor: '#F0F4F0',
+        width: 34,
+        height: 34,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 10
     },
-            
-    badgeRow: { flexDirection: "row", gap: 6 },
+
+    badgeRow: { flexDirection: "row", flexWrap: 'wrap', gap: 6 },
 
     careBadge: {
         flexDirection: "row",
         alignItems: "center",
-        paddingHorizontal: 8,
-        paddingVertical: 4,
+        paddingHorizontal: 7,
+        paddingVertical: 3,
         borderRadius: 8,
         gap: 4,
     },
 
-    badgeText: { fontSize: 10, fontWeight: "800" }
+    badgeText: { fontSize: 9, fontWeight: "800" }
 
 });
 

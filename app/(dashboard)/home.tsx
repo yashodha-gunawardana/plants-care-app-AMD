@@ -21,30 +21,18 @@ const HAS_SEEN_WELCOME_KEY = "has_seen_welcome";
 
 // White, Green, and Yellow Color Palette
 const COLORS = {
-    // White shades
+
     white: '#FFFFFF',
-    offWhite: '#F8F9FA',
-    cream: '#FEFEF6',
-    paper: '#FAFAFA',
     
-    // Green shades
-    forest: '#1d5837',
-    emerald: '#10B981',
-    sage: '#9DC183',
-    moss: '#8FBC8F',
-    lightGreen: '#E8F5E9',
-    
-    // Yellow shades
-    golden: '#F59E0B',
-    sunshine: '#FFD700',
-    honey: '#FBBF24',
-    lightYellow: '#FFFBEB',
-    
-    // Neutrals
+    forest: '#17402A',
+    lightGreen: '#E8F5E1',
+    golden: '#F4A261',
+    lightYellow: '#FFF4E1',
     charcoal: '#333333',
-    lightGray: '#E5E7EB',
+    lightGray: '#F0F0F0',
     
-    // Status Colors
+    sunshine: '#FFD700',
+    
     success: '#10B981',
     warning: '#F59E0B',
     error: '#EF4444',
@@ -194,424 +182,225 @@ const HomeScreen = () => {
         );
     }
 
+    
     // If first login OR no plants, show welcome screen
     const shouldShowWelcome = isFirstLogin || plants.length === 0;
+
+    const FeatureCard = ({ icon, title, desc, color }: any) => (
+        <View style={[styles.featureCard, { borderColor: color + '40' }]}>
+            <MaterialCommunityIcons name={icon} size={32} color={color} />
+            <Text style={styles.featureCardTitle}>{title}</Text>
+            <Text style={styles.featureCardText}>{desc}</Text>
+        </View>
+    );
 
     return (
         <View style={styles.container}>
             <LinearGradient
-                            colors={["#D6DED9", "#FFFFFF"]}
-                            start={{ x: 0.5, y: 1 }}
-                            end={{ x: 0.5, y: 0 }}
-                            style={styles.container}>
+                colors={["#D6DED9", "#FFFFFF"]}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.container}>
+
             <DashboardHeader />
 
-            <SafeAreaView style={{ flex: 1 }}>
-                <Animated.ScrollView
-                    contentContainerStyle={[
-                        styles.scrollContent,
-                        shouldShowWelcome && styles.welcomeScrollContent
-                    ]}
-                    style={{ opacity: fadeAnim }}
-                    refreshControl={
-                        <RefreshControl 
-                            refreshing={loading}
-                            onRefresh={fetchPlants}
-                            tintColor={COLORS.forest}
-                            colors={[COLORS.forest, COLORS.emerald, COLORS.sage]}
-                        />
-                    }
-                    showsVerticalScrollIndicator={false}>
-                
-                    {shouldShowWelcome ? (
-                        // WELCOME SCREEN FOR FIRST-TIME USERS
-                        <View style={styles.welcomeContainer}>
-
-                            {/* Hero Welcome Section with Gradient Background */}
-                            <View 
-                                style={[
-                                    styles.heroGradient, { 
-                                    backgroundColor: COLORS.forest,
-                                    shadowColor: COLORS.forest 
-                                }]}>
-
-                                <View style={styles.heroContent}>
-                                    <View 
-                                        style={[styles.heroIconCircle, { 
-                                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                                            borderColor: 'rgba(255, 255, 255, 0.3)' 
-                                        }]}>
-
-                                        <MaterialCommunityIcons 
-                                            name="sprout" 
-                                            size={70} 
-                                            color={COLORS.white} 
-                                        />
-                                    </View>
-
-                                    <Text style={styles.heroTitle}>Welcome to PlantCare 🌿</Text>
-                                    <Text style={styles.heroSubtitle}>
-                                        Your journey to becoming a plant parent starts here
-                                    </Text>
-
-                                    <View style={styles.heroPlantsRow}>
-                                        <MaterialCommunityIcons name="flower-tulip" size={30} color={COLORS.white} style={styles.plantIcon} />
-                                        <MaterialCommunityIcons name="cactus" size={30} color={COLORS.white} style={styles.plantIcon} />
-                                        <MaterialCommunityIcons name="leaf" size={30} color={COLORS.white} style={styles.plantIcon} />
-                                        <MaterialCommunityIcons name="tree" size={30} color={COLORS.white} style={styles.plantIcon} />
-                                    </View>
-                                </View>
-                            </View>
-
-                            {/* Welcome Message Card */}
-                            <View 
-                                style={[styles.welcomeMessageCard, { 
-                                    backgroundColor: COLORS.white,
-                                    borderColor: `${COLORS.lightGray}` 
-                                }]}>
-
-                                <Text style={[styles.welcomeMessageTitle, { color: COLORS.forest }]}>Let's grow together! 🌱</Text>
-                                <Text style={[styles.welcomeMessageText, { color: COLORS.charcoal }]}>
-                                    PlantCare helps you track watering schedules, light needs, and growth progress for all your green friends.
-                                </Text>
-                            </View>
-
-                            {/* Quick Start Cards Grid */}
-                            <View style={styles.cardsGrid}>
-                                <Text style={[styles.sectionTitle, { color: COLORS.charcoal }]}>Get Started in 3 Steps</Text>
-                                
-                                {/* Row 1 */}
-                                <View style={styles.cardsRow}>
-                                    <View 
-                                        style={[styles.card, { 
-                                            backgroundColor: COLORS.white,
-                                            borderColor: COLORS.lightGreen
-                                        }]}>
-
-                                        <View style={[styles.cardIconContainer, { backgroundColor: COLORS.lightGreen }]}>
-                                            <Ionicons name="add-circle" size={32} color={COLORS.forest} />
-                                        </View>
-
-                                        <Text style={[styles.cardTitle, { color: COLORS.charcoal }]}>Add Plants</Text>
-                                        <Text style={[styles.cardDescription, { color: COLORS.charcoal }]}>
-                                            Snap photos and add details about your plants
-                                        </Text>
-
-                                        <View style={[styles.cardNumber, { backgroundColor: COLORS.forest }]}>
-                                            <Text style={[styles.cardNumberText, { color: COLORS.white }]}>1</Text>
-                                        </View>
-                                    </View>
-
-                                    <View 
-                                        style={[styles.card, { 
-                                            backgroundColor: COLORS.white,
-                                            borderColor: COLORS.lightYellow
-                                        }]}>
-
-                                        <View style={[styles.cardIconContainer, { backgroundColor: COLORS.lightYellow }]}>
-                                            <MaterialCommunityIcons name="calendar-clock" size={32} color={COLORS.golden} />
-                                        </View>
-
-                                        <Text style={[styles.cardTitle, { color: COLORS.charcoal }]}>Set Schedule</Text>
-                                        <Text style={[styles.cardDescription, { color: COLORS.charcoal }]}>
-                                            Create custom care reminders for each plant
-                                        </Text>
-
-                                        <View style={[styles.cardNumber, { backgroundColor: COLORS.forest }]}>
-                                            <Text style={[styles.cardNumberText, { color: COLORS.white }]}>2</Text>
-                                        </View>
-                                    </View>
-                                </View>
-
-                                {/* Row 2 */}
-                                <View style={styles.cardsRow}>
-                                    <View 
-                                        style={[styles.card, { 
-                                            backgroundColor: COLORS.white,
-                                            borderColor: COLORS.lightGreen
-                                        }]}>
-
-                                        <View style={[styles.cardIconContainer, { backgroundColor: COLORS.lightGreen }]}>
-                                            <Ionicons name="notifications" size={32} color={COLORS.forest} />
-                                        </View>
-
-                                        <Text style={[styles.cardTitle, { color: COLORS.charcoal }]}>Get Reminders</Text>
-                                        <Text style={[styles.cardDescription, { color: COLORS.charcoal }]}>
-                                            Never miss watering or fertilizing days
-                                        </Text>
-
-                                        <View style={[styles.cardNumber, { backgroundColor: COLORS.forest }]}>
-                                            <Text style={[styles.cardNumberText, { color: COLORS.white }]}>3</Text>
-                                        </View>
-                                    </View>
-
-                                    <View 
-                                        style={[styles.card, { 
-                                            backgroundColor: COLORS.white,
-                                            borderColor: COLORS.lightYellow
-                                        }]}>
-
-                                        <View style={[styles.cardIconContainer, { backgroundColor: COLORS.lightYellow }]}>
-                                            <Ionicons name="stats-chart" size={32} color={COLORS.golden} />
-                                        </View>
-
-                                        <Text style={[styles.cardTitle, { color: COLORS.charcoal }]}>Track Progress</Text>
-                                        <Text style={[styles.cardDescription, { color: COLORS.charcoal }]}>
-                                            Monitor growth and health over time
-                                        </Text>
-
-                                        <View style={[styles.cardNumber, { backgroundColor: COLORS.forest }]}>
-                                            <Text style={[styles.cardNumberText, { color: COLORS.white }]}>4</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>
-
-                            {/* Features Showcase */}
-                            <View style={styles.featuresSection}>
-                                <Text style={[styles.sectionTitle, { color: COLORS.charcoal }]}>Why PlantCare?</Text>
-                                
-                                <ScrollView 
-                                    horizontal 
-                                    showsHorizontalScrollIndicator={false}
-                                    style={styles.featuresScroll}
-                                    contentContainerStyle={styles.featuresScrollContent}>
-                                
-                                    <View style={[styles.featureCard, { backgroundColor: COLORS.white, borderColor: COLORS.lightGreen }]}>
-                                        <MaterialCommunityIcons name="water" size={40} color={COLORS.forest} />
-                                        <Text style={[styles.featureCardTitle, { color: COLORS.charcoal }]}>Smart Watering</Text>
-                                        <Text style={[styles.featureCardText, { color: COLORS.charcoal }]}>
-                                            Intelligent schedules based on plant types
-                                        </Text>
-                                    </View>
-
-                                    <View style={[styles.featureCard, { backgroundColor: COLORS.white, borderColor: COLORS.lightYellow }]}>
-                                        <Ionicons name="sunny" size={40} color={COLORS.golden} />
-                                        <Text style={[styles.featureCardTitle, { color: COLORS.charcoal }]}>Light Tracking</Text>
-                                        <Text style={[styles.featureCardText, { color: COLORS.charcoal }]}>
-                                            Optimize light exposure for each plant
-                                        </Text>
-                                    </View>
-
-                                    <View style={[styles.featureCard, { backgroundColor: COLORS.white, borderColor: COLORS.lightGreen }]}>
-                                        <MaterialCommunityIcons name="leaf" size={40} color={COLORS.forest} />
-                                        <Text style={[styles.featureCardTitle, { color: COLORS.charcoal }]}>Health Monitor</Text>
-                                        <Text style={[styles.featureCardText, { color: COLORS.charcoal }]}>
-                                            Early detection of plant issues
-                                        </Text>
-                                    </View>
-
-                                    <View style={[styles.featureCard, { backgroundColor: COLORS.white, borderColor: COLORS.lightYellow }]}>
-                                        <MaterialCommunityIcons name="weather-cloudy" size={40} color={COLORS.golden} />
-                                        <Text style={[styles.featureCardTitle, { color: COLORS.charcoal }]}>Seasonal Tips</Text>
-                                        <Text style={[styles.featureCardText, { color: COLORS.charcoal }]}>
-                                            Care advice for every season
-                                        </Text>
-                                    </View>
-                                </ScrollView>
-                            </View>
-
-                            {/* Call to Action Section */}
-                            <View style={styles.ctaSection}>
-                                <View 
-                                    style={[styles.ctaCard, { 
-                                        backgroundColor: COLORS.white,
-                                        borderColor: COLORS.lightGray
-                                    }]}>
-                                    <Text style={[styles.ctaTitle, { color: COLORS.charcoal }]}>Ready to grow your garden?</Text>
-                                    <Text style={[styles.ctaSubtitle, { color: COLORS.charcoal }]}>
-                                        Join thousands of successful plant parents
-                                    </Text>
-                                    
-                                    <TouchableOpacity 
-                                        style={[styles.primaryCtaButton, { backgroundColor: COLORS.forest }]}
-                                        onPress={() => router.push("/add" as any)}>
-                                    
-                                        <Ionicons name="add-circle" size={28} color={COLORS.white} />
-                                        <Text style={styles.primaryCtaButtonText}>Start Adding Plants</Text>
-                                        <MaterialCommunityIcons name="chevron-right" size={24} color={COLORS.white} />
-                                    </TouchableOpacity>
-                                    
-                                    <View style={styles.secondaryButtons}>
-                                        <TouchableOpacity 
-                                            style={[styles.secondaryCtaButton, { 
-                                                backgroundColor: COLORS.white,
-                                                borderColor: COLORS.forest 
-                                            }]}
-                                            onPress={() => router.push("/discover" as any)}>
-                                        
-                                            <Ionicons name="compass" size={22} color={COLORS.forest} />
-                                            <Text style={[styles.secondaryCtaButtonText, { color: COLORS.forest }]}>Explore Library</Text>
-                                        </TouchableOpacity>
-                                        
-                                        <TouchableOpacity 
-                                            style={[styles.secondaryCtaButton, { 
-                                                backgroundColor: COLORS.white,
-                                                borderColor: COLORS.golden 
-                                            }]}
-                                            onPress={() => router.push("/tips" as any)}>
-                                        
-                                            <Ionicons name="help-circle" size={22} color={COLORS.golden} />
-                                            <Text style={[styles.secondaryCtaButtonText, { color: COLORS.golden }]}>Care Tips</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </View>
-
-                            {/* Community Stats */}
-                            <View style={[styles.statsSection, { backgroundColor: COLORS.white, borderColor: COLORS.lightGray }]}>
-                                <Text style={[styles.statsTitle, { color: COLORS.charcoal }]}>Join Our Growing Community</Text>
-                                
-                                <View style={styles.statsGrid}>
-
-                                    <View style={styles.statItem}>
-                                        <Text style={[styles.statNumber, { color: COLORS.forest }]}>10K+</Text>
-                                        <Text style={[styles.statLabel, { color: COLORS.charcoal }]}>Plants Saved</Text>
-                                    </View>
-
-                                    <View style={[styles.statDivider, { backgroundColor: COLORS.lightGray }]} />
-                                    
-                                    <View style={styles.statItem}>
-                                        <Text style={[styles.statNumber, { color: COLORS.forest }]}>5K+</Text>
-                                        <Text style={[styles.statLabel, { color: COLORS.charcoal }]}>Happy Users</Text>
-                                    </View>
-
-                                    <View style={[styles.statDivider, { backgroundColor: COLORS.lightGray }]} />
-                                    
-                                    <View style={styles.statItem}>
-                                        <Text style={[styles.statNumber, { color: COLORS.forest }]}>98%</Text>
-                                        <Text style={[styles.statLabel, { color: COLORS.charcoal }]}>Success Rate</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            {/* Extra padding at bottom */}
-                            <View style={{ height: 120 }} />
-                        </View>
-                    ) : (
-                        // REGULAR HOME SCREEN FOR USERS WITH PLANTS
-                        <>
-                            {/* garden state */}
-                            <View style={styles.bentoGrid}>
-                                <View style={[styles.bentoMain, { backgroundColor: COLORS.forest }]}>
-                                    <Text style={styles.bentoMainTitle}>Your Garden</Text>
-                                    <Text style={styles.bentoMainSub}>{plants.length} Plants Total</Text>
-                                    <MaterialCommunityIcons name="flower-tulip" size={40} color={COLORS.sunshine} style={styles.bentoIcon} />
-                                </View>
-
-                                {/* watering and light status */}
-                                <View style={styles.bentoCol}>
-                                    {/* watering card Changes color if urgent */}
-                                    <View 
-                                        style={[
-                                            styles.bentoSmall, { 
-                                                backgroundColor: bentoStats.isUrgent ? "#FEF2F2" : COLORS.lightGreen,
-                                                borderColor: bentoStats.isUrgent ? COLORS.error : COLORS.lightGreen
-                                        }]}>
-                                        <Ionicons 
-                                            name={bentoStats.isUrgent ? "warning" : "water"} 
-                                            size={20} 
-                                            color={bentoStats.isUrgent ? COLORS.error : COLORS.forest} 
-                                        />
-                                        <Text 
-                                            style={[styles.bentoSmallText, bentoStats.isUrgent && { 
-                                                color: COLORS.error 
-                                            }, { color: COLORS.charcoal }]}>
-                                            Next: {bentoStats.water}
-                                        </Text>
-                                    </View>
-
-                                    {/* light coverage card */}
-                                    <View style={[styles.bentoSmall, { backgroundColor: COLORS.lightYellow, borderColor: COLORS.lightYellow }]}>
-                                        <Ionicons name="sunny" size={20} color={COLORS.golden} />
-                                        <Text style={[styles.bentoSmallText, { color: COLORS.charcoal }]}>{bentoStats.light} Care</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            {/* list section header */}
-                            <View style={styles.sectionHeader}>
-                                <Text style={[styles.sectionTitle, { color: COLORS.charcoal }]}>Collection</Text>
-                                
-                                {/* sort button */}
-                                <TouchableOpacity style={[styles.filterChip, { 
-                                    backgroundColor: COLORS.white,
-                                    borderColor: COLORS.lightGray 
-                                }]} onPress={handleSortPress}>
-                                    <Ionicons name={sortType === 'alphabetical' ? "text-outline" : "options-outline"} size={16} color={COLORS.forest} />
-                                    <Text style={[styles.filterText, { color: COLORS.forest }]}>{sortType === 'alphabetical' ? 'A-Z' : 'Sort'}</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* render plant cards */}
-                            <View style={styles.collectionWrapper}>
-                                {sortedPlants.map((plant, index) => (
-                                    <View key={plant.id || index.toString()} style={styles.cardMargin}>
-                                        <PlantCard item={plant} />
-                                    </View>
-                                ))}
-                            </View>
-
-                            {/* extra padding at bottom for the FAB */}
-                            <View style={{ height: 100 }} />
-                        </>
-                    )}
-                </Animated.ScrollView>
-            </SafeAreaView>
-
-            {/* Only show draggable FAB if user has plants */}
-            {!shouldShowWelcome && (
-                <Animated.View
-                    {...panResponder.panHandlers}
-                    style={[
-                        styles.draggableFab,
-                        {
-                            transform: pan.getTranslateTransform()
+                <SafeAreaView style={{ flex: 1 }}>
+                    <Animated.ScrollView
+                        contentContainerStyle={[
+                            styles.scrollContent,
+                            shouldShowWelcome && styles.welcomeScrollContent
+                        ]}
+                        style={{ opacity: fadeAnim }}
+                        refreshControl={
+                            <RefreshControl 
+                                refreshing={loading}
+                                onRefresh={fetchPlants}
+                                tintColor={COLORS.forest}
+                                colors={[COLORS.forest]}
+                            />
                         }
-                    ]}>
-                
-                    <TouchableOpacity 
-                        activeOpacity={0.9} 
-                        onPress={() => router.push("/add" as any)}
-                        style={[styles.fabInner, { 
-                            backgroundColor: COLORS.forest,
-                            borderColor: COLORS.sunshine,
-                            shadowColor: COLORS.forest 
-                        }]}>
+                        showsVerticalScrollIndicator={false}>
                     
-                        <Ionicons name="add" size={30} color={COLORS.white} />
-                    </TouchableOpacity>
-                </Animated.View>
-            )}
+                        {shouldShowWelcome ? (
+                            // welcome screen for first time users
+                            <View style={styles.welcomeContainer}>
 
-            {/* Show static FAB for welcome screen */}
-            {shouldShowWelcome && (
-                <TouchableOpacity 
-                    style={[styles.staticFab, { 
-                        backgroundColor: COLORS.forest,
-                        borderColor: COLORS.sunshine,
-                        shadowColor: COLORS.forest 
-                    }]}
-                    activeOpacity={0.9}
-                    onPress={() => router.push("/add" as any)}>
-                
-                    <Ionicons name="add" size={30} color={COLORS.white} />
-                </TouchableOpacity>
-            )}
+                                {/* hero welcome screen */}
+                                <View style={styles.heroCard}>
+                                    <View style={styles.accentCircle} />
+
+                                    <View style={styles.heroContent}>
+                                        <View style={styles.textSection}>
+                                            <Text style={styles.tagline}>HELLO, PLANT PARENT! 👋</Text>
+                                            <Text style={styles.mainTitle}>Let's Build Your{'\n'}Dream Garden</Text>
+                                            <Text style={styles.description}>
+                                                Everything you need to keep your green friends happy and healthy.
+                                            </Text>
+                                        </View>
+
+                                        <TouchableOpacity 
+                                            style={styles.whiteButton} 
+                                            activeOpacity={0.8}
+                                            onPress={() => router.push("/add")}>
+                                        
+                                            <Text style={styles.buttonText}>Start Your Collection</Text>
+                                            <MaterialCommunityIcons name="leaf" size={20} color={COLORS.forest} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                {/* intractive grid steps */}
+                                <View style={styles.cardsGrid}>
+                                    <Text style={styles.sectionTitle}>How it works</Text>
+                                    
+                                    <View style={styles.cardsRow}>
+
+                                        <View style={[styles.card, { borderColor: COLORS.lightGreen }]}>
+
+                                            <View style={[styles.cardIconContainer, { backgroundColor: COLORS.lightGreen }]}>
+                                                <MaterialCommunityIcons name="camera-plus" size={28} color={COLORS.forest} />
+                                            </View>
+
+                                            <Text style={styles.cardTitle}>Identify</Text>
+                                            <Text style={styles.cardDescription}>Snap a photo to identify instantly.</Text>
+                                        </View>
+
+                                        <View style={[styles.card, { borderColor: COLORS.lightYellow }]}>
+
+                                            <View style={[styles.cardIconContainer, { backgroundColor: COLORS.lightYellow }]}>
+                                                <MaterialCommunityIcons name="water-check" size={28} color={COLORS.golden} />
+                                            </View>
+
+                                            <Text style={styles.cardTitle}>Care Guide</Text>
+                                            <Text style={styles.cardDescription}>Get custom watering schedules.</Text>
+                                        </View>
+                                    </View>
+                                </View>
+
+                                {/* features showcase */}
+                                <View style={styles.featuresSection}>
+                                    <Text style={styles.sectionTitle}>Everything you need</Text>
+                                    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingRight: 20 }}>
+                                        <FeatureCard icon="bell-ring" title="Smart Alerts" desc="Never miss a watering" color={COLORS.forest} />
+                                        <FeatureCard icon="hospital-marker" title="Plant Doctor" desc="Diagnose issues" color={COLORS.golden} />
+                                        <FeatureCard icon="book-open-variant" title="Plant Wiki" desc="10k+ Species" color={COLORS.forest} />
+                                    </ScrollView>
+                                </View>
+
+                                {/* community proof */}
+                                <View style={styles.statsSection}>
+                                    <Text style={styles.statsTitle}>Join 5,000+ Plant Lovers</Text>
+                                    <Text style={styles.statLabel}>"The best app for my balcony garden!" - Yashoda G.</Text>
+                                </View>
+
+                                <View style={{ height: 100 }} />
+                            </View>
+                        ) : (
+                            // REGULAR HOME SCREEN FOR USERS WITH PLANTS
+                            <>
+                                {/* garden state */}
+                                <View style={styles.bentoGrid}>
+                                    <View style={[styles.bentoMain, { backgroundColor: COLORS.forest }]}>
+                                        <Text style={styles.bentoMainTitle}>Your Garden</Text>
+                                        <Text style={styles.bentoMainSub}>{plants.length} Plants Total</Text>
+                                        <MaterialCommunityIcons name="flower-tulip" size={40} color={COLORS.sunshine} style={styles.bentoIcon} />
+                                    </View>
+
+                                    {/* watering and light status */}
+                                    <View style={styles.bentoCol}>
+                                        {/* watering card Changes color if urgent */}
+                                        <View 
+                                            style={[
+                                                styles.bentoSmall, { 
+                                                    backgroundColor: bentoStats.isUrgent ? "#FEF2F2" : COLORS.lightGreen,
+                                                    borderColor: bentoStats.isUrgent ? COLORS.error : COLORS.lightGreen
+                                            }]}>
+                                            <Ionicons 
+                                                name={bentoStats.isUrgent ? "warning" : "water"} 
+                                                size={20} 
+                                                color={bentoStats.isUrgent ? COLORS.error : COLORS.forest} 
+                                            />
+                                            <Text 
+                                                style={[styles.bentoSmallText, bentoStats.isUrgent && { 
+                                                    color: COLORS.error 
+                                                }, { color: COLORS.charcoal }]}>
+                                                Next: {bentoStats.water}
+                                            </Text>
+                                        </View>
+
+                                        {/* light coverage card */}
+                                        <View style={[styles.bentoSmall, { backgroundColor: COLORS.lightYellow, borderColor: COLORS.lightYellow }]}>
+                                            <Ionicons name="sunny" size={20} color={COLORS.golden} />
+                                            <Text style={[styles.bentoSmallText, { color: COLORS.charcoal }]}>{bentoStats.light} Care</Text>
+                                        </View>
+                                    </View>
+                                </View>
+
+                                {/* list section header */}
+                                <View style={styles.sectionHeader}>
+                                    <Text style={[styles.sectionTitle, { color: COLORS.charcoal }]}>Collection</Text>
+                                    
+                                    {/* sort button */}
+                                    <TouchableOpacity style={[styles.filterChip, { 
+                                        backgroundColor: COLORS.white,
+                                        borderColor: COLORS.lightGray 
+                                    }]} onPress={handleSortPress}>
+                                        <Ionicons name={sortType === 'alphabetical' ? "text-outline" : "options-outline"} size={16} color={COLORS.forest} />
+                                        <Text style={[styles.filterText, { color: COLORS.forest }]}>{sortType === 'alphabetical' ? 'A-Z' : 'Sort'}</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                {/* render plant cards */}
+                                <View style={styles.collectionWrapper}>
+                                    {sortedPlants.map((plant, index) => (
+                                        <View key={plant.id || index.toString()} style={styles.cardMargin}>
+                                            <PlantCard item={plant} />
+                                        </View>
+                                    ))}
+                                </View>
+
+                                {/* extra padding at bottom for the FAB */}
+                                <View style={{ height: 100 }} />
+                            </>
+                        )}
+                    </Animated.ScrollView>
+                </SafeAreaView>
+
+                {/* Only show draggable FAB if user has plants */}
+                {!shouldShowWelcome && (
+                    <Animated.View
+                        {...panResponder.panHandlers}
+                        style={[
+                            styles.draggableFab,
+                            {
+                                transform: pan.getTranslateTransform()
+                            }
+                        ]}>
+                    
+                        <TouchableOpacity 
+                            activeOpacity={0.9} 
+                            onPress={() => router.push("/add" as any)}
+                            style={[styles.fabInner, { 
+                                backgroundColor: COLORS.forest,
+                                shadowColor: COLORS.forest 
+                            }]}>
+                        
+                            <Ionicons name="add" size={30} color="#C6F062" />
+                        </TouchableOpacity>
+                    </Animated.View>
+                )}
             </LinearGradient>
         </View>
     );
 };
 
+
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#F7F9F7" },
     
     // Loading State
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+
     loadingCircle: {
         width: 120,
         height: 120,
@@ -625,297 +414,98 @@ const styles = StyleSheet.create({
         shadowRadius: 15,
         elevation: 10,
     },
-    loadingText: {
-        fontSize: 18,
-        color: "#FFFFFF",
-        fontWeight: '600',
-        opacity: 0.9,
-    },
+    loadingText: { fontSize: 18, color: "#FFFFFF", fontWeight: '600', opacity: 0.9 },
 
     // Scroll Content
     scrollContent: { paddingHorizontal: 20, paddingTop: 24 },
     welcomeScrollContent: { paddingBottom: 40 },
 
     // Welcome Screen Styles
-    welcomeContainer: {
-        flex: 1,
-    },
+    welcomeContainer: { padding: 20 },
 
-    // Hero Section
-    heroGradient: {
+    heroCard: {
+        backgroundColor: COLORS.forest,
         borderRadius: 28,
-        paddingVertical: 40,
-        paddingHorizontal: 25,
-        marginBottom: 25,
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
-        elevation: 8,
+        padding: 24,
         overflow: 'hidden',
+        elevation: 10,
+        shadowColor: COLORS.forest,
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.3,
+        shadowRadius: 15,
+        marginBottom: 30,
     },
-    heroContent: {
-        alignItems: 'center',
-    },
-    heroIconCircle: {
+    accentCircle: {
+        position: 'absolute',
+        top: -40,
+        right: -40,
         width: 120,
         height: 120,
         borderRadius: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 25,
-        borderWidth: 3,
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
     },
-    heroTitle: {
-        fontSize: 32,
-        fontWeight: '900',
-        color: '#FFFFFF',
-        textAlign: 'center',
-        marginBottom: 12,
-        textShadowColor: 'rgba(0, 0, 0, 0.1)',
-        textShadowOffset: { width: 1, height: 1 },
-        textShadowRadius: 2,
-    },
-    heroSubtitle: {
-        fontSize: 16,
-        color: 'rgba(255, 255, 255, 0.9)',
-        textAlign: 'center',
-        lineHeight: 24,
-        marginBottom: 25,
-        fontWeight: '500',
-    },
-    heroPlantsRow: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        gap: 15,
-    },
-    plantIcon: {
-        opacity: 0.8,
-    },
-
-    // Welcome Message
-    welcomeMessageCard: {
-        borderRadius: 22,
-        padding: 25,
-        marginBottom: 30,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.08,
-        shadowRadius: 10,
-        elevation: 5,
-        borderWidth: 1,
-    },
-    welcomeMessageTitle: {
-        fontSize: 22,
+    heroContent: { zIndex: 1 },
+    textSection: { marginBottom: 20 },
+    tagline: {
+        color: '#A7D7C5',
+        fontSize: 12,
         fontWeight: '800',
-        marginBottom: 12,
+        letterSpacing: 1.2,
+        marginBottom: 8,
     },
-    welcomeMessageText: {
-        fontSize: 15,
-        lineHeight: 22,
-    },
-
-    // Cards Grid
-    cardsGrid: {
-        marginBottom: 35,
-    },
-    cardsRow: {
+    mainTitle: { color: '#FFFFFF', fontSize: 26, fontWeight: 'bold', lineHeight: 32 },
+    description: { color: '#CFE1D9', fontSize: 14, marginTop: 8, lineHeight: 20 },
+    whiteButton: {
+        backgroundColor: '#FFFFFF',
         flexDirection: 'row',
-        gap: 16,
-        marginBottom: 16,
+        paddingVertical: 14,
+        paddingHorizontal: 20,
+        borderRadius: 16,
+        alignItems: 'center',
+        alignSelf: 'flex-start',
     },
+    buttonText: { color: COLORS.forest, fontWeight: 'bold', marginRight: 10 },
+    cardsGrid: { marginBottom: 25 },
+
+    sectionTitle: { fontSize: 18, fontWeight: 'bold', color: COLORS.charcoal, marginBottom: 15 },
+
+    cardsRow: { flexDirection: 'row', justifyContent: 'space-between' },
     card: {
-        flex: 1,
-        borderRadius: 20,
-        padding: 22,
-        minHeight: 160,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 5,
-        position: 'relative',
-        overflow: 'hidden',
-        borderWidth: 2,
+        width: '48%',
+        backgroundColor: '#FFFFFF',
+        padding: 16,
+        borderRadius: 22,
+        borderWidth: 1,
+        borderColor: COLORS.lightGray,
+        elevation: 2,
     },
     cardIconContainer: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 15,
-    },
-    cardTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        marginBottom: 8,
-    },
-    cardDescription: {
-        fontSize: 13,
-        lineHeight: 18,
-    },
-    cardNumber: {
-        position: 'absolute',
-        top: 15,
-        right: 15,
-        width: 28,
-        height: 28,
+        width: 48,
+        height: 48,
         borderRadius: 14,
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 12,
     },
-    cardNumberText: {
-        fontSize: 14,
-        fontWeight: '800',
-    },
+    cardTitle: { fontSize: 15, fontWeight: 'bold', color: COLORS.forest },
+    cardDescription: { fontSize: 11, color: '#666', marginTop: 4, lineHeight: 16 },
 
-    // Features Section
-    featuresSection: {
-        marginBottom: 35,
-    },
-    featuresScroll: {
-        marginTop: 15,
-    },
-    featuresScrollContent: {
-        paddingRight: 20,
-        gap: 16,
-    },
+    featuresSection: { marginBottom: 30 },
     featureCard: {
-        width: 160,
-        borderRadius: 18,
-        padding: 20,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.08,
-        shadowRadius: 6,
-        elevation: 4,
-        borderWidth: 2,
-    },
-    featureCardTitle: {
-        fontSize: 16,
-        fontWeight: '700',
-        marginTop: 12,
-        marginBottom: 8,
-        textAlign: 'center',
-    },
-    featureCardText: {
-        fontSize: 12,
-        textAlign: 'center',
-        lineHeight: 16,
-    },
-
-    // CTA Section
-    ctaSection: {
-        marginBottom: 35,
-    },
-    ctaCard: {
-        borderRadius: 24,
-        padding: 28,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.1,
-        shadowRadius: 12,
-        elevation: 8,
-        borderWidth: 1,
-    },
-    ctaTitle: {
-        fontSize: 24,
-        fontWeight: '800',
-        marginBottom: 8,
-        textAlign: 'center',
-    },
-    ctaSubtitle: {
-        fontSize: 15,
-        textAlign: 'center',
-        marginBottom: 25,
-    },
-    primaryCtaButton: {
-        flexDirection: 'row',
-        borderRadius: 18,
-        padding: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-        shadowColor: '#2E8B57',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
-    },
-    primaryCtaButtonText: {
-        color: '#FFFFFF',
-        fontSize: 18,
-        fontWeight: '700',
-        marginHorizontal: 12,
-    },
-    secondaryButtons: {
-        flexDirection: 'row',
-        gap: 12,
-    },
-    secondaryCtaButton: {
-        flex: 1,
-        flexDirection: 'row',
-        borderRadius: 14,
+        backgroundColor: '#FFFFFF',
+        width: 140,
         padding: 16,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 2,
-    },
-    secondaryCtaButtonText: {
-        fontSize: 15,
-        fontWeight: '600',
-        marginLeft: 8,
-    },
-
-    // Stats Section
-    statsSection: {
+        marginRight: 12,
         borderRadius: 22,
-        padding: 25,
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.05,
-        shadowRadius: 8,
-        elevation: 4,
         borderWidth: 1,
-    },
-    statsTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    statsGrid: {
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
     },
-    statItem: {
-        alignItems: 'center',
-        flex: 1,
-    },
-    statNumber: {
-        fontSize: 28,
-        fontWeight: '800',
-        marginBottom: 4,
-    },
-    statLabel: {
-        fontSize: 12,
-        fontWeight: '600',
-        textAlign: 'center',
-    },
-    statDivider: {
-        width: 1,
-        height: 40,
-    },
+    featureCardTitle: { fontSize: 13, fontWeight: 'bold', color: COLORS.forest, marginTop: 10 },
+    featureCardText: { fontSize: 10, color: '#777', textAlign: 'center', marginTop: 4 },
 
-    // Shared Styles
-    sectionTitle: {
-        fontSize: 22,
-        fontWeight: '800',
-        marginBottom: 15,
-    },
+    statsSection: { backgroundColor: '#EEF5F1', padding: 20, borderRadius: 22, alignItems: 'center' },
+    statsTitle: { fontSize: 15, fontWeight: 'bold', color: COLORS.forest },
+    statLabel: { fontSize: 12, color: '#4A6B59', fontStyle: 'italic', marginTop: 4 },
 
     // Existing Dashboard Styles (unchanged)
     bentoGrid: { flexDirection: "row", gap: 15, marginBottom: 30, height: 140 },
@@ -937,42 +527,29 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         borderWidth: 1,
     },
+
     filterText: { fontSize: 13, fontWeight: "700" },
     collectionWrapper: { flex: 1 },
     cardMargin: { marginBottom: 8 },
 
     // FAB Styles
     draggableFab: { position: "absolute", zIndex: 1000 },
+
     fabInner: { 
         width: 60, 
         height: 60, 
         borderRadius: 30, 
+        backgroundColor: "#1A3C34", 
         justifyContent: "center", 
         alignItems: "center",
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
-        shadowOffset: { width: 0, height: 4 },
+        shadowColor: "#000",
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
         elevation: 8,
-        borderWidth: 3,
-    },
-
-    // Static FAB for welcome screen
-    staticFab: {
-        position: 'absolute',
-        bottom: 30,
-        right: 25,
-        width: 66,
-        height: 66,
-        borderRadius: 33,
-        justifyContent: "center",
-        alignItems: "center",
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
-        shadowOffset: { width: 0, height: 6 },
-        elevation: 10,
-        borderWidth: 3,
-        zIndex: 1000,
+        borderWidth: 2,
+        borderColor: "#C6F062" 
     }
+
 });
 
 export default HomeScreen;

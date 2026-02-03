@@ -182,18 +182,17 @@ const WikiScreen = () => {
 
     return (
         <View style={styles.mainWrapper}>
-            <DashboardHeader />
-
-            <View style={styles.leafOverlay} pointerEvents="none">
-                <Ionicons name="leaf" size={320} color="#3E4D48" style={{ opacity: 0.04 }} />
-            </View>
-
             <LinearGradient
                 colors={["#D6DED9", "#FFFFFF"]}
                 start={{ x: 0.5, y: 1 }}
                 end={{ x: 0.5, y: 0 }}
                 style={styles.mainWrapper}>
-            
+
+            <DashboardHeader />
+
+            <View style={styles.leafOverlay} pointerEvents="none">
+                <Ionicons name="leaf" size={320} color="#3E4D48" style={{ opacity: 0.04 }} />
+            </View>
 
                 <ScrollView style={styles.container} showsHorizontalScrollIndicator={false}>
                     

@@ -28,7 +28,7 @@ const CustomTabBar = ({ state, navigation }: any) => {
                 <Svg viewBox="0 0 400 80" width={width} height={105}>
                     <Path
                         fill="#FFFFFF"
-                        stroke="#C6F062"
+                        stroke="#5DA87A"
                         strokeWidth="0.8"
                         d={`
                         M 0 20 
@@ -129,10 +129,10 @@ const styles = StyleSheet.create({
         top: -35, 
         width: 56,
         height: 56,
-        backgroundColor: '#1A3C34',
+        backgroundColor: '#17402A',
         borderRadius: 50,
         borderWidth: 2,
-        borderColor: '#C6F062',
+        borderColor: '#5DA87A',
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 6,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     tabLabel: {
         fontSize: 10,
         fontWeight: '800',
-        color: '#1A3C34',
+        color: '#17402A',
         textTransform: 'uppercase',
         marginTop: 38,
         letterSpacing: 0.5,

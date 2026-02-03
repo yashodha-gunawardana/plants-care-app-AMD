@@ -310,7 +310,7 @@ const AddPlantScreen = () => {
                 <Switch
                     value={isEnabled}
                     onValueChange={() => toggleCare(type)}
-                    trackColor={{ false: "#fff", true: "#C6F062" }}
+                    trackColor={{ false: "#fff", true: "#5DA87A" }}
                     thumbColor={isEnabled ?"#1A3C34" : "#fff"}>
                 </Switch>
             </View>
@@ -341,7 +341,7 @@ const AddPlantScreen = () => {
                         contentContainerStyle={[styles.scrollContent, {paddingBottom: 180 }]}>
 
                         {/* bg curve */}
-                        <View style={styles.headerCurve} />
+                        {/* <View style={styles.headerCurve} /> */}
 
                         {/* image picker */}
                         <View style={styles.imageContainer}>
@@ -432,16 +432,20 @@ const AddPlantScreen = () => {
                 )}
 
                 {/* save btn */}
-                <View style={styles.sideActionContainer}>
-                    <TouchableOpacity style={styles.verticalBtn} onPress={handleAddPlant} disabled={loading}>
-                    {loading ? (
-                        <ActivityIndicator size="small" color="#1A3C34" />
-                    ) : (
-                        <>
-                            <Ionicons name="add-circle" size={26} color="#1A3C34" />
-                            <Text style={styles.verticalBtnText}>SAVE</Text>
-                        </>
-                    )}
+                <View style={styles.rightCenterContainer}>
+                    <TouchableOpacity 
+                        style={styles.verticalDockButton} 
+                        onPress={handleAddPlant} 
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <ActivityIndicator size="small" color="#1A3C34" />
+                        ) : (
+                            <>
+                                <Ionicons name="leaf" size={22} color="#C6F062" />
+                                <Text style={styles.verticalText}>SAVE</Text>
+                            </>
+                        )}
                     </TouchableOpacity>
                 </View>
             </LinearGradient>
@@ -471,16 +475,26 @@ const styles = StyleSheet.create({
     imageContainer: { alignItems: "center", marginBottom: 30 },
     
     imageCircle: {
-        width: 180,
-        height: 180,
-        borderRadius: 90,
+        width: 190,           
+        height: 190,
+        borderRadius: 95,
         backgroundColor: "#FFF",
         justifyContent: "center",
         alignItems: "center",
-        elevation: 8,
-        shadowColor: "#000",
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
+        
+        
+        borderWidth: 8,
+        borderColor: "rgba(26, 60, 52, 0.05)", 
+        
+        
+        elevation: 12,
+        shadowColor: "#1A3C34",
+        shadowOpacity: 0.15,
+        shadowOffset: { width: 0, height: 8 },
+        shadowRadius: 15,
+        
+        position: 'relative',
+        overflow: 'visible', 
     },
 
     mainImage: { width: "100%", height: "100%", borderRadius: 90 },
@@ -563,27 +577,30 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         opacity: 0.7
     },
-    sideActionContainer: {
+    rightCenterContainer: {
         position: "absolute",
-        right: 0,
-        top: "45%",
-        backgroundColor: "#C6F062",
-        borderTopLeftRadius: 25,
-        borderBottomLeftRadius: 25,
-        elevation: 8,
-        borderWidth: 1,
-        borderColor: "#1A3C34",
+        right: 0,           
+        top: "30%",         
+        zIndex: 20,
     },
-    verticalBtn: {
-        paddingVertical: 18,
-        paddingHorizontal: 10,
+    verticalDockButton: {
+        backgroundColor: "#17402A", 
+        paddingVertical: 20,
+        paddingHorizontal: 12,
+        borderTopLeftRadius: 20,   
+        borderBottomLeftRadius: 20,
         alignItems: "center",
-        gap: 5,
+        gap: 8,
+        elevation: 10,
+        borderWidth: 1,
+        borderRightWidth: 0,        
+        borderColor: "#5DA87A",
     },
-    verticalBtnText: {
-        fontSize: 10,
+    verticalText: {
+        fontSize: 12,
         fontWeight: "900",
-        color: "#1A3C34",
+        color: "#fff",
+        letterSpacing: 1,
     },
 
     careRow: { flexDirection: "row", alignItems: "center", marginBottom: 18 },

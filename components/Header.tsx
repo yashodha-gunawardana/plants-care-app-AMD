@@ -1,351 +1,352 @@
-import { usePathname } from "expo-router"
+import React, { useRef, useState, useEffect } from "react";
 import { 
     View, StyleSheet, TouchableOpacity, Text, Platform, 
-    Modal, ScrollView, Animated, Easing, TextInput 
+    Animated, TextInput, Dimensions, Easing 
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRef, useState } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
-import { useSearch } from "@/context/SearchContext";
-
-const DashboardHeader = () => {
-    // current route path
-    const pathname = usePathname();
-    const [helpVisible, setHelpVisible] = useState(false);
-
-    const { searchQuery, setSearchQuery } = useSearch(); 
-
-    const isHome = pathname.includes("home");
-    const isWiki = pathname.includes("wiki");
-    const isAdd = pathname.includes("add");
-
-    const getHeaderTitle = () => {
-        if (pathname.includes("home"))
-            return "My Garden";
-
-        if (pathname.includes("wiki"))
-            return "Plants Wiki";
-
-        if (pathname.includes("add"))
-            return "Add Plants";
-
-        if (pathname.includes("log"))
-            return "Water Log";
-
-        if (pathname.includes("settings"))
-            return "Settings";
-
-        return "Dashboard";
-    };
+import Svg, { Path, G, Ellipse, Defs, LinearGradient as SvgGrad, Stop, Circle } from "react-native-svg";
+import { usePathname } from "expo-router";
 
 
-    // controls search animation visibility
-    const [searchActive, setSearchActive] = useState(false);
-    const animValue = useRef(new Animated.Value(0)).current;
+const { width } = Dimensions.get("window");
 
-    const handleOpenSearch = () => {
-        setSearchActive(true);
-        Animated.timing(animValue, {
-            toValue: 1,
-            duration: 400,
-            easing: Easing.out(Easing.quad),
-            useNativeDriver: false
 
+const COLORS = {
+    rose: "#B67E7D",
+    sage: "#5DA87A",
+    forest: "#2E6B46",
+    jungle: "#17402A",
+};
+
+
+// animates a decorative vine with leaves and flowers
+const FloweringVine = ({ delay, rotateRange, style, length = 180, isShort = false, searchActive }: any) => {
+
+    // controls vine sway animation
+    const swayAnim = useRef(new Animated.Value(0)).current;
+
+    // controls interaction "bounce"
+    const bounceAnim = useRef(new Animated.Value(0)).current; 
+
+    // vine swaying animation
+    useEffect(() => {
+        Animated.loop(
+            Animated.sequence([
+                Animated.delay(delay),
+                Animated.timing(swayAnim, { 
+                    toValue: 1, 
+                    duration: 3500, 
+                    easing: Easing.inOut(Easing.sin), 
+                    useNativeDriver: true 
+                }),
+                Animated.timing(swayAnim, { 
+                    toValue: 0, 
+                    duration: 3500, 
+                    easing: Easing.inOut(Easing.sin), 
+                    useNativeDriver: true 
+                }),
+            ])
+        ).start();
+    }, []);
+
+
+    // bounce when search is active
+    useEffect(() => {
+        Animated.spring(bounceAnim, {
+            toValue: searchActive ? 1 : 0,
+            friction: 6,
+            useNativeDriver: true,
         }).start();
-    };
+    }, [searchActive]);
 
-    const handleCloseSearch = () => {
-        setSearchQuery("");
-        Animated.timing(animValue, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: false
-
-        }).start(() => {
-            setSearchActive(false);
-        });
-    };
-
-
-    const inputWidth = animValue.interpolate({
+    
+    // interpolates swayAnim to rotate between given degrees
+    const rotate = swayAnim.interpolate({ 
+        inputRange: [0, 1], 
+        outputRange: rotateRange 
+    });
+    
+    // animation for flower viens
+    const translateX = bounceAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, 200]
+        outputRange: [0, style.left < 100 ? -15 : 15]
     });
 
-    const helpItems = [
-        { title: "Plant Name", detail: "Enter the common name (e.g., Peace Lily). Optional: Scientific name for accuracy." },
-        { title: "Photos", detail: "Upload a clear image. Multiple photos help track growth over time." },
-        { title: "Location / Slot", detail: "Where the plant lives (e.g., Living Room, Balcony, Desk)." },
-        { title: "Watering Frequency", detail: "How often you water (e.g., every 7 days). App calculates next watering." },
-        { title: "Last Watered Date", detail: "Optional; helps app generate reminders." },
-        { title: "Light Requirement", detail: "Select Low / Medium / Bright Indirect / Direct. Proper lighting is essential." },
-        { title: "Soil Type / Notes", detail: "Optional, e.g., 'well-draining cactus mix'." },
-        { title: "Care Difficulty", detail: "Easy / Moderate / Hard." },
-        { title: "Fertilizer Schedule", detail: "Optional, e.g., 'Every 4 weeks during growing season'." },
-        { title: "Tags / Categories", detail: "Optional, e.g., indoor, succulent, flowering." },
+
+    // render the vine using SVG shapes
+    return (
+        <Animated.View 
+            style={[
+                styles.vineAnchor, 
+                style, { 
+                    transform: [{ rotate }, 
+                    { translateX }] 
+                }
+            ]}>
+
+            <Svg height={length} width="100" viewBox={`0 0 100 ${length}`}>
+
+                <Defs>
+                     {/* gradient for leaf coloring */}
+                    <SvgGrad id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <Stop offset="0%" stopColor={COLORS.sage} /><Stop offset="100%" stopColor={COLORS.forest} />
+                    </SvgGrad>
+                </Defs>
+
+                {/* main vine path */}
+                <Path 
+                    d={isShort 
+                        ? `M50 0 Q 60 ${length/2} 50 ${length}` 
+                        : `M50 0 Q 75 ${length/2} 50 ${length}`} 
+
+                        stroke={COLORS.jungle} 
+                        strokeWidth="1.2" 
+                        fill="none" 
+                        opacity="0.25" 
+                />
+
+                {/* leaves */}
+                <Ellipse 
+                    cx={getX(0.12)-5} 
+                    cy={length * 0.12} 
+                    rx="6" ry="3" 
+                    fill="url(#leafGrad)" 
+                    transform={`rotate(-15, ${getX(0.12)-5}, ${length * 0.12})`} 
+                />
+
+                <Ellipse 
+                    cx={getX(0.18)+5} 
+                    cy={length * 0.18} 
+                    rx="5" ry="2.5" 
+                    fill={COLORS.jungle} 
+                    transform={`rotate(40, ${getX(0.18)+5}, ${length * 0.18})`} 
+                />
+
+                {/* llowers */}
+                <G transform={`translate(${getX(0.28)}, ${length * 0.28})`}>
+                    <Circle 
+                        cx="-2.5" cy="-2.5" r="2.8" 
+                        fill="white" 
+                        stroke={COLORS.rose} 
+                        strokeWidth="0.3" 
+                    />
+                    <Circle 
+                        cx="2.5" cy="-2.5" r="2.8" 
+                        fill="white" 
+                        stroke={COLORS.rose} 
+                        strokeWidth="0.3" 
+                    />
+                    <Circle cx="0" cy="0" r="1.6" fill={COLORS.rose} />
+                </G>
+
+                {/* more leaves along the vine */}
+                <Ellipse 
+                    cx={getX(0.42)} 
+                    cy={length * 0.42} 
+                    rx="7" ry="3.5" 
+                    fill="url(#leafGrad)" 
+                    transform={`rotate(-20, ${getX(0.42)}, ${length * 0.42})`} 
+                />
+
+                <Ellipse 
+                    cx={getX(0.55)+4} 
+                    cy={length * 0.55} 
+                    rx="6" ry="3" 
+                    fill={COLORS.jungle} 
+                    transform={`rotate(30, ${getX(0.55)+4}, ${length * 0.55})`} 
+                />
+
+                <Ellipse 
+                    cx={getX(0.82)-4} 
+                    cy={length * 0.82} 
+                    rx="7" ry="3.5" 
+                    fill="url(#leafGrad)" 
+                    transform={`rotate(-10, ${getX(0.82)-4}, ${length * 0.82})`} 
+                />
+            </Svg>
+        </Animated.View>
+    );
+
+    // quadratic Bezier function to calculate X for leaves/flowers
+    function getX(t: number) {
+        const p0 = 50; const p1 = isShort ? 60 : 75; const p2 = 50;
+        return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
+    }
+};
+
+
+const DashboardHeader = () => {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchActive, setSearchActive] = useState(false);
+    const pathname = usePathname();
+
+    // animation values for header title
+    const titleFade = useRef(new Animated.Value(0)).current;
+    const titleSlide = useRef(new Animated.Value(10)).current;
+
+    const tabs = [
+        { name: "home", icon: "home-outline", title: "Dashboard" },
+        { name: "wiki", icon: "book-outline", title: "Plants Wiki" },
+        { name: "add", icon: "add-circle-outline", title: "Add Plants" },
+        { name: "log", icon: "leaf-outline", title: "Water Log" },
+        { name: "settings", icon: "settings-outline", title: "Settings" }
     ];
+
+    // determines header title based on current route
+    const getHeaderTitle = (path: string) => {
+        if (path === "/" || path === "/index") return "Gardino";
+
+        // get last segment of the path
+        const lastSegment = path.split("/").filter(Boolean).pop() || "home";
+
+        // find a matching tab by name
+        const matchedTab = tabs.find(tab => tab.name.toLowerCase() === lastSegment.toLowerCase());
+        if (matchedTab) return matchedTab.title;
+
+        return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+    };
+
+
+    // animate header title whenever route changes
+    useEffect(() => {
+        titleFade.setValue(0); titleSlide.setValue(10);
+        Animated.parallel([
+            Animated.timing(titleFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+            Animated.spring(titleSlide, { toValue: 0, friction: 8, tension: 40, useNativeDriver: true })
+        ]).start();
+    }, [pathname]);
 
 
     return (
-        <View style={styles.container}>
-            <LinearGradient
-                colors={["#E8F2E6", "#F9FCF8", "#FFFFFF"]} 
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.gradientBg}>
+        <View style={styles.master}>
+            <View style={styles.floatingCard}>
 
-                <View style={styles.sunGlow} />
-
-                <View style={styles.contentRow}>
-                    {/* title */}
-                    <View style={styles.titleContainer}>
-                        <View style={styles.verticalAccent} />
-                        <View>
-                            <Text style={styles.brandTag}>GARDINO CARE</Text>
-                            <Text style={styles.screenTitle}>{getHeaderTitle()}</Text>
-                        </View>
-                    </View>
-
-                    {/* button and icons */}
-                    <View style={styles.actionCluster}>
-                        {(isHome || isWiki) && (
-                            <View style={styles.searchWrapper}>
-                                {!searchActive ? (
-                                    <TouchableOpacity onPress={handleOpenSearch} style={styles.iconCircle}>
-                                        <Ionicons name="search-outline" size={22} color="#1A3C34" />
-                                    </TouchableOpacity>
-                                ) : (
-                                    <Animated.View style={[styles.inputContainer, { width: inputWidth }]}>
-                                        <TextInput
-                                            style={styles.searchInput}
-                                            placeholder="Search..."
-                                            placeholderTextColor="#8A9687"
-                                            value={searchQuery}
-                                            onChangeText={setSearchQuery}
-                                            autoFocus
-                                        />
-                                        <TouchableOpacity onPress={handleCloseSearch} style={styles.closeBtn}>
-                                            <Ionicons name="close-circle" size={18} color="#1A3C34" />
-                                        </TouchableOpacity>
-                                    </Animated.View>
-                                )}
-                            </View>
-                        )}
-
-                        {/* help icon */}
-                        {!searchActive && (
-                            <>
-                                {isAdd && (
-                                    <TouchableOpacity 
-                                        style={styles.helpPill} 
-                                        onPress={() => setHelpVisible(true)}>
-
-                                        <Ionicons name="help-circle-outline" size={20} color="#FFFFFF" />
-                                        <Text style={styles.helpText}>GUIDE</Text>
-                                    </TouchableOpacity>
-                                )}
-
-                                {/* notification icon */}
-                                <TouchableOpacity style={styles.iconCircle}>
-                                    <Ionicons name="notifications-outline" size={22} color="#1A3C34" />
-                                    <View style={styles.redIndicator} />
-                                </TouchableOpacity>
-                            </>
-                        )}
-                    </View>
-                </View>
-            </LinearGradient>
-
-            {/* help modal */}
-            <Modal animationType="fade" transparent={true} visible={helpVisible}>
-                <View style={styles.modalOverlay}>
-                    <BlurView 
-                        intensity={40}       
-                        tint="dark"          
-                        style={StyleSheet.absoluteFill} 
+                 {/* decorative vines */}
+                <View style={styles.vineLayer} pointerEvents="none">
+                    <FloweringVine 
+                        searchActive={searchActive} 
+                        delay={0} 
+                        rotateRange={["-2deg", "2deg"]} 
+                        style={{ left: 10 }} 
+                        length={230} 
                     />
 
-                    <View style={styles.modalSheet}>
-                        <View style={styles.dragBar} />
+                    <FloweringVine 
+                        searchActive={searchActive} 
+                        delay={1200} 
+                        rotateRange={["-1.5deg", "1.5deg"]} 
+                        style={{ left: width / 2 - 50 }} 
+                        length={90} isShort 
+                    />
 
-                        <Text style={styles.modalHeading}>Add Plant Guide</Text>
-                        <Text style={styles.modalSub}>Follow these steps to add your plant correctly:</Text>
-
-                        <ScrollView 
-                            showsVerticalScrollIndicator={false} // Hides default scrollbar
-                            style={styles.scrollArea}>
-
-                            {helpItems.map((item, index) => (
-                                <View key={index} style={styles.infoRow}>
-                        
-                                    <View style={styles.iconBox}>
-                                        <Ionicons 
-                                            name="checkmark-circle" 
-                                            size={20} 
-                                            color="#C6F062" 
-                                        />
-                                    </View>
-
-                                    <View style={styles.textColumn}>
-                                        <Text style={styles.infoTitle}>{item.title}</Text>
-                                        <Text style={styles.infoDetail}>{item.detail}</Text>
-                                    </View>
-                                </View>
-                            ))}
-                        </ScrollView>
-
-                        {/* button */}
-                        <TouchableOpacity 
-                            style={styles.confirmBtn} 
-                            onPress={() => setHelpVisible(false)}>
-
-                            <Text style={styles.confirmBtnText}>READY TO PLANT</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <FloweringVine 
+                        searchActive={searchActive} 
+                        delay={600} 
+                        rotateRange={["2deg", "-2deg"]} 
+                        style={{ right: 10 }} 
+                        length={210} 
+                    />
                 </View>
-            </Modal>
+
+                <View style={styles.inner}>
+                    {!searchActive ? (
+                        <View style={styles.row}>
+                            <View>
+                                <Text style={styles.estText}>EST. 2026</Text>
+
+                                <Animated.Text 
+                                    key={pathname} 
+                                    style={[styles.brand, { 
+                                        opacity: titleFade, 
+                                        transform: [{ translateY: titleSlide }] 
+                                    }]}>
+
+                                    {getHeaderTitle(pathname)}
+                                </Animated.Text>
+                            </View>
+
+                             {/* search and notification buttons */}
+                            <View style={styles.btnBox}>
+                                <TouchableOpacity onPress={() => setSearchActive(true)} style={styles.iconBtn}>
+                                    <Ionicons name="search" size={20} color={COLORS.jungle} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.iconBtn}>
+                                    <Ionicons name="notifications-outline" size={20} color={COLORS.jungle} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                    ) : (
+                         // search input when search is active
+                        <Animated.View style={[styles.searchBox, { opacity: titleFade }]}>
+                            <BlurView intensity={20} style={styles.pill}>
+
+                                <TextInput 
+                                    style={styles.input} 
+                                    placeholder="Search plants..." 
+                                    value={searchQuery} 
+                                    onChangeText={setSearchQuery} 
+                                    autoFocus 
+                                    placeholderTextColor={COLORS.forest} 
+                                />
+
+                                <TouchableOpacity onPress={() => setSearchActive(false)}>
+                                    <Ionicons name="close-circle" size={24} color={COLORS.jungle} style={{ marginRight: 15 }} />
+                                </TouchableOpacity>
+                            </BlurView>
+                        </Animated.View>
+                    )}
+                </View>
+            </View>
         </View>
     );
 };
 
-
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "#FFF",
+
+    master: {
+        paddingTop: Platform.OS === "ios" ? 50 : 10,
+        paddingHorizontal: 10,
+        backgroundColor: 'transparent',
+        zIndex: 1000,
+    },
+    floatingCard: {
+        backgroundColor: "#FFFFFF",
+        height: 100,
+        borderRadius: 40,
+        position: "relative",
+        overflow: "visible",
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.05,
-        shadowRadius: 10,
-        elevation: 4,
-    },
-    gradientBg: {
-        width: "100%",
-        paddingTop: Platform.OS === 'android' ? 25 : 0,
-        overflow: "hidden",
-    },
-    sunGlow: {
-        position: "absolute",
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        backgroundColor: "#C6F062",
-        opacity: 0.15,
-        top: -100,
-        right: -50,
-    },
-    contentRow: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 20,
-        paddingVertical: 18,
-    },
-    titleContainer: { flexDirection: "row",  alignItems: "center" },
-    verticalAccent: {
-        width: 4,
-        height: 32,
-        backgroundColor: "#C6F062",
-        borderRadius: 2,
-        marginRight: 12,
-    },
-    brandTag: {
-        fontSize: 10,
-        fontWeight: "800",
-        color: "#8A9687",
-        letterSpacing: 1.8,
-    },
-    screenTitle: {
-        fontSize: 26,
-        fontWeight: "900",
-        color: "#1A3C34",
-        marginTop: -2,
-    },
-    actionCluster: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 12,
-    },
-    iconCircle: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: "rgba(255, 255, 255, 0.6)",
-        justifyContent: "center",
-        alignItems: "center",
+        shadowRadius: 12,
+        elevation: 5,
+        borderColor: "#5DA87A",
         borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.8)",
     },
-    helpPill: {
-        flexDirection: "row",
-        backgroundColor: "#1A3C34",
-        paddingHorizontal: 14,
-        paddingVertical: 8,
-        borderRadius: 20,
-        alignItems: "center",
-        gap: 6,
+
+    inner: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, zIndex: 100 },
+    vineLayer: { position: "absolute", top: -10, left: 0, right: 0, height: 350, zIndex: 1 },
+    vineAnchor: { position: "absolute", top: 0, width: 100 },
+    row: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+    estText: { color: COLORS.forest, fontSize: 10, fontWeight: "700", letterSpacing: 2 },
+    brand: { color: COLORS.jungle, fontSize: 28, fontWeight: "900" },
+    btnBox: { flexDirection: "row", gap: 10 },
+
+    iconBtn: {
+        width: 40, height: 40, borderRadius: 20, backgroundColor: "#F9FBFA",
+        justifyContent: "center", alignItems: "center", borderWidth: 1, borderColor: "#E0E0E0"
     },
-    helpText: { color: "#FFF", fontSize: 12, fontWeight: "900" },
-    redIndicator: {
-        position: "absolute",
-        top: 10,
-        right: 10,
-        width: 7,
-        height: 7,
-        borderRadius: 4,
-        backgroundColor: "#FF6B6B",
-        borderWidth: 1.5,
-        borderColor: "#FFF",
+
+    searchBox: { height: 50, justifyContent: 'center' },
+
+    pill: {
+        flexDirection: "row", alignItems: "center", borderRadius: 20,
+        backgroundColor: "rgba(240, 244, 242, 0.8)",
     },
-    modalOverlay: { flex: 1, justifyContent: "flex-end" },
-    modalSheet: { 
-        backgroundColor: "#1A3C34", 
-        borderTopLeftRadius: 35, 
-        borderTopRightRadius: 35, 
-        padding: 25, 
-        height: "65%",
-    },
-    dragBar: { 
-        width: 40, 
-        height: 4, 
-        backgroundColor: "rgba(255,255,255,0.1)", 
-        alignSelf: "center", 
-        marginBottom: 20 
-    },
-    modalHeading: { color: "#C6F062", fontSize: 24, fontWeight: "900", marginBottom: 5 },
-    modalSub: { color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 25 },
-    scrollArea: { marginBottom: 20 },
-    infoRow: { flexDirection: "row", gap: 16, marginBottom: 25 },
-    iconBox: { 
-        width: 36, 
-        height: 36, 
-        borderRadius: 10, 
-        backgroundColor: "rgba(255,255,255,0.05)", 
-        justifyContent: "center", 
-        alignItems: "center" 
-    },
-    textColumn: { flex: 1 },
-    infoTitle: { color: "#FFF", fontSize: 17, fontWeight: "700", marginBottom: 4 },
-    infoDetail: { color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 20 },
-    confirmBtn: { 
-        backgroundColor: "#C6F062", 
-        paddingVertical: 18, 
-        borderRadius: 15, 
-        alignItems: "center" 
-    },
-    confirmBtnText: { color: "#1A3C34", fontWeight: "900", letterSpacing: 0.5 },
-    searchWrapper: { flexDirection: "row", alignItems: "center", justifyContent: "flex-end" },
-    inputContainer: { 
-        flexDirection: "row", 
-        alignItems: "center", 
-        backgroundColor: "rgba(26, 60, 52, 0.1)", 
-        borderRadius: 20, 
-        overflow: "hidden",
-        borderWidth: 1,
-        borderColor: "rgba(26, 60, 52, 0.05)"
-    },
-    searchInput: { flex: 1, height: 40, paddingHorizontal: 12, color: "#1A3C34", fontSize: 14 },
-    closeBtn: { paddingRight: 8 }
+
+    input: { flex: 1, paddingHorizontal: 20, fontSize: 16, color: COLORS.jungle },
 
 });
 
