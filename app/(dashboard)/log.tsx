@@ -88,6 +88,11 @@ const WateringHistoryScreen = () => {
             ]
         );
     };
+
+
+    const sortedHistory = [...wateringHistory].sort(
+        (a, b) => new Date(b).getTime() - new Date(a).getTime()
+    );
 }
 
 
