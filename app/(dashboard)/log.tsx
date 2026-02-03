@@ -156,6 +156,7 @@ const WateringHistoryScreen = () => {
                                     <Ionicons name="water" size={20} color="#3498DB" />
                                 </View>
 
+                                {/* date and time */}
                                 <View style={styles.dateContainer}>
                                     <Text style={styles.dateText}>
                                         {date.toLocaleDateString('en-US', {
@@ -172,17 +173,19 @@ const WateringHistoryScreen = () => {
                                         })}
                                     </Text>
                                 </View>
+
+                                {/* only one history delete btn */}
+                                <TouchableOpacity
+                                    onPress={() => handleDeleteLog(item)}
+                                    style={styles.deleteIconBtn}>
+
+                                    <Ionicons name="trash-outline" size={20} color="#FFCDD2" />
+                                </TouchableOpacity>
                             </View>
                         );
                     }}>
-
-                    
-
                 </FlatList>
-
-        </LinearGradient>
-            
-
+            </LinearGradient>
         </View>
     );
 };
@@ -247,6 +250,7 @@ const styles = StyleSheet.create({
     dateContainer: { flex: 1 },
     dateText: { fontSize: 16, fontWeight: '700', color: '#1A3C34' },
     timeText: { fontSize: 13, color: '#7A8A7A', marginTop: 2 },
+    deleteIconBtn: { padding: 8, backgroundColor: '#FAFAFA', borderRadius: 10 },
 
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject, 
