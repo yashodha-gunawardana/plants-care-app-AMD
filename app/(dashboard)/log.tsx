@@ -23,7 +23,7 @@ const WateringHistoryScreen = () => {
 
 
     // history handle
-    const HistoryData = useMemo(() => {
+    const historyDataList = useMemo(() => {
         if (plant) {
 
             // history of the single plant
@@ -51,8 +51,18 @@ const WateringHistoryScreen = () => {
             return allLogs;
         }
     }, [plants, plant]);
+
+
+    // sort the newest data comes first
+    const sortedHistory = useMemo(() => {
+        return [...historyDataList].sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
     
+    }, [historyDataList]);
+
     
+
     if (loading) {
         return (
              <View style={styles.loadingOverlay}>
@@ -63,21 +73,11 @@ const WateringHistoryScreen = () => {
         );
     };
 
-    if (!plant) {
-        return (
-            <View style={styles.center}>
-                <Text style={styles.text}>Plant not found 🌱</Text>
-            </View>
-        );
-    };
-
-
-    // get the plants watering history
-    const wateringHistory = plant.wateringHistory ?? [];
-
 
     // delete individual watering history
     const handleDeleteLog = (logDate: string) => {
+        if (!plant) return;
+
         Alert.alert(
             "Delete Record",
             "Are you sure, you want to delete this record?",
@@ -89,7 +89,7 @@ const WateringHistoryScreen = () => {
                     onPress: async () => {
                         
                         // remove the selected date and create new array
-                        const updatedHistory = wateringHistory.filter(item => item !== logDate);
+                        const updatedHistory = (plant.wateringHistory || []).filter(item => item !== logDate);
                         await updatePlantData(plant.id!, { 
                             wateringHistory: updatedHistory 
                         });
@@ -102,9 +102,11 @@ const WateringHistoryScreen = () => {
 
     // delete all watering history
     const handleClearAll = () => {
+        if (!plant) return;
+
         Alert.alert(
             "Clear History",
-            "This will permanently delete all watering logs, Continue?",
+            "This will permanently delete all watering logs?",
             [
                 { text: "Cancel", style: "cancel" },
                 {
@@ -122,11 +124,6 @@ const WateringHistoryScreen = () => {
         );
     };
 
-
-    // sort the newest data comes first
-    const sortedHistory = [...wateringHistory].sort(
-        (a, b) => new Date(b).getTime() - new Date(a).getTime()
-    );
 
 
     return (
@@ -147,12 +144,12 @@ const WateringHistoryScreen = () => {
                         
                         <Ionicons name="arrow-back" size={24} color="#1A3C34" />
 
-                        <Text style={styles.title}>{plant.name}</Text>
+                        <Text style={styles.title}>{plant ? plant.name : "Gardern Log"}</Text>
                     </TouchableOpacity>
                 </View>
 
                 {/* btn clear all */}
-                {wateringHistory.length > 0 && (
+                {plant && (plant.wateringHistory?.length ?? 0) > 0 && (
                     <TouchableOpacity
                         onPress={handleClearAll}
                         style={styles.clearBtn}>
@@ -162,7 +159,10 @@ const WateringHistoryScreen = () => {
                 )}
             </View>
 
-            <Text style={styles.subtitle}>Watering Logs ({wateringHistory.length})</Text>
+            <Text style={styles.subtitle}>{plant 
+                ? `Watering Logs (${plant.wateringHistory?.length || 0})` 
+                : `Total Activities (${sortedHistory.length})`}
+            </Text>
 
             {/* history data list */}
             <FlatList
