@@ -25,6 +25,9 @@ const PlantCard = ({ item }: PlantCardProps) => {
 
     // function for disable water today btn
     const getWateringStatus = () => {
+
+        // check if there is a last water date or schedule, if there is no data, 
+        // the button is set to active
         if (!item.lastWatered || !item.careSchedules?.watering?.interval) {
             return {
                 shouldDisable: false,
@@ -32,6 +35,9 @@ const PlantCard = ({ item }: PlantCardProps) => {
                 color: "#4A90E2"
             };
         }
+
+        const lastWateredDate = new Date(item.lastWatered);
+        const today = new Date();
     }
 
     // check water btn is disabale
