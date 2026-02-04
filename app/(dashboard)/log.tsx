@@ -21,6 +21,7 @@ const WateringHistoryScreen = () => {
     // find the relevant plants using id
     const plant = plants.find(p => p.id === plantId);
 
+    const isTabScreen = !plant;
 
     // history handle
     const historyDataList = useMemo(() => {
@@ -35,7 +36,7 @@ const WateringHistoryScreen = () => {
 
         } else {
 
-            // all plants history
+            // all plants history (log screen)
             let allLogs: any[] = [];
             plants.forEach(p => {
                 if (p.wateringHistory) {
@@ -61,7 +62,33 @@ const WateringHistoryScreen = () => {
     
     }, [historyDataList]);
 
-    
+
+    // create a new array grouped by date from sortedHistory
+    const groupedHistory = useMemo(() => {
+        const groups: Record<string, any[]> = {};
+
+        sortedHistory.forEach(item => {
+            const key = new Date(item.date).toDateString();
+            if (!groups[key]) groups[key] = [];
+            groups[key].push(item);
+        });
+
+        return Object.keys(groups).map(date => ({
+            date,
+            data: groups[date],
+        }));
+        
+    }, [sortedHistory]);
+
+
+    const totalLogsCount = useMemo(() => {
+        return plants.reduce(
+            (sum, p) => sum + (p.wateringHistory?.length || 0),
+            0
+        );
+
+    }, [plants]);
+
 
     if (loading) {
         return (
@@ -75,7 +102,9 @@ const WateringHistoryScreen = () => {
 
 
     // delete individual watering history
-    const handleDeleteLog = (logDate: string) => {
+    const handleDeleteLog = (logDate: string, targetPlantId: string) => {
+
+        const plant = plants.find(p => p.id === targetPlantId);
         if (!plant) return;
 
         Alert.alert(
@@ -90,7 +119,7 @@ const WateringHistoryScreen = () => {
                         
                         // remove the selected date and create new array
                         const updatedHistory = (plant.wateringHistory || []).filter(item => item !== logDate);
-                        await updatePlantData(plant.id!, { 
+                        await updatePlantData(targetPlantId, { 
                             wateringHistory: updatedHistory 
                         });
                     }
@@ -114,10 +143,20 @@ const WateringHistoryScreen = () => {
                     style: "destructive",
                     onPress: async () => {
 
-                        // empty the array and update firestore
-                        await updatePlantData(plant.id!, {
-                            wateringHistory: []
-                        });
+                        if (plant) {
+                            await updatePlantData(plant.id!, {
+                                wateringHistory: [],
+                            });
+
+                        } else {
+                            await Promise.all(
+                                plants.map(p =>
+                                    p.wateringHistory?.length
+                                        ? updatePlantData(p.id!, { wateringHistory: [] })
+                                        : Promise.resolve()
+                                )
+                            );
+                        }
                     }
                 }
             ]
@@ -149,12 +188,11 @@ const WateringHistoryScreen = () => {
                 </View>
 
                 {/* btn clear all */}
-                {plant && (plant.wateringHistory?.length ?? 0) > 0 && (
-                    <TouchableOpacity
-                        onPress={handleClearAll}
-                        style={styles.clearBtn}>
-                            
-                    <Text style={styles.clearBtnText}>Clear All</Text>
+                {((plant && plant.wateringHistory?.length) ||
+                    (!plant && totalLogsCount > 0)) && (
+                        
+                    <TouchableOpacity onPress={handleClearAll} style={styles.clearBtn}>
+                        <Text style={styles.clearBtnText}>Clear All</Text>
                     </TouchableOpacity>
                 )}
             </View>
@@ -166,9 +204,80 @@ const WateringHistoryScreen = () => {
 
             {/* history data list */}
             <FlatList
-                data={sortedHistory}
-                keyExtractor={( item, index) => index.toString()}
+                data={groupedHistory}
+                keyExtractor={( item) => item.date}
                 contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }}
+                    
+                renderItem={({ item: group }) => (
+                    <View>
+                        <Text style={styles.dateHeader}>
+                            {group.date === new Date().toDateString() ? "Today" : group.date}
+                        </Text>
+
+                        {group.data.map((log, index) => {
+                            const logDate = new Date(log.date);
+
+                            const formattedDate = logDate.toLocaleDateString([], {
+                                weekday: 'short', 
+                                month: 'short',   
+                                day: 'numeric',   
+                                year: 'numeric',  
+                            });
+
+                            const formattedTime = logDate.toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true
+                            });
+
+                            return (
+                                <View key={index}>
+                                        
+                                    {/* Timeline Graphic */}
+                                    <View style={styles.timelineLeft}>
+                                        <View style={styles.dot} />
+
+                                        {/* do not show a line after the last log */}
+                                        {index !== group.data.length - 1 && <View style={styles.line} />}
+                                    </View>
+
+                                    <View style={styles.historyCard}>
+                                        <View style={styles.iconCircle}>
+                                            <Ionicons name="water" size={20} color="#3498DB" />
+                                        </View>
+
+                                        {/* date and time */}
+                                        <View style={styles.dateContainer}>
+                                            <Text style={styles.plantNameInLog}>
+                                                {plant ? "Watered" : log.plantName}
+                                            </Text>
+
+                                            <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
+                                                <Ionicons name="calendar-outline" size={14} color="#7A8A7A" />
+                                                <Text style={styles.timeText}>{formattedDate}</Text>
+                                            </View>
+
+                                            <View style={{ flexDirection: 'row', gap: 4, marginTop: 2 }}>
+                                                <Ionicons name="time-outline" size={14} color="#7A8A7A" />
+                                                <Text style={styles.timeText}>{formattedTime}</Text>
+                                            </View>
+                                        </View>
+
+                                        {/* only one history delete btn */}
+                                        <TouchableOpacity
+                                            onPress={() => handleDeleteLog(log.date, log.plantId)}
+                                            style={styles.deleteIconBtn}>
+
+                                            <Ionicons name="trash-outline" size={20} 
+                                                color={plant ? "#FFCDD2" : "#E57373"}
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </View>
+                )}
                     
                 // if no have data, show this 
                 ListEmptyComponent={
@@ -177,45 +286,8 @@ const WateringHistoryScreen = () => {
                         <Text style={styles.emptyText}>No watering records found</Text>
                     </View>
                 }
-                    
-                renderItem={({ item }) => {
-                    const date = new Date(item.date);
-
-                    return (
-                        <View style={styles.historyCard}>
-                            <View style={styles.iconCircle}>
-                                <Ionicons name="water" size={20} color="#3498DB" />
-                            </View>
-
-                            {/* date and time */}
-                            <View style={styles.dateContainer}>
-                                <Text style={styles.dateText}>
-                                    {date.toLocaleDateString('en-US', {
-                                        weekday: "long", 
-                                        month: "short",
-                                        day: "numeric"
-                                    })}
-                                </Text>
-
-                                <Text style={styles.timeText}>
-                                    {date.toLocaleTimeString([], {
-                                        hour: "2-digit",
-                                        minute: "2-digit"
-                                    })}
-                                </Text>
-                            </View>
-
-                            {/* only one history delete btn */}
-                            <TouchableOpacity
-                                onPress={() => handleDeleteLog(item)}
-                                style={styles.deleteIconBtn}>
-
-                                <Ionicons name="trash-outline" size={20} color="#FFCDD2" />
-                            </TouchableOpacity>
-                        </View>
-                    );
-                }}>
-            </FlatList>
+                
+            />
         </LinearGradient>
     );
 };
@@ -254,6 +326,35 @@ const styles = StyleSheet.create({
 
     emptyContainer: { alignItems: 'center', marginTop: 80 },
     emptyText: { color: '#BDBDBD', fontSize: 16, marginTop: 10 },
+
+    dateHeader: {
+        fontSize: 13,
+        fontWeight: "800",
+        color: "#A0A8A0",
+        marginTop: 20,
+        marginBottom: 10,
+        textTransform: "uppercase",
+        letterSpacing: 1
+    },
+
+    timelineLeft: { alignItems: 'center', width: 20, marginRight: 10 },
+
+    dot: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: '#3498DB',
+        marginTop: 22,
+    },
+    line: {
+        width: 2,
+        flex: 1,
+        backgroundColor: '#E0E5E0',
+        marginTop: 0,
+        marginBottom: -22,
+    },
+
+    plantNameInLog: { fontSize: 16, fontWeight: '700', color: '#1A3C34' },
 
     historyCard: {
         flexDirection: 'row',
