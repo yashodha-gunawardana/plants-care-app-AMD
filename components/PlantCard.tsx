@@ -29,34 +29,36 @@ const PlantCard = ({ item }: PlantCardProps) => {
         // check if there is a last water date or schedule, if there is no data, 
         // the button is set to active
         if (!item.lastWatered || !item.careSchedules?.watering?.interval) {
-            return {
-                shouldDisable: false,
-                icon: "water",
-                color: "#4A90E2"
-            };
+            return { shouldDisable: false };
         }
 
+        // date objects for last watered and today
         const lastWateredDate = new Date(item.lastWatered);
         const today = new Date();
-    }
 
-    // check water btn is disabale
-    const isWateredToday = () => {
-        if (!item.lastWatered) return false;
+        // convert the difference in milliseconds to days.
+        const diffTime = Math.abs(today.getTime() - lastWateredDate.getTime());
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-        const lastDate = new Date(item.lastWatered).toDateString();
-        const today = new Date().toDateString();
+        // getting the user-set date interval
+        const interval = item.careSchedules.watering.interval;
 
-        // if matching date give true
-        return lastDate === today;
+        const isWateredToday = lastWateredDate.toDateString() === today.toDateString();
+
+        const isTooEarly = diffDays < interval;
+
+        if (isWateredToday || isTooEarly) {
+            return { shouldDisable: true, icon: "water", color: "#4CAF50" }
+        }
+
+        return { shouldDisable: false }
     };
 
-
-    const watered = isWateredToday();
+    const status = getWateringStatus();
 
     // today water btn handle
     const handleWaterToday = async () => {
-        if (watered) return;
+        if (status.shouldDisable) return;
 
         const now = new Date().toISOString();
 
@@ -172,17 +174,17 @@ const PlantCard = ({ item }: PlantCardProps) => {
                         {/* water btn */}
                         <TouchableOpacity
                             onPress={handleWaterToday}
-                            disabled={watered}
+                            disabled={status.shouldDisable}
                             style={[
                                 styles.quickWaterCircle,
-                                watered && { backgroundColor: "#5DA87A" }
+                                status.shouldDisable && { backgroundColor: "#5DA87A" }
                             ]}
                             activeOpacity={0.6}>
 
                             <Ionicons 
-                                name={watered ? "checkmark-circle" : "water"} 
+                                name={status.shouldDisable ? "checkmark-circle" : "water"} 
                                 size={18} 
-                                color={watered ? "#4CAF50" : "#4A90E2"}
+                                color={status.shouldDisable ? "#4CAF50" : "#4A90E2"}
                             />
                         </TouchableOpacity>
                     </View>
