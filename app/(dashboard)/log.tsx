@@ -1,7 +1,7 @@
 import DashboardHeader from "@/components/Header";
 import { PlantContext } from "@/context/PlantContext";
 import { useLocalSearchParams, useRouter } from "expo-router"
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { View, StyleSheet, ActivityIndicator, Text, Alert, TouchableOpacity, FlatList } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,16 +11,47 @@ const WateringHistoryScreen = () => {
     const router = useRouter();
 
     const params = useLocalSearchParams();
-
-    // get plantId from url or modal
-    const plantId = Array.isArray(params.plantId) ? params.plantId[0] : params.plantId;
-
+    
     // get plants data and update function from plantContext
     const { plants, loading, updatePlantData } = useContext(PlantContext);
+
+    // checking if a plantId exists
+    const plantId = Array.isArray(params.plantId) ? params.plantId[0] : params.plantId;
 
     // find the relevant plants using id
     const plant = plants.find(p => p.id === plantId);
 
+
+    // history handle
+    const HistoryData = useMemo(() => {
+        if (plant) {
+
+            // history of the single plant
+            return (plant.wateringHistory || []).map(date => ({
+                date,
+                plantName: plant.name,
+                plantId: plant.id
+            }));
+
+        } else {
+
+            // all plants history
+            let allLogs: any[] = [];
+            plants.forEach(p => {
+                if (p.wateringHistory) {
+                    p.wateringHistory.forEach(date => {
+                        allLogs.push({
+                            date,
+                            plantName: p.name,
+                            plantId: p.id
+                        });
+                    });
+                }
+            });
+            return allLogs;
+        }
+    }, [plants, plant]);
+    
     
     if (loading) {
         return (
@@ -99,94 +130,93 @@ const WateringHistoryScreen = () => {
 
 
     return (
-        <View style={{ flex: 1 }}>
-            <LinearGradient
-                colors={["#D6DED9", "#FFFFFF"]}
-                start={{ x: 0.5, y: 1 }}
-                end={{ x: 0.5, y: 0 }}>
+        <LinearGradient
+            colors={["#D6DED9", "#FFFFFF"]}
+            start={{ x: 0.5, y: 1 }}
+            end={{ x: 0.5, y: 0 }}
+            style={{ flex: 1 }}>
                
-                <DashboardHeader />
+            <DashboardHeader />
 
-                <View style={styles.headerRow}>
-                    <View style={styles.headerLeft}>
-                        <TouchableOpacity
-                            onPress={() =>
-                                router.replace("/(dashboard)/home")}
-                                style={styles.backBtn}>
+            <View style={styles.headerRow}>
+                <View style={styles.headerLeft}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            router.replace("/(dashboard)/home")}
+                            style={styles.backBtn}>
                         
-                            <Ionicons name="arrow-back" size={24} color="#1A3C34" />
+                        <Ionicons name="arrow-back" size={24} color="#1A3C34" />
 
-                            <Text style={styles.title}>{plant.name}</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {/* btn clear all */}
-                    {wateringHistory.length > 0 && (
-                        <TouchableOpacity
-                            onPress={handleClearAll}
-                            style={styles.clearBtn}>
-                            
-                            <Text style={styles.clearBtnText}>Clear All</Text>
-                        </TouchableOpacity>
-                    )}
+                        <Text style={styles.title}>{plant.name}</Text>
+                    </TouchableOpacity>
                 </View>
 
-                <Text style={styles.subtitle}>Watering Logs ({wateringHistory.length})</Text>
+                {/* btn clear all */}
+                {wateringHistory.length > 0 && (
+                    <TouchableOpacity
+                        onPress={handleClearAll}
+                        style={styles.clearBtn}>
+                            
+                    <Text style={styles.clearBtnText}>Clear All</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
 
-                {/* history data list */}
-                <FlatList
-                    data={sortedHistory}
-                    keyExtractor={( item, index) => index.toString()}
-                    contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }}
+            <Text style={styles.subtitle}>Watering Logs ({wateringHistory.length})</Text>
+
+            {/* history data list */}
+            <FlatList
+                data={sortedHistory}
+                keyExtractor={( item, index) => index.toString()}
+                contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }}
                     
-                    // if no have data, show this 
-                    ListEmptyComponent={
-                        <View style={styles.emptyContainer}>
-                            <Ionicons name="water-outline" size={60} color="#E0E0E0" />
-                            <Text style={styles.emptyText}>No watering records found</Text>
-                        </View>
-                    }
+                // if no have data, show this 
+                ListEmptyComponent={
+                    <View style={styles.emptyContainer}>
+                        <Ionicons name="water-outline" size={60} color="#E0E0E0" />
+                        <Text style={styles.emptyText}>No watering records found</Text>
+                    </View>
+                }
                     
-                    renderItem={({ item }) => {
-                        const date = new Date(item);
+                renderItem={({ item }) => {
+                    const date = new Date(item);
 
-                        return (
-                            <View style={styles.historyCard}>
-                                <View style={styles.iconCircle}>
-                                    <Ionicons name="water" size={20} color="#3498DB" />
-                                </View>
-
-                                {/* date and time */}
-                                <View style={styles.dateContainer}>
-                                    <Text style={styles.dateText}>
-                                        {date.toLocaleDateString('en-US', {
-                                            weekday: "long", 
-                                            month: "short",
-                                            day: "numeric"
-                                        })}
-                                    </Text>
-
-                                    <Text style={styles.timeText}>
-                                        {date.toLocaleTimeString([], {
-                                            hour: "2-digit",
-                                            minute: "2-digit"
-                                        })}
-                                    </Text>
-                                </View>
-
-                                {/* only one history delete btn */}
-                                <TouchableOpacity
-                                    onPress={() => handleDeleteLog(item)}
-                                    style={styles.deleteIconBtn}>
-
-                                    <Ionicons name="trash-outline" size={20} color="#FFCDD2" />
-                                </TouchableOpacity>
+                    return (
+                        <View style={styles.historyCard}>
+                            <View style={styles.iconCircle}>
+                                <Ionicons name="water" size={20} color="#3498DB" />
                             </View>
-                        );
-                    }}>
-                </FlatList>
-            </LinearGradient>
-        </View>
+
+                            {/* date and time */}
+                            <View style={styles.dateContainer}>
+                                <Text style={styles.dateText}>
+                                    {date.toLocaleDateString('en-US', {
+                                        weekday: "long", 
+                                        month: "short",
+                                        day: "numeric"
+                                    })}
+                                </Text>
+
+                                <Text style={styles.timeText}>
+                                    {date.toLocaleTimeString([], {
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    })}
+                                </Text>
+                            </View>
+
+                            {/* only one history delete btn */}
+                            <TouchableOpacity
+                                onPress={() => handleDeleteLog(item)}
+                                style={styles.deleteIconBtn}>
+
+                                <Ionicons name="trash-outline" size={20} color="#FFCDD2" />
+                            </TouchableOpacity>
+                        </View>
+                    );
+                }}>
+            </FlatList>
+        </LinearGradient>
     );
 };
 

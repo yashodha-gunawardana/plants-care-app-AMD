@@ -1,9 +1,10 @@
 import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image, Alert } from "react-native";
-
+import * as Haptics from "expo-haptics";
+import PressRipple from "./RippleEffect";
 
 interface PlantCardProps {
     item: Plant;
@@ -15,6 +16,8 @@ const DEFAULT_PLANT_IMAGE = "https://i.pinimg.com/1200x/9b/77/f6/9b77f61cdb7dffb
 const PlantCard = ({ item }: PlantCardProps) => {
     const router = useRouter();
     const { updatePlantData } = useContext(PlantContext);
+
+    const [showRipple, setShowRipple] = React.useState(false);
 
     const [toast, setToast] = useState({
         visible: false,
@@ -48,7 +51,7 @@ const PlantCard = ({ item }: PlantCardProps) => {
         const isTooEarly = diffDays < interval;
 
         if (isWateredToday || isTooEarly) {
-            return { shouldDisable: true, icon: "water", color: "#4CAF50" }
+            return { shouldDisable: true }
         }
 
         return { shouldDisable: false }
@@ -60,6 +63,11 @@ const PlantCard = ({ item }: PlantCardProps) => {
     const handleWaterToday = async () => {
         if (status.shouldDisable) return;
 
+        // ripple animation and vibration
+        setShowRipple(true);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        setTimeout(() => setShowRipple(false), 800);
+
         const now = new Date().toISOString();
 
         // add new record to the history
@@ -70,22 +78,12 @@ const PlantCard = ({ item }: PlantCardProps) => {
                 lastWatered: now,
                 wateringHistory: updatedHistory,
             });
-
-            setToast({
-                visible: true,
-                message: `${item.name} watered successfully 💧`,
-                type: "success"
-            });
-
-            setTimeout(() => {
-                setToast(p => ({ ...p, visible: false }));
-            }, 2000);
             
         } catch (err) {
             console.log("Plant watering error: ", err);
             setToast({
                 visible: true,
-                message: "Could not update data.",
+                message: "Failed to update. Check your connection.",
                 type: "error"
             });
         }
@@ -177,14 +175,17 @@ const PlantCard = ({ item }: PlantCardProps) => {
                             disabled={status.shouldDisable}
                             style={[
                                 styles.quickWaterCircle,
-                                status.shouldDisable && { backgroundColor: "#5DA87A" }
+                                status.shouldDisable && { backgroundColor: "#E1F5FE" }
                             ]}
                             activeOpacity={0.6}>
 
+                            {/* only show ripple when press btn */}
+                            {showRipple && <PressRipple />}
+
                             <Ionicons 
-                                name={status.shouldDisable ? "checkmark-circle" : "water"} 
+                                name={status.shouldDisable ? "water" : "water"} 
                                 size={18} 
-                                color={status.shouldDisable ? "#4CAF50" : "#4A90E2"}
+                                color={status.shouldDisable ? "#F59E0B" : "#4A90E2"}
                             />
                         </TouchableOpacity>
                     </View>
