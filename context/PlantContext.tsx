@@ -106,9 +106,10 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
             prev.map(p => {
                 if (p.id === plantId) {
                     let newPlant = { ...p, ...updatedData };
+
                     // if watering, also update local wateringHistory
-                    if (addWateringHistory) {
-                        newPlant.wateringHistory = [...(p.wateringHistory || []), new Date().toISOString()];
+                    if (addWateringHistory && updatedData.lastWatered) {
+                        newPlant.wateringHistory = [updatedData.lastWatered, ...(p.wateringHistory || [])];
                     }
                     return newPlant;
                 }

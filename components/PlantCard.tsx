@@ -15,7 +15,7 @@ const DEFAULT_PLANT_IMAGE = "https://i.pinimg.com/1200x/9b/77/f6/9b77f61cdb7dffb
 
 const PlantCard = ({ item }: PlantCardProps) => {
     const router = useRouter();
-    const { updatePlantData } = useContext(PlantContext);
+    const { updatePlantData, loading } = useContext(PlantContext);
 
     const [showRipple, setShowRipple] = React.useState(false);
 
@@ -26,42 +26,43 @@ const PlantCard = ({ item }: PlantCardProps) => {
     });
 
 
-    // function for disable water today btn
-    const getWateringStatus = () => {
+    const getWateringStatus = React.useMemo(() => {
 
-        // check if there is a last water date or schedule, if there is no data, 
-        // the button is set to active
-        if (!item.lastWatered || !item.careSchedules?.watering?.interval) {
-            return { shouldDisable: false };
+        const wateringSchedule = item.careSchedules?.watering;
+    
+        if (!item.lastWatered || !wateringSchedule?.interval) {
+            return { shouldDisable: false, isOverdue: false };
         }
 
-        // date objects for last watered and today
         const lastWateredDate = new Date(item.lastWatered);
+        lastWateredDate.setHours(0, 0, 0, 0);
+
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        // convert the difference in milliseconds to days.
-        const diffTime = Math.abs(today.getTime() - lastWateredDate.getTime());
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const nextWateringDate = new Date(lastWateredDate);
+        nextWateringDate.setDate(lastWateredDate.getDate() + wateringSchedule.interval);
 
-        // getting the user-set date interval
-        const interval = item.careSchedules.watering.interval;
+        const isDisable = today < nextWateringDate;
+        const isOverdue = today > nextWateringDate;
 
-        const isWateredToday = lastWateredDate.toDateString() === today.toDateString();
+        const formattedDate = nextWateringDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-        const isTooEarly = diffDays < interval;
+        console.log(
+            `Today: ${today.toDateString()} | ` +
+            `Last: ${lastWateredDate.toDateString()} | ` +
+            `Next: ${nextWateringDate.toDateString()} | ` +
+            `Disable: ${isDisable}`
+        );
 
-        if (isWateredToday || isTooEarly) {
-            return { shouldDisable: true }
-        }
+        return { shouldDisable: isDisable, isOverdue: isOverdue, nextDate: formattedDate };
+    
+    }, [ item.lastWatered, item.careSchedules?.watering?.interval ]);
 
-        return { shouldDisable: false }
-    };
-
-    const status = getWateringStatus();
-
+    
     // today water btn handle
     const handleWaterToday = async () => {
-        if (status.shouldDisable) return;
+        if (getWateringStatus.shouldDisable) return;
 
         // ripple animation and vibration
         setShowRipple(true);
@@ -71,13 +72,13 @@ const PlantCard = ({ item }: PlantCardProps) => {
         const now = new Date().toISOString();
 
         // add new record to the history
-        const updatedHistory = [now, ...(item.wateringHistory || [])];
+        //  const updatedHistory = [now, ...(item.wateringHistory || [])];
 
         try {
             await updatePlantData(item.id!, {
                 lastWatered: now,
-                wateringHistory: updatedHistory,
-            });
+                // wateringHistory: updatedHistory,
+            }, true);
             
         } catch (err) {
             console.log("Plant watering error: ", err);
@@ -172,22 +173,39 @@ const PlantCard = ({ item }: PlantCardProps) => {
                         {/* water btn */}
                         <TouchableOpacity
                             onPress={handleWaterToday}
-                            disabled={status.shouldDisable}
+                            disabled={getWateringStatus.shouldDisable}
                             style={[
                                 styles.quickWaterCircle,
-                                status.shouldDisable && { backgroundColor: "#E1F5FE" }
+                                getWateringStatus.shouldDisable 
+                                    ? { backgroundColor: "#F5F5F5" }
+                                    : getWateringStatus.isOverdue
+                                        ? { backgroundColor: "#FFEBEE" }
+                                        : { backgroundColor: "#E1F5FE" }
                             ]}
                             activeOpacity={0.6}>
 
                             {/* only show ripple when press btn */}
-                            {showRipple && <PressRipple />}
+                            {showRipple && !getWateringStatus.shouldDisable && <PressRipple />}
 
                             <Ionicons 
-                                name={status.shouldDisable ? "water" : "water"} 
+                                name={getWateringStatus.shouldDisable ? "water" : "water"} 
                                 size={18} 
-                                color={status.shouldDisable ? "#F59E0B" : "#4A90E2"}
+                                color={
+                                    getWateringStatus.shouldDisable 
+                                        ? "#B0BEC5" 
+                                        : getWateringStatus.isOverdue
+                                            ?"#EF5350" 
+                                            : "#4A90E2"
+                                }
                             />
                         </TouchableOpacity>
+
+                        {/* show nest date if button is disable */}
+                        {getWateringStatus.shouldDisable && (
+                            <Text style={{ fontSize: 8, color: "#4CAF50", fontWeight: "700", marginTop: 4 }}>
+                                Next: {getWateringStatus.nextDate}
+                            </Text>
+                        )}
                     </View>
 
                     {/* plant name*/}

@@ -179,7 +179,7 @@ const WateringHistoryScreen = () => {
                 }
                     
                 renderItem={({ item }) => {
-                    const date = new Date(item);
+                    const date = new Date(item.date);
 
                     return (
                         <View style={styles.historyCard}>

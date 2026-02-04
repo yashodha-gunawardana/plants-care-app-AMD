@@ -83,7 +83,8 @@ export const getUserPlants = async () => {
             type: data.type || "Unknown Type",  
             location: data.location,
             photo: data.photo,
-            careSchedules: data.careSchedules ?? {},   
+            careSchedules: data.careSchedules ?? {}, 
+            lastWatered: data.lastWatered ?? null,  
             wateringHistory: data.wateringHistory ?? []   
         } as Plant;
     });
