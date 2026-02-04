@@ -23,6 +23,17 @@ const PlantCard = ({ item }: PlantCardProps) => {
     });
 
 
+    // function for disable water today btn
+    const getWateringStatus = () => {
+        if (!item.lastWatered || !item.careSchedules?.watering?.interval) {
+            return {
+                shouldDisable: false,
+                icon: "water",
+                color: "#4A90E2"
+            };
+        }
+    }
+
     // check water btn is disabale
     const isWateredToday = () => {
         if (!item.lastWatered) return false;

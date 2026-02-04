@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import Svg, { Path, G, Ellipse, Defs, LinearGradient as SvgGrad, Stop, Circle } from "react-native-svg";
 import { usePathname } from "expo-router";
+import { useSearch } from "@/context/SearchContext";
 
 
 const { width } = Dimensions.get("window");
@@ -177,7 +178,7 @@ const FloweringVine = ({ delay, rotateRange, style, length = 180, isShort = fals
 
 
 const DashboardHeader = () => {
-    const [searchQuery, setSearchQuery] = useState("");
+    const { searchQuery, setSearchQuery } = useSearch();
     const [searchActive, setSearchActive] = useState(false);
     const pathname = usePathname();
 
@@ -291,7 +292,7 @@ const DashboardHeader = () => {
                                     placeholderTextColor={COLORS.forest} 
                                 />
 
-                                <TouchableOpacity onPress={() => setSearchActive(false)}>
+                                <TouchableOpacity onPress={() => { setSearchActive(false), setSearchQuery("")}}>
                                     <Ionicons name="close-circle" size={24} color={COLORS.jungle} style={{ marginRight: 15 }} />
                                 </TouchableOpacity>
                             </BlurView>
