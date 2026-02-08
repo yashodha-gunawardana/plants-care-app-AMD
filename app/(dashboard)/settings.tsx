@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import { getAuth, User, updateProfile, deleteUser } from "firebase/auth";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Switch, Alert } from "react-native";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
@@ -250,6 +250,24 @@ const SettingsScreen = () => {
             ]
         );
     };
+
+
+    // pulls user preferences from Firestore when the screen loads
+    useEffect(() => {
+        const fetchPreferences = async () => {
+            if (!user) return;
+
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                setNotificationsEnabled(data.notificationsEnabled ?? true);
+                setRemindersEnabled(data.remindersEnabled ?? false);
+            }
+        };
+        fetchPreferences();
+    }, [user]);
     
 }
 
