@@ -268,6 +268,22 @@ const SettingsScreen = () => {
         };
         fetchPreferences();
     }, [user]);
+
+
+    // logout 
+    const confirmLogout = () => {
+        Alert.alert(
+            "Logout", 
+            "Sign out of your account?", [
+
+                { text: "Cancel", style: "cancel" },
+                { text: "Logout", style: "destructive", onPress: async () => {
+                    await logout();
+                    router.replace("/(auth)/loginRegister");
+                }},
+            ]
+        );
+    };
     
 }
 
