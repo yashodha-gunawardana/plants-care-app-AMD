@@ -6,7 +6,7 @@ import { getAuth, User, updateProfile, deleteUser } from "firebase/auth";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Switch, Alert } from "react-native";
+import { View, StyleSheet, Text, Switch, Alert, ActivityIndicator } from "react-native";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
 
@@ -284,11 +284,20 @@ const SettingsScreen = () => {
             ]
         );
     };
+
+
+    if (loading) return (
+        <View style={styles.centerContainer}>
+            <ActivityIndicator size="large" color={COLORS.forest} />
+        </View>
+    );
     
 }
 
 
 const styles = StyleSheet.create({
+
+    centerContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
 
     optionRow: { 
         flexDirection: "row", 
