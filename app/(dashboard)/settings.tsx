@@ -1,4 +1,8 @@
+import { AuthContext } from "@/context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { getAuth, User } from "firebase/auth";
+import { useContext } from "react";
 import { View, StyleSheet, Text, Switch } from "react-native";
 
 
@@ -47,6 +51,20 @@ const SettingRow = ({ icon, label, value, onValueChange, iconBg, iconColor, trac
 );
 
 
+const SettingsScreen = () => {
+    const router = useRouter();
+    const auth = getAuth();
+
+    // global authentication state
+    const { user, loading, logout } = useContext(AuthContext) as {
+        user: User | null;
+        loading: boolean;
+        logout: () => void;
+    };
+
+}
+
+
 const styles = StyleSheet.create({
 
     optionRow: { 
@@ -75,4 +93,9 @@ const styles = StyleSheet.create({
     },
 
     optionText: { fontSize: 16, fontWeight: "600", color: COLORS.forest },
+
 });
+
+
+
+export default SettingsScreen;
