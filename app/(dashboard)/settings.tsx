@@ -6,7 +6,7 @@ import { getAuth, User, updateProfile, deleteUser } from "firebase/auth";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Switch, Alert, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Text, Switch, Alert, ActivityIndicator, ScrollView } from "react-native";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
 import { LinearGradient } from "expo-linear-gradient";
@@ -304,6 +304,12 @@ const SettingsScreen = () => {
                 <View style={styles.leafOverlay} pointerEvents="none">
                     <Ionicons name="leaf" size={320} color="#3E4D48" style={{ opacity: 0.04 }} />
                 </View>
+
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.content}>
+
+                </ScrollView>
             </LinearGradient>
 
         </View>
@@ -316,7 +322,7 @@ const styles = StyleSheet.create({
 
     centerContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
     mainContainer: { flex: 1 },
-    
+
     leafOverlay: { 
         position: "absolute", 
         bottom: -60, 
@@ -324,6 +330,8 @@ const styles = StyleSheet.create({
         transform: [{ rotate: "-15deg" }], 
         zIndex: 10 
     },
+
+    content: { padding: 24 },
 
     optionRow: { 
         flexDirection: "row", 
