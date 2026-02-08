@@ -1,9 +1,13 @@
 import { AuthContext } from "@/context/AuthContext";
+import { requestNotificationPermissions } from "@/services/notificationService";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { getAuth, User } from "firebase/auth";
+import { getAuth, User, updateProfile } from "firebase/auth";
+import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
+import { db } from "@/config/firebase";
 import { useContext, useState } from "react";
 import { View, StyleSheet, Text, Switch, Alert } from "react-native";
+import * as Notifications from "expo-notifications";
 
 
 // clodinary config for optimized image delivery
@@ -73,6 +77,21 @@ const SettingsScreen = () => {
         `${CLOUDINARY_BASE_URL}/w_200,c_fill,g_face,f_auto,q_auto/${publicId}.png`;
 
 
+    // profile photo manage
+    const handleProfilePress = () => {
+        Alert.alert(
+            "Profile Photo",
+            "Manage your profile appearance", [
+
+                { text: "Choose from Avatars", onPress: () => setShowAvatarGrid(true) },
+                { text: "Remove Profile Photo", style: "destructive", onPress: handleRemoveAvatar },
+                { text: "Cancel", style: "cancel" },
+            ]
+        );
+    };
+
+
+    // remove profile avatar
     const handleRemoveAvatar = async () => {
         try {
             if (!auth.currentUser) 
@@ -93,6 +112,7 @@ const SettingsScreen = () => {
     };
 
 
+    // update profile new avatar
     const handleAvatarSelect = async (publicId: string) => {
         const avatarUrl = getAvatarUrl(publicId);
 
@@ -110,18 +130,28 @@ const SettingsScreen = () => {
         }
     };
 
-    // profile photo manage
-    const handleProfilePress = () => {
-        Alert.alert(
-            "Profile Photo",
-            "Manage your profile appearance", [
 
-                { text: "Choose from Avatars", onPress: () => setShowAvatarGrid(true) },
-                { text: "Remove Profile Photo", style: "destructive", onPress: handleRemoveAvatar },
-                { text: "Cancel", style: "cancel" },
-            ]
-        );
-    };
+    // notifications toggle
+    const handleNotificationsToggle = async (value: boolean) => {
+        setNotificationsEnabled(value);
+
+        if (value) {
+
+            // test notification immediately 
+            await requestNotificationPermissions();
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: "Notification active",
+                    body: "You will receive care alerts for your plants"
+                },
+                trigger: null;
+            });
+        }
+
+        if (user) await setDoc(doc(db, "users", user.uid), { notificationsEnabled: value }, { merge: true });
+    }
+
+    
 }
 
 
