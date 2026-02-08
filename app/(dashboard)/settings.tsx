@@ -383,6 +383,21 @@ const SettingsScreen = () => {
                     <View style={styles.divider} />
                     
 
+                    {/* account actions */}
+                    <TouchableOpacity style={styles.actionBtn} onPress={confirmLogout}>
+                        <Ionicons name="log-out-outline" size={22} color={COLORS.forest} />
+                        <Text style={styles.actionText}>Log Out Account</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity 
+                        style={[styles.actionBtn, { marginTop: 12, backgroundColor: COLORS.lightRed }]} 
+                        onPress={handleDeleteAccount}>
+                    
+                        <Ionicons name="trash-outline" size={22} color={COLORS.darkRed} />
+                        <Text style={[styles.actionText, { color: COLORS.darkRed }]}>Delete Account</Text>
+                    </TouchableOpacity>
+                    
+                    <View style={{ height: 50 }} />
 
                 </ScrollView>
             </LinearGradient>
@@ -457,6 +472,17 @@ const styles = StyleSheet.create({
     selectedAvatarItem: { borderWidth: 2, borderColor: COLORS.forest, borderRadius: 35 },
     miniAvatar: { width: 60, height: 60, borderRadius: 30 },
     divider: { height: 1, backgroundColor: "rgba(0,0,0,0.06)", marginVertical: 25 },
+
+    actionBtn: { 
+        flexDirection: "row", 
+        justifyContent: "center", 
+        alignItems: "center", 
+        backgroundColor: "#E9EDEB", 
+        padding: 18, 
+        borderRadius: 22 
+    },
+
+    actionText: { color: COLORS.forest, fontSize: 16, fontWeight: "800", marginLeft: 10 },
     
     optionRow: { 
         flexDirection: "row", 
