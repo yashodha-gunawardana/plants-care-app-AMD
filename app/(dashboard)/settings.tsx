@@ -2,7 +2,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { requestNotificationPermissions } from "@/services/notificationService";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { getAuth, User, updateProfile } from "firebase/auth";
+import { getAuth, User, updateProfile, deleteUser } from "firebase/auth";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useContext, useState } from "react";
@@ -200,6 +200,56 @@ const SettingsScreen = () => {
         if (user) await setDoc(doc(db, "users", user.uid), { remindersEnabled: value }, { merge: true });
     };
 
+
+
+    // delete account and clear data
+    const handleDeleteAccount = () => {
+        Alert.alert(
+            "Delete Account",
+            "This will permanently delete your profile, all your plants, and stop all reminders. This cannot be undone.", [
+
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Delete Everything",
+                    style: "destructive",
+                    onPress: async () => {
+
+                        try {
+                            if (!auth.currentUser) return;
+
+                            const userId = auth.currentUser.uid;
+
+                            // wipe all local alarms from the device
+                            await Notifications.cancelAllScheduledNotificationsAsync();
+
+                            // delete the user settings document from Firestore
+                            await deleteDoc(doc(db, "users", userId));
+
+                            // remove the user record from Firebase Authentication
+                            await deleteUser(auth.currentUser);
+
+                            Alert.alert(
+                                "Account Deleted",
+                                "Your data has been wiped successfully."
+                            );
+                            router.replace("/(auth)/loginRegister");
+
+                        } catch (err: any) {
+                            if (err.code === "auth/requires-recent-login") {
+                                Alert.alert(
+                                    "Sensitive Operation",
+                                    "For your security, please log out and log back in before deleteing your account"
+                                );
+
+                            } else {
+                                Alert.alert("Error", err.message);
+                            }
+                        }
+                    }
+                }
+            ]
+        );
+    };
     
 }
 
