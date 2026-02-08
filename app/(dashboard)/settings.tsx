@@ -299,6 +299,11 @@ const SettingsScreen = () => {
         <View style={{ flex: 1}}>
             <LinearGradient colors={["#D6DED9", "#FFFFFF"]} style={styles.mainContainer}>
                 <DashboardHeader />
+
+                {/* bg leaf */}
+                <View style={styles.leafOverlay} pointerEvents="none">
+                    <Ionicons name="leaf" size={320} color="#3E4D48" style={{ opacity: 0.04 }} />
+                </View>
             </LinearGradient>
 
         </View>
@@ -312,6 +317,14 @@ const styles = StyleSheet.create({
     centerContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
     mainContainer: { flex: 1 },
     
+    leafOverlay: { 
+        position: "absolute", 
+        bottom: -60, 
+        right: -80, 
+        transform: [{ rotate: "-15deg" }], 
+        zIndex: 10 
+    },
+
     optionRow: { 
         flexDirection: "row", 
         justifyContent: "space-between", 
