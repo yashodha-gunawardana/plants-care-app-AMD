@@ -92,6 +92,24 @@ const SettingsScreen = () => {
         }
     };
 
+
+    const handleAvatarSelect = async (publicId: string) => {
+        const avatarUrl = getAvatarUrl(publicId);
+
+        try {
+            if (!auth.currentUser) throw new Error("No user is logged in.");
+
+            setSelectedAvatar(publicId); 
+            setShowAvatarGrid(false);
+        
+            await updateProfile(auth.currentUser, { photoURL: avatarUrl });
+            Alert.alert("Success", "Avatar updated!");
+
+        } catch (error: any) {
+            Alert.alert("Error", error.message);
+        }
+    };
+
     // profile photo manage
     const handleProfilePress = () => {
         Alert.alert(
