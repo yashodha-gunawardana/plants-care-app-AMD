@@ -73,6 +73,25 @@ const SettingsScreen = () => {
         `${CLOUDINARY_BASE_URL}/w_200,c_fill,g_face,f_auto,q_auto/${publicId}.png`;
 
 
+    const handleRemoveAvatar = async () => {
+        try {
+            if (!auth.currentUser) 
+                throw new Error("No user is logged in.");
+            
+            await updateProfile(auth.currentUser, { photoURL: ""});
+            setSelectedAvatar(null);
+            setShowAvatarGrid(false);
+
+            Alert.alert(
+                "Removed",
+                "Reverted to default profile image."
+            );
+
+        } catch (err: any) {
+            Alert.alert("Error", err.message);
+        }
+    };
+
     // profile photo manage
     const handleProfilePress = () => {
         Alert.alert(
