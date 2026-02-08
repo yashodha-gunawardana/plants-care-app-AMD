@@ -338,6 +338,35 @@ const SettingsScreen = () => {
                         </View>
                     )}
 
+
+                    {/* show avatar selection */}
+                    {showAvatargrid && (
+                        <View style={styles.gridContainer}>
+                            <View style={styles.gridHeader}>
+                                <Text style={styles.sectionTitle}>Choose Your Avatar</Text>
+                                <TouchableOpacity onPress={() => setShowAvatarGrid(false)}>
+                                    <Ionicons name="close" size={20} color={COLORS.muted} />
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={styles.avatarGrid}>
+                                {AVATAR_PUBLIC_IDS.map((id) => (
+
+                                    <TouchableOpacity
+                                        key={id}
+                                        onPress={() => handleAvatarSelect(id)}
+                                        style={[styles.avatarItem, selectedAvatar === id && styles.selectedAvatarItem]}>
+                                    
+                                        <Image source={{ uri: getAvatarUrl(id) }} style={styles.miniAvatar} />
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </View>
+                    )}
+
+                    
+
+
                 </ScrollView>
             </LinearGradient>
 
@@ -389,10 +418,27 @@ const styles = StyleSheet.create({
         borderWidth: 2, 
         borderColor: COLORS.white 
     },
-    
+
     profileTextWrapper: { marginLeft: 20, flexShrink: 1 },
     profileName: { fontSize: 20, fontWeight: "800", color: COLORS.forest },
     profileEmail: { fontSize: 12, color: COLORS.muted, marginTop: 2 },
+    gridContainer: { marginVertical: 20 },
+    gridHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
+    sectionTitle: { fontSize: 12, fontWeight: "700", color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 },
+    
+    avatarGrid: { 
+        flexDirection: "row", 
+        flexWrap: "wrap", 
+        backgroundColor: COLORS.white, 
+        padding: 15, 
+        borderRadius: 20, 
+        gap: 12, 
+        elevation: 2 
+    },
+
+    avatarItem: { padding: 2 },
+    selectedAvatarItem: { borderWidth: 2, borderColor: COLORS.forest, borderRadius: 35 },
+    miniAvatar: { width: 60, height: 60, borderRadius: 30 },
 
     optionRow: { 
         flexDirection: "row", 
