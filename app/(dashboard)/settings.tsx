@@ -2,7 +2,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { getAuth, User } from "firebase/auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { View, StyleSheet, Text, Switch } from "react-native";
 
 
@@ -62,6 +62,14 @@ const SettingsScreen = () => {
         logout: () => void;
     };
 
+    const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(true);
+    const [remindersEnabled, setRemindersEnabled] = useState<boolean>(false);
+    const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+    const [showAvatargrid, setShowAvatarGrid] = useState<boolean>(false);
+
+
+    const getAvatarUrl = (publicId: string) =>
+        `${CLOUDINARY_BASE_URL}/w_200,c_fill,g_face,f_auto,q_auto/${publicId}.png`
 }
 
 
