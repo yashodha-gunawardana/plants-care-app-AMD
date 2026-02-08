@@ -6,7 +6,7 @@ import { getAuth, User, updateProfile, deleteUser } from "firebase/auth";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Switch, Alert, ActivityIndicator, ScrollView } from "react-native";
+import { View, StyleSheet, Text, Switch, Alert, ActivityIndicator, ScrollView, TouchableOpacity, Image } from "react-native";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
 import { LinearGradient } from "expo-linear-gradient";
@@ -309,6 +309,35 @@ const SettingsScreen = () => {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.content}>
 
+                    {/* profile header */}
+                    {user && (
+                        <View style={styles.minimalProfileSection}>
+                            <TouchableOpacity 
+                                style={styles.profileFrame} 
+                                onPress={handleProfilePress} 
+                                activeOpacity={0.8}>
+
+                                <Image
+                                    source={{
+                                        uri: selectedAvatar
+                                            ? getAvatarUrl(selectedAvatar)
+                                            : user?.photoURL || getAvatarUrl(DEFAULT_AVATAR_ID)
+                                    }}
+                                    style={styles.fullRoundedAvatar}
+                                />
+
+                                <View style={styles.cameraIconWrapper}>
+                                    <Ionicons name="camera" size={20} color={COLORS.white} />
+                                </View>
+                            </TouchableOpacity>
+
+                            <View style={styles.profileTextWrapper}>
+                                <Text style={styles.profileName}>{user.displayName || "User Name"}</Text>
+                                <Text style={styles.profileEmail}>{user.email}</Text>
+                            </View>
+                        </View>
+                    )}
+
                 </ScrollView>
             </LinearGradient>
 
@@ -332,6 +361,38 @@ const styles = StyleSheet.create({
     },
 
     content: { padding: 24 },
+
+    minimalProfileSection: { flexDirection: "row", alignItems: "center", marginVertical: 15 },
+
+    profileFrame: { 
+        width: 106, 
+        height: 106, 
+        borderRadius: 53, 
+        borderWidth: 3, 
+        borderColor: COLORS.brown, 
+        justifyContent: "center", 
+        alignItems: "center" 
+    },
+
+    fullRoundedAvatar: { width: 100, height: 100, borderRadius: 50, backgroundColor: COLORS.lightGray },
+
+    cameraIconWrapper: { 
+        position: "absolute", 
+        bottom: 0, 
+        right: 0, 
+        backgroundColor: COLORS.forest, 
+        width: 28, 
+        height: 28, 
+        borderRadius: 14, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        borderWidth: 2, 
+        borderColor: COLORS.white 
+    },
+    
+    profileTextWrapper: { marginLeft: 20, flexShrink: 1 },
+    profileName: { fontSize: 20, fontWeight: "800", color: COLORS.forest },
+    profileEmail: { fontSize: 12, color: COLORS.muted, marginTop: 2 },
 
     optionRow: { 
         flexDirection: "row", 
