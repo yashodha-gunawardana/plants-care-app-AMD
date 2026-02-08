@@ -8,6 +8,7 @@ import { db } from "@/config/firebase";
 import { useContext, useState } from "react";
 import { View, StyleSheet, Text, Switch, Alert } from "react-native";
 import * as Notifications from "expo-notifications";
+import { SchedulableTriggerInputTypes } from "expo-notifications";
 
 
 // clodinary config for optimized image delivery
@@ -149,7 +150,55 @@ const SettingsScreen = () => {
         }
 
         if (user) await setDoc(doc(db, "users", user.uid), { notificationsEnabled: value }, { merge: true });
-    }
+    };
+
+
+    // reminders toggle
+    const handleRemindersToggle = async (value: boolean) => {
+        setRemindersEnabled(value);
+        
+        if (value) {
+            await requestNotificationPermissions();
+            
+            try {
+
+                // schedule a recurring daily notification
+                await Notifications.scheduleNotificationAsync({
+                    identifier: "daily-garden-checkin", 
+                    content: {
+                        title: "Good Morning! 🌿",
+                        body: "Time to check if your plants need some love today.",
+                        sound: 'default',
+                    },
+                    trigger: {
+                        type: SchedulableTriggerInputTypes.DAILY,
+                        hour: 7,
+                        minute: 0,
+                    },
+                });
+
+                Alert.alert(
+                    "Daily Reminder Set", 
+                    "I'll remind you to check your plants every morning at 7:00 AM."
+                );
+
+            } catch (error) {
+                console.error("Notification Error:", error);
+            }
+            
+        } else {
+
+            // if toggled off, remove only the specific recurring alarm by its ID.
+            await Notifications.cancelScheduledNotificationAsync("daily-garden-checkin");
+
+            Alert.alert(
+                "Reminders Off", 
+                "Daily check-in notifications disabled."
+            );
+        }
+
+        if (user) await setDoc(doc(db, "users", user.uid), { remindersEnabled: value }, { merge: true });
+    };
 
     
 }
