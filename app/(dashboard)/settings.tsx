@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { getAuth, User } from "firebase/auth";
 import { useContext, useState } from "react";
-import { View, StyleSheet, Text, Switch } from "react-native";
+import { View, StyleSheet, Text, Switch, Alert } from "react-native";
 
 
 // clodinary config for optimized image delivery
@@ -68,8 +68,23 @@ const SettingsScreen = () => {
     const [showAvatargrid, setShowAvatarGrid] = useState<boolean>(false);
 
 
+    // generate a cloudinary url
     const getAvatarUrl = (publicId: string) =>
-        `${CLOUDINARY_BASE_URL}/w_200,c_fill,g_face,f_auto,q_auto/${publicId}.png`
+        `${CLOUDINARY_BASE_URL}/w_200,c_fill,g_face,f_auto,q_auto/${publicId}.png`;
+
+
+    // profile photo manage
+    const handleProfilePress = () => {
+        Alert.alert(
+            "Profile Photo",
+            "Manage your profile appearance", [
+
+                { text: "Choose from Avatars", onPress: () => setShowAvatarGrid(true) },
+                { text: "Remove Profile Photo", style: "destructive", onPress: handleRemoveAvatar },
+                { text: "Cancel", style: "cancel" },
+            ]
+        );
+    };
 }
 
 
