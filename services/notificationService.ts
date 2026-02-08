@@ -38,7 +38,7 @@ export async function cancelPlantNotifications(plantId: string) {
 
 
 // loops through a plant's care requirements and schedules recurring weekly alerts
-export async function scheduleAllPlantReminders(plant: Plant) {
+/*export async function scheduleAllPlantReminders(plant: Plant) {
     if (!plant.careSchedules) return;
 
     const careTypes = [
@@ -55,7 +55,7 @@ export async function scheduleAllPlantReminders(plant: Plant) {
         if (schedule && schedule.selectedDays && schedule.selectedDays.length > 0) {
 
             // convert the "HH:MM" string into numbers for the system clock
-            const [hour, minute] = (schedule.selectedTime || "09:00").split(':').map(Number);
+            const [hour, minute] = (schedule.selectedTime || "07:00").split(':').map(Number);
 
             for (const dayIndex of schedule.selectedDays) {
 
@@ -77,6 +77,44 @@ export async function scheduleAllPlantReminders(plant: Plant) {
                         repeats: true, // make it repeat every week on this day
                     },
                 })
+            }
+        }
+    }
+}*/
+// loops through a plant's care requirements and schedules recurring weekly alerts
+export async function scheduleAllPlantReminders(plant: Plant) {
+    if (!plant.careSchedules) return;
+
+    const careTypes = [
+        { key: "watering", emoji: "💧", label: "Water" },
+        { key: "fertilize", emoji: "🧪", label: "Fertilize" },
+        { key: "repot", emoji: "🪴", label: "Repot" },
+    ] as const;
+
+    for (const care of careTypes) {
+        const schedule = plant.careSchedules[care.key as keyof typeof plant.careSchedules];
+
+        if (schedule && schedule.selectedDays && schedule.selectedDays.length > 0) {
+            const [hour, minute] = (schedule.selectedTime || "07:00").split(':').map(Number);
+
+            for (const dayIndex of schedule.selectedDays) {
+                // Sunday is 1, Monday is 2, etc.
+                const weekday = dayIndex === 6 ? 1 : dayIndex + 2;
+
+                await Notifications.scheduleNotificationAsync({
+                    content: {
+                        title: `${care.emoji} ${care.label} Time!`,
+                        body: `Your ${plant.name} is ready for its ${care.key} routine.`,
+                        data: { plantId: plant.id, type: care.key }, 
+                    },
+                    // FIX: Removed 'type: CALENDAR' for Android compatibility
+                    trigger: {
+                        type: SchedulableTriggerInputTypes.WEEKLY,
+                        hour,
+                        minute,
+                        weekday,
+                    },
+                });
             }
         }
     }

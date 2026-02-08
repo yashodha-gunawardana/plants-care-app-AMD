@@ -34,10 +34,6 @@ interface PlantContextProps {
     plants: Plant[];
     loading: boolean;
 
-    searchQuery: string;
-    setSearchQuery: (text: string) => void;
-    filteredPlants: Plant[];
-
     fetchPlants: () => Promise<void>;
     addPlant: (plantData: Plant, imageUri?: string) => Promise<void>;
     updatePlantData: (plantId: string, updatedData: Partial<Plant>, addWateringHistory?: boolean) => Promise<void>;
@@ -163,10 +159,6 @@ export const PlantProvider: React.FC<Props> = ({ children }) => {
             value={{
                 plants,
                 loading,
-
-                searchQuery,
-                setSearchQuery,
-                filteredPlants,
                 
                 fetchPlants: fetchPlantsData,
                 addPlant,

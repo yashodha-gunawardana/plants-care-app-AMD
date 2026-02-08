@@ -5,7 +5,7 @@ import {
     TouchableOpacity, StyleSheet, View, Text, SafeAreaView, 
     KeyboardAvoidingView, ScrollView, TextInput 
 } from "react-native";
-
+import { getFriendlyFirebaseError } from "@/utils/firebaseErrors";
 import { loginUser, registerUser } from "@/services/authService";
 import { useRouter } from "expo-router";
 
@@ -211,7 +211,8 @@ const GardinoAuth = () => {
         } catch (err: any) {
             console.log("Auth Error:", err.message); 
 
-            setErrorMessage(err.message || "Something went wrong"); 
+            // show friendly message
+            setErrorMessage(getFriendlyFirebaseError(err.code) || "Something went wrong");
 
             setIsError(true);
             Animated.parallel([
@@ -362,7 +363,7 @@ const GardinoAuth = () => {
                     </Animated.View>
 
                     <Text style={styles.errorTitle}>Growth Stalled</Text>
-                    <Text style={styles.errorSubtitle}>{errorMessage}</Text>
+                    <Text style={styles.errorSubtitle}>{errorMessage || "We couldn't process your request. Let's try again!"}</Text>
 
                     <TouchableOpacity 
                         style={[styles.mainBtn, styles.errorBtn, { width: 200, marginTop: 40 }]} 

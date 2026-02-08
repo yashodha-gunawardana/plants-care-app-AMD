@@ -182,6 +182,12 @@ const DashboardHeader = () => {
     const [searchActive, setSearchActive] = useState(false);
     const pathname = usePathname();
 
+    // check if search should be enabled for this screen
+    const showSearchIcon = ["/home", "/wiki"].includes(pathname);
+
+    // hide notification button on Add screen
+    const showNotificationIcon = ["/home", "/log"].includes(pathname);
+
     // animation values for header title
     const titleFade = useRef(new Animated.Value(0)).current;
     const titleSlide = useRef(new Animated.Value(10)).current;
@@ -269,12 +275,18 @@ const DashboardHeader = () => {
 
                              {/* search and notification buttons */}
                             <View style={styles.btnBox}>
-                                <TouchableOpacity onPress={() => setSearchActive(true)} style={styles.iconBtn}>
-                                    <Ionicons name="search" size={20} color={COLORS.jungle} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.iconBtn}>
-                                    <Ionicons name="notifications-outline" size={20} color={COLORS.jungle} />
-                                </TouchableOpacity>
+
+                                {showSearchIcon && (
+                                    <TouchableOpacity onPress={() => setSearchActive(true)} style={styles.iconBtn}>
+                                        <Ionicons name="search" size={20} color={COLORS.jungle} />
+                                    </TouchableOpacity>
+                                )}
+                                
+                                {showNotificationIcon && (
+                                    <TouchableOpacity style={styles.iconBtn}>
+                                        <Ionicons name="notifications-outline" size={20} color={COLORS.jungle} />
+                                    </TouchableOpacity>
+                                )}
                             </View>
                         </View>
 
@@ -292,6 +304,7 @@ const DashboardHeader = () => {
                                     placeholderTextColor={COLORS.forest} 
                                 />
 
+                                
                                 <TouchableOpacity onPress={() => { setSearchActive(false), setSearchQuery("")}}>
                                     <Ionicons name="close-circle" size={24} color={COLORS.jungle} style={{ marginRight: 15 }} />
                                 </TouchableOpacity>

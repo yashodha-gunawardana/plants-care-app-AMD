@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSearch } from "@/context/SearchContext";
 
 
 // get screen dimensions for initial placement of the draggable button
@@ -42,6 +43,8 @@ const COLORS = {
 const HomeScreen = () => {
     const { plants, loading, fetchPlants } = useContext(PlantContext);
     const router = useRouter();
+
+    const { searchQuery } = useSearch();
     
     // State to track if this is first login
     const [isFirstLogin, setIsFirstLogin] = useState<boolean | null>(null);
@@ -155,12 +158,27 @@ const HomeScreen = () => {
         };
     }, [plants]);
 
+
+    // filter plants based on global search query
+    const filteredPlants = useMemo(() => {
+        if (!searchQuery.trim()) return plants;
+
+        return plants.filter(p =>
+            p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            p.type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            p.location?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        
+    }, [plants, searchQuery]);
+
+
     // sort the plant list based on user preference
     const sortedPlants = useMemo(() => {
-        const list = [...plants];
+        const list = [...filteredPlants];
         if (sortType === "alphabetical") return list.sort((a, b) => a.name.localeCompare(b.name));
         return list.reverse(); 
-    }, [plants, sortType]);
+
+    }, [filteredPlants, sortType]);
 
     const handleSortPress = () => {
         Alert.alert("Sort Collection", "Choose viewing preference", [
