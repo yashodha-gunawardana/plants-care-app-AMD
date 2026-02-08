@@ -9,6 +9,8 @@ import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Switch, Alert, ActivityIndicator } from "react-native";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
+import { LinearGradient } from "expo-linear-gradient";
+import DashboardHeader from "@/components/Header";
 
 
 // clodinary config for optimized image delivery
@@ -291,6 +293,16 @@ const SettingsScreen = () => {
             <ActivityIndicator size="large" color={COLORS.forest} />
         </View>
     );
+
+
+    return (
+        <View style={{ flex: 1}}>
+            <LinearGradient colors={["#D6DED9", "#FFFFFF"]} style={styles.mainContainer}>
+                <DashboardHeader />
+            </LinearGradient>
+
+        </View>
+    )
     
 }
 
@@ -298,7 +310,8 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
 
     centerContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-
+    mainContainer: { flex: 1 },
+    
     optionRow: { 
         flexDirection: "row", 
         justifyContent: "space-between", 
