@@ -364,6 +364,23 @@ const SettingsScreen = () => {
                         </View>
                     )}
 
+
+                    <View style={styles.divider} />
+                    <Text style={styles.sectionTitle}>Preferences</Text>
+          
+                    <SettingRow 
+                        icon="notifications-outline" label="Notifications"
+                        value={notificationsEnabled} onValueChange={handleNotificationsToggle}
+                        iconBg="#E8F5E1" iconColor={COLORS.forest} trackColor={COLORS.forest}
+                    />
+
+                    <SettingRow 
+                        icon="alarm-outline" label="Reminders"
+                        value={remindersEnabled} onValueChange={handleRemindersToggle}
+                        iconBg="#FFF4E5" iconColor={COLORS.golden} trackColor={COLORS.golden}
+                    />
+
+                    <View style={styles.divider} />
                     
 
 
@@ -425,7 +442,7 @@ const styles = StyleSheet.create({
     gridContainer: { marginVertical: 20 },
     gridHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
     sectionTitle: { fontSize: 12, fontWeight: "700", color: COLORS.muted, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 },
-    
+
     avatarGrid: { 
         flexDirection: "row", 
         flexWrap: "wrap", 
@@ -439,7 +456,8 @@ const styles = StyleSheet.create({
     avatarItem: { padding: 2 },
     selectedAvatarItem: { borderWidth: 2, borderColor: COLORS.forest, borderRadius: 35 },
     miniAvatar: { width: 60, height: 60, borderRadius: 30 },
-
+    divider: { height: 1, backgroundColor: "rgba(0,0,0,0.06)", marginVertical: 25 },
+    
     optionRow: { 
         flexDirection: "row", 
         justifyContent: "space-between", 
