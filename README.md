@@ -1,6 +1,6 @@
-# 🌿 Plants Care App (AMD)
+# 🌿 Gardino Plants Care App 
 
-Plants Care App (AMD) is a **mobile application built using React Native with Expo** that helps users manage and take care of their plants efficiently.  
+Plants Care App is a **mobile application built using React Native with Expo** that helps users manage and take care of their plants efficiently.  
 The app provides a **clean and user-friendly interface** to track watering schedules, view plant details, receive reminders, and manage a plant collection.
 
 This project is developed as a practical learning project focusing on **mobile app development, UI design, and state management**.
@@ -67,4 +67,74 @@ The app uses a **nature-inspired, minimal UI** to enhance user experience.
 ---
 
 ## 📁 Folder Structure
+
+gardino-plants-care-app/
+│
+├── .expo/                       # Expo cache files
+├── .github/                     # GitHub workflows & configs
+├── .vscode/                     # VS Code settings
+│
+├── app/                         # Expo Router screens
+│   ├── (auth)/                  # Authentication flow
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx
+│   │   └── loginRegister.tsx
+│   │
+│   ├── (dashboard)/             # Main dashboard (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── home.tsx
+│   │   ├── add.tsx
+│   │   ├── log.tsx
+│   │   ├── settings.tsx
+│   │   └── wiki.tsx
+│   │
+│   ├── (modals)/                # Modal screens
+│   │   ├── _layout.tsx
+│   │   ├── edit-plant.tsx
+│   │   └── plant-details.tsx
+│   │
+│   └── _layout.tsx              # Root layout
+│
+├── assets/                      # Images, icons, fonts
+│
+├── components/                  # Reusable UI components
+│   ├── CareModal.tsx
+│   ├── Header.tsx
+│   ├── PlantCard.tsx
+│   ├── RippleEffect.tsx
+│   └── Toast.tsx
+│
+├── config/                      # App configurations
+│   └── firebase.ts              # Firebase configuration
+│
+├── constants/                   # Static values & themes
+│
+├── context/                     # Context API (Global State)
+│   ├── AuthContext.tsx
+│   ├── PlantContext.tsx
+│   └── SearchContext.tsx
+│
+├── hooks/                       # Custom React hooks
+│
+├── scripts/                     # Utility scripts
+│   └── reset-project.js
+│
+├── services/                    # Business logic & APIs
+│   └── authService.ts
+│
+├── node_modules/                # Dependencies
+│
+├── .gitignore
+├── README.md                    # Project documentation
+├── app.json                     # Expo configuration
+├── babel.config.js
+├── eslint.config.js
+├── global.css                   # Global styles
+├── metro.config.js
+├── nativewind-env.d.ts
+├── package.json
+├── package-lock.json
+├── tailwind.config.js
+└── tsconfig.json
+
 
