@@ -124,7 +124,7 @@ const FloweringVine = ({ delay, rotateRange, style, length = 180, isShort = fals
                     transform={`rotate(40, ${getX(0.18)+5}, ${length * 0.18})`} 
                 />
 
-                {/* llowers */}
+                {/* flowers */}
                 <G transform={`translate(${getX(0.28)}, ${length * 0.28})`}>
                     <Circle 
                         cx="-2.5" cy="-2.5" r="2.8" 
