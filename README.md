@@ -206,28 +206,28 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
 ## 📱 Screenshots 
 
 ### Welcome Screen
-<img src="assets/screenshots/welcome_screen.png" width="300" alt="Home Screen" />
+<img src="assets/screenshots/welcome_screen.png" width="300" alt="Welcome Screen" />
 
 ### Home Screen
-![Home Screen](assets/screenshots/home_image01.png)
+<img src="assets/screenshots/home_screen.png" width="300" alt="Home Screen" />
 
 ### Home Screen
-![Home Screen](assets/screenshots/home_image02.png)
+<img src="assets/screenshots/home_screen_01.png" width="300" alt="Home Screen" />
 
 ### Login Screen
-![Login Screen](assets/screenshots/login_image.png)
+<img src="assets/screenshots/login_screen.png" width="300" alt="Login Screen" />
 
 ### Register Screen
-![Register Screen](assets/screenshots/register_image.png)
+<img src="assets/screenshots/register_screen.png" width="300" alt="Register Screen" />
 
 ### Wiki Screen
-![Wiki Screen](assets/screenshots/wiki_image.png)
+<img src="assets/screenshots/wiki_screen.png" width="300" alt="Wiki Screen" />
 
 ### Add Screen
-![Add Screen](assets/screenshots/create_plant.png)
+<img src="assets/screenshots/add_plants.png" width="300" alt="Add Screen" />
 
 ### History Screen
-![History Screen](assets/screenshots/history-image.png)
+<img src="assets/screenshots/history_screen.png" width="300" alt="History Screen" />
 
 ### Settings Screen
-![Settings Screen](assets/screenshots/settings_image.png)
+<img src="assets/screenshots/settings_screen.png" width="300" alt="Settings Screen" />
