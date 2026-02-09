@@ -92,16 +92,16 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
 
 ## 📁 Folder Structure
 
-   gardino-plants-care-app/
-      expo/                       # Expo cache files
-      github/                     # GitHub workflows & configs
-      vscode/                     # VS Code settings
-
-   app/                         # Expo Router screens
-      (auth)/                    # Authentication flow
-         _layout.tsx
-         index.tsx
-         loginRegister.tsx
+     gardino-plants-care-app/
+        expo/                       # Expo cache files
+        github/                     # GitHub workflows & configs
+        vscode/                     # VS Code settings
+  
+     app/                         # Expo Router screens
+        (auth)/                    # Authentication flow
+           _layout.tsx
+           index.tsx
+           loginRegister.tsx
 
       (dashboard)/               # Main dashboard (tabs)
          _layout.tsx
@@ -118,47 +118,47 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
 
       _layout.tsx                # Root layout
 
-   assets/                      # Images, icons, fonts
-
-   components/                  # Reusable UI components
-      CareModal.tsx
-      Header.tsx
-      PlantCard.tsx
-      RippleEffect.tsx
-      Toast.tsx
-
-   config/                      # App configurations
-      firebase.ts                # Firebase configuration
-
-   constants/                   # Static values & themes
-
-   context/                     # Context API (Global State)
-      AuthContext.tsx
-      PlantContext.tsx
-      SearchContext.tsx
-
-   hooks/                       # Custom React hooks
-
-   scripts/                     # Utility scripts
-      reset-project.js
-
-   services/                    # Business logic & APIs
-      authService.ts
-
-   node_modules/                # Dependencies
-
-   .gitignore
-   README.md                    # Project documentation
-   app.json                     # Expo configuration
-   babel.config.js
-   eslint.config.js
-   global.css                   # Global styles
-   metro.config.js
-   nativewind-env.d.ts
-   package.json
-   package-lock.json
-   tailwind.config.js
-   tsconfig.json
+     assets/                      # Images, icons, fonts
+  
+     components/                  # Reusable UI components
+        CareModal.tsx
+        Header.tsx
+        PlantCard.tsx
+        RippleEffect.tsx
+        Toast.tsx
+  
+     config/                      # App configurations
+        firebase.ts                # Firebase configuration
+  
+     constants/                   # Static values & themes
+  
+     context/                     # Context API (Global State)
+        AuthContext.tsx
+        PlantContext.tsx
+        SearchContext.tsx
+  
+     hooks/                       # Custom React hooks
+  
+     scripts/                     # Utility scripts
+        reset-project.js
+  
+     services/                    # Business logic & APIs
+        authService.ts
+  
+     node_modules/                # Dependencies
+  
+     .gitignore
+     README.md                    # Project documentation
+     app.json                     # Expo configuration
+     babel.config.js
+     eslint.config.js
+     global.css                   # Global styles
+     metro.config.js
+     nativewind-env.d.ts
+     package.json
+     package-lock.json
+     tailwind.config.js
+     tsconfig.json
 
 
 
@@ -182,14 +182,14 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
   - Create a Firestore database
   - Add your Firebase config to config/firebase.ts
 
-      export const firebaseConfig = {
-         apiKey: "YOUR_API_KEY",
-         authDomain: "YOUR_AUTH_DOMAIN",
-         projectId: "YOUR_PROJECT_ID",
-         storageBucket: "YOUR_STORAGE_BUCKET",
-         messagingSenderId: "YOUR_MESSAGING_ID",
-         appId: "YOUR_APP_ID",
-      };
+        export const firebaseConfig = {
+           apiKey: "YOUR_API_KEY",
+           authDomain: "YOUR_AUTH_DOMAIN",
+           projectId: "YOUR_PROJECT_ID",
+           storageBucket: "YOUR_STORAGE_BUCKET",
+           messagingSenderId: "YOUR_MESSAGING_ID",
+           appId: "YOUR_APP_ID",
+        };
 
 ### 5. Start the App
       expo start
@@ -199,35 +199,5 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
    - Physical Device: Use Expo Go and scan the QR code
    - Emulator/Simulator: Run on Android Studio or Xcode simulator
 
-The app should now be running locally!
-
-
-## 📱 Screenshots 
-
-### Welcome Screen
-![Welcome Screen](assets/screenshots/welcome_image.png)
-
-### Home Screen
-![Home Screen](assets/screenshots/home_image01.png)
-
-### Home Screen
-![Home Screen](assets/screenshots/home_image02.png)
-
-### Login Screen
-![Login Screen](assets/screenshots/login_image.png)
-
-### Register Screen
-![Register Screen](assets/screenshots/register_image.png)
-
-### Wiki Screen
-![Wiki Screen](assets/screenshots/wiki_image.png)
-
-### Add Screen
-![Add Screen](assets/screenshots/create_plant.png)
-
-### History Screen
-![History Screen](assets/screenshots/history-image.png)
-
-### Settings Screen
-![Settings Screen](assets/screenshots/settings_image.png)
+✨ The app should now be running locally!
 
