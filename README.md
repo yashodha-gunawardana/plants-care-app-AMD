@@ -1,50 +1,70 @@
-# Welcome to your Expo app 👋
+# 🌿 Plants Care App (AMD)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Plants Care App (AMD) is a **mobile application built using React Native with Expo** that helps users manage and take care of their plants efficiently.  
+The app provides a **clean and user-friendly interface** to track watering schedules, view plant details, receive reminders, and manage a plant collection.
 
-## Get started
+This project is developed as a practical learning project focusing on **mobile app development, UI design, and state management**.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📌 Project Overview
 
-2. Start the app
+Taking care of plants requires consistency and tracking. The **Plants Care App** solves this by:
 
-   ```bash
-   npx expo start
-   ```
+- Managing multiple plants
+- Tracking watering history
+- Sending reminders for care tasks
+- Providing detailed plant information
 
-In the output, you'll find options to open the app in a
+The app uses a **nature-inspired, minimal UI** to enhance user experience.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## ✨ Features
 
-## Get a fresh project
+- 🌱 **Plant Management**
+  - Add, edit, and delete plants
+  - View plant details
 
-When you're ready, run:
+- 💧 **Watering Tracking**
+  - Mark plants as “Watered Today”
+  - Keep a history of watering
+  - Update last watered date automatically
 
-```bash
-npm run reset-project
-```
+- ⏰ **Reminders & Notifications**
+  - Set and manage watering reminders
+  - Receive push notifications for due tasks
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- 👤 **User Profile**
+  - View and edit profile information
+  - Profile picture with frame and edit button
+  - Logout functionality
 
-## Learn more
+- 🎨 **Modern UI**
+  - Gradient backgrounds
+  - Animated components and transitions
+  - Clean bottom tab navigation
+  - Responsive layouts for all devices
 
-To learn more about developing your project with Expo, look at the following resources:
+- 🔐 **Authentication**
+  - Firebase login and registration
+  - Secure user data management
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## 🛠️ Technologies Used
 
-Join our community of developers creating universal apps.
+- **React Native (Expo)**
+- **TypeScript**
+- **Firebase** (Authentication, Firestore)
+- **Expo Router** (Navigation)
+- **Context API** (State Management)
+- **Expo Linear Gradient**
+- **Expo Vector Icons**
+- **React Native Reanimated**
+- **NativeWind / Tailwind-style utilities**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 📁 Folder Structure
+

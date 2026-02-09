@@ -147,7 +147,7 @@ const SettingsScreen = () => {
                     title: "Notification active",
                     body: "You will receive care alerts for your plants"
                 },
-                trigger: null;
+                trigger: null,
             });
         }
 
@@ -483,7 +483,7 @@ const styles = StyleSheet.create({
     },
 
     actionText: { color: COLORS.forest, fontSize: 16, fontWeight: "800", marginLeft: 10 },
-    
+
     optionRow: { 
         flexDirection: "row", 
         justifyContent: "space-between", 
