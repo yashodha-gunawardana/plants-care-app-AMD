@@ -92,73 +92,73 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
 
 ## 📁 Folder Structure
 
-gardino-plants-care-app/
-  expo/                       # Expo cache files
-  github/                     # GitHub workflows & configs
-  vscode/                     # VS Code settings
+   gardino-plants-care-app/
+      expo/                       # Expo cache files
+      github/                     # GitHub workflows & configs
+      vscode/                     # VS Code settings
 
-  app/                         # Expo Router screens
-    (auth)/                    # Authentication flow
-      _layout.tsx
-      index.tsx
-      loginRegister.tsx
+   app/                         # Expo Router screens
+      (auth)/                    # Authentication flow
+         _layout.tsx
+         index.tsx
+         loginRegister.tsx
 
-    (dashboard)/               # Main dashboard (tabs)
-      _layout.tsx
-      home.tsx
-      add.tsx
-      log.tsx
-      settings.tsx
-      wiki.tsx
+      (dashboard)/               # Main dashboard (tabs)
+         _layout.tsx
+         home.tsx
+         add.tsx
+         log.tsx
+         settings.tsx
+         wiki.tsx
 
-    (modals)/                  # Modal screens
-      _layout.tsx
-      edit-plant.tsx
-      plant-details.tsx
+      (modals)/                  # Modal screens
+         _layout.tsx
+         edit-plant.tsx
+         plant-details.tsx
 
-    _layout.tsx                # Root layout
+      _layout.tsx                # Root layout
 
-  assets/                      # Images, icons, fonts
+   assets/                      # Images, icons, fonts
 
-  components/                  # Reusable UI components
-    CareModal.tsx
-    Header.tsx
-    PlantCard.tsx
-    RippleEffect.tsx
-    Toast.tsx
+   components/                  # Reusable UI components
+      CareModal.tsx
+      Header.tsx
+      PlantCard.tsx
+      RippleEffect.tsx
+      Toast.tsx
 
-  config/                      # App configurations
-    firebase.ts                # Firebase configuration
+   config/                      # App configurations
+      firebase.ts                # Firebase configuration
 
-  constants/                   # Static values & themes
+   constants/                   # Static values & themes
 
-  context/                     # Context API (Global State)
-    AuthContext.tsx
-    PlantContext.tsx
-    SearchContext.tsx
+   context/                     # Context API (Global State)
+      AuthContext.tsx
+      PlantContext.tsx
+      SearchContext.tsx
 
-  hooks/                       # Custom React hooks
+   hooks/                       # Custom React hooks
 
-  scripts/                     # Utility scripts
-    reset-project.js
+   scripts/                     # Utility scripts
+      reset-project.js
 
-  services/                    # Business logic & APIs
-    authService.ts
+   services/                    # Business logic & APIs
+      authService.ts
 
-  node_modules/                # Dependencies
+   node_modules/                # Dependencies
 
-  .gitignore
-  README.md                    # Project documentation
-  app.json                     # Expo configuration
-  babel.config.js
-  eslint.config.js
-  global.css                   # Global styles
-  metro.config.js
-  nativewind-env.d.ts
-  package.json
-  package-lock.json
-  tailwind.config.js
-  tsconfig.json
+   .gitignore
+   README.md                    # Project documentation
+   app.json                     # Expo configuration
+   babel.config.js
+   eslint.config.js
+   global.css                   # Global styles
+   metro.config.js
+   nativewind-env.d.ts
+   package.json
+   package-lock.json
+   tailwind.config.js
+   tsconfig.json
 
 
 
@@ -167,3 +167,36 @@ gardino-plants-care-app/
 ### 1. Clone the Repository
       git clone https://github.com/yashodha-gunawardana/plants-care-app-AMD.git
       cd plants-care-app-AMD
+
+### 2. Install Dependencies
+      npm install
+
+### 3. Install Expo CLI (if not installed)
+      npm install -g expo-cli
+
+   Check installation:  expo --version
+
+### 4. Configure Firebase
+  - Create a Firebase project (https://firebase.google.com)
+  - Enable Authentication (Email & Password)
+  - Create a Firestore database
+  - Add your Firebase config to config/firebase.ts
+
+      export const firebaseConfig = {
+         apiKey: "YOUR_API_KEY",
+         authDomain: "YOUR_AUTH_DOMAIN",
+         projectId: "YOUR_PROJECT_ID",
+         storageBucket: "YOUR_STORAGE_BUCKET",
+         messagingSenderId: "YOUR_MESSAGING_ID",
+         appId: "YOUR_APP_ID",
+      };
+
+### 5. Start the App
+      expo start
+  - Opens Expo Developer Tools in your browser
+
+### 6. Open the App
+   - Physical Device: Use Expo Go and scan the QR code
+   - Emulator/Simulator: Run on Android Studio or Xcode simulator
+
+The app should now be running locally!
