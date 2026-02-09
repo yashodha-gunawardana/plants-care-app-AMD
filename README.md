@@ -201,33 +201,3 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
 
 ✨ The app should now be running locally!
 
-
-
-## 📱 Screenshots 
-
-### Welcome Screen
-![Welcome Screen](assets/screenshots/welcome_image.png)
-
-### Home Screen
-![Home Screen](assets/screenshots/home_image01.png)
-
-### Home Screen
-![Home Screen](assets/screenshots/home_image02.png)
-
-### Login Screen
-![Login Screen](assets/screenshots/login_image.png)
-
-### Register Screen
-![Register Screen](assets/screenshots/register_image.png)
-
-### Wiki Screen
-![Wiki Screen](assets/screenshots/wiki_image.png)
-
-### Add Screen
-![Add Screen](assets/screenshots/create_plant.png)
-
-### History Screen
-![History Screen](assets/screenshots/history-image.png)
-
-### Settings Screen
-![Settings Screen](assets/screenshots/settings_image.png)
