@@ -206,7 +206,7 @@ Cloudinary is used to handle **image uploads and storage** for plants and user p
 ## 📱 Screenshots 
 
 ### Welcome Screen
-![Welcome Screen](assets/screenshots/welcome_screen.png)
+<img src="assets/screenshots/welcome_screen.png" width="300" alt="Home Screen" />
 
 ### Home Screen
 ![Home Screen](assets/screenshots/home_image01.png)
