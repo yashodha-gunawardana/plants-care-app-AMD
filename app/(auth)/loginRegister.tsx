@@ -381,11 +381,6 @@ const GardinoAuth = () => {
             <SafeAreaView style={{ flex: 1}}>
                 {(!isSuccess && !isError) && (
                     <>
-                        {/* back btn in left top corner */}
-                        <TouchableOpacity style={styles.backButton}>
-                            <Ionicons name="chevron-back" size={28} color="#1A3026" />
-                        </TouchableOpacity>
-
                         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
                             
                             {/* keyboard appear */}
@@ -495,7 +490,6 @@ const styles = StyleSheet.create({
 
     // main container
     masterContainer: { flex: 1, backgroundColor: "#F4F7F2" }, 
-    backButton: { position: "absolute", top: STATUSBAR_HEIGHT + 25, left: 20, zIndex: 10, padding: 8 },
 
     raindrop: {
         position: "absolute",
@@ -591,7 +585,7 @@ const styles = StyleSheet.create({
 
     // main button
     mainBtn: { 
-        backgroundColor: "#3A5A40", 
+        backgroundColor: "#17402A", 
         height: 56, 
         borderTopLeftRadius: 50, 
         borderBottomRightRadius: 32,
@@ -605,7 +599,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 4, height: 8 },
         borderTopWidth: 2.5,
         borderLeftWidth: 1.5,
-        borderColor: "rgba(255, 255, 255, 0.25)", 
+        borderColor: "#5DA87A", 
         overflow: "visible"
     },
     mainBtnText: { 

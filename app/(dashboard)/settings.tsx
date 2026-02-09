@@ -297,7 +297,12 @@ const SettingsScreen = () => {
 
     return (
         <View style={{ flex: 1}}>
-            <LinearGradient colors={["#D6DED9", "#FFFFFF"]} style={styles.mainContainer}>
+            <LinearGradient
+                colors={["#D6DED9", "#FFFFFF"]}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.mainContainer}>
+            
                 <DashboardHeader />
 
                 {/* bg leaf */}
