@@ -1,9 +1,11 @@
 import { Plant } from "@/context/PlantContext";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
+import Constants from "expo-constants";
 
 
-Notifications.setNotificationHandler({
+if (Constants.appOwnership !== "expo") {
+    Notifications.setNotificationHandler({
     handleNotification: async ()=>  ({
         shouldShowAlert: true,
         shouldPlaySound: true,
@@ -12,10 +14,18 @@ Notifications.setNotificationHandler({
         shouldShowList: true
     }),
 });
+}
 
 
 // requests permission from the user to send push notifications
 export async function requestNotificationPermissions() {
+
+     // sSkip remote push logic in Expo Go
+    if (Constants.appOwnership === "expo") {
+        console.log("Expo Go detected: using local notifications only");
+        return;
+    }
+    
     const { status } = await Notifications.getPermissionsAsync();
     if (status !== 'granted') {
         await Notifications.requestPermissionsAsync();
@@ -37,50 +47,6 @@ export async function cancelPlantNotifications(plantId: string) {
 };
 
 
-// loops through a plant's care requirements and schedules recurring weekly alerts
-/*export async function scheduleAllPlantReminders(plant: Plant) {
-    if (!plant.careSchedules) return;
-
-    const careTypes = [
-        { key: "watering", emoji: "💧", label: "Water" },
-        { key: "fertilize", emoji: "🧪", label: "Fertilize" },
-        { key: "repot", emoji: "🪴", label: "Repot" },
-    ] as const;
-
-
-    for (const care of careTypes) {
-        const schedule = plant.careSchedules[care.key as keyof typeof plant.careSchedules];
-
-        // check if the user has actually set up a schedule for this care type
-        if (schedule && schedule.selectedDays && schedule.selectedDays.length > 0) {
-
-            // convert the "HH:MM" string into numbers for the system clock
-            const [hour, minute] = (schedule.selectedTime || "07:00").split(':').map(Number);
-
-            for (const dayIndex of schedule.selectedDays) {
-
-                // implement weekday conversion logic for Expo Notifications
-                const weekday = dayIndex === 6 ? 1 : dayIndex + 2;
-
-                // register the notification with the device OS
-                await Notifications.scheduleNotificationAsync({
-                    content: {
-                        title: `${care.emoji} ${care.label} Time!`,
-                        body: `Your ${plant.name} is ready for its ${care.key} routine.`,
-                        data: { plantId: plant.id, type: care.key }, 
-                    },
-                    trigger: {
-                        type: SchedulableTriggerInputTypes.CALENDAR, 
-                        hour,
-                        minute,
-                        weekday,    // specific day of the week
-                        repeats: true, // make it repeat every week on this day
-                    },
-                })
-            }
-        }
-    }
-}*/
 // loops through a plant's care requirements and schedules recurring weekly alerts
 export async function scheduleAllPlantReminders(plant: Plant) {
     if (!plant.careSchedules) return;
