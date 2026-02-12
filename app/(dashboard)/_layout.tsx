@@ -1,8 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import React from "react";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { Dimensions, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as NavigationBar from 'expo-navigation-bar';
 
 
 const { width } = Dimensions.get("window");
@@ -16,30 +18,55 @@ const tabs = [
 ];
 
 const CustomTabBar = ({ state, navigation }: any) => {
+    const insets = useSafeAreaInsets();
+
     const activeIndex = state.index;
     const tabWidth = 400 / tabs.length;
     const notchX = (activeIndex * tabWidth) + (tabWidth / 2);
 
+    useEffect(() => {
+        if (Platform.OS === 'android') {
+            NavigationBar.setBackgroundColorAsync('#FFFFFF');
+            NavigationBar.setButtonStyleAsync('dark'); // Dark icons on white background
+        }
+    }, []);
+
     return (
-        <View style={styles.navContainer}>
+        <View style={[styles.navContainer, {
+                height: 90 + insets.bottom,
+                paddingBottom: insets.bottom,
+                bottom: 0,
+            }]}>
 
             {/* The Liquid Notch SVG Background with Grey Border */}
             <View style={StyleSheet.absoluteFill}>
                 <Svg viewBox="0 0 400 80" width={width} height={105}>
                     <Path
                         fill="#FFFFFF"
+                        d={`
+                            M 0 20 
+                            L ${notchX - 45} 20 
+                            C ${notchX - 25} 20, ${notchX - 20} 55, ${notchX} 55
+                            C ${notchX + 20} 55, ${notchX + 25} 20, ${notchX + 45} 20
+                            L 400 20
+                            L 400 80
+                            L 0 80
+                            L 0 20
+                            Z
+                        `}
+                    />
+
+                    {/* top stroke only */}
+                    <Path
+                        fill="none"
                         stroke="#5DA87A"
                         strokeWidth="0.8"
                         d={`
-                        M 0 20 
-                        L ${notchX - 45} 20 
-                        C ${notchX - 25} 20, ${notchX - 20} 55, ${notchX} 55
-                        C ${notchX + 20} 55, ${notchX + 25} 20, ${notchX + 45} 20
-                        L 400 20
-                        L 400 80
-                        L 0 80
-                        L 0 20
-                        Z
+                            M 0 20
+                            L ${notchX - 45} 20 
+                            C ${notchX - 25} 20, ${notchX - 20} 55, ${notchX} 55
+                            C ${notchX + 20} 55, ${notchX + 25} 20, ${notchX + 45} 20
+                            L 400 20
                         `}
                     />
                 </Svg>

@@ -414,7 +414,7 @@ const HomeScreen = () => {
 
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: "#F7F9F7" },
+    container: { flex: 1, backgroundColor: "#F7F9F7"},
     
     // Loading State
     loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
     loadingText: { fontSize: 18, color: "#FFFFFF", fontWeight: '600', opacity: 0.9 },
 
     // Scroll Content
-    scrollContent: { paddingHorizontal: 20, paddingTop: 24 },
+    scrollContent: { paddingHorizontal: 20 },
     welcomeScrollContent: { paddingBottom: 40 },
 
     // Welcome Screen Styles
@@ -451,7 +451,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 10 },
         shadowOpacity: 0.3,
         shadowRadius: 15,
-        marginBottom: 30,
+        marginBottom: 30
     },
     accentCircle: {
         position: 'absolute',

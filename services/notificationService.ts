@@ -1,11 +1,10 @@
 import { Plant } from "@/context/PlantContext";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
-import Constants from "expo-constants";
+import { Platform } from "react-native";
 
 
-if (Constants.appOwnership !== "expo") {
-    Notifications.setNotificationHandler({
+Notifications.setNotificationHandler({
     handleNotification: async ()=>  ({
         shouldShowAlert: true,
         shouldPlaySound: true,
@@ -14,21 +13,27 @@ if (Constants.appOwnership !== "expo") {
         shouldShowList: true
     }),
 });
-}
 
 
 // requests permission from the user to send push notifications
 export async function requestNotificationPermissions() {
-
-     // sSkip remote push logic in Expo Go
-    if (Constants.appOwnership === "expo") {
-        console.log("Expo Go detected: using local notifications only");
-        return;
-    }
-    
     const { status } = await Notifications.getPermissionsAsync();
+
     if (status !== 'granted') {
-        await Notifications.requestPermissionsAsync();
+        const request = await Notifications.requestPermissionsAsync();
+
+        if (request.status !== "granted") {
+            throw new Error("Notification permission denied");
+        }
+    }
+
+    if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+            name: "Plant Care Reminders",
+            importance: Notifications.AndroidImportance.HIGH,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: "#17402A",
+        });
     }
 };
 
@@ -42,6 +47,7 @@ export async function cancelPlantNotifications(plantId: string) {
         // look inside the 'data' object we stored to find the specific plant ID
         if (notification.content.data?.plantId === plantId) {
             await Notifications.cancelScheduledNotificationAsync(notification.identifier);
+            console.log(`Cancelled notification: ${notification.identifier}`);
         }
     }
 };
@@ -49,7 +55,11 @@ export async function cancelPlantNotifications(plantId: string) {
 
 // loops through a plant's care requirements and schedules recurring weekly alerts
 export async function scheduleAllPlantReminders(plant: Plant) {
-    if (!plant.careSchedules) return;
+
+    if (!plant.careSchedules || !plant.id) {
+        console.warn("Plant missing careSchedules or ID");
+        return;
+    }
 
     const careTypes = [
         { key: "watering", emoji: "💧", label: "Water" },

@@ -8,6 +8,8 @@ import { BlurView } from "expo-blur";
 import Svg, { Path, G, Ellipse, Defs, LinearGradient as SvgGrad, Stop, Circle } from "react-native-svg";
 import { usePathname } from "expo-router";
 import { useSearch } from "@/context/SearchContext";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 
 const { width } = Dimensions.get("window");
@@ -226,7 +228,9 @@ const DashboardHeader = () => {
 
 
     return (
-        <View style={styles.master}>
+        <SafeAreaView edges={["top"]} style={styles.master}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
+            
             <View style={styles.floatingCard}>
 
                  {/* decorative vines */}
@@ -313,17 +317,17 @@ const DashboardHeader = () => {
                     )}
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
 
     master: {
-        paddingTop: Platform.OS === "ios" ? 50 : 10,
         paddingHorizontal: 10,
-        backgroundColor: 'transparent',
+        backgroundColor: "#FFFFFF",
         zIndex: 1000,
+        marginTop: 8
     },
     floatingCard: {
         backgroundColor: "#FFFFFF",

@@ -380,6 +380,7 @@ const AddPlantScreen = () => {
                                     <TextInput 
                                         style={styles.pillTextInput}
                                         placeholder="Add Type"
+                                        placeholderTextColor="#1A3C3480"
                                         value={plantType}
                                         onChangeText={setPlantType}
                                     />
@@ -390,6 +391,7 @@ const AddPlantScreen = () => {
                                     <TextInput
                                         style={styles.pillTextInput}
                                         placeholder="Add Location"
+                                        placeholderTextColor="#1A3C3480"
                                         value={location}
                                         onChangeText={setLocation}
                                     />
@@ -481,11 +483,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         justifyContent: "center",
         alignItems: "center",
-        
-        
+
         borderWidth: 8,
         borderColor: "rgba(26, 60, 52, 0.05)", 
-        
         
         elevation: 12,
         shadowColor: "#1A3C34",

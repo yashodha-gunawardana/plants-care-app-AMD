@@ -32,8 +32,9 @@ const COLORS = {
 
 // list avatar 
 const AVATAR_PUBLIC_IDS: string[] = [
-    "male_2_rnpy7q", "male_1_mcnb1r", "female_3_ztizys",
-    "female_2_yuk22n", "female_1_bjjecv", "cute_1_mlthan",
+    "male_2_rnpy7q", "male_1_mcnb1r", "female_3_ztizys", "cute_Hibicus_qf0be0",
+    "female_2_yuk22n", "female_1_bjjecv", "cute_1_mlthan", "pot_otekyi",
+    "cute_2_n0ovym", "male_3_kv7dah", "female_4_knlk7e", "male_4_omkmne"
 ];
 
 
