@@ -2,8 +2,8 @@ import DashboardHeader from "@/components/Header";
 import PlantCard from "@/components/PlantCard";
 import { PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { 
     Dimensions, Animated, PanResponder, Alert, View, 
     StyleSheet, RefreshControl, Text, TouchableOpacity, 
@@ -77,6 +77,13 @@ const HomeScreen = () => {
         
         checkFirstLogin();
     }, []);
+
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchPlants();
+        }, [])
+    );
 
     useEffect(() => {
         // keep lastOffset synchronized with the animated value to prevent jumping
@@ -188,6 +195,10 @@ const HomeScreen = () => {
         ]);
     };
 
+
+    // If first login OR no plants, show welcome screen
+    const shouldShowWelcome = isFirstLogin || plants.length === 0;
+
     // Show loading while checking first login status
     if (isFirstLogin === null) {
         return (
@@ -201,9 +212,6 @@ const HomeScreen = () => {
     }
 
     
-    // If first login OR no plants, show welcome screen
-    const shouldShowWelcome = isFirstLogin || plants.length === 0;
-
     const FeatureCard = ({ icon, title, desc, color }: any) => (
         <View style={[styles.featureCard, { borderColor: color + '40' }]}>
             <MaterialCommunityIcons name={icon} size={32} color={color} />
