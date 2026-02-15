@@ -76,7 +76,7 @@ const HomeScreen = () => {
         };
         
         checkFirstLogin();
-    }, [plants.length]);
+    }, []);
 
 
     useFocusEffect(
