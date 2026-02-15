@@ -63,20 +63,29 @@ const HomeScreen = () => {
         const checkFirstLogin = async () => {
             try {
                 const hasSeenWelcome = await AsyncStorage.getItem(HAS_SEEN_WELCOME_KEY);
-                setIsFirstLogin(!hasSeenWelcome);
-                
-                if (!hasSeenWelcome) {
-                    // Mark that user has seen welcome screen
-                    await AsyncStorage.setItem(HAS_SEEN_WELCOME_KEY, "true");
+
+                if (plants.length > 0) {
+                    if (!hasSeenWelcome) {
+                        await AsyncStorage.setItem(HAS_SEEN_WELCOME_KEY, "true");
+                    }
+                    setIsFirstLogin(false);
+
+                } else {
+                    // If they have 0 plants, show welcome only if they haven't "seen" it yet
+                    setIsFirstLogin(!hasSeenWelcome);
                 }
+
             } catch (error) {
                 console.error("Error checking first login:", error);
                 setIsFirstLogin(false);
             }
         };
         
-        checkFirstLogin();
-    }, []);
+        if (!loading) {
+            checkFirstLogin();
+        }
+
+    }, [plants.length, loading]);
 
 
     useFocusEffect(
