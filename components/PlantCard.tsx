@@ -1,7 +1,7 @@
 import { Plant, PlantContext } from "@/context/PlantContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image, Alert } from "react-native";
 import * as Haptics from "expo-haptics";
 import PressRipple from "./RippleEffect";
@@ -18,6 +18,13 @@ const PlantCard = ({ item }: PlantCardProps) => {
     const { updatePlantData, loading } = useContext(PlantContext);
 
     const [showRipple, setShowRipple] = React.useState(false);
+
+    // check if watering schedule exists and has a valid interval
+    const hasWateringSchedule = useMemo(() => {
+        const interval = item.careSchedules?.watering?.interval;
+        return typeof interval === "number" && interval > 0;
+    }, [item.careSchedules?.watering?.interval]);
+
 
     const [toast, setToast] = useState({
         visible: false,
@@ -174,53 +181,55 @@ const PlantCard = ({ item }: PlantCardProps) => {
                         </View>
 
                         {/* water btn */}
-                        <View style={{ alignItems: 'center', minWidth: 60 }}>
-                            <TouchableOpacity
-                                onPress={handleWaterToday}
-                                disabled={getWateringStatus.shouldDisable}
-                                style={[
-                                    styles.quickWaterCircle,
-                                    getWateringStatus.shouldDisable 
-                                        ? { backgroundColor: "#F5F5F5" }
-                                        : getWateringStatus.isOverdue
-                                            ? { backgroundColor: "#FFEBEE" }
-                                            : { backgroundColor: "#E1F5FE" }
-                                ]}
-                                activeOpacity={0.6}>
-
-                                {/* only show ripple when press btn */}
-                                {showRipple && !getWateringStatus.shouldDisable && <PressRipple />}
-
-                                <Ionicons 
-                                    name={getWateringStatus.shouldDisable ? "water" : "water"} 
-                                    size={18} 
-                                    color={
+                        {hasWateringSchedule && (
+                            <View style={{ alignItems: 'center', minWidth: 60 }}>
+                                <TouchableOpacity
+                                    onPress={handleWaterToday}
+                                    disabled={getWateringStatus.shouldDisable}
+                                    style={[
+                                        styles.quickWaterCircle,
                                         getWateringStatus.shouldDisable 
-                                            ? "#B0BEC5" 
+                                            ? { backgroundColor: "#F5F5F5" }
                                             : getWateringStatus.isOverdue
-                                                ?"#EF5350" 
-                                                : "#4A90E2"
-                                    }
-                                />
-                            </TouchableOpacity>
+                                                ? { backgroundColor: "#FFEBEE" }
+                                                : { backgroundColor: "#E1F5FE" }
+                                    ]}
+                                    activeOpacity={0.6}>
 
-                            {/* show nest date if button is disable */}
-                            {getWateringStatus.shouldDisable && (
-                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
-                                    <Ionicons name="calendar-outline" size={8} color="#7DA07D" style={{ marginRight: 2.5 }} />
-                                    <Text 
-                                        style={{ 
-                                            fontSize: 8, 
-                                            color: "#7DA07D", 
-                                            fontWeight: "800", 
-                                            letterSpacing: 0.2
-                                        }}
-                                    >
-                                        {getWateringStatus.nextDate}
-                                    </Text>
-                                </View>
-                            )}
-                        </View>   
+                                    {/* only show ripple when press btn */}
+                                    {showRipple && !getWateringStatus.shouldDisable && <PressRipple />}
+
+                                    <Ionicons 
+                                        name={getWateringStatus.shouldDisable ? "water" : "water"} 
+                                        size={18} 
+                                        color={
+                                            getWateringStatus.shouldDisable 
+                                                ? "#B0BEC5" 
+                                                : getWateringStatus.isOverdue
+                                                    ?"#EF5350" 
+                                                    : "#4A90E2"
+                                        }
+                                    />
+                                </TouchableOpacity>
+
+                                {/* show nest date if button is disable */}
+                                {getWateringStatus.shouldDisable && (
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
+                                        <Ionicons name="calendar-outline" size={8} color="#7DA07D" style={{ marginRight: 2.5 }} />
+                                        <Text 
+                                            style={{ 
+                                                fontSize: 8, 
+                                                color: "#7DA07D", 
+                                                fontWeight: "800", 
+                                                letterSpacing: 0.2
+                                            }}
+                                        >
+                                            {getWateringStatus.nextDate}
+                                        </Text>
+                                    </View>
+                                )}
+                            </View>  
+                        )} 
                     </View>
 
                     {/* plant name*/}

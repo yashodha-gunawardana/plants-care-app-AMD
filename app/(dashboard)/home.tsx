@@ -76,7 +76,7 @@ const HomeScreen = () => {
         };
         
         checkFirstLogin();
-    }, []);
+    }, [plants.length]);
 
 
     useFocusEffect(
@@ -197,7 +197,7 @@ const HomeScreen = () => {
 
 
     // If first login OR no plants, show welcome screen
-    const shouldShowWelcome = isFirstLogin || plants.length === 0;
+    const shouldShowWelcome = isFirstLogin && plants.length === 0;
 
     // Show loading while checking first login status
     if (isFirstLogin === null) {
